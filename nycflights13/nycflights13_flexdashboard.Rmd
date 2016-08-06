@@ -55,6 +55,8 @@ pred_data <- valid_data %>%
             )
 ```
 
+Summary
+========================================================================
 
 Inputs {.sidebar}
 -----------------------------------------------------------------------
@@ -149,4 +151,11 @@ renderDataTable(
     formatRound(c("flights", "distance"), 0) %>%
     formatRound(c("avg_arr_delay", "avg_dep_delay", "avg_gain", "pred_gain"), 1)
 )
+```
+
+Model Output
+========================================================================
+
+```{r}
+renderPrint(summary(lm1))
 ```

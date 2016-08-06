@@ -1,0 +1,152 @@
+---
+title: "Time Gained in Flight"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    social: menu
+    source_code: embed
+runtime: shiny
+---
+
+```{r setup, include=F}
+# Attach packages
+library(nycflights13)
+library(dplyr)
+library(ggplot2)
+library(DT)
+library(leaflet)
+library(geosphere)
+library(readr)
+
+# Attach data
+data(flights)
+data(airports)
+```
+
+```{r include=F}
+# Prepare model data
+model_data <- flights %>%
+  filter(!is.na(arr_delay) & !is.na(dep_delay) & !is.na(distance)) %>%
+  filter(dep_delay > 15 & dep_delay < 240) %>%
+  filter(arr_delay > -60 & arr_delay < 360) %>%
+  left_join(airlines, by = c("carrier" = "carrier")) %>%
+  mutate(gain = dep_delay - arr_delay) %>%
+  select(origin, dest, arr_delay, dep_delay, distance, carrier, name, gain)
+
+# Training and validation
+set.seed(777)
+ind <-sample(n <- nrow(model_data), floor(n * 0.5))
+train_data <- model_data[ind, ]
+valid_data <- model_data[-ind, ]
+
+# Model time gained as function of distance, departure delay, and airline carrier
+lm1 <- lm(gain ~ distance + dep_delay + carrier, train_data)
+
+# Score data and aggregate flight route and carrier
+pred_data <- valid_data %>%
+  mutate(pred = predict.lm(lm1, valid_data)) %>%
+  group_by(origin, dest, carrier, name) %>%
+  summarize(arr_delay = mean(arr_delay),
+            dep_delay = mean(dep_delay),
+            distance = mean(distance),
+            gain = mean(gain),
+            pred = mean(pred),
+            freq = n()
+            )
+```
+
+
+Inputs {.sidebar}
+-----------------------------------------------------------------------
+
+```{r}
+# Shiny inputs for flight orgin and destination
+carrier_origin <- ungroup(pred_data) %>% distinct(origin) %>% .[['origin']]
+carrier_dest <- ungroup(pred_data) %>% distinct(dest) %>% .[['dest']]
+selectInput("origin",  "Flight origin", carrier_origin, selected =  "JFK")
+selectInput("dest", "Flight destination", carrier_dest, selected = "SFO")
+```
+
+### Background
+
+Given that your flight was delayed by 15 minutes or more, what is the likelihood 
+your airline carrier will make up time in route? Some of the most signficant factors 
+for making up time are flight distance and airline carrier. The data model behind 
+this dashboard is based on flights from NYC airports in 2013.
+
+
+Row
+-----------------------------------------------------------------------
+
+### Observed versus predicted time gain
+
+```{r}
+# Aggregregate time gain by carrier and by route 
+plot_data <- reactive({
+  req(input$origin, input$dest)
+  pred_data %>%
+    filter(origin==input$origin & dest==input$dest) %>%
+    rename(airline = name) %>%
+    group_by(airline) %>%
+    summarize(
+      flights = sum(freq),
+      distance = weighted.mean(distance, freq),
+      avg_dep_delay = weighted.mean(dep_delay, freq),
+      avg_arr_delay = weighted.mean(arr_delay, freq),
+      avg_gain = weighted.mean(gain, freq),
+      pred_gain = weighted.mean(pred, freq)
+  )
+})
+
+# Plot observed versus predicted time gain for carriers and route
+renderPlot({
+  ggplot(plot_data(), aes(factor(airline), pred_gain)) + 
+    geom_bar(stat = "identity") +
+    geom_point(aes(factor(airline), avg_gain)) +
+    coord_flip() +
+    labs(x = "", y = "Time gained in flight (minutes)") +
+    labs(title = "Observed gain (point) vs Predicted gain (bar)")
+})
+```
+
+### Route
+
+```{r}
+# Identify origin lat and long
+origin <- reactive({
+  req(input$origin)
+  filter(airports, faa == input$origin)
+  })
+
+# Identify destination lat and log
+dest <- reactive({
+  req(input$dest)
+  filter(airports, faa == input$dest)
+})
+
+# Plot route
+renderLeaflet({
+  gcIntermediate(
+    select(origin(), lon, lat),
+    select(dest(), lon, lat),
+    n=100, addStartEnd=TRUE, sp=TRUE
+    ) %>%
+    leaflet() %>%
+    addProviderTiles("CartoDB.Positron") %>%
+    addPolylines()
+})
+```
+
+Row
+-----------------------------------------------------------------------
+
+### Data details
+
+```{r}
+# Print table of observed and predicted gains by airline
+renderDataTable(
+  datatable(plot_data()) %>%
+    formatRound(c("flights", "distance"), 0) %>%
+    formatRound(c("avg_arr_delay", "avg_dep_delay", "avg_gain", "pred_gain"), 1)
+)
+```

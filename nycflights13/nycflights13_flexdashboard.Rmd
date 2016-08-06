@@ -101,7 +101,7 @@ plot_data <- reactive({
 # Plot observed versus predicted time gain for carriers and route
 renderPlot({
   ggplot(plot_data(), aes(factor(airline), pred_gain)) + 
-    geom_bar(stat = "identity") +
+    geom_bar(stat = "identity", fill = '#2780E3') +
     geom_point(aes(factor(airline), avg_gain)) +
     coord_flip() +
     labs(x = "", y = "Time gained in flight (minutes)") +

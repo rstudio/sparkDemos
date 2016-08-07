@@ -62,6 +62,8 @@ Summary
 Inputs {.sidebar}
 -----------------------------------------------------------------------
 
+### Select Airports
+
 ```{r}
 # Shiny inputs for flight orgin and destination
 carrier_origin <- ungroup(pred_data) %>% distinct(origin) %>% .[['origin']]

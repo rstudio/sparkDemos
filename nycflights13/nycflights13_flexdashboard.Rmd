@@ -31,7 +31,7 @@ model_data <- flights %>%
   filter(arr_delay > -60 & arr_delay < 360) %>%
   left_join(airlines, by = c("carrier" = "carrier")) %>%
   mutate(gain = dep_delay - arr_delay) %>%
-  select(origin, dest, arr_delay, dep_delay, distance, carrier, name, gain)
+  select(origin, dest, carrier, airline = name, distance, dep_delay, arr_delay, gain)
 
 # Training and validation
 set.seed(777)
@@ -45,14 +45,15 @@ lm1 <- lm(gain ~ distance + dep_delay + carrier, train_data)
 # Score data and aggregate flight route and carrier
 pred_data <- valid_data %>%
   mutate(pred = predict.lm(lm1, valid_data)) %>%
-  group_by(origin, dest, carrier, name) %>%
-  summarize(arr_delay = mean(arr_delay),
-            dep_delay = mean(dep_delay),
-            distance = mean(distance),
-            gain = mean(gain),
-            pred = mean(pred),
-            freq = n()
-            )
+  group_by(origin, dest, carrier, airline) %>%
+  summarize(
+    flights = n(),
+    distance = mean(distance),
+    avg_dep_delay = mean(dep_delay),
+    avg_arr_delay = mean(arr_delay),
+    avg_gain = mean(gain),
+    pred_gain = mean(pred)
+    )
 ```
 
 Summary
@@ -88,16 +89,8 @@ plot_data <- reactive({
   req(input$origin, input$dest)
   pred_data %>%
     filter(origin==input$origin & dest==input$dest) %>%
-    rename(airline = name) %>%
-    group_by(airline) %>%
-    summarize(
-      flights = sum(freq),
-      distance = weighted.mean(distance, freq),
-      avg_dep_delay = weighted.mean(dep_delay, freq),
-      avg_arr_delay = weighted.mean(arr_delay, freq),
-      avg_gain = weighted.mean(gain, freq),
-      pred_gain = weighted.mean(pred, freq)
-  )
+    ungroup() %>%
+    select(airline, flights, distance, avg_dep_delay, avg_arr_delay, avg_gain, pred_gain)
 })
 
 # Plot observed versus predicted time gain for carriers and route

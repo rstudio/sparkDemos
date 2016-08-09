@@ -1,0 +1,396 @@
+---
+title: "Comparison of Spark Classifiers"
+output: html_notebook
+---
+
+
+Killer stuff, Sean. I'd like this page to be the first one returned under the keyword search "Comparison of Spark Classifiers". You're doing more than showing off sparklyr, you're also showing off spark ml. We want python users getting routed to our pages. Wouldn't it be great if the best ml work was being done by the R community?
+
+Document structure:
+
+* Start with an overview that states your hypothesis and workflow
+    * Overiew: This analysis is a comparison of classifiers in spark ml
+    * Question: Which spark ml produces the best predictive model?
+    * Considering: lm, nb, gbm, rf, cart, nn
+    * Using the Titanic data
+        * I don't fully understand this dataset; strange that it came pre split in train/valid and valid doesn't have labels
+    * Describe workflow: Data > Impute > Train/Valid >>> Train / score 6 models >>> comparison
+    * Add RMSE comparison barchart (this is important at the top so people get the answer right away)
+* Break document into sections
+    * Create links at top using [Section 1]
+    * Use `***` horizontal lines to break sections
+* Call out imputation section
+    * This is optional.
+    * Could be handled by removing values, imputing the mean, or breaking out another category
+    * One question is: how much does imputation influence the model comparison?
+    * Make sure that audiance knows (1) there are many ways to do this; (2) results may vary
+    * (I wish we didn't have to do this actually as it distracts from the main message)
+    * (What about not using age?)
+    * Strange the residual plot isn't flat
+* Models
+    * Specify evaluation metrics. You should have two: AUC (is this calculated?) and MSE
+    * You also have the ROC curve and confusion matrices (which are is a subset of ROC)
+    * The confusion matrices might be better if they were all in the same section so they could be compared
+    * Why are there two ROC curves for died/survived? Isn't that the same? Probably choose only one
+    * I think most people will skip past the models unless they want to replicate your work
+    * The model section should appeal to those who want to reproduce the work.
+    * Structure model sections so that general readers can skip but still understand what it is doing
+    * The overview and the comparison sections are the most important by far
+    * Might want to have a brief discussion about interpretting the models? What are the big facators in predicting survival/death? Are they consistent across models?
+* Comparions / evaluation
+    * Show ROC comparison
+    * Discuss AUC (http://stats.stackexchange.com/questions/145566/how-to-calculate-area-under-the-curve-auc-or-the-c-statistic-by-hand)
+    * Discuss MSE (maybe table with method, auc, mse)
+    * Why naive bayes sucks so bad? NB assumes conditional independence which is a fatal flaw for some classifiers
+    * Speed tests? Which algos are fastest?
+* Recommendations
+    * as expected most predictions are comparable
+    * some models run faster than others. some may be able to scale to much larger data sizes
+    * some models are easier to interpret. are the effects the same? are the models telling the same story?
+* Lit review (maybe appendix):
+    * https://www.mapr.com/blog/comparing-kill-mockingbird-its-sequel-with-apache-spark
+    * http://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html
+    * other comparisons of ml models? You might be the first to do this well.
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(warning = FALSE)
+library(sparklyr)
+library(dplyr)
+library(tidyr)
+library(titanic)
+library(ggplot2)
+```
+
+# Overview
+
+* [Connect to Spark and Read Data]
+* [Impute age]
+* [Models]
+* [Model 1]
+* [Model 2]
+* [Model 3]
+* [Model 4]
+* [Model Comparison]
+
+We'll demonstrate how to fit a number of classification models in Spark on the kaggle Titanic dataset. A thorough background on the dataset and examples of analysis are available [here](https://www.kaggle.com/c/titanic)
+
+To Do:
+  - How to evaluate a model without bringing in all the data ... ie with Kernel Density Estimation ?
+  - Can we consider or do cross-validation?
+
+## Connect to Spark and Read Data
+
+We'll work in a local Spark cluster and read the data in from parquet. The parquet files were generated through the following one-time process:
+
+```{r eval=FALSE}
+library(titanic)
+copy_to(sc, titanic_train, "titanic")
+tbl(sc, "titanic") %>% spark_write_parquet(path = "titanic-parquet")
+```
+
+For now, it suffices to launch a local Spark instance and read the parquet files directly into Spark:
+
+```{r}
+sc <- spark_connect(master = "local")
+spark_read_parquet(sc, name = "titanic", path = "titanic-parquet")
+titanic_tbl <- tbl(sc, "titanic")
+glimpse(titanic_tbl)
+```
+
+
+## Feature Engineering
+
+To start, create a number of new features based on the existing dataset. We'll use dplyr commands (against the Spark SQL API) and add the following variables:
+
+Variable | Definition
+---------|-----------
+Family_Size| Number of Siblings and Parents
+Mother | A women with at least one child
+Father | A male with at least one son
+
+
+`compute` is used to force the execution of our dplyr chain, and `sdf_register` is used to save our table for later analysis.
+
+```{r}
+titanic2_tbl <- titanic_tbl %>% 
+  mutate(Family_Size = SibSp + Parch + 1) %>% 
+  mutate(Father = if_else(Sex == "male" & Age > 18 & Parch > 0, 1,0)) %>%
+  mutate(Mother = if_else(Sex == "female" & Age > 18 & Parch > 0, 1,0)) %>% 
+  compute() %>% 
+  sdf_register("titanic2")
+```
+
+***
+
+# Impute Age
+
+## Value Imputation
+
+Many of the observations are missing age values:
+
+```{r}
+titanic2_tbl %>% 
+  filter(is.na(Age)) %>% 
+  count()
+```
+
+To address this problem, we'll impute the age value for the missing observations. We'll fit a linear regression to our complete observations and then used the scored values for imputation. For the linear regression we'll use some variables from the base data set and our added variables (except for remove Family_Size, which is a perfect linear combination of SibSp and Parch).
+
+```{r}
+m <- titanic2_tbl %>% 
+  na.omit() %>% 
+  ml_linear_regression(Age ~ Pclass + Sex + SibSp + Parch + Fare + Father + Mother)
+summary(m)
+```
+
+We'll now score the age data using `sdf_predict`. 
+
+```{r}
+titanic3_tbl <- sdf_predict(m, titanic2_tbl) %>% 
+  sdf_register("titanic3")
+
+# Normally for large data we wouldn't be able to collect all of the residuals and would want to evaluate our model in a better way ... perhaps with kernel density estimation TODO - improve this problem
+titanic3_tbl %>% 
+  mutate(error = Age - prediction) %>% 
+  select(Age, prediction) %>% 
+  rename(actual = Age) %>% 
+  collect() %>% 
+  gather("Type", "Value") %>% 
+  ggplot(aes(x = Value, fill = Type)) + geom_density()
+
+titanic3_tbl %>% 
+  mutate(error = Age - prediction) %>% 
+  select(error, Age) %>% 
+  collect() %>% 
+  ggplot(aes(y = error, x = Age)) + geom_point() + geom_smooth() + ylab("Actual - Prediction")
+```
+
+
+Our linear model for age would be greatly improved by... . There is evidence of hetero-skedasticity and a bias to under-predict age.
+
+Ignoring these problems, we can impute the values. Additionally, we'll add a bucketized variable to represent the age bins: child, teen, adult, and retired (retired instead of elderly since only atitude separates the young from the old). To create the buckets a feature transformer is used in conjunction with `sdf_mutate`.
+
+
+```{r}
+titanic_final_tbl <- titanic3_tbl %>% 
+  mutate(Age = if_else(is.na(Age), prediction, Age)) %>% 
+  mutate(Age = if_else(Age < 0, 0, Age)) %>% 
+  select(-prediction, -Sexmale, - Sexfemale) %>% 
+  sdf_mutate(Age_Class = ft_bucketizer(input_col = Age,
+                                       splits = c(0,12,18,65,Inf))) %>% 
+  sdf_register("titanic_final")
+```
+
+Now we can proceed to model the data with a number of alogorithms, but first we define a training and testing partition and a utility function.
+
+***
+
+# Models
+
+
+```{r}
+partition <- titanic_final_tbl %>% 
+  sdf_partition(train = 0.75, test = 0.25)
+
+test <- partition$test
+train <- partition$train
+
+plot_confusion_matrix <- function(prediction_tbl_spark, title) {
+  prediction_tbl_spark %>% 
+    select(Survived, prediction) %>% 
+    collect() %>% 
+    table() %>% 
+    as.data.frame() %>% 
+    ggplot() +
+      geom_raster(aes(Survived, prediction, fill = Freq)) +
+      geom_text(aes(Survived, prediction, label = Freq), col = "#222222", size = 6, nudge_x = 0.005, nudge_y = -0.005) +
+      geom_text(aes(Survived, prediction, label = Freq), col = "white", size = 6) +
+      labs(
+        x = "Survived",
+        y = "Prediction",
+        title = title)
+}
+
+
+```
+
+One of the nicest features of Sparklyr is that each algorithm has a consistent argument definition, making it easy to create and compare models.
+
+## Logistic Regression
+
+```{r}
+logistic <- train %>% 
+  ml_logistic_regression(Survived ~ Pclass + Sex + SibSp + Parch + Family_Size + Father + Mother + Age_Class + Age )
+
+summary(logistic)
+
+# Confusion Matrix 
+sdf_predict(logistic, train) %>% 
+  plot_confusion_matrix("Logistic Regression Confusion Matrix on Training")
+
+
+```
+
+## Decision Tree
+
+```{r}
+decision <- train %>% 
+  ml_decision_tree(Survived ~ Pclass + Sex + SibSp + Parch + Family_Size + Father + Mother + Age_Class + Age )
+
+decision
+
+# Confusion Matrix 
+sdf_predict(decision, train) %>% 
+  mutate(prediction = if_else(prediction > 0.5, 1, 0)) %>% 
+ plot_confusion_matrix("Decision Tree Confusion Matrix on Training")
+```
+
+
+## Random Forest
+
+```{r}
+rf <- train %>% 
+  ml_random_forest(Survived ~ Pclass + Sex + SibSp + Parch + Family_Size + Father + Mother + Age_Class + Age )
+
+rf
+
+# Confusion Matrix 
+sdf_predict(rf, train) %>% 
+  mutate(prediction = if_else(prediction > 0.5, 1, 0)) %>% 
+  plot_confusion_matrix("Random Forest Confusion Matrix on Training")
+```
+
+
+## Gradient Boosted Tree
+
+```{r}
+gbt <- train %>% 
+  ml_gradient_boosted_trees(Survived ~ Pclass + Sex + SibSp + Parch + Family_Size + Father + Mother + Age_Class + Age )
+
+gbt
+
+# Confusion Matrix 
+sdf_predict(gbt, train) %>% 
+  mutate(prediction = if_else(prediction > 0.5, 1, 0)) %>% 
+  plot_confusion_matrix("Gradient Boosted Tree Confusion Matrix on Training")
+```
+
+
+## Naive Bayes
+
+```{r}
+nb <- train %>% 
+  ml_naive_bayes(Survived ~ Pclass + Sex + SibSp + Parch + Family_Size + Father + Mother + Age_Class + Age )
+
+nb
+
+# Confusion Matrix 
+sdf_predict(nb, train) %>% 
+  mutate(prediction = if_else(prediction > 0.5, 1, 0)) %>% 
+  plot_confusion_matrix("Naive Bayes Confusion Matrix on Training")
+```
+
+
+## Nueral Network
+
+```{r}
+nn <- train %>% 
+  ml_multilayer_perceptron(Survived ~ Pclass + Sex + SibSp + Parch + Family_Size + Father + Mother + Age_Class + Age, layers = c(9,15,2))
+
+nn
+
+# Confusion Matrix 
+sdf_predict(nn, train) %>% 
+  mutate(prediction = if_else(prediction > 0.5, 1, 0)) %>% 
+  plot_confusion_matrix("Nueral Net Confusion Matrix on Training")
+```
+
+
+## Model Comparison 
+
+We can compute the lift chart (cummulative gains) for each of the models to compare performance for predicting both survival and death. Note that we do all of this computation in Spark! The key is that dplyr and sparklyr both support windows functions, including `ntiles` and `cumsum`.
+
+```{r}
+
+models <- list(decision, rf, gbt, nb, nn)
+model_names <- c("decision tree", "random forest", 
+                 "gradient boosted trees", "naive bayes", "nueral net")
+
+survived <- (test %>% 
+  filter(Survived == 1) %>% 
+  count() %>% 
+  as.data.frame())$n
+
+died <- (test %>% 
+  filter(Survived == 0) %>% 
+  count() %>% 
+  as.data.frame())$n
+
+# Predicting Survival
+gains_survived <- function(prediction){
+  prediction %>% 
+    select(Survived, prediction) %>% 
+    arrange(desc(prediction)) %>% 
+    mutate(bin = ntile(desc(prediction), 10)) %>% 
+    group_by(bin) %>% 
+    summarize(count = sum(Survived)) %>% 
+    mutate(prop = count / survived) %>% 
+    arrange(bin) %>% 
+    mutate(prop = cumsum(prop)) %>% 
+    select(-count) %>% 
+    collect() %>% 
+    as.data.frame()
+}  
+
+gains <- data.frame(bin = 1:10, 
+                    prop = seq(0.1, 1, by = 0.1), 
+                    model = rep("base",10))
+
+for (i in 1:length(models) ) {
+  g <- sdf_predict(models[[i]], test) %>% gains_survived()
+  g <- g %>% mutate(model = model_names[i])
+  gains <- rbind(gains, g)
+} 
+
+ggplot(data = gains, aes(x = bin, y = prop, colour = model)) +
+  geom_point() + geom_line() +
+  ggtitle("Lift Chart for Predicting Survival - Test Data Set") + 
+  xlab("") + ylab("")
+
+# Predicting Deaths
+gains_died <- function(prediction){
+  prediction %>% 
+    select(Survived, prediction) %>% 
+    mutate(Survived = if_else(Survived==1, 0,1)) %>% 
+    mutate(prediction = 1 - prediction) %>% 
+    arrange(desc(prediction)) %>% 
+    mutate(bin = ntile(desc(prediction), 10)) %>% 
+    group_by(bin) %>%
+    summarize(count = sum(Survived)) %>% 
+    mutate(prop = count/died) %>% 
+    arrange(bin) %>% 
+    mutate(prop = cumsum(prop)) %>% 
+    select(-count) %>% 
+    collect() %>% 
+    as.data.frame()
+}  
+
+gains <- data.frame(bin = 1:10, 
+                    prop = seq(0.1, 1, by = 0.1), 
+                    model = rep("base",10))
+
+for (i in 1:length(models) ) {
+  g <- sdf_predict(models[[i]], test) %>% gains_died()
+  g <- g %>% mutate(model = model_names[i])
+  gains <- rbind(gains, g)
+} 
+
+ggplot(data = gains, aes(x = bin, y = prop, colour = model)) +
+  geom_point() + geom_line() +
+  ggtitle("Lift Chart for Predicting Death - Test Data Set") + 
+  xlab("") + ylab("")
+
+```
+
+The lift charts suggests that any of the tree models (random forest, gradient boosted trees, or the decision tree) will provide the best prediction.

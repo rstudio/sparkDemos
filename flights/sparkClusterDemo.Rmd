@@ -125,6 +125,10 @@ The [flights](http://stat-computing.org/dataexpo/2009/the-data.html) data is a w
 For data loading and analysis, make sure you are logged in as regular user.
 
 ```{bash eval=FALSE}
+# create directories on hdfs for new user
+hadoop fs -mkdir /user/rstudio-user
+hadoop fs -chmod 777 /user/rstudio-user
+
 # switch user
 su rstudio-user
 ```
@@ -157,7 +161,7 @@ Copy data into HDFS using the `hadoop fs` command.
 
 ```{bash eval=FALSE}
 # Copy flight data to HDFS
-hadoop fs -mkdir -p /user/rstudio-user/flights/
+hadoop fs -mkdir /user/rstudio-user/flights/
 hadoop fs -put /tmp/flights /user/rstudio-user/
 
 # Copy airline data to HDFS

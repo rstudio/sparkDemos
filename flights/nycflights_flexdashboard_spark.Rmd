@@ -1,0 +1,136 @@
+---
+title: "Time Gained in Flight"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    social: menu
+    source_code: embed
+runtime: shiny
+---
+
+```{r setup, include=F}
+# Attach packages
+library(dplyr)
+library(ggplot2)
+library(DT)
+library(leaflet)
+library(geosphere)
+library(sparklyr)
+library(dplyr)
+
+#Sys.setenv(SPARK_HOME = "/home/sean/.cache/spark/spark-1.6.2-bin-hadoop2.6")
+#sc <- spark_connect(master = "local", version = "1.6.2")
+#spark_read_csv(sc, "nyc_taxi_sample", path = "../../nathan/sol-eng-nyc-taxi-data/csv/trips/nyc_taxi_trips_2015-11.csv")
+
+# Connect to Spark
+Sys.setenv(SPARK_HOME="/usr/lib/spark")
+config <- spark_config()
+sc <- spark_connect(master = "yarn-client", config = config, version = '1.6.2')
+pred_data_tbl <- tbl(sc, 'summary_2008')
+
+#load('flights_pred_2008.RData')
+#airports <- mutate(airports, lat = as.numeric(lat), lon = as.numeric(lon))
+
+# Load summary data from flights forecast
+#pred_data_tbl <- tbl(sc, 'summary_2008')
+#pred_data <- collect(pred_data_tbl)
+
+# Load airports data
+#airports <- tbl(sc, 'airports') %>%
+#  mutate(lat = as.numeric(lat), lon = as.numeric(lon)) %>%
+#  collect
+```
+
+
+Summary
+========================================================================
+
+Inputs {.sidebar}
+-----------------------------------------------------------------------
+
+### Select Airports
+
+```{r}
+# Shiny inputs for flight orgin and destination
+carrier_origin <- ungroup(pred_data) %>% distinct(origin) %>% .[['origin']]
+carrier_dest <- ungroup(pred_data) %>% distinct(dest) %>% .[['dest']]
+selectInput("origin",  "Flight origin", carrier_origin, selected =  "JFK")
+selectInput("dest", "Flight destination", carrier_dest, selected = "LAS")
+```
+
+### Background
+
+Given that your flight was delayed by 15 minutes or more, what is the likelihood 
+your airline carrier will make up time in route? Some of the most signficant factors 
+for making up time are flight distance and airline carrier. The data model behind 
+this dashboard is based on flights from NYC airports in 2013.
+
+
+Row
+-----------------------------------------------------------------------
+
+### Observed versus predicted time gain
+
+```{r}
+# Aggregregate time gain by carrier and by route 
+plot_data <- reactive({
+  req(input$origin, input$dest)
+  pred_data %>%
+    filter(origin==input$origin & dest==input$dest) %>%
+    ungroup() %>%
+    select(airline, flights, distance, avg_dep_delay, avg_arr_delay, avg_gain, pred_gain)
+})
+
+# Plot observed versus predicted time gain for carriers and route
+renderPlot({
+  ggplot(plot_data(), aes(factor(airline), pred_gain)) + 
+    geom_bar(stat = "identity", fill = '#2780E3') +
+    geom_point(aes(factor(airline), avg_gain)) +
+    coord_flip() +
+    labs(x = "", y = "Time gained in flight (minutes)") +
+    labs(title = "Observed gain (point) vs Predicted gain (bar)")
+})
+```
+
+### Route
+
+```{r}
+# Identify origin lat and long
+origin <- reactive({
+  req(input$origin)
+  filter(airports, faa == input$origin)
+  })
+
+# Identify destination lat and log
+dest <- reactive({
+  req(input$dest)
+  filter(airports, faa == input$dest)
+})
+
+# Plot route
+renderLeaflet({
+  gcIntermediate(
+    select(origin(), lon, lat),
+    select(dest(), lon, lat),
+    n=100, addStartEnd=TRUE, sp=TRUE
+    ) %>%
+    leaflet() %>%
+    addProviderTiles("CartoDB.Positron") %>%
+    addPolylines()
+})
+```
+
+Row
+-----------------------------------------------------------------------
+
+### Data details
+
+```{r}
+# Print table of observed and predicted gains by airline
+renderDataTable(
+  datatable(plot_data()) %>%
+    formatRound(c("flights", "distance"), 0) %>%
+    formatRound(c("avg_arr_delay", "avg_dep_delay", "avg_gain", "pred_gain"), 1)
+)
+```
+

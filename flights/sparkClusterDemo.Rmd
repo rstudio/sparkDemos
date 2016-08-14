@@ -494,11 +494,11 @@ ggplot(carrier, aes(gain, prediction)) +
 
 <p><img src="images/clusterDemo/flightsPredicted.png" width=`r params$width`/></p>
 
-## Conclusions
-
 Some carriers make up more time than others in flight, but the differences are relatively small. The average time gains between the best and worst airlines is only six minutes. The best predictor of time gained is not carrier but flight distance. The biggest gains were associated with the longest flights.
 
 # Share Insights
+
+This simple linear model contains a wealth of detailed information about carriers, distances traveled, and flight delays. These detailed insights can be conveyed to a non-technical audiance via an interactive [flexdashboard](http://rmarkdown.rstudio.com/flexdashboard/index.html). 
 
 ## Build dashboard
 
@@ -523,10 +523,6 @@ pred_data <- collect(summary_2008)
 airports <- collect(select(airports_tbl, name, faa, lat, lon))
 ml1_summary <- capture.output(summary(ml1))
 save(pred_data, airports, ml1_summary, file = 'flights_pred_2008.RData')
-```
-
-```{r}
-aceEditor("rmd", mode="markdown", value=defaultMarkdown)
 ```
 
 ## Publish dashboard

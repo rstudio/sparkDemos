@@ -170,6 +170,16 @@ summary_2008 <- score_2008 %>%
     pred_gain = mean(prediction)
     )
 
+# Materialize Spark DataFrame as a Hive table
+sdf_save_table(summary_2008, "summary_2008", overwrite = TRUE)
+ml_save(ml1, "ml1") # works but throws error:
+# Warning in gzfile(file, mode) :
+# cannot open compressed file 'ml1_2/metadata.rds', probable reason 'No such file or directory'
+# Error in gzfile(file, mode) : cannot open the connection
+# 3. gzfile(file, mode)
+# 2. saveRDS(r, file = file.path(file, "metadata.rds"))
+# 1. ml_save(ml1, "ml1_2")
+
 # Collect and save objects
 pred_data <- collect(summary_2008)
 airports <- collect(select(airports_tbl, name, faa, lat, lon))

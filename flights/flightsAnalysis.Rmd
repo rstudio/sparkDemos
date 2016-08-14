@@ -22,7 +22,6 @@ library(dplyr)
 library(ggplot2)
 Sys.setenv(SPARK_HOME="/usr/lib/spark")
 config <- spark_config()
-config[["spark.executor.memory"]] <- "8G"
 sc <- spark_connect(master = "yarn-client", config = config, version = '1.6.2')
 ```
 
@@ -38,6 +37,10 @@ flights_tbl <- tbl(sc, 'flights')
 # Cache airlines Hive table into Spark
 tbl_cache(sc, 'airlines')
 airlines_tbl <- tbl(sc, 'airlines')
+
+# Cache airports Hive table into Spark
+tbl_cache(sc, 'airports')
+airports_tbl <- tbl(sc, 'airports')
 ```
 
 ## Create a model data set
@@ -71,7 +74,7 @@ Predict time gained or lost in flight as a function of distance, departure delay
 ```{r}
 # Partition the data into training and validation sets
 model_partition <- model_data %>% 
-  sdf_partition(train = 0.5, valid = 0.5, seed = 5555)
+  sdf_partition(train = 0.8, valid = 0.2, seed = 5555)
 
 # Fit a linear model
 ml1 <- model_partition$train %>%
@@ -89,7 +92,7 @@ Compare the model performance using the validation data.
 # Calculate average gains by predicted decile
 model_deciles <- lapply(model_partition, function(x) {
   sdf_predict(ml1, x) %>%
-    mutate(decile = ntile(prediction, 10)) %>%
+    mutate(decile = ntile(desc(prediction), 10)) %>%
     group_by(decile) %>%
     summarize(gain = mean(gain)) %>%
     select(decile, gain) %>%
@@ -115,25 +118,32 @@ deciles %>%
 Compare actual gains to predicted gains for an out of time sample.
 
 ```{r}
-# Select data from an out of time sample
+# Select 2008 as test data
 data_2008 <- flights_tbl %>%
   filter(!is.na(arrdelay) & !is.na(depdelay) & !is.na(distance)) %>%
   filter(depdelay > 15 & depdelay < 240) %>%
   filter(arrdelay > -60 & arrdelay < 360) %>%
   filter(year == 2008) %>%
+mutate(uniquecarrier = ifelse(crsarrtime == 351, "DH", uniquecarrier)) %>%
+mutate(uniquecarrier = ifelse(crsarrtime == 120, "HP", uniquecarrier)) %>%
+mutate(uniquecarrier = ifelse(crsarrtime == 347, "TZ", uniquecarrier)) %>%
   left_join(airlines_tbl, by = c("uniquecarrier" = "code")) %>%
   mutate(gain = depdelay - arrdelay) %>%
-  select(year, month, arrdelay, depdelay, distance, uniquecarrier, description, gain)
+  select(origin, dest, year, month, arrdelay, depdelay, distance, 
+         uniquecarrier, description, gain)
+
+# Score the 2008 data
+score_2008 <- sdf_predict(ml1, data_2008)
 
 # Summarize data by carrier
-carrier <- sdf_predict(ml1, data_2008) %>%
+plot_2008 <- score_2008 %>%
   group_by(description) %>%
   summarize(gain = mean(gain), prediction = mean(prediction), freq = n()) %>%
   filter(freq > 10000) %>%
   collect
 
 # Plot actual gains and predicted gains by airline carrier
-ggplot(carrier, aes(gain, prediction)) + 
+ggplot(plot_2008, aes(gain, prediction)) + 
   geom_point(alpha = 0.75, color = 'red', shape = 3) +
   geom_abline(intercept = 0, slope = 1, alpha = 0.15, color = 'blue') +
   geom_text(aes(label = substr(description, 1, 20)), size = 3, alpha = 0.75, vjust = -1) +
@@ -144,10 +154,27 @@ ggplot(carrier, aes(gain, prediction)) +
 
 Some carriers make up more time than others in flight, but the differences are relatively small. The average time gains between the best and worst airlines is only six minutes. The best predictor of time gained is not carrier but flight distance. The biggest gains were associated with the longest flights.
 
+## Build rollups for flex dashboard
 
-```{r include=FALSE}
-#data_2008 %>% group_by(crsarrtime) %>% summarize(freq = n()) %>% arrange(desc(freq))
-#mutate(uniquecarrier = ifelse(crsarrtime == 351, "DH", uniquecarrier)) %>%
-#mutate(uniquecarrier = ifelse(crsarrtime == 120, "HP", uniquecarrier)) %>%
-#mutate(uniquecarrier = ifelse(crsarrtime == 347, "TZ", uniquecarrier)) %>%
+```{r}
+# Summarize by origin, destination, and carrier
+summary_2008 <- score_2008 %>%
+  rename(carrier = uniquecarrier, airline = description) %>%
+  group_by(origin, dest, carrier, airline) %>%
+  summarize(
+    flights = n(),
+    distance = mean(distance),
+    avg_dep_delay = mean(depdelay),
+    avg_arr_delay = mean(arrdelay),
+    avg_gain = mean(gain),
+    pred_gain = mean(prediction)
+    )
+
+# Collect and save objects
+pred_data <- collect(summary_2008)
+airports <- collect(select(airports_tbl, name, faa, lat, lon))
+ml1_summary <- capture.output(summary(ml1))
+save(pred_data, airports, ml1_summary, file = 'flights_pred_2008.RData')
 ```
+
+

@@ -7,14 +7,16 @@ output:
     toc_float:
       collapsed: false
 params:
-  width: 800
+  width: 600
 ---
 
 This document demonstrates how to use `sparklyr` with an Apache Spark cluster. Data are downloaded from the web and stored in Hive tables on HDFS across multiple worker nodes. RStudio Server is installed on the master node and orchestrates the analysis in spark. Here is the basic workflow.
 
-<img src="images/clusterDemo/workflow.png" width=`r params$width`/>
+<img src="images/clusterDemo/workflowShare.png" width=`r params$width`/>
 
-# Set up the cluster
+# Data preparation
+
+## Set up the cluster
 
 This demonstration uses Amazon Web Services (AWS), but it could just as easily use Microsot, Google, or any other provider. We will use Elastic Map Reduce (EMR) to easily set up a cluster with two core nodes and one master node. Nodes use virtual servers from the Elastic Compute Cloud (EC2). *Note: There is no free tier for EMR, charges will apply.*
 
@@ -24,9 +26,9 @@ Before beginning this setup we assume you have:
 * Familiarity with basic linux commands
 * Sudo privileges in order to install software from the command line
 
-<img src="images/clusterDemo/emrArchitecture.png" width=`r params$width`/></p>
+<p><img src="images/clusterDemo/emrArchitecture.png" width=`r params$width`/></p>
 
-## Build an EMR cluster
+### Build an EMR cluster
 
 Before beginning the EMR wizard setup, make sure you create the following in AWS:
 
@@ -37,7 +39,7 @@ Before beginning the EMR wizard setup, make sure you create the following in AWS
 
 ***
 
-### Step 1: Select software
+#### Step 1: Select software
 
 Make sure to select Hive and Spark as part of the install. Note that by choosing Spark, R will also be installed on the master node as part of the distribution.
 
@@ -45,7 +47,7 @@ Make sure to select Hive and Spark as part of the install. Note that by choosing
 
 ***
 
-### Step 2: Select hardware
+#### Step 2: Select hardware
 
 Install 2 core nodes and one master node with m3.xlarge 80 GiB storage per node. You can easily increase the number of nodes later.
 
@@ -53,7 +55,7 @@ Install 2 core nodes and one master node with m3.xlarge 80 GiB storage per node.
 
 ***
 
-### Step 3: Select general cluster settings
+#### Step 3: Select general cluster settings
 
 Click next on the general cluster settings.
 
@@ -61,7 +63,7 @@ Click next on the general cluster settings.
 
 ***
 
-### Step 4: Select security
+#### Step 4: Select security
 
 Enter your EC2 key pair and security group. Make sure the security group has ports 22 and 8787 open.
 
@@ -69,7 +71,7 @@ Enter your EC2 key pair and security group. Make sure the security group has por
 
 ***
 
-## Connect to EMR
+### Connect to EMR
 
 The cluster page will give you details about your EMR cluster and instructions on connecting.
 
@@ -83,7 +85,7 @@ ssh -i ~/spark-demo.pem hadoop@ec2-52-10-102-11.us-west-2.compute.amazonaws.com
 
 <img src="images/clusterDemo/emrLogin.png" width=`r params$width`/>
 
-## Install RStudio Server
+### Install RStudio Server
 
 EMR uses Amazon Linux which is based on Centos. Update your master node and install dependencies that will be used by R packages.
 
@@ -101,7 +103,7 @@ wget -P /tmp https://s3.amazonaws.com/rstudio-dailybuilds/rstudio-server-rhel-0.
 sudo yum install --nogpgcheck /tmp/rstudio-server-rhel-0.99.1266-x86_64.rpm
 ```
 
-## Create a User
+### Create a User
 
 Create a user called `rstudio-user` that will perform the data analysis. Create a user directory for `rstudio-user` on HDFS with the `hadoop fs` command.
 
@@ -112,15 +114,14 @@ sudo passwd rstudio-user
 
 # Create new directory in hdfs
 hadoop fs -mkdir /user/rstudio-user
-hadoop fs -chown rstudio-user:hadoop /user/rstudio-user
 hadoop fs -chmod 777 /user/rstudio-user
 ```
 
-# Download flights data
+## Download flights data
 
 The [flights](http://stat-computing.org/dataexpo/2009/the-data.html) data is a well known data source representing 123 million flights over 22 years. It consumes roughly 12 GiB of storage in uncompressed CSV format in yearly files.
 
-### Switch User
+#### Switch User
 
 For data loading and analysis, make sure you are logged in as regular user.
 
@@ -133,7 +134,7 @@ hadoop fs -chmod 777 /user/rstudio-user
 su rstudio-user
 ```
 
-## Download data
+### Download data
 
 Run the following script to download data from the web onto your master node. Download the yearly flight data and the airlines lookup table.
 
@@ -153,9 +154,12 @@ for i in {1987..2008}
 
 # Download airline carrier data
 wget -O /tmp/airlines.csv http://www.transtats.bts.gov/Download_Lookup.asp?Lookup=L_UNIQUE_CARRIERS
+
+# Download airports data
+wget -O /tmp/airports.csv https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat
 ```
 
-## Distribute into HDFS
+### Distribute into HDFS
 
 Copy data into HDFS using the `hadoop fs` command.
 
@@ -167,9 +171,13 @@ hadoop fs -put /tmp/flights /user/rstudio-user/
 # Copy airline data to HDFS
 hadoop fs -mkdir /user/rstudio-user/airlines/
 hadoop fs -put /tmp/airlines.csv /user/rstudio-user/airlines
+
+# Copy airport data to HDFS
+hadoop fs -mkdir /user/rstudio-user/airports/
+hadoop fs -put /tmp/airports.csv /user/rstudio-user/airports
 ```
 
-# Create Hive tables
+## Create Hive tables
 
 Launch Hive from the command line.
 
@@ -181,7 +189,7 @@ hive
 Create the metadata that will structure the flights table. Load data into the Hive table.
 
 ```sql
-# Create metadata
+# Create metadata for flights
 CREATE EXTERNAL TABLE IF NOT EXISTS flights
 (
 year int,
@@ -226,7 +234,7 @@ LOAD DATA INPATH '/user/rstudio-user/flights' INTO TABLE flights;
 Create the metadata that will structure the airlines table. Load data into the Hive table.
 
 ```sql
-# Create metadata
+# Create metadata for airlines
 CREATE EXTERNAL TABLE IF NOT EXISTS airlines
 (
 Code string,
@@ -245,11 +253,42 @@ tblproperties("skip.header.line.count"="1");
 LOAD DATA INPATH '/user/rstudio-user/airlines' INTO TABLE airlines;
 ```
 
-# Connect to Spark
+Create the metadata that will structure the airports table. Load data into the Hive table.
+
+```sql
+# Create metadata for airports
+CREATE EXTERNAL TABLE IF NOT EXISTS airports
+(
+id string,
+name string,
+city string,
+country string,
+faa string,
+icao string,
+lat double,
+lon double,
+alt int,
+tz_offset double,
+dst string,
+tz_name string
+)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+WITH SERDEPROPERTIES
+(
+"separatorChar" = '\,',
+"quoteChar"     = '\"'
+)
+STORED AS TEXTFILE;
+
+# Load data into table
+LOAD DATA INPATH '/user/rstudio-user/airports' INTO TABLE airports;
+```
+
+## Connect to Spark
 
 Log in to RStudio Server by pointing a browser at your master node IP:8787.
 
-<img src="images/clusterDemo/rstudioLogin.png" width=`r params$width`/></p>
+<p><img src="images/clusterDemo/rstudioLogin.png" width=`r params$width`/></p>
 
 Set the environment variable `SPARK_HOME` and then run `spark_connect`. After connecting you will be able to browse the Hive metadata in the RStudio Server Spark pane.
 
@@ -260,23 +299,22 @@ library(dplyr)
 library(ggplot2)
 Sys.setenv(SPARK_HOME="/usr/lib/spark")
 config <- spark_config()
-config[["spark.executor.memory"]] <- "8G"
 sc <- spark_connect(master = "yarn-client", config = config, version = '1.6.2')
 ```
 
 Once you are connected, you will see the Spark pane appear along with your hive tables.
 
-<img src="images/clusterDemo/rstudioSparkPane.png" width=`r params$width`/></p>
+<p><img src="images/clusterDemo/rstudioSparkPane.png" width=`r params$width`/></p>
 
 You can inspect your tables by clicking on the data icon.
 
-<img src="images/clusterDemo/rstudioData.png" width=`r params$width`/></p>
+<p><img src="images/clusterDemo/rstudioData.png" width=`r params$width`/></p>
 
-# Analyze
+# Data analysis
 
 Is there evidence to suggest that some airline carriers make up time in flight? This analysis predicts time gained in flight by airline carrier.
 
-<img src="images/clusterDemo/rstudio.png" width=`r params$width`/></p>
+<p><img src="images/clusterDemo/rstudio.png" width=`r params$width`/></p>
 
 ## Cache the tables into memory
 
@@ -290,6 +328,10 @@ flights_tbl <- tbl(sc, 'flights')
 # Cache airlines Hive table into Spark
 tbl_cache(sc, 'airlines')
 airlines_tbl <- tbl(sc, 'airlines')
+
+# Cache airports Hive table into Spark
+tbl_cache(sc, 'airports')
+airports_tbl <- tbl(sc, 'airports')
 ```
 
 ## Create a model data set
@@ -341,7 +383,7 @@ Predict time gained or lost in flight as a function of distance, departure delay
 ```{r eval=FALSE}
 # Partition the data into training and validation sets
 model_partition <- model_data %>% 
-  sdf_partition(train = 0.5, valid = 0.5, seed = 5555)
+  sdf_partition(train = 0.8, valid = 0.2, seed = 5555)
 
 # Fit a linear model
 ml1 <- model_partition$train %>%
@@ -353,40 +395,40 @@ summary(ml1)
 ```
 Deviance Residuals: (approximate):
      Min       1Q   Median       3Q      Max 
--278.989   -5.531    2.717    9.763  169.343 
+-305.422   -5.593    2.699    9.750  147.871 
 
 Coefficients:
-                   Estimate  Std. Error  t value  Pr(>|t|)    
-(Intercept)     -1.16170874  0.12951174  -8.9699 < 2.2e-16 ***
-distance         0.00326516  0.00002115 154.3822 < 2.2e-16 ***
-depdelay        -0.01450404  0.00025757 -56.3120 < 2.2e-16 ***
-uniquecarrierAA -2.39254076  0.13299650 -17.9895 < 2.2e-16 ***
-uniquecarrierAQ  2.87415012  0.36446876   7.8859 3.109e-15 ***
-uniquecarrierAS  0.83554860  0.14287016   5.8483 4.967e-09 ***
-uniquecarrierB6 -2.07689984  0.14827271 -14.0073 < 2.2e-16 ***
-uniquecarrierCO -2.63650102  0.13911623 -18.9518 < 2.2e-16 ***
-uniquecarrierDH  2.04688357  0.14680358  13.9430 < 2.2e-16 ***
-uniquecarrierDL -2.75750377  0.13426735 -20.5374 < 2.2e-16 ***
-uniquecarrierEV  1.82241085  0.13556762  13.4428 < 2.2e-16 ***
-uniquecarrierF9 -1.00496823  0.18206584  -5.5198 3.394e-08 ***
-uniquecarrierFL -1.59329948  0.14012820 -11.3703 < 2.2e-16 ***
-uniquecarrierHA  0.03845925  0.31586759   0.1218    0.9031    
-uniquecarrierHP  1.96885060  0.15611847  12.6113 < 2.2e-16 ***
-uniquecarrierMQ -1.96236988  0.13334682 -14.7163 < 2.2e-16 ***
-uniquecarrierNW -2.85675733  0.13589410 -21.0219 < 2.2e-16 ***
-uniquecarrierOH  0.71608066  0.13947522   5.1341 2.835e-07 ***
-uniquecarrierOO  0.53303490  0.13497744   3.9491 7.846e-05 ***
-uniquecarrierTZ -5.29969902  0.20143394 -26.3099 < 2.2e-16 ***
-uniquecarrierUA -0.73430558  0.13445784  -5.4612 4.729e-08 ***
-uniquecarrierUS -0.68272488  0.13486704  -5.0622 4.145e-07 ***
-uniquecarrierWN  3.77853692  0.13096010  28.8526 < 2.2e-16 ***
-uniquecarrierXE -2.65574134  0.13620414 -19.4982 < 2.2e-16 ***
-uniquecarrierYV  3.03446782  0.14744659  20.5801 < 2.2e-16 ***
+                    Estimate  Std. Error  t value  Pr(>|t|)    
+(Intercept)      -1.24342576  0.10248281 -12.1330 < 2.2e-16 ***
+distance          0.00326600  0.00001670 195.5709 < 2.2e-16 ***
+depdelay         -0.01466233  0.00020337 -72.0977 < 2.2e-16 ***
+uniquecarrier_AA -2.32650517  0.10522524 -22.1098 < 2.2e-16 ***
+uniquecarrier_AQ  2.98773637  0.28798507  10.3746 < 2.2e-16 ***
+uniquecarrier_AS  0.92054894  0.11298561   8.1475 4.441e-16 ***
+uniquecarrier_B6 -1.95784698  0.11728289 -16.6934 < 2.2e-16 ***
+uniquecarrier_CO -2.52618081  0.11006631 -22.9514 < 2.2e-16 ***
+uniquecarrier_DH  2.23287189  0.11608798  19.2343 < 2.2e-16 ***
+uniquecarrier_DL -2.68848119  0.10621977 -25.3106 < 2.2e-16 ***
+uniquecarrier_EV  1.93484736  0.10724290  18.0417 < 2.2e-16 ***
+uniquecarrier_F9 -0.89788137  0.14422281  -6.2257 4.796e-10 ***
+uniquecarrier_FL -1.46706706  0.11085354 -13.2343 < 2.2e-16 ***
+uniquecarrier_HA -0.14506644  0.25031456  -0.5795    0.5622    
+uniquecarrier_HP  2.09354855  0.12337515  16.9690 < 2.2e-16 ***
+uniquecarrier_MQ -1.88297535  0.10550507 -17.8473 < 2.2e-16 ***
+uniquecarrier_NW -2.79538927  0.10752182 -25.9983 < 2.2e-16 ***
+uniquecarrier_OH  0.83520117  0.11032997   7.5700 3.730e-14 ***
+uniquecarrier_OO  0.61993842  0.10679884   5.8047 6.447e-09 ***
+uniquecarrier_TZ -4.99830389  0.15912629 -31.4109 < 2.2e-16 ***
+uniquecarrier_UA -0.68294396  0.10638099  -6.4198 1.365e-10 ***
+uniquecarrier_US -0.61589284  0.10669583  -5.7724 7.815e-09 ***
+uniquecarrier_WN  3.86386059  0.10362275  37.2878 < 2.2e-16 ***
+uniquecarrier_XE -2.59658123  0.10775736 -24.0966 < 2.2e-16 ***
+uniquecarrier_YV  3.11113140  0.11659679  26.6828 < 2.2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-R-Squared: 0.0237
-Root Mean Squared Error: 17.75
+R-Squared: 0.02385
+Root Mean Squared Error: 17.74
 ```
 
 ## Assess model performance
@@ -397,7 +439,7 @@ Compare the model performance using the validation data.
 # Calculate average gains by predicted decile
 model_deciles <- lapply(model_partition, function(x) {
   sdf_predict(ml1, x) %>%
-    mutate(decile = ntile(prediction, 10)) %>%
+    mutate(decile = ntile(desc(prediction), 10)) %>%
     group_by(decile) %>%
     summarize(gain = mean(gain)) %>%
     select(decile, gain) %>%
@@ -418,7 +460,7 @@ deciles %>%
   labs(title = 'Average gain by predicted decile', x = 'Decile', y = 'Minutes')
 ```
 
-<img src="images/clusterDemo/flightsDeciles.png" width=`r params$width`/></p>
+<p><img src="images/clusterDemo/flightsDecilesDesc.png" width=`r params$width`/></p>
 
 ## Visualize predictions
 
@@ -450,10 +492,50 @@ ggplot(carrier, aes(gain, prediction)) +
   labs(title='Average Gains Forecast', x = 'Actual', y = 'Predicted')
 ```
 
-<img src="images/clusterDemo/flightsPredicted.png" width=`r params$width`/></p>
+<p><img src="images/clusterDemo/flightsPredicted.png" width=`r params$width`/></p>
 
 ## Conclusions
 
 Some carriers make up more time than others in flight, but the differences are relatively small. The average time gains between the best and worst airlines is only six minutes. The best predictor of time gained is not carrier but flight distance. The biggest gains were associated with the longest flights.
+
+# Share Insights
+
+## Build dashboard
+
+Aggregate the scored data by origin, destination, and airline. Save the aggregated data.
+
+```{r eval=FALSE}
+# Summarize by origin, destination, and carrier
+summary_2008 <- score_2008 %>%
+  rename(carrier = uniquecarrier, airline = description) %>%
+  group_by(origin, dest, carrier, airline) %>%
+  summarize(
+    flights = n(),
+    distance = mean(distance),
+    avg_dep_delay = mean(depdelay),
+    avg_arr_delay = mean(arrdelay),
+    avg_gain = mean(gain),
+    pred_gain = mean(prediction)
+    )
+
+# Collect and save objects
+pred_data <- collect(summary_2008)
+airports <- collect(select(airports_tbl, name, faa, lat, lon))
+ml1_summary <- capture.output(summary(ml1))
+save(pred_data, airports, ml1_summary, file = 'flights_pred_2008.RData')
+```
+
+```{r}
+aceEditor("rmd", mode="markdown", value=defaultMarkdown)
+```
+
+## Publish dashboard
+
+Use the saved data to build an R Markdown [flexdashboard](http://rmarkdown.rstudio.com/flexdashboard/index.html). Publish the flexdashboard to [Shiny Server](https://www.rstudio.com/products/shiny-server-pro/), [Shinyapps.io](https://www.rstudio.com/products/shinyapps/) or [RStudio Connect](https://www.rstudio.com/products/connect/).
+<p>
+<a href="https://beta.rstudioconnect.com/content/1439/">
+<img src="images/clusterDemo/flightsDashboard.png" width=`r params$width`/>
+</a>
+</p>
 
 

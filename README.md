@@ -10,7 +10,7 @@ Use these scripts for demonstrating Apache Spark capabilities.
 * [Spark ML (titanic)](titanic/notebook-classification.Rmd)
 * [Spark cluster mode (full flights)](flights/sparkClusterDemo.Rmd)
 
-## Online links
+## External links
 
 Use these links to show output content.
 

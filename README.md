@@ -2,7 +2,7 @@
 
 ![](sparklyr-illustration.png)
 
-### Scripts
+## Scripts
 
 Use these scripts for demonstrating Apache Spark capabilities.
 
@@ -10,7 +10,7 @@ Use these scripts for demonstrating Apache Spark capabilities.
 * [Spark ML (titanic)](titanic/notebook-classification.Rmd)
 * [Spark cluster mode (full flights)](flights/sparkClusterDemo.Rmd)
 
-### Online links
+## Online links
 
 Use these links to show output content.
 
@@ -19,3 +19,7 @@ Use these links to show output content.
 * [Flights analysis](https://beta.rstudioconnect.com/content/1438/)
 * [Flights flex dashboard](https://beta.rstudioconnect.com/content/1439)
 * [nycflights13 flex dashboard](https://beta.rstudioconnect.com/content/1429/)
+
+## Presentation
+
+* [Using Apache Spark from R](using_apache_spark_from_r.pdf)

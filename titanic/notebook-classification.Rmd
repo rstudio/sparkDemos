@@ -26,7 +26,7 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(warning = FALSE)
 ```
 
-```{r, eval = FALSE}
+```{r}
 library(sparklyr)
 library(dplyr)
 library(tidyr)
@@ -82,12 +82,14 @@ Variable | Definition
 Family_Size | Number of Siblings and Parents
 Pclass | Format as character
 Embarked | Remove small number of missing records
+Age | Impute missing age with average age
 
 ```{r}
 titanic2_tbl <- titanic_tbl %>% 
   mutate(Family_Size = SibSp + Parch + 1L) %>% 
   mutate(Pclass = as.character(Pclass)) %>%
   filter(!is.na(Embarked)) %>%
+  mutate(Age = ifelse(is.na(Age), mean(Age), Age)) %>%
   sdf_register("titanic2")
 ```
 
@@ -116,7 +118,7 @@ The last step in preparing the data is to define a training and testing partitio
 
 ```{r}
 partition <- titanic_final_tbl %>% 
-  select(Survived, Pclass, Sex, SibSp, Parch, Fare, Embarked, Family_Sizes) %>%
+  select(Survived, Pclass, Sex, Age, SibSp, Parch, Fare, Embarked, Family_Sizes) %>%
   sdf_partition(train = 0.75, test = 0.25, seed = 8585)
 
 train_tbl <- partition$train
@@ -130,39 +132,64 @@ test_tbl <- partition$test
 
 The following section contains code used to construct the different ml models. One of the great features of Sparklyr is that each algorithm accepts R formulas making it easy to create and compare models.
 
-## Logistic Regression
-
 ```{r}
-ml_logistic <- train_tbl %>% 
-  ml_logistic_regression(Survived ~ Pclass + Sex + SibSp + Parch + Fare + Embarked + Family_Sizes)
-ml_logistic
+ml_formula <- formula(Survived ~ Pclass + Sex + Age + SibSp + Parch + Fare + Embarked + Family_Sizes)
 ```
 
-## Additional Machine Learning Algorithms
+## Train a Logistic Regression Model
+
+```{r}
+(ml_log <- ml_logistic_regression(train_tbl, ml_formula))
+```
+
+## Train Additional Machine Learning Algorithms
 
 ```{r}
 ## Decision Tree
-ml_decision <- train_tbl %>% 
-  ml_decision_tree(Survived ~ Pclass + Sex + SibSp + Parch + Fare + Embarked + Family_Sizes)
+ml_dt <- ml_decision_tree(train_tbl, ml_formula)
 
 ## Random Forest
-ml_rf <- train_tbl %>% 
-  ml_random_forest(Survived ~ Pclass + Sex + SibSp + Parch + Fare + Embarked + Family_Sizes)
+ml_rf <- ml_random_forest(train_tbl, ml_formula)
 
 ## Gradient Boosted Tree
-ml_gbt <- train_tbl %>% 
-  ml_gradient_boosted_trees(Survived ~ Pclass + Sex + SibSp + Parch + Fare + Embarked + Family_Sizes)
+ml_gbt <- ml_gradient_boosted_trees(train_tbl, ml_formula)
 
 ## Naive Bayes
-ml_nb <- train_tbl %>% 
-  ml_naive_bayes(Survived ~ Pclass + Sex + SibSp + Parch + Fare + Embarked + Family_Sizes)
+ml_nb <- ml_naive_bayes(train_tbl, ml_formula)
 
 ## Neural Network
-ml_nn <- train_tbl %>% 
-  ml_multilayer_perceptron(Survived ~ Pclass + Sex + SibSp + Parch + Fare + Embarked + Family_Sizes,
-                           layers = c(10,15,2))
+ml_nn <- ml_multilayer_perceptron(train_tbl, ml_formula, layers = c(11,15,2))
 ```
 
+## Predict
+
+```{r}
+
+ml_models <- list(
+  "Logistic" = ml_log,
+  "Decision Tree" = ml_dt,
+  "Random Forest" = ml_rf,
+  "Gradient Boosted Trees" = ml_gbt,
+  "Naive Bayes" = ml_nb,
+  "Neural Net" = ml_nn
+)
+
+score_test_data <- function(model, data=test_tbl){
+  pred <- sdf_predict(model, data)
+  select(pred, Survived, prediction)
+}
+
+ml_score <- lapply(ml_models, score_test_data)
+
+# ml_pred <- list(
+#   "Logistic" = score_test_data(ml_log),
+#   "Decision Tree" = score_test_data(ml_dt),
+#   "Random Forest" = score_test_data(ml_rf),
+#   "Gradient Boosted Trees" = score_test_data(ml_gbt),
+#   "Naive Bayes" = score_test_data(ml_nb),
+#   "Neural Net" = score_test_data(ml_nn)
+# )
+```
 
 ## Training Time
 
@@ -308,14 +335,15 @@ A cummulative gains lift chart compares model performance across different porti
 
 ```{r}
 
-models <- list(ml_decision, ml_rf, ml_gbt, ml_nb, ml_nn)
+models <- list(ml_dt, ml_rf, ml_gbt, ml_nb, ml_nn)
 model_names <- c("decision tree", "random forest", 
                  "gradient boosted trees", "naive bayes", "nueral net")
 
-survived <- (test_tbl %>% 
+survived <- test_tbl %>% 
   filter(Survived == 1) %>% 
-  count() %>% 
-  as.data.frame())$n
+  count %>%
+  as.data.frame %>%
+  unlist
 
 # Predicting Survival
 gains_survived <- function(prediction){
@@ -337,6 +365,19 @@ gains <- data.frame(bin = 1:10,
                     prop = seq(0.1, 1, by = 0.1), 
                     model = rep("base",10))
 
+ml_score$Logistic %>%
+  mutate(Survived = as.numeric(Survived)) %>%
+    mutate(bin = ntile(desc(prediction), 10)) %>% 
+    group_by(bin) %>% 
+    summarize(count = sum(Survived)) %>% 
+    mutate(prop = as.numeric(count / survived)) %>% 
+    arrange(bin) %>% 
+    mutate(prop = cumsum(prop)) %>% 
+    select(-count) %>% 
+    collect() %>% 
+    as.data.frame()
+
+
 for (i in 1:length(models) ) {
   g <- sdf_predict(models[[i]], test_tbl) %>% gains_survived()
   g <- g %>% mutate(model = model_names[i])
@@ -353,43 +394,30 @@ ggplot(gains, aes(x = bin, y = prop, colour = model)) +
 
 The lift charts suggests that any of the tree models (random forest, gradient boosted trees, or the decision tree) will provide the best prediction.
 
-## Area under ROC
+## Area under the curve (AUC)
 
 Though ROC curves are not available, Spark ML does have support for Area Under the ROC curve. This metric captures performance across cut-off values, the higher the AUC the better
 
 ```{r}
-rf.auc <- sdf_predict(ml_rf, test_tbl) %>% 
-    select(prediction, Survived) %>% 
-    sparklyr:::ml_binary_classification_eval(metric = "areaUnderROC",label = "Survived", score = "prediction")
+auc <- function(model, data){
+  p <- sdf_predict(model, data)
+  auc <- sparklyr:::ml_binary_classification_eval(p, "Survived", "prediction")
+  auc
+}
 
+ml_auc <- list(
+  "decision tree" = auc(ml_dt, test_tbl),
+  "random forest" = auc(ml_rf, test_tbl),
+  "gradient boosted trees" = auc(ml_gbt, test_tbl),
+  "naive bayes" = auc(ml_nb, test_tbl),
+  "neural net" = auc(ml_nn, test_tbl)
+)
 
-gbt.auc <- sdf_predict(ml_gbt, test_tbl) %>% 
-    select(prediction, Survived) %>% 
-    sparklyr:::ml_binary_classification_eval(metric = "areaUnderROC",label = "Survived", score = "prediction")
-
-
-nn.auc <- sdf_predict(ml_nn, test_tbl) %>% 
-    select(prediction, Survived) %>% 
-    sparklyr:::ml_binary_classification_eval(metric = "areaUnderROC",label = "Survived", score = "prediction")
-
-
-nb.auc <- sdf_predict(ml_nb, test_tbl) %>% 
-    select(prediction, Survived) %>% 
-    sparklyr:::ml_binary_classification_eval(metric = "areaUnderROC",label = "Survived", score = "prediction")
-
-
-d.auc <- sdf_predict(ml_decision, test_tbl) %>% 
-    select(prediction, Survived) %>% 
-    sparklyr:::ml_binary_classification_eval(metric = "areaUnderROC",label = "Survived", score = "prediction")
-
-auc_cmp <- 
-  data.frame(models = c("decision tree", "random forest",
-                        "gradient boosted trees", "naive bayes", 
-                        "nueral net"), 
-             auc = c(d.auc, rf.auc, gbt.auc, nb.auc, nn.auc))
-
-ggplot(auc_cmp, aes(models, auc)) +
+data.frame(auc = unlist(ml_auc)) %>%
+  ggplot(aes(rownames(.), auc)) +
   geom_bar(stat = "identity") +
+  coord_flip() +
+  xlab("") +
   ggtitle("Model Area Under ROC")
 ```
 

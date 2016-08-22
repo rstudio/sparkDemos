@@ -9,16 +9,6 @@ output:
       collapsed: false
 ---
 
-```{include = FALSE}
-# Changes (to the first half of the document)
-* Removed imputation section for age
-* Make pclass categorical
-* Bucket family size into 1, 2-4, 5+ categorical
-* Make sure family sizes buckets are treated as categorical!!!
-* Filter out a two rows with missing values for Embarked
-* New Model: Survived ~ Pclass + Sex + SibSp + Parch + Fare + Embarked + Family_Sizes
-```
-
 # Setup
 
 ```{r setup, include = FALSE}
@@ -133,13 +123,11 @@ test_tbl <- partition$test
 
 The following section contains code used to construct the different ml models. One of the great features of Sparklyr is that each algorithm accepts R formulas making it easy to create and compare models.
 
-```{r}
-ml_formula <- formula(Survived ~ Pclass + Sex + Age + SibSp + Parch + Fare + Embarked + Family_Sizes)
-```
-
 ## Train a Logistic Regression Model
 
 ```{r}
+ml_formula <- formula(Survived ~ Pclass + Sex + Age + SibSp + Parch + Fare + Embarked + Family_Sizes)
+
 (ml_log <- ml_logistic_regression(train_tbl, ml_formula))
 ```
 
@@ -162,7 +150,7 @@ ml_nb <- ml_naive_bayes(train_tbl, ml_formula)
 ml_nn <- ml_multilayer_perceptron(train_tbl, ml_formula, layers = c(11,15,2))
 ```
 
-## Predict
+## Score test data
 
 ```{r}
 ml_models <- list(
@@ -182,45 +170,6 @@ score_test_data <- function(model, data=test_tbl){
 ml_score <- lapply(ml_models, score_test_data)
 ```
 
-## Training Time
-
-Even with a samll dataset the time to train an ml algorithm is important. The following code trains each model `n` times and plots the results. (Training the multi-layer perceptron model took noticeably longer and was not included)
-
-```{r warning = FALSE}
-
-n <- 10
-
-deparse_call <- function(x){
-  x <- paste(deparse(x), collapse = "")
-  x <- gsub("\\s+", " ", paste(x, collapse = ""))
-  x
-}
-
-format_call <- function(y){
-  y <- deparse_call(y[[".call"]])
-  y <- gsub('ml_formula', ml_formula_char, y)
-  y <- paste0("system.time(", y, ")")
-  y
-}
-
-ml_formula_char <- deparse_call(ml_formula)
-
-model_call <- sapply(ml_models, format_call) %>%
-  rep(., n) %>%
-  parse(text = .)
-
-res  <- map(model_call, eval)
-
-result <- data.frame(model = rep(names(ml_models), n),
-                     time = sapply(res, function(x){as.numeric(x["elapsed"])})) 
-
-result %>% ggplot(aes(time,model)) + 
-  geom_boxplot() + 
-  geom_jitter(width = 0.4, aes(colour = model)) +
-  scale_colour_discrete(guide = FALSE)
-```
-
-
 ***
 
 # Model Comparison 
@@ -232,76 +181,6 @@ This section compares the models:
 * [Lift Chart]
 * [Area Under ROC]
 * [Accuracy]
-
-## Training
-
-To begin, it is possible to evaluate how well the models work on the training data. For this comparison a confusion matrix is constructed for each model. To create the confusion matrix it is necessary to take the scored probabilites and map them to predictions. 0.5 is used as a cutoff.
-
-```{r}
-
-calc_confusion_matrix <- function(scored_data){
-  scored_data %>%
-  mutate(pred = as.numeric(if_else(prediction > 0.5, 1, 0))) %>%
-  group_by(Survived, pred) %>%
-  count %>%
-  data.frame %>%
-  collect
-}
-
-ml_confusion <- lapply(ml_score, calc_confusion_matrix)
-
-ml_confusion_summary <- data.frame()
-for(i in names(ml_confusion)){
-  ml_confusion_summary <- ml_score[[i]] %>%
-    calc_confusion_matrix %>%
-    mutate(model = i) %>%
-    rbind(ml_confusion_summary, .)
-}
-ml_confusion_summary
-#gather(ml_confusion_summary)
-```
-
-All of the models tend to over predict death. This is likely because the training data is not balanced, there were a lot more people who died on the titanic than survived.
-
-## Feature Importance
-
-It is also interesting to compare the features that were identified by each model as being important predictors for survival. The logistic regression and tree models in Spark 2.0.0 implement feature importance metrics. The relative importance of each feature is compared below by model.
-
-```{r warning = FALSE}
-l.res <- coefficients(ml_logistic)
-l.res <- data.frame(feature = names(l.res),
-                    importance = as.numeric(l.res),
-                    model = "logistic regresison",
-                    stringsAsFactors = FALSE)
-l.res <- l.res %>% 
-  mutate(importance = abs(importance)) %>% 
-  filter(feature != '(Intercept)') %>% 
-  mutate(importance = percent_rank(importance)/n()*2)
-  
-clean_up <- function(x, model){
-  x %>% 
-    mutate(importance = as.numeric(levels(importance))) %>% 
-    mutate(feature = as.character(levels(feature))) %>% 
-    mutate(model = model)
-}
-
-#Features
-d.res <- sparklyr:::ml_tree_feature_importance(sc, ml_decision) %>% clean_up("decision tree")
-rf.res <- sparklyr:::ml_tree_feature_importance(sc, ml_rf) %>% clean_up("random forest")
-gbt.res <- sparklyr:::ml_tree_feature_importance(sc, ml_gbt) %>% clean_up("gradient boosted trees")
-
-l.res %>% 
-  full_join(d.res) %>% 
-  full_join(rf.res) %>% 
-  full_join(gbt.res) %>% 
-  ggplot(aes(x = model, y = feature, colour = importance, size = importance)) +
-  geom_point() + scale_size(guide = FALSE)
-```
-
-The number of siblings aboard and gender appear to be the most influential.
-
-
-Arguably the most important comparison is how the models perform outside of the training data. Three metrics are used to compare model performance on the testing dataset: lift, Area Under the ROC curve, and accuracy.
 
 ## Lift Chart
 
@@ -345,8 +224,7 @@ The lift charts suggests that any of the tree models (random forest, gradient bo
 Though ROC curves are not available, Spark ML does have support for Area Under the ROC curve. This metric captures performance across cut-off values, the higher the AUC the better
 
 ```{r}
-auc <- sapply(ml_score, 
-              function(x) sparklyr:::ml_binary_classification_eval(x, "Survived", "prediction"))
+auc <- sapply(ml_score, ml_binary_classification_eval, "Survived", "prediction")
 
 data.frame(model = names(auc), auc = auc) %>%
   ggplot(aes(reorder(model, auc), auc)) +
@@ -359,42 +237,127 @@ data.frame(model = names(auc), auc = auc) %>%
 ## Accuracy 
 
 ```{r}
-rf.a <- sdf_predict(ml_rf, test_tbl) %>% 
-    select(prediction, Survived) %>% 
-    mutate(prediction_lbl = ifelse(prediction > 0.5, 1.0, 0.0)) %>% 
-    mutate(prediction_lbl = as.double(prediction_lbl)) %>% 
-    sparklyr:::ml_classification_eval(metric = "accuracy",label = "Survived", predicted_lbl = "prediction_lbl")
 
-nb.a <- sdf_predict(ml_nb, test_tbl) %>% 
-    select(prediction, Survived) %>% 
-    mutate(prediction_lbl = ifelse(prediction > 0.5, 1.0, 0.0)) %>% 
-    mutate(prediction_lbl = as.double(prediction_lbl)) %>% 
-    sparklyr:::ml_classification_eval(metric = "accuracy",label = "Survived", predicted_lbl = "prediction_lbl")
+calc_accuracy <- function(data, cutpoint = 0.5){
+  data %>% 
+    mutate(prediction = if_else(prediction > cutpoint, 1.0, 0.0)) %>%
+    ml_classification_eval("prediction", "Survived", "accuracy")
+}
 
-nn.a <- sdf_predict(ml_nn, test_tbl) %>% 
-    select(prediction, Survived) %>% 
-    mutate(prediction_lbl = ifelse(prediction > 0.5, 1.0, 0.0)) %>% 
-    mutate(prediction_lbl = as.double(prediction_lbl)) %>% 
-    sparklyr:::ml_classification_eval(metric = "accuracy",label = "Survived", predicted_lbl = "prediction_lbl")
+accuracy <- sapply(ml_score, calc_accuracy)
 
-gbt.a <- sdf_predict(ml_gbt, test_tbl) %>% 
-    select(prediction, Survived) %>% 
-    mutate(prediction_lbl = ifelse(prediction > 0.5, 1.0, 0.0)) %>% 
-    mutate(prediction_lbl = as.double(prediction_lbl)) %>% 
-    sparklyr:::ml_classification_eval(metric = "accuracy",label = "Survived", predicted_lbl = "prediction_lbl")
+data.frame(models = names(accuracy), accuracy = accuracy, row.names = NULL) %>%
+  ggplot(aes(reorder(models, accuracy), accuracy)) + 
+    geom_bar(stat = "identity") + 
+    coord_flip() +
+    xlab("") +
+    ggtitle("Model Accuracy")
 
-decision.a <- sdf_predict(ml_decision, test_tbl) %>% 
-    select(prediction, Survived) %>% 
-    mutate(prediction_lbl = ifelse(prediction > 0.5, 1.0, 0.0)) %>% 
-    mutate(prediction_lbl = as.double(prediction_lbl)) %>% 
-    sparklyr:::ml_classification_eval(metric = "accuracy",label = "Survived", predicted_lbl = "prediction_lbl")
+```
 
-accuracy_cmp <- 
-  data.frame(models = c("decision tree", "random forest",
-                        "gradient boosted trees", "naive bayes", 
-                        "nueral net"), 
-             accuracy = c(decision.a, rf.a, gbt.a, nb.a, nn.a))
+## Confusion Matrix (0.5)
 
-ggplot(accuracy_cmp, aes(models, accuracy)) + geom_bar(stat = "identity") + ggtitle("Model Accuracy")
+To begin, it is possible to evaluate how well the models work on the training data. For this comparison a confusion matrix is constructed for each model. To create the confusion matrix it is necessary to take the scored probabilites and map them to predictions. 0.5 is used as a cutoff.
+
+```{r}
+
+calc_confusion_matrix <- function(scored_data){
+  scored_data %>%
+    mutate(pred = as.numeric(if_else(prediction > 0.5, 1, 0))) %>%
+    group_by(Survived, pred) %>%
+    count %>%
+    data.frame %>%
+    mutate(n = as.numeric(n)) %>%
+    collect
+}
+
+ml_confusion <- lapply(ml_score, calc_confusion_matrix)
+
+ml_confusion_summary <- data.frame()
+for(i in names(ml_confusion)){
+  ml_confusion_summary <- ml_score[[i]] %>%
+    calc_confusion_matrix %>%
+    mutate(Model = i) %>%
+    rbind(ml_confusion_summary, .)
+}
+
+ml_confusion_summary %>%
+  mutate(e1 = ifelse(Survived == pred, "True", "False")) %>%
+  mutate(e2 = ifelse(pred == 1, "Pos", "Neg")) %>%
+  mutate(event = paste0(e1, e2)) %>%
+  select(Model, event, n) %>%
+  spread(event, n) %>%
+  mutate(TPR = 1 / (1 + FalseNeg / TruePos)) %>%
+  mutate(FPR = 1 / (1 + TrueNeg / FalsePos))
+```
+
+All of the models tend to over predict death. This is likely because the training data is not balanced, there were a lot more people who died on the titanic than survived.
+
+## Feature Importance
+
+It is also interesting to compare the features that were identified by each model as being important predictors for survival. The logistic regression and tree models in Spark 2.0.0 implement feature importance metrics. The relative importance of each feature is compared below by model.
+
+```{r warning = FALSE}
+
+feature_importance <- data.frame()
+
+for(i in c("Decision Tree", "Random Forest", "Gradient Boosted Trees")){
+  feature_importance <- ml_tree_feature_importance(sc, ml_models[[i]]) %>%
+    mutate(Model = i) %>%
+    mutate(importance = as.numeric(levels(importance))[importance]) %>%
+    mutate(feature = as.character(feature)) %>%
+    rbind(feature_importance, .)
+}
+
+feature_importance %>%
+  ggplot(aes(x = Model, y = feature, colour = importance, size = importance)) +
+  geom_point() + scale_size(guide = FALSE)
+```
+
+The number of siblings aboard and gender appear to be the most influential.
+
+
+Arguably the most important comparison is how the models perform outside of the training data. Three metrics are used to compare model performance on the testing dataset: lift, Area Under the ROC curve, and accuracy.
+
+
+
+***
+
+## Training Time
+
+Even with a samll dataset the time to train an ml algorithm is important. The following code trains each model `n` times and plots the results. (Training the multi-layer perceptron model took noticeably longer and was not included)
+
+```{r warning = FALSE}
+
+n <- 10
+
+deparse_call <- function(x){
+  x <- paste(deparse(x), collapse = "")
+  x <- gsub("\\s+", " ", paste(x, collapse = ""))
+  x
+}
+
+format_call <- function(y){
+  y <- deparse_call(y[[".call"]])
+  y <- gsub('ml_formula', ml_formula_char, y)
+  y <- paste0("system.time(", y, ")")
+  y
+}
+
+ml_formula_char <- deparse_call(ml_formula)
+
+model_call <- sapply(ml_models, format_call) %>%
+  rep(., n) %>%
+  parse(text = .)
+
+res  <- map(model_call, eval)
+
+result <- data.frame(model = rep(names(ml_models), n),
+                     time = sapply(res, function(x){as.numeric(x["elapsed"])})) 
+
+result %>% ggplot(aes(time,model)) + 
+  geom_boxplot() + 
+  geom_jitter(width = 0.4, aes(colour = model)) +
+  scale_colour_discrete(guide = FALSE)
 ```
 

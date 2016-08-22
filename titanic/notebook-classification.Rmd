@@ -89,7 +89,7 @@ titanic2_tbl <- titanic_tbl %>%
   mutate(Family_Size = SibSp + Parch + 1L) %>% 
   mutate(Pclass = as.character(Pclass)) %>%
   filter(!is.na(Embarked)) %>%
-  mutate(Age = ifelse(is.na(Age), mean(Age), Age)) %>%
+  mutate(Age = if_else(is.na(Age), mean(Age), Age)) %>%
   sdf_register("titanic2")
 ```
 
@@ -118,6 +118,7 @@ The last step in preparing the data is to define a training and testing partitio
 
 ```{r}
 partition <- titanic_final_tbl %>% 
+  mutate(Survived = as.numeric(Survived), SibSp = as.numeric(SibSp), Parch = as.numeric(Parch)) %>%
   select(Survived, Pclass, Sex, Age, SibSp, Parch, Fare, Embarked, Family_Sizes) %>%
   sdf_partition(train = 0.75, test = 0.25, seed = 8585)
 
@@ -164,7 +165,6 @@ ml_nn <- ml_multilayer_perceptron(train_tbl, ml_formula, layers = c(11,15,2))
 ## Predict
 
 ```{r}
-
 ml_models <- list(
   "Logistic" = ml_log,
   "Decision Tree" = ml_dt,
@@ -180,15 +180,6 @@ score_test_data <- function(model, data=test_tbl){
 }
 
 ml_score <- lapply(ml_models, score_test_data)
-
-# ml_pred <- list(
-#   "Logistic" = score_test_data(ml_log),
-#   "Decision Tree" = score_test_data(ml_dt),
-#   "Random Forest" = score_test_data(ml_rf),
-#   "Gradient Boosted Trees" = score_test_data(ml_gbt),
-#   "Naive Bayes" = score_test_data(ml_nb),
-#   "Neural Net" = score_test_data(ml_nn)
-# )
 ```
 
 ## Training Time
@@ -196,27 +187,31 @@ ml_score <- lapply(ml_models, score_test_data)
 Even with a samll dataset the time to train an ml algorithm is important. The following code trains each model `n` times and plots the results. (Training the multi-layer perceptron model took noticeably longer and was not included)
 
 ```{r warning = FALSE}
-formula <- "Survived ~ Pclass + Sex + SibSp + Parch + Fare + Embarked + Family_Sizes"
-
-models <- c("ml_logistic_regression", "ml_decision_tree", 
-            "ml_random_forest", "ml_gradient_boosted_trees",
-            "ml_naive_bayes")
-
-model_call <- map2_chr("system.time(train_tbl %>% " , models, paste, sep = "") %>% 
-  map2_chr("(", paste, sep = "") %>% 
-  map2_chr(formula, paste, sep = "") %>% 
-  map2_chr("))", paste, sep = "")
 
 n <- 10
-calls <- rep(model_call, n)
-f <- vector(length = length(model_call)*n )
-for (i in 1:length(calls)) {
-  f[i] <- parse(text = calls[i])
+
+deparse_call <- function(x){
+  x <- paste(deparse(x), collapse = "")
+  x <- gsub("\\s+", " ", paste(x, collapse = ""))
+  x
 }
 
-res  <- map(f, eval)
+format_call <- function(y){
+  y <- deparse_call(y[[".call"]])
+  y <- gsub('ml_formula', ml_formula_char, y)
+  y <- paste0("system.time(", y, ")")
+  y
+}
 
-result <- data.frame(model = rep(models, n),
+ml_formula_char <- deparse_call(ml_formula)
+
+model_call <- sapply(ml_models, format_call) %>%
+  rep(., n) %>%
+  parse(text = .)
+
+res  <- map(model_call, eval)
+
+result <- data.frame(model = rep(names(ml_models), n),
                      time = sapply(res, function(x){as.numeric(x["elapsed"])})) 
 
 result %>% ggplot(aes(time,model)) + 
@@ -243,46 +238,27 @@ This section compares the models:
 To begin, it is possible to evaluate how well the models work on the training data. For this comparison a confusion matrix is constructed for each model. To create the confusion matrix it is necessary to take the scored probabilites and map them to predictions. 0.5 is used as a cutoff.
 
 ```{r}
-plot_confusion_matrix <- function(prediction_tbl_spark, title) {
-  #prediction column should be a binary label
-  prediction_tbl_spark %>% 
-    select(Survived, prediction) %>% 
-    collect() %>% 
-    table() %>% 
-    as.data.frame() %>% 
-    ggplot() +
-      geom_raster(aes(Survived, prediction, fill = Freq)) +
-      geom_text(aes(Survived, prediction, label = Freq), col = "#222222", size = 6, nudge_x = 0.005, nudge_y = -0.005) +
-      geom_text(aes(Survived, prediction, label = Freq), col = "white", size = 6) +
-      labs(
-        x = "Survived",
-        y = "Prediction",
-        title = title)
+
+calc_confusion_matrix <- function(scored_data){
+  scored_data %>%
+  mutate(pred = as.numeric(if_else(prediction > 0.5, 1, 0))) %>%
+  group_by(Survived, pred) %>%
+  count %>%
+  data.frame %>%
+  collect
 }
 
+ml_confusion <- lapply(ml_score, calc_confusion_matrix)
 
-sdf_predict(ml_logistic, train_tbl) %>% 
-  plot_confusion_matrix("Logistic Regression")
-
-sdf_predict(ml_decision, train_tbl) %>% 
-  mutate(prediction = as.numeric(if_else(prediction > 0.5, 1, 0))) %>% 
-  plot_confusion_matrix("Decision Tree")
-
-sdf_predict(ml_rf, train_tbl) %>% 
-  mutate(prediction = as.numeric(if_else(prediction > 0.5, 1, 0))) %>% 
-  plot_confusion_matrix("Random Forest")
-
-sdf_predict(ml_gbt, train_tbl) %>% 
-  mutate(prediction = as.numeric(if_else(prediction > 0.5, 1, 0))) %>% 
-  plot_confusion_matrix("Gradient Boosted Tree")
-
-sdf_predict(ml_nb, train_tbl) %>% 
-  mutate(prediction = as.numeric(if_else(prediction > 0.5, 1, 0))) %>%  
-  plot_confusion_matrix("Naive Bayes")
-
-sdf_predict(ml_nn, train_tbl) %>% 
-  mutate(prediction = as.numeric(if_else(prediction > 0.5, 1, 0))) %>% 
-  plot_confusion_matrix("Nueral Net")
+ml_confusion_summary <- data.frame()
+for(i in names(ml_confusion)){
+  ml_confusion_summary <- ml_score[[i]] %>%
+    calc_confusion_matrix %>%
+    mutate(model = i) %>%
+    rbind(ml_confusion_summary, .)
+}
+ml_confusion_summary
+#gather(ml_confusion_summary)
 ```
 
 All of the models tend to over predict death. This is likely because the training data is not balanced, there were a lot more people who died on the titanic than survived.
@@ -314,8 +290,6 @@ d.res <- sparklyr:::ml_tree_feature_importance(sc, ml_decision) %>% clean_up("de
 rf.res <- sparklyr:::ml_tree_feature_importance(sc, ml_rf) %>% clean_up("random forest")
 gbt.res <- sparklyr:::ml_tree_feature_importance(sc, ml_gbt) %>% clean_up("gradient boosted trees")
 
-
-
 l.res %>% 
   full_join(d.res) %>% 
   full_join(rf.res) %>% 
@@ -334,57 +308,29 @@ Arguably the most important comparison is how the models perform outside of the 
 A cummulative gains lift chart compares model performance across different portions of the data for a single cutoff value (0.5). This is different from an ROC curve which contains information about model performance for many cutoff values. ROC is harder compute and is not implemented yet for ML algorithms. In a lift chart models that approach the upper left corner perform the best. 
 
 ```{r}
-
-models <- list(ml_dt, ml_rf, ml_gbt, ml_nb, ml_nn)
-model_names <- c("decision tree", "random forest", 
-                 "gradient boosted trees", "naive bayes", "nueral net")
-
-survived <- test_tbl %>% 
-  filter(Survived == 1) %>% 
-  count %>%
-  as.data.frame %>%
-  unlist
-
-# Predicting Survival
-gains_survived <- function(prediction){
-  prediction %>% 
-    select(Survived, prediction) %>% 
-    arrange(desc(prediction)) %>% 
+calculate_lift <- function(scored_data) {
+  scored_data %>%
     mutate(bin = ntile(desc(prediction), 10)) %>% 
     group_by(bin) %>% 
     summarize(count = sum(Survived)) %>% 
-    mutate(prop = as.numeric(count / survived)) %>% 
+    mutate(prop = count / sum(count)) %>% 
     arrange(bin) %>% 
     mutate(prop = cumsum(prop)) %>% 
     select(-count) %>% 
     collect() %>% 
     as.data.frame()
-}  
+}
 
-gains <- data.frame(bin = 1:10, 
-                    prop = seq(0.1, 1, by = 0.1), 
-                    model = rep("base",10))
+ml_gains <- data.frame(bin = 1:10, prop = seq(0, 1, len = 10), model = "Base")
 
-ml_score$Logistic %>%
-  mutate(Survived = as.numeric(Survived)) %>%
-    mutate(bin = ntile(desc(prediction), 10)) %>% 
-    group_by(bin) %>% 
-    summarize(count = sum(Survived)) %>% 
-    mutate(prop = as.numeric(count / survived)) %>% 
-    arrange(bin) %>% 
-    mutate(prop = cumsum(prop)) %>% 
-    select(-count) %>% 
-    collect() %>% 
-    as.data.frame()
+for(i in names(ml_score)){
+  ml_gains <- ml_score[[i]] %>%
+    calculate_lift %>%
+    mutate(model = i) %>%
+    rbind(ml_gains, .)
+}
 
-
-for (i in 1:length(models) ) {
-  g <- sdf_predict(models[[i]], test_tbl) %>% gains_survived()
-  g <- g %>% mutate(model = model_names[i])
-  gains <- rbind(gains, g)
-} 
-
-ggplot(gains, aes(x = bin, y = prop, colour = model)) +
+ggplot(ml_gains, aes(x = bin, y = prop, colour = model)) +
   geom_point() + geom_line() +
   ggtitle("Lift Chart for Predicting Survival - Test Data Set") + 
   xlab("") + ylab("")
@@ -399,22 +345,11 @@ The lift charts suggests that any of the tree models (random forest, gradient bo
 Though ROC curves are not available, Spark ML does have support for Area Under the ROC curve. This metric captures performance across cut-off values, the higher the AUC the better
 
 ```{r}
-auc <- function(model, data){
-  p <- sdf_predict(model, data)
-  auc <- sparklyr:::ml_binary_classification_eval(p, "Survived", "prediction")
-  auc
-}
+auc <- sapply(ml_score, 
+              function(x) sparklyr:::ml_binary_classification_eval(x, "Survived", "prediction"))
 
-ml_auc <- list(
-  "decision tree" = auc(ml_dt, test_tbl),
-  "random forest" = auc(ml_rf, test_tbl),
-  "gradient boosted trees" = auc(ml_gbt, test_tbl),
-  "naive bayes" = auc(ml_nb, test_tbl),
-  "neural net" = auc(ml_nn, test_tbl)
-)
-
-data.frame(auc = unlist(ml_auc)) %>%
-  ggplot(aes(rownames(.), auc)) +
+data.frame(model = names(auc), auc = auc) %>%
+  ggplot(aes(reorder(model, auc), auc)) +
   geom_bar(stat = "identity") +
   coord_flip() +
   xlab("") +

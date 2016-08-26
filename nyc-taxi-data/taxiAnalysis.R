@@ -1,3 +1,7 @@
+install.packages('leaflet')
+install.packages('geosphere')
+install.packages('tidry')
+
 library(ggplot2)
 library(leaflet)
 library(readr)
@@ -11,9 +15,9 @@ config <- spark_config()
 sc <- spark_connect(master = "yarn-client", config = config, version = '1.6.1')
 
 timestamp()
-tbl_cache(sc, 'trips_par')
+tbl_cache(sc, 'trips_par3')
 timestamp()
-dt <- tbl(sc, 'trips_par')
+dt <- tbl(sc, 'trips_par3')
 
 ### Data by pickup and dropoff and hour
 

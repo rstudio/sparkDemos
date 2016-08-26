@@ -1,0 +1,182 @@
+---
+title: "Analyzing a billion NYC taxi trips in Spark"
+output: html_notebook
+---
+
+```{r prep, eval=FALSE, echo=FALSE}
+install.packages('leaflet')
+install.packages('geosphere')
+install.packages('tidyr')
+```
+
+# Overview
+
+We analyze the full taxi data as described by [Todd Schneider](http://toddwschneider.com/posts/analyzing-1-1-billion-nyc-taxi-and-uber-trips-with-a-vengeance/) in using R and sparklyr. We load the billion record trips table into Apache Spark and then use sparklyr and dplyr to manipulate the data and run machine learning algorithms at scale.
+
+# Connect
+
+The data represent 200 GB of uncompressed data in CSV format. When converted and compressed in the parquet format, the data are 70 GB. The data are stored in HDFS and pre-loaded in a Hive table.
+
+The Hadoop cluster runs on Elastic Map Reduce (EMR) in AWS and has 12 worker nodes and one master node. The master node has R, RStudio Server Pro, and sparklyr loaded onto it.
+
+Use sparklyr to create a new connection to Apache Spark and cache the trips table. 
+
+```{r connect, echo=FALSE}
+library(ggplot2)
+library(leaflet)
+library(geosphere)
+library(tidyr)
+library(sparklyr)
+library(dplyr)
+
+Sys.setenv(SPARK_HOME="/usr/lib/spark")
+config <- spark_config()
+sc <- spark_connect(master = "yarn-client", config = config, version = '1.6.1')
+
+tbl_cache(sc, 'trips_par3') # 9.6 minute
+trips_tbl <- tbl(sc, 'trips_par3')
+```
+
+# Number of trips
+
+Use dplyr syntax to write Spark SQL. When you're ready to visualize your data, use `collect` to bring data into R memory. Notice the data describe roughly 170 million trips per year.
+
+```{r}
+trips_tbl %>% count
+
+trip_by_year <- trips_tbl %>%
+  mutate(year = year(pickup_datetime)) %>%
+  group_by(year) %>%
+  summarize(n = n()) %>%
+  collect()
+
+ggplot(trip_by_year, aes(year, n)) + 
+  geom_bar(stat="Identity") +
+  scale_y_continuous(labels = scales::comma) +
+  labs(title = "Number of trips by year", x = "Year", y = "")
+```
+
+# Top dropoffs
+
+Spark makes it easy to drill down to any level of you data. You can visualize the top dropoffs for any pickup location by entering your pickup location. In this example the pickup location is JFK International Airport.
+
+```{r}
+jfk_pickup_tbl <- trips_tbl %>%
+  filter(pickup_nyct2010_gid == 2056) %>%
+  filter(!is.na(dropoff_nyct2010_gid)) %>%
+  mutate(trip_time = unix_timestamp(dropoff_datetime) - unix_timestamp(pickup_datetime)) %>%
+  group_by(dropoff_nyct2010_gid) %>% 
+  summarize(n = n(),
+            trip_time_mean = mean(trip_time),
+            trip_dist_mean = mean(trip_distance),
+            dropoff_latitude = mean(dropoff_latitude),
+            dropoff_longitude = mean(dropoff_longitude),
+            passenger_mean = mean(passenger_count),
+            fare_amount = mean(fare_amount),
+            tip_amount = mean(tip_amount))
+
+jfk_pickup <- jfk_pickup_tbl %>%
+  mutate(n_rank = min_rank(desc(n))) %>%
+  filter(n_rank <= 25) %>%
+  collect
+
+leaflet(jfk_pickup) %>% 
+  setView(lng = -73.7781, lat = 40.6413, zoom = 11) %>%
+  addProviderTiles("CartoDB.Positron") %>%
+  addCircleMarkers(~dropoff_longitude, ~dropoff_latitude, stroke = F) %>%
+  addCircleMarkers(-73.7781, 40.6413)
+```
+
+
+### Trip duration
+
+You can measure the time between pickup and dropoff for any two locations. In this example, we measure the time between JFK and mid-town. Notice the longest trip times occur around 4 PM.
+
+```{r}
+pickup_dropoff_tbl <- trips_tbl %>%
+  filter(pickup_nyct2010_gid == 1250 & dropoff_nyct2010_gid == 2056) %>%
+  mutate(pickup_hour = hour(pickup_datetime)) %>%
+  mutate(trip_time = unix_timestamp(dropoff_datetime) - unix_timestamp(pickup_datetime)) %>%
+  group_by(pickup_hour) %>% 
+  summarize(n = n(),
+            trip_time_mean = mean(trip_time),
+            trip_time_p10 = percentile(trip_time, 0.10),
+            trip_time_p25 = percentile(trip_time, 0.25),
+            trip_time_p50 = percentile(trip_time, 0.50),
+            trip_time_p75 = percentile(trip_time, 0.75),
+            trip_time_p90 = percentile(trip_time, 0.90))
+
+pickup_dropoff <- collect(pickup_dropoff_tbl)
+
+ggplot(pickup_dropoff, aes(x = pickup_hour)) +
+          geom_line(aes(y = trip_time_p50, alpha = "Median")) +
+          geom_ribbon(aes(ymin = trip_time_p25, ymax = trip_time_p75, alpha = "25–75th percentile")) +
+          geom_ribbon(aes(ymin = trip_time_p10, ymax = trip_time_p90, alpha = "10–90th percentile")) +
+          scale_y_continuous("trip duration in minutes")
+
+```
+
+# Model
+
+With Spark ML you can run machine learning algorithms against all your data in Spark. Here we attempt to understand what factors influence tip amounts. Notice that trip distance is the most significant predictor. The longer the trip, the samller the tip.
+
+```{r}
+model_tbl <- trips_tbl %>%
+  mutate(pickup_hour = hour(pickup_datetime)) %>%
+  mutate(pickup_week = weekofyear(pickup_datetime)) %>%
+  mutate(trip_time = unix_timestamp(dropoff_datetime) - unix_timestamp(pickup_datetime)) %>%
+  mutate()
+  filter(!is.na(pickup_nyct2010_gid) & !is.na(dropoff_nyct2010_gid)) %>%
+  filter(!is.na(tip_amount)) %>%
+  filter(!is.na(fare_amount)) %>%
+  filter(!is.na(vendor_id)) %>%
+  filter(!is.na(pickup_hour)) %>%
+  filter(!is.na(pickup_week)) %>%
+  filter(!is.na(passenger_count)) %>%
+  filter(!is.na(trip_time)) %>%
+  filter(!is.na(trip_distance))
+
+model_partition_tbl <- sdf_partition(model_tbl, train = 0.5, test = 0.5)
+train_tbl <- model_partition_tbl$train
+test_tbl <- model_partition_tbl$test
+
+model_formula <- formula(tip_amount ~ 
+                           fare_amount + vendor_id + pickup_hour + pickup_week + 
+                           passenger_count + trip_time + trip_distance)
+
+timestamp()
+m1 <- ml_linear_regression(train_tbl, model_formula) # 13 minutes
+timestamp()
+summary(m1) # 3 minutes
+
+```
+```
+Call: ml_linear_regression(model_tbl, model_formula)
+
+Deviance Residuals: (approximate):
+     Min       1Q   Median       3Q      Max 
+ -1.7042  -1.0545  -0.9764   0.6140 198.3652 
+
+Coefficients:
+                   Estimate  Std. Error   t value  Pr(>|t|)    
+(Intercept)      1.5541e+00  1.8833e-02   82.5188 < 2.2e-16 ***
+fare_amount      3.0997e-05  6.0977e-06    5.0833 3.708e-07 ***
+vendor_id_2     -2.7046e-02  2.0093e-02   -1.3460   0.17829    
+vendor_id_CMT   -5.8884e-01  1.6346e-02  -36.0234 < 2.2e-16 ***
+vendor_id_DDS   -1.0443e+00  3.8907e-02  -26.8403 < 2.2e-16 ***
+vendor_id_VTS   -5.5473e-01  1.6529e-02  -33.5614 < 2.2e-16 ***
+pickup_hour      1.2248e-03  5.8916e-04    2.0789   0.03762 *  
+pickup_week      2.6038e-03  2.5590e-04   10.1748 < 2.2e-16 ***
+passenger_count -1.5572e-02  3.0618e-03   -5.0861 3.656e-07 ***
+trip_time        1.4396e-09  7.1525e-09    0.2013   0.84049    
+trip_distance   -2.3380e-04  5.0037e-07 -467.2457 < 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+R-Squared: 0.0001869
+Root Mean Squared Error: 132.2
+```
+
+# Recommendations
+
+It is often useful to visualize the analyses interactively. Use the Shiny app to explore other drill downs and models with the data.

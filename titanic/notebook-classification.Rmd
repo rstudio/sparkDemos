@@ -1,7 +1,6 @@
 ---
 title: "Comparison of ML Classifiers Using Sparklyr"
 output: 
-  html_notebook: default
   html_document:
     toc: true
     toc_depth: 2
@@ -16,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(warning = FALSE)
 ```
 
-```{r}
+```{r prep}
 library(sparklyr)
 library(dplyr)
 library(tidyr)
@@ -53,7 +52,7 @@ We'll work in a local Spark cluster and read the data in from parquet. The parqu
 
 Given parquet data, it suffices to launch Spark locally and read the parquet files in directly. The analysis is done in Spark 2.0, but most of the analysis can be replicated in earlier versions.
 
-```{r}
+```{r data}
 sc <- spark_connect(master = "local", version = "2.0.0")
 spark_read_parquet(sc, name = "titanic", path = "titanic-parquet")
 titanic_tbl <- tbl(sc, "titanic")
@@ -74,7 +73,7 @@ Pclass | Format as character
 Embarked | Remove small number of missing records
 Age | Impute missing age with average age
 
-```{r}
+```{r sparkSQL}
 titanic2_tbl <- titanic_tbl %>% 
   mutate(Family_Size = SibSp + Parch + 1L) %>% 
   mutate(Pclass = as.character(Pclass)) %>%
@@ -90,7 +89,7 @@ titanic2_tbl <- titanic_tbl %>%
 
 Now that age has been added, another feature will be created using one of the Spark ML feature transformers. Specifically, a bucketized variable to represent the age bins: child, teen, adult, and retired.
 
-```{r}
+```{r sparkFT}
 titanic_final_tbl <- titanic2_tbl %>%
   mutate(Family_Size = as.numeric(Family_size)) %>%
   sdf_mutate(
@@ -106,7 +105,7 @@ titanic_final_tbl <- titanic2_tbl %>%
 
 The last step in preparing the data is to define a training and testing partition.
 
-```{r}
+```{r partition}
 partition <- titanic_final_tbl %>% 
   mutate(Survived = as.numeric(Survived), SibSp = as.numeric(SibSp), Parch = as.numeric(Parch)) %>%
   select(Survived, Pclass, Sex, Age, SibSp, Parch, Fare, Embarked, Family_Sizes) %>%
@@ -125,7 +124,7 @@ The following section contains code used to construct the different ml models. O
 
 ## Train a Logistic Regression Model
 
-```{r}
+```{r train}
 ml_formula <- formula(Survived ~ Pclass + Sex + Age + SibSp + Parch + Fare + Embarked + Family_Sizes)
 
 (ml_log <- ml_logistic_regression(train_tbl, ml_formula))
@@ -133,7 +132,7 @@ ml_formula <- formula(Survived ~ Pclass + Sex + Age + SibSp + Parch + Fare + Emb
 
 ## Train Additional Machine Learning Algorithms
 
-```{r}
+```{r ml}
 ## Decision Tree
 ml_dt <- ml_decision_tree(train_tbl, ml_formula)
 
@@ -152,7 +151,7 @@ ml_nn <- ml_multilayer_perceptron(train_tbl, ml_formula, layers = c(11,15,2))
 
 ## Score test data
 
-```{r}
+```{r score}
 ml_models <- list(
   "Logistic" = ml_log,
   "Decision Tree" = ml_dt,
@@ -186,7 +185,7 @@ This section compares the models:
 
 A cummulative gains lift chart compares model performance across different portions of the data for a single cutoff value (0.5). This is different from an ROC curve which contains information about model performance for many cutoff values. ROC is harder compute and is not implemented yet for ML algorithms. In a lift chart models that approach the upper left corner perform the best. 
 
-```{r}
+```{r lift}
 calculate_lift <- function(scored_data) {
   scored_data %>%
     mutate(bin = ntile(desc(prediction), 10)) %>% 
@@ -223,7 +222,7 @@ The lift charts suggests that any of the tree models (random forest, gradient bo
 
 Though ROC curves are not available, Spark ML does have support for Area Under the ROC curve. This metric captures performance across cut-off values, the higher the AUC the better
 
-```{r}
+```{r auc}
 auc <- sapply(ml_score, ml_binary_classification_eval, "Survived", "prediction")
 
 data.frame(model = names(auc), auc = auc) %>%
@@ -236,7 +235,7 @@ data.frame(model = names(auc), auc = auc) %>%
 
 ## Accuracy 
 
-```{r}
+```{r accuracy}
 
 calc_accuracy <- function(data, cutpoint = 0.5){
   data %>% 
@@ -259,7 +258,7 @@ data.frame(models = names(accuracy), accuracy = accuracy, row.names = NULL) %>%
 
 To begin, it is possible to evaluate how well the models work on the training data. For this comparison a confusion matrix is constructed for each model. To create the confusion matrix it is necessary to take the scored probabilites and map them to predictions. 0.5 is used as a cutoff.
 
-```{r}
+```{r confmatrix}
 
 calc_confusion_matrix <- function(scored_data){
   scored_data %>%
@@ -297,7 +296,7 @@ All of the models tend to over predict death. This is likely because the trainin
 
 It is also interesting to compare the features that were identified by each model as being important predictors for survival. The logistic regression and tree models in Spark 2.0.0 implement feature importance metrics. The relative importance of each feature is compared below by model.
 
-```{r warning = FALSE}
+```{r importance, warning = FALSE}
 
 feature_importance <- data.frame()
 
@@ -327,7 +326,7 @@ Arguably the most important comparison is how the models perform outside of the 
 
 Even with a samll dataset the time to train an ml algorithm is important. The following code trains each model `n` times and plots the results. (Training the multi-layer perceptron model took noticeably longer and was not included)
 
-```{r warning = FALSE}
+```{r time, warning = FALSE}
 
 n <- 10
 

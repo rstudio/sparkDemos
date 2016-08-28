@@ -33,8 +33,8 @@ Sys.setenv(SPARK_HOME="/usr/lib/spark")
 config <- spark_config()
 sc <- spark_connect(master = "yarn-client", config = config, version = '1.6.1')
 
-tbl_cache(sc, 'trips_par3') # 9.6 minute
-trips_tbl <- tbl(sc, 'trips_par3')
+tbl_cache(sc, 'trips_par') # 9.6 minute
+trips_tbl <- tbl(sc, 'trips_par')
 ```
 
 # Number of trips
@@ -124,8 +124,8 @@ With Spark ML you can run machine learning algorithms against all your data in S
 model_tbl <- trips_tbl %>%
   mutate(pickup_hour = hour(pickup_datetime)) %>%
   mutate(pickup_week = weekofyear(pickup_datetime)) %>%
+  mutate(pickup_year = year(pickup_datetime)) %>%
   mutate(trip_time = unix_timestamp(dropoff_datetime) - unix_timestamp(pickup_datetime)) %>%
-  mutate()
   filter(!is.na(pickup_nyct2010_gid) & !is.na(dropoff_nyct2010_gid)) %>%
   filter(!is.na(tip_amount)) %>%
   filter(!is.na(fare_amount)) %>%
@@ -136,7 +136,10 @@ model_tbl <- trips_tbl %>%
   filter(!is.na(trip_time)) %>%
   filter(!is.na(trip_distance))
 
-model_partition_tbl <- sdf_partition(model_tbl, train = 0.5, test = 0.5)
+model_partition_tbl <- model_tbl %>%
+  filter(pickup_year == 2015) %>%
+  sdf_partition(train = 0.5, test = 0.5)
+
 train_tbl <- model_partition_tbl$train
 test_tbl <- model_partition_tbl$test
 
@@ -180,3 +183,13 @@ Root Mean Squared Error: 132.2
 # Recommendations
 
 It is often useful to visualize the analyses interactively. Use the Shiny app to explore other drill downs and models with the data.
+
+#
+
+First of all, keep him out of the light, he hates bright light, especially sunlight, it'll kill him. Second, don't give him any water, not even to drink. But the most important rule, the rule you can never forget, no matter how much he cries, no matter how much he begs, never feed him after midnight.
+
+First of all, plan time to cache data, it takes a long time to cache data, especially large amounts of data, it'll test your patience. Second, don't collect too much data, not even a modest amount. But the most important rule, the rule you can never forget, no matter how much you need to, no matter how much you want to, never push the stop button.
+
+![gizmo](nyc-taxi-data/gizmo.jpg)
+
+

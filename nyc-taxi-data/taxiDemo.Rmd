@@ -7,6 +7,7 @@ output: html_notebook
 install.packages('leaflet')
 install.packages('geosphere')
 install.packages('tidyr')
+install.packages('rmarkdown')
 system('sudo yum install git')
 ```
 
@@ -141,9 +142,14 @@ model_tbl <- trips_tbl %>%
 model_partition_tbl <- model_tbl %>%
   sdf_partition(train = 0.8, test = 0.2, seed = 1234)
 
-trips_train_tbl <- sdf_register(model_partition_tbl$train, "trips_train")
+sdf_register(model_partition_tbl$train, "trips_train")
 tbl_cache(sc, "trips_train")
+trips_train_tbl <- tbl(sc, "trips_train")
 
+sdf_register(model_partition_tbl$train, "trips_test")
+tbl_cache(sc, "trips_test")
+trips_test_tbl <- tbl(sc, "trips_test")
+  
 model_formula <- formula(tip_amount ~ 
                            fare_amount + vendor_id + pickup_hour + pickup_week + 
                            passenger_count + trip_time + trip_distance)
@@ -151,6 +157,7 @@ model_formula <- formula(tip_amount ~
 m1 <- ml_linear_regression(train_tbl, model_formula)
 summary(m1)
 
+trips_score_tbl <- sdf_predict(m1, trips_test_tbl)
 ```
 
 # Recommendations

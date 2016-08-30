@@ -3,14 +3,6 @@ title: "Analyzing a billion NYC taxi trips in Spark"
 output: html_notebook
 ---
 
-```{r prep, eval=FALSE, echo=FALSE}
-install.packages('leaflet')
-install.packages('geosphere')
-install.packages('tidyr')
-install.packages('rmarkdown')
-system('sudo yum install git')
-```
-
 # Overview
 
 We analyze the full taxi data as described by [Todd Schneider](http://toddwschneider.com/posts/analyzing-1-1-billion-nyc-taxi-and-uber-trips-with-a-vengeance/) in using R and sparklyr. We load the billion record trips table into Apache Spark and then use sparklyr and dplyr to manipulate the data and run machine learning algorithms at scale.
@@ -118,7 +110,7 @@ ggplot(pickup_dropoff, aes(x = pickup_hour)) +
 
 ```
 
-# Model
+# Predict tip amount
 
 With Spark ML you can run machine learning algorithms against all your data in Spark. Here we attempt to understand what factors influence tip amounts.
 
@@ -142,35 +134,105 @@ model_tbl <- trips_tbl %>%
 model_partition_tbl <- model_tbl %>%
   sdf_partition(train = 0.8, test = 0.2, seed = 1234)
 
-sdf_register(model_partition_tbl$train, "trips_train")
-tbl_cache(sc, "trips_train")
-trips_train_tbl <- tbl(sc, "trips_train")
+trips_train_tbl <- sdf_register(model_partition_tbl$train, "trips_train")
+trips_test_tbl <- sdf_register(model_partition_tbl$train, "trips_test")
 
-sdf_register(model_partition_tbl$train, "trips_test")
+tbl_cache(sc, "trips_train")
 tbl_cache(sc, "trips_test")
-trips_test_tbl <- tbl(sc, "trips_test")
-  
+
 model_formula <- formula(tip_amount ~ 
                            fare_amount + vendor_id + pickup_hour + pickup_week + 
                            passenger_count + trip_time + trip_distance)
 
-m1 <- ml_linear_regression(train_tbl, model_formula)
+m1 <- ml_linear_regression(trips_train_tbl, model_formula)
 summary(m1)
 
 trips_score_tbl <- sdf_predict(m1, trips_test_tbl)
 ```
 
-# Recommendations
+# Visualize trip duration with Shiny
 
-It is often useful to visualize the analyses interactively. Use the Shiny app to explore other drill downs and models with the data.
+It is often useful to visualize the analyses interactively. Use the Shiny app to explore other pickup and dropoff locations.
 
-A few tips for working with Spark...
+```{r}
 
-![](gizmo_small.png)
+global <- function() {
+  
+  Sys.setenv(SPARK_HOME="/usr/lib/spark")
+  config <- spark_config()
+  sc <- spark_connect(master = "yarn-client", config = config, version = '1.6.1')
+  
+  tbl_cache(sc, 'trips_par')
+  shiny_trips_tbl <<- tbl(sc, 'trips_par')
+  
+  distinct_gid <- function(data, gid, cutoff = 100000){
+    data %>%
+      filter_(!is.na(gid)) %>%
+      group_by_(gid) %>%
+      count %>%
+      filter(n > cutoff) %>%
+      select_(gid) %>%
+      arrange_(gid) %>%
+      collect
+  }
+  
+  pickup_nyct2010_gid <<- shiny_trips_tbl %>%
+    distinct_gid("pickup_nyct2010_gid") %>%
+    unlist %>%
+    unname
 
-* First of all, plan time to cache data, it takes a long time to cache data, especially large amounts of data, it'll test your patience. 
-* Second, don't collect too much data, not even a modest amount. 
-* But the most important rule, the rule you can never forget, no matter how much you need to, no matter how much you want to, never push the stop button.
+  dropoff_nyct2010_gid <<- shiny_trips_tbl %>%
+    distinct_gid("dropoff_nyct2010_gid") %>%
+    unlist %>%
+    unname
 
+}
+
+ui <- fluidPage(
+   
+   titlePanel("NYC Taxi Data"),
+   
+   sidebarLayout(
+      sidebarPanel(
+        selectInput("pickup",  "Taxi origin", pickup_nyct2010_gid, 1250),
+        selectInput("dropoff",  "Taxi destination", dropoff_nyct2010_gid, 2056)
+      ),
+      
+      mainPanel(
+         plotOutput("distPlot")
+      )
+   )
+)
+
+server <- function(input, output) {
+
+  shiny_pickup_dropoff <- reactive({
+    shiny_trips_tbl %>%
+    filter(pickup_nyct2010_gid == input$pickup & dropoff_nyct2010_gid == input$dropoff) %>%
+    mutate(pickup_hour = hour(pickup_datetime)) %>%
+    mutate(trip_time = unix_timestamp(dropoff_datetime) - unix_timestamp(pickup_datetime)) %>%
+    group_by(pickup_hour) %>% 
+    summarize(n = n(),
+              trip_time_p10 = percentile(trip_time, 0.10),
+              trip_time_p25 = percentile(trip_time, 0.25),
+              trip_time_p50 = percentile(trip_time, 0.50),
+              trip_time_p75 = percentile(trip_time, 0.75),
+              trip_time_p90 = percentile(trip_time, 0.90)) %>%
+    collect
+  })
+  
+  output$distPlot <- renderPlot({
+    ggplot(shiny_pickup_dropoff(), aes(x = pickup_hour)) +
+    geom_line(aes(y = trip_time_p50, alpha = "Median")) +
+    geom_ribbon(aes(ymin = trip_time_p25, ymax = trip_time_p75, alpha = "25–75th percentile")) +
+    geom_ribbon(aes(ymin = trip_time_p10, ymax = trip_time_p90, alpha = "10–90th percentile")) +
+    scale_y_continuous("trip duration in minutes") +
+    ggtitle(paste("Pickup = ", input$pickup, ";", "Dropoff =", input$dropoff))
+   })
+  
+}
+
+shinyApp(ui = ui, server = server, onStart = global)
+```
 
 

@@ -15,11 +15,12 @@ The Hadoop cluster runs on Elastic Map Reduce (EMR) in AWS and has 12 worker nod
 
 Use sparklyr to create a new connection to Apache Spark and cache the trips table. 
 
-```{r connect, echo=FALSE}
+```{r connect}
 library(ggplot2)
 library(leaflet)
 library(geosphere)
 library(tidyr)
+library(shiny)
 library(sparklyr)
 library(dplyr)
 
@@ -154,43 +155,44 @@ trips_score_tbl <- sdf_predict(m1, trips_test_tbl)
 
 It is often useful to visualize the analyses interactively. Use the Shiny app to explore other pickup and dropoff locations.
 
+First, create a few objects in the global evironment that will be required by Shiny.
+
 ```{r}
 
-global <- function() {
+shiny_sc <<- sc
+shiny_trips_tbl <<- tbl(sc, 'trips_par')
   
-  Sys.setenv(SPARK_HOME="/usr/lib/spark")
-  config <- spark_config()
-  sc <- spark_connect(master = "yarn-client", config = config, version = '1.6.1')
-  
-  tbl_cache(sc, 'trips_par')
-  shiny_trips_tbl <<- tbl(sc, 'trips_par')
-  
-  distinct_gid <- function(data, gid, cutoff = 100000){
-    data %>%
-      filter_(!is.na(gid)) %>%
-      group_by_(gid) %>%
-      count %>%
-      filter(n > cutoff) %>%
-      select_(gid) %>%
-      arrange_(gid) %>%
-      collect
-  }
-  
-  pickup_nyct2010_gid <<- shiny_trips_tbl %>%
-    distinct_gid("pickup_nyct2010_gid") %>%
-    unlist %>%
-    unname
-
-  dropoff_nyct2010_gid <<- shiny_trips_tbl %>%
-    distinct_gid("dropoff_nyct2010_gid") %>%
-    unlist %>%
-    unname
-
+distinct_gid <- function(data, gid, cutoff = 100000){
+  data %>%
+    group_by_(gid) %>%
+    count %>%
+    filter(n > cutoff) %>%
+    select_(gid) %>%
+    arrange_(gid) %>%
+    collect
 }
+
+pickup_nyct2010_gid <<- shiny_trips_tbl %>%
+  distinct_gid("pickup_nyct2010_gid") %>%
+  unlist %>%
+  unname %>%
+  na.omit
+
+dropoff_nyct2010_gid <<- shiny_trips_tbl %>%
+  distinct_gid("dropoff_nyct2010_gid") %>%
+  unlist %>%
+  unname %>%
+  na.omit
+
+```
+
+Next, create a Shiny app.
+
+```{r}
 
 ui <- fluidPage(
    
-   titlePanel("NYC Taxi Data"),
+   titlePanel("NYC Taxi Trips"),
    
    sidebarLayout(
       sidebarPanel(
@@ -208,6 +210,7 @@ server <- function(input, output) {
 
   shiny_pickup_dropoff <- reactive({
     shiny_trips_tbl %>%
+    #filter(pickup_nyct2010_gid == 1250 & dropoff_nyct2010_gid == 2056) %>%
     filter(pickup_nyct2010_gid == input$pickup & dropoff_nyct2010_gid == input$dropoff) %>%
     mutate(pickup_hour = hour(pickup_datetime)) %>%
     mutate(trip_time = unix_timestamp(dropoff_datetime) - unix_timestamp(pickup_datetime)) %>%
@@ -232,7 +235,7 @@ server <- function(input, output) {
   
 }
 
-shinyApp(ui = ui, server = server, onStart = global)
+shinyApp(ui = ui, server = server)
 ```
 
 

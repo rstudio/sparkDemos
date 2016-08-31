@@ -160,7 +160,7 @@ First, create a few objects in the global evironment that will be required by Sh
 ```{r}
 
 shiny_sc <<- sc
-shiny_trips_tbl <<- tbl(sc, 'trips_par')
+shiny_trips_tbl <<- tbl(shiny_sc, 'trips_par')
   
 distinct_gid <- function(data, gid, cutoff = 100000){
   data %>%
@@ -229,7 +229,7 @@ server <- function(input, output) {
     geom_line(aes(y = trip_time_p50, alpha = "Median")) +
     geom_ribbon(aes(ymin = trip_time_p25, ymax = trip_time_p75, alpha = "25–75th percentile")) +
     geom_ribbon(aes(ymin = trip_time_p10, ymax = trip_time_p90, alpha = "10–90th percentile")) +
-    scale_y_continuous("trip duration in minutes") +
+    scale_y_continuous("trip duration in minutes") + 
     ggtitle(paste("Pickup = ", input$pickup, ";", "Dropoff =", input$dropoff))
    })
   

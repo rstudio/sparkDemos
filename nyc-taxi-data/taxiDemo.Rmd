@@ -26,9 +26,13 @@ library(dplyr)
 
 Sys.setenv(SPARK_HOME="/usr/lib/spark")
 config <- spark_config()
+config$spark.driver.cores	<- 4
+config$spark.executor.cores	<- 32
+config$spark.executor.memory <- "40g"
+
 sc <- spark_connect(master = "yarn-client", config = config, version = '1.6.1')
 
-tbl_cache(sc, 'trips_par') # 9.6 minute
+tbl_cache(sc, 'trips_par') # 3.4 minute
 trips_tbl <- tbl(sc, 'trips_par')
 ```
 
@@ -190,6 +194,9 @@ Next, create a Shiny app.
 
 ```{r}
 
+mainPanel(
+)
+
 ui <- fluidPage(
    
    titlePanel("NYC Taxi Trips"),
@@ -201,14 +208,20 @@ ui <- fluidPage(
       ),
       
       mainPanel(
-         plotOutput("distPlot")
+        tabsetPanel(
+          tabPanel("Summary", 
+                   plotOutput("tripTimePlot"),
+                   leafletOutput("tripLeaflet")),
+          tabPanel("Detail", 
+                   tableOutput("table"))
+        )
       )
    )
 )
 
 server <- function(input, output) {
 
-  shiny_pickup_dropoff <- reactive({
+  shiny_pickup_dropoff_hour <- reactive({
     shiny_trips_tbl %>%
     #filter(pickup_nyct2010_gid == 1250 & dropoff_nyct2010_gid == 2056) %>%
     filter(pickup_nyct2010_gid == input$pickup & dropoff_nyct2010_gid == input$dropoff) %>%
@@ -216,6 +229,11 @@ server <- function(input, output) {
     mutate(trip_time = unix_timestamp(dropoff_datetime) - unix_timestamp(pickup_datetime)) %>%
     group_by(pickup_hour) %>% 
     summarize(n = n(),
+              pickup_latitude = mean(pickup_latitude),
+              pickup_longitude = mean(pickup_longitude),
+              dropoff_latitude = mean(dropoff_latitude),
+              dropoff_longitude = mean(dropoff_longitude),
+              trip_time_mean = mean(trip_time),
               trip_time_p10 = percentile(trip_time, 0.10),
               trip_time_p25 = percentile(trip_time, 0.25),
               trip_time_p50 = percentile(trip_time, 0.50),
@@ -223,19 +241,45 @@ server <- function(input, output) {
               trip_time_p90 = percentile(trip_time, 0.90)) %>%
     collect
   })
+
+  shiny_pickup_dropoff <- reactive({
+    shiny_pickup_dropoff_hour() %>%
+      summarize(n = n(),
+                pickup_latitude = mean(pickup_latitude),
+                pickup_longitude = mean(pickup_longitude),
+                dropoff_latitude = mean(dropoff_latitude),
+                dropoff_longitude = mean(dropoff_longitude))
+  })
   
-  output$distPlot <- renderPlot({
-    ggplot(shiny_pickup_dropoff(), aes(x = pickup_hour)) +
-    geom_line(aes(y = trip_time_p50, alpha = "Median")) +
-    geom_ribbon(aes(ymin = trip_time_p25, ymax = trip_time_p75, alpha = "25–75th percentile")) +
-    geom_ribbon(aes(ymin = trip_time_p10, ymax = trip_time_p90, alpha = "10–90th percentile")) +
+  output$tripTimePlot <- renderPlot({
+    ggplot(shiny_pickup_dropoff_hour(), aes(x = pickup_hour)) +
+    geom_line(aes(y = trip_time_p50 / 60, alpha = "Median")) +
+    geom_ribbon(aes(ymin = trip_time_p25 / 60, 
+                    ymax = trip_time_p75 / 60, 
+                    alpha = "25–75th percentile")) +
+    geom_ribbon(aes(ymin = trip_time_p10 / 60, 
+                    ymax = trip_time_p90 / 60, 
+                    alpha = "10–90th percentile")) +
     scale_y_continuous("trip duration in minutes") + 
-    ggtitle(paste("Pickup = ", input$pickup, ";", "Dropoff =", input$dropoff))
+    ggtitle("Trip time in minutes")
    })
+
+  output$tripLeaflet <- renderLeaflet({  
+      leaflet(shiny_pickup_dropoff()) %>% 
+      #setView(lng = -73.9, lat = 40.7, zoom = 12) %>%
+      addProviderTiles("CartoDB.Positron") %>%
+      addCircleMarkers(~pickup_longitude, ~pickup_latitude, fill = FALSE) %>%
+      addCircleMarkers(~dropoff_longitude, ~dropoff_latitude, stroke = FALSE)
+  })
   
+  output$table <- renderTable({
+    shiny_pickup_dropoff_hour() %>%
+      select(pickup_hour, n, trip_time_mean, trip_time_p50)
+  }, digits = 0)
 }
 
 shinyApp(ui = ui, server = server)
 ```
+
 
 

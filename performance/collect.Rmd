@@ -1,0 +1,235 @@
+---
+title: "Spark collect() Performance"
+author: "Fereshteh"
+date: "August 23, 2016"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+---
+ 
+## Overview  
+  
+  
+This document shows the summary results of the tests we have been running on Spark EMR Clusters, with focus on performance of `collect()` operation (since there seemed to be a bottleneck with this operation).  
+
+
+All the raw data along with results are captured in [this Google document.](https://docs.google.com/document/d/1rIFywmicVSWdWZaTRuv89M-RjcqDFREcjESauA51XFI/edit#heading=h.9jv017xx7li2)
+  
+ 
+---
+
+## Setup   
+  
+  
+### Clusters  
+
+**small_cluster:** 
+  
+* m3.xlarge 1 master, 2 worker nodes  
+* 4 vCPU, 15G RAM, 80 SSD
+  
+  
+**large_cluster:**  
+  
+* r3.2xlarge 1 master, 2 worker nodes  
+* 8 vCPS, 61G RAM, 150 SSD  
+  
+  
+### Data  
+  
+  
+We have been working with the full set of flights data for the purpose of demo. But in this experiment I have used only a single csv file from the flights data, but tried files of different sizes:  
+  
+
+* 2008.csv  ~700M  (7009729 rows)    call it **large_file**   
+* 1991.csv  ~500M  (5076926 rows)    call it **medium_file**  
+* 1987.csv  ~130M  (1311827 rows)    call it **small_file**  
+  
+
+
+### Operations  
+  
+  
+* Copy csv files from S3 to HDFS on the cluster
+* Connect to spark
+* Read a single file from HDFS into Spark
+* Collect this data into R  
+  
+  
+  
+```{r code, eval = FALSE}
+library(sparklyr)
+spark_connect(master = "yarn-client", config = config, version = '1.6.2')
+flights_08_tbl <- spark_read_csv(sc, "flights_08", "hdfs:///flights/2008.csv", memory=FALSE)   # or memory=TRUE
+flights_08_r <- flights_08_tbl %>% collect
+```
+  
+  
+
+### Configuration  
+  
+  
+  
+Configuration parameters can be set either on the `config` object, passed to the `spark_connect()` command, or can be defined in the properties file:  
+  
+  
+   `/etc/spark/conf.dist/spark-defaults.conf`  
+  
+  
+You can find a list of all configurable parameters in the [Spark documents](http://spark.apache.org/docs/latest/configuration.html). In this experiment we have focused on the following parameters:  
+  
+  
+  
+* spark.executor.heartbeatInterval  
+* spark.network.timeout             
+* spark.driver.extraJavaOptions    
+* spark.executor.extraJavaOptions
+* spark.executor.memory            
+* spark.driver.memory              
+* spark.yarn.executor.memoryOverhead 
+* spark.yarn.driver.memoryOverhead  
+* spark.executor.cores         
+* spark.driver.maxResultSize   
+  
+  
+
+The first 2 are timeouts. If a timeout happens due to a low value of these parameters, the error might not be very clear and indicative of this. But usually somewhere in the logs there is an indication of it.  
+  
+  
+---
+
+## Summary Results:  
+  
+  
+
+* During `collect()` operation all data is transfered from executor node(s) to the driver node (known fact). Therefore the driver node must have enough memory.
+* `collect()` is a slow operation.
+* `collect()` requires an inordinate amount of memory.  
+    * **small_file** 130M causes driver Java process's memory to go up by about 5G
+    * **large_file** 700M causes driver Java process's memory to go up by about 30G (on average)
+* On **small_cluster** `collect()` is successful only with **small_file** (due to above memory growth)
+    * `collect()` with **medium_file** or **large_file** causes either memory error or process crash
+* On **large_cluster** `collect()` is successful with **small_file**, **medium_file**, and **large_file** (but it takes about 750s for **large_file**)
+* Similar behavior using spark-shell 
+* `collect()` operation for large data sets is not advised in general, due to large memory requirement. So what we observe might be in line with expectations. 
+
+
+---
+
+## Issues  
+  
+  
+* Huge memory growth during `collect()` operation
+* The time it takes
+    
+    
+---
+
+## Sample Configurations  
+  
+  
+Here are a couple of sample configurations, defined in the  
+`/etc/spark/conf.dist/spark-defaults.conf` file:  
+  
+  
+    
+For our large cluster: (8 vCPS, 61G RAM)  
+  
+  
+     
+```
+spark.master                     yarn
+spark.driver.extraClassPath      /etc/hadoop/conf:/etc/hive/conf:/usr/lib/hadoop-lzo/lib/*:/usr/lib/hadoop/hadoop-aws.jar:/usr/share/aws/aws-java-sdk/*:/usr/share/aws/emr/emrfs/conf:/usr/share/aws/emr/emrfs/lib/*:/usr/share/aws/emr/emrfs/auxlib/*
+spark.driver.extraLibraryPath    /usr/lib/hadoop/lib/native:/usr/lib/hadoop-lzo/lib/native
+spark.executor.extraClassPath    /etc/hadoop/conf:/etc/hive/conf:/usr/lib/hadoop-lzo/lib/*:/usr/lib/hadoop/hadoop-aws.jar:/usr/share/aws/aws-java-sdk/*:/usr/share/aws/emr/emrfs/conf:/usr/share/aws/emr/emrfs/lib/*:/usr/share/aws/emr/emrfs/auxlib/*
+spark.executor.extraLibraryPath  /usr/lib/hadoop/lib/native:/usr/lib/hadoop-lzo/lib/native
+spark.eventLog.enabled           true
+spark.eventLog.dir               hdfs:///var/log/spark/apps
+spark.history.fs.logDirectory    hdfs:///var/log/spark/apps
+spark.yarn.historyServer.address <hostname>:18080
+spark.history.ui.port            18080
+spark.shuffle.service.enabled    true
+spark.driver.extraJavaOptions    -Dlog4j.configuration=file:///etc/spark/conf/log4j.properties -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=70 -XX:MaxHeapFreeRatio=70 -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=30G -XX:OnOutOfMemoryError='kill -9 %p'
+spark.dynamicAllocation.enabled  true
+spark.executor.extraJavaOptions  -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=70 -XX:MaxHeapFreeRatio=70 -XX:+CMSClassUnloadingEnabled -XX:OnOutOfMemoryError='kill -9 %p'
+spark.executor.memory            30G
+spark.executor.cores             2
+spark.driver.memory              30G
+spark.yarn.executor.memoryOverhead  4096
+spark.yarn.driver.memoryOverhead  4096
+spark.driver.maxResultSize       0
+```  
+  
+  
+      
+And for our smalle cluster (4 vCPU, 15G RAM):  
+  
+  
+    
+```
+spark.master                     yarn
+spark.driver.extraClassPath      /etc/hadoop/conf:/etc/hive/conf:/usr/lib/hadoop-lzo/lib/*:/usr/lib/hadoop/hadoop-aws.jar:/usr/share/aws/aws-java-sdk/*:/usr/share/aws/emr/emrfs/conf:/usr/share/aws/emr/emrfs/lib/*:/usr/share/aws/emr/emrfs/auxlib/*
+spark.driver.extraLibraryPath    /usr/lib/hadoop/lib/native:/usr/lib/hadoop-lzo/lib/native
+spark.executor.extraClassPath    /etc/hadoop/conf:/etc/hive/conf:/usr/lib/hadoop-lzo/lib/*:/usr/lib/hadoop/hadoop-aws.jar:/usr/share/aws/aws-java-sdk/*:/usr/share/aws/emr/emrfs/conf:/usr/share/aws/emr/emrfs/lib/*:/usr/share/aws/emr/emrfs/auxlib/*
+spark.executor.extraLibraryPath  /usr/lib/hadoop/lib/native:/usr/lib/hadoop-lzo/lib/native
+spark.eventLog.enabled           true
+spark.eventLog.dir               hdfs:///var/log/spark/apps
+spark.history.fs.logDirectory    hdfs:///var/log/spark/apps
+spark.yarn.historyServer.address <hostname>:18080
+spark.history.ui.port            18080
+spark.shuffle.service.enabled    true
+spark.driver.extraJavaOptions    -Dlog4j.configuration=file:///etc/spark/conf/log4j.properties -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=70 -XX:MaxHeapFreeRatio=70 -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=4G -XX:MaxDirectMemorySize=2G -XX:OnOutOfMemoryError='kill -9 %p'
+spark.dynamicAllocation.enabled  true
+spark.executor.extraJavaOptions  -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=70 -XX:MaxHeapFreeRatio=70 -XX:+CMSClassUnloadingEnabled -XX:MaxDirectMemorySize=2G -XX:OnOutOfMemoryError='kill -9 %p'
+spark.executor.memory            6G
+spark.driver.memory              6G
+spark.yarn.executor.memoryOverhead 2048
+spark.yarn.driver.memoryOverhead  2048
+spark.executor.heartbeatInterval  1200
+spark.network.timeout             1200
+spark.executor.cores              1
+spark.driver.maxResultSize        0
+```  
+  
+
+    
+---
+
+## References:
+
+Configuration Parameters for Memory Management:  
+  
+<http://spark.apache.org/docs/latest/configuration.html#memory-management>  
+  
+  
+
+Articles on Tuning Spark (and Yarn):  
+  
+  
+<http://blog.cloudera.com/blog/2015/03/how-to-tune-your-apache-spark-jobs-part-2/>   
+<https://www.linkedin.com/pulse/how-configure-spark-cluster-yarn-artem-pichugin>  
+<http://www.cloudera.com/documentation/enterprise/5-3-x/topics/cdh_ig_yarn_tuning.html>   
+<https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.4.2/bk_spark-guide/content/ch_tuning-spark.html>  
+
+
+Slides on Memory Management:  
+  
+  
+<http://www.slideshare.net/SparkSummit/understanding-memory-management-in-spark-for-fun-and-profit> 
+
+
+
+
+Here is a collection of other people’s complaints about Spark’s performance:  
+  
+  
+<http://blog.explainmydata.com/2014/05/spark-should-be-better-than-mapreduce.html>
+
+
+
+

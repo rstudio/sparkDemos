@@ -3,22 +3,22 @@ title: "Analyzing a billion NYC taxi trips in Spark"
 output: html_notebook
 ---
 
-```{r, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+```{r setup, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 install.packages('miniUI')
 install.packages('DT')
 ```
 
-# Overview
+# Access your data
 
 We analyze the full taxi data as described by [Todd Schneider](http://toddwschneider.com/posts/analyzing-1-1-billion-nyc-taxi-and-uber-trips-with-a-vengeance/) in using R and sparklyr. We load the billion record trips table into Apache Spark and then use sparklyr and dplyr to manipulate the data and run machine learning algorithms at scale.
-
-# Connect
 
 The data represent 200 GB of uncompressed data in CSV format. When converted and compressed in the parquet format, the data are 70 GB. The data are stored in HDFS and pre-loaded in a Hive table.
 
 The Hadoop cluster runs on Elastic Map Reduce (EMR) in AWS and has 12 worker nodes and one master node. The master node has R, RStudio Server Pro, and sparklyr loaded onto it.
 
-Use sparklyr to create a new connection to Apache Spark and cache the trips table. 
+## Connect to spark
+
+Use sparklyr to create a new connection to Apache Spark. 
 
 ```{r connect, message=FALSE, warning=FALSE}
 # Load libraries
@@ -37,13 +37,15 @@ Sys.setenv(SPARK_HOME="/usr/lib/spark")
 config <- spark_config()
 config$spark.driver.cores	<- 32
 config$spark.executor.cores	<- 32
-config$spark.executor.memory <- "25g"
+config$spark.executor.memory <- "40g"
 
 # Connect to cluster
 sc <- spark_connect(master = "yarn-client", config = config, version = '1.6.1')
 ```
 
-```{r}
+## Prepare your data
+
+```{r data}
 # Create table references
 trips_tbl <- tbl(sc, "trips_par")
 nyct2010_tbl <- tbl(sc, "nyct2010")
@@ -65,14 +67,16 @@ trips_joined_tbl <- trips_tbl %>%
   sdf_register("trips_par_joined")
 
 # Cache table
-tbl_cache(sc, "trips_par_joined") # 7 minutes
+tbl_cache(sc, "trips_par_joined")
 ```
 
-# Number of trips
+# Understand your data
+
+## Spark SQL and dplyr
 
 Use dplyr syntax to write Spark SQL. When you're ready to visualize your data, use `collect` to bring data into R memory. Notice the data describe roughly 170 million trips per year.
 
-```{r}
+```{r counts}
 # Calculate total trips
 trips_joined_tbl %>% count
 
@@ -90,46 +94,9 @@ ggplot(trip_by_year, aes(year, n)) +
   labs(title = "Number of trips by year", x = "Year", y = "")
 ```
 
-# Top dropoffs
-
-Spark makes it easy to drill down to any level of you data. You can visualize the top dropoffs for any pickup location by entering your pickup location. In this example the pickup location is JFK International Airport.
-
-```{r}
-# Summarize trips from JFK Airport
-jfk_pickup_tbl <- trips_joined_tbl %>%
-  filter(pickup_nyct2010_gid == 2056) %>%
-  filter(!is.na(dropoff_nyct2010_gid)) %>%
-  mutate(trip_time = unix_timestamp(dropoff_datetime) - unix_timestamp(pickup_datetime)) %>%
-  group_by(dropoff_nyct2010_gid) %>% 
-  summarize(n = n(),
-            trip_time_mean = mean(trip_time),
-            trip_dist_mean = mean(trip_distance),
-            dropoff_latitude = mean(dropoff_latitude),
-            dropoff_longitude = mean(dropoff_longitude),
-            passenger_mean = mean(passenger_count),
-            fare_amount = mean(fare_amount),
-            tip_amount = mean(tip_amount))
-
-# Collect top results
-jfk_pickup <- jfk_pickup_tbl %>%
-  mutate(n_rank = min_rank(desc(n))) %>%
-  filter(n_rank <= 25) %>%
-  collect
-
-# Plot top trips on map
-leaflet(jfk_pickup) %>% 
-  setView(lng = -73.9, lat = 40.7, zoom = 11) %>%
-  addProviderTiles("CartoDB.Positron") %>%
-  addCircleMarkers(~dropoff_longitude, ~dropoff_latitude, stroke = F, color = "red") %>%
-  addCircleMarkers(-73.7781, 40.6413, fill = FALSE, color = "green")
-```
-
-
-### Trip duration
-
 You can measure the time between pickup and dropoff for any two locations. In this example, we measure the time between JFK and mid-town. Notice the longest trip times occur around 4 PM.
 
-```{r}
+```{r hourly}
 # Calcluate trip time for a specific pickup and dropoff
 pickup_dropoff_tbl <- trips_joined_tbl %>%
   filter(pickup_nyct2010_gid == 1250 & dropoff_nyct2010_gid == 2056) %>%
@@ -158,11 +125,11 @@ ggplot(pickup_dropoff, aes(x = pickup_hour)) +
 
 ```
 
-# Predict tip amount
+## Spark ML
 
 With Spark ML you can run machine learning algorithms against all your data in Spark. Here we attempt to understand what factors influence tip amounts.
 
-```{r}
+```{r model}
 # Select a model data set
 model_tbl <- trips_joined_tbl %>%
   filter(pickup_nyct2010_gid == 1250 & dropoff_nyct2010_gid == 2056) %>%
@@ -199,52 +166,59 @@ m1 <- ml_linear_regression(trips_train_tbl, model_formula)
 summary(m1)
 ```
 
+## HTML Widgets
 
-# Drill down by geo code
+Spark makes it easy to drill down to any level of you data. You can visualize the top dropoffs for any pickup location by entering your pickup location. In this example the pickup location is JFK International Airport.
 
-It is often useful to visualize the analyses interactively. Use the Shiny app to explore other pickup and dropoff locations.
+```{r topdropoffs}
+# Summarize trips from JFK Airport
+jfk_pickup_tbl <- trips_joined_tbl %>%
+  filter(pickup_nyct2010_gid == 2056) %>%
+  filter(!is.na(dropoff_nyct2010_gid)) %>%
+  mutate(trip_time = unix_timestamp(dropoff_datetime) - unix_timestamp(pickup_datetime)) %>%
+  group_by(dropoff_nyct2010_gid) %>% 
+  summarize(n = n(),
+            trip_time_mean = mean(trip_time),
+            trip_dist_mean = mean(trip_distance),
+            dropoff_latitude = mean(dropoff_latitude),
+            dropoff_longitude = mean(dropoff_longitude),
+            passenger_mean = mean(passenger_count),
+            fare_amount = mean(fare_amount),
+            tip_amount = mean(tip_amount))
 
-First, create a few objects in the global evironment that will be required by Shiny.
+# Collect top results
+jfk_pickup <- jfk_pickup_tbl %>%
+  mutate(n_rank = min_rank(desc(n))) %>%
+  filter(n_rank <= 25) %>%
+  collect
 
-```{r}
-# Calculate top geo locations for pickup and dropoff  
-distinct_group <- function(data, group, cutoff = 100000){
-  data %>%
-    group_by_(group) %>%
-    count %>%
-    filter(n > cutoff) %>%
-    select_(group) %>%
-    arrange_(group) %>%
-    collect
-}
-
-# Calculate top geo locations for pickup
-pickup_group <<- shiny_trips_tbl %>%
-  distinct_group("pickup_nta") %>%
-  unlist %>%
-  unname %>%
-  na.omit
-
-# Calculate top geo locations for dropoff
-dropoff_group <<- shiny_trips_tbl %>%
-  distinct_group("dropoff_nta") %>%
-  unlist %>%
-  unname %>%
-  na.omit
-
+# Plot top trips on map
+leaflet(jfk_pickup) %>% 
+  setView(lng = -73.9, lat = 40.7, zoom = 11) %>%
+  addProviderTiles("CartoDB.Positron") %>%
+  addCircleMarkers(~dropoff_longitude, ~dropoff_latitude, stroke = F, color = "red") %>%
+  addCircleMarkers(-73.7781, 40.6413, fill = FALSE, color = "green")
 ```
 
-Next, create a Shiny gadget.
+## Shiny Gadget
 
-```{r}
+It is often useful to visualize the analyses interactively. Use a Shiny gadget to explore other pickup and dropoff locations.
+
+```{r gadget, message=FALSE, warning=FALSE}
+# Create list of geo groups to select from
+geo_group <- trips_joined_tbl %>% 
+  distinct(pickup_nta) %>%
+  arrange(pickup_nta) %>%
+  collect
+
 # Create the gadget user interface
 ui <- miniPage(
   gadgetTitleBar("NYC Taxi Trips"),
   miniTabstripPanel(
     miniTabPanel("Inputs", icon = icon("sliders"),
                  miniContentPanel(
-                   selectInput("pickup",  "Taxi origin", pickup_group, "East Village"),
-                   selectInput("dropoff",  "Taxi destination", dropoff_group, "Upper West Side")
+                   selectInput("pickup",  "Taxi Pickup", geo_group, "Lincoln Square"),
+                   selectInput("dropoff",  "Taxi Dropoff", geo_group, "Upper West Side")
                    )
                  ),
     miniTabPanel("Plot", icon = icon("area-chart"),
@@ -319,6 +293,8 @@ server <- function(input, output) {
   
   output$table <- renderDataTable({
     shiny_pickup_dropoff_hour() %>%
+      mutate(trip_time_mean = round(trip_time_mean / 60)) %>%
+      mutate(trip_time_p50 = round(trip_time_p50 / 60)) %>%
       select(pickup_hour, n, trip_time_mean, trip_time_p50)
   })
   
@@ -332,4 +308,7 @@ server <- function(input, output) {
 runGadget(ui, server)
 ```
 
+# Communicate your insights
+
+We estimated taxi trip times by time of day for multiple pickup and dropoff locations. We found the key drivers for predicting tip amounts for specific pickup and dropoff locations. We also found the top dropoff locations for specific pickup locations. Finally, we published these results in an R markdown notebook.
 

@@ -1,0 +1,27 @@
+---
+title: "RSC Test"
+output: 
+  flexdashboard::flex_dashboard:
+  orientation: rows
+social: menu
+source_code: embed
+runtime: shiny
+---
+
+```{r} 
+library(dplyr)
+library(sparklyr)
+
+#Sys.setenv(SPARK_HOME="/usr/local/spark/spark-2.0.0-bin-hadoop2.7")
+sc <- spark_connect(master = "local", version = "2.0.0")
+airports_tbl <- copy_to(sc, nycflights13::airports, "airports")
+```
+
+Summary
+========================================================================
+  
+Hello World
+
+```{r}
+airports_tbl
+```

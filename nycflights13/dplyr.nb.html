@@ -192,16 +192,33 @@ $(document).ready(function () {
 <p>Connect to the cluster and copy the flights data using the <code>copy_to</code> function. Caveat: The flight data in <code>nycflights13</code> is convenient for dplyr demonstrations because it is small, but in practice large data should rarely be copied directly from R objects.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjpbImxpYnJhcnkoc3BhcmtseXIpIiwibGlicmFyeShkcGx5cikiLCJsaWJyYXJ5KG55Y2ZsaWdodHMxMykiLCJsaWJyYXJ5KGdncGxvdDIpIiwic2MgPC0gc3BhcmtfY29ubmVjdChtYXN0ZXIgPSBcImxvY2FsXCIsIHZlcnNpb24gPSBcIjIuMC4wXCIsIGhhZG9vcF92ZXJzaW9uPVwiMi43XCIpIiwiZmxpZ2h0cyA8LSBjb3B5X3RvKHNjLCBmbGlnaHRzLCBcImZsaWdodHNcIikiLCJhaXJsaW5lcyA8LSBjb3B5X3RvKHNjLCBhaXJsaW5lcywgXCJhaXJsaW5lc1wiKSIsInNyY190YmxzKHNjKSJdfQ== -->
+<!-- rnb-source-begin -->
 <pre class="r"><code>library(sparklyr)
-library(dplyr)
-library(nycflights13)
+library(dplyr)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYZHBseXLigJlcblxuVGhlIGZvbGxvd2luZyBvYmplY3RzIGFyZSBtYXNrZWQgZnJvbSDigJhwYWNrYWdlOnN0YXRz4oCZOlxuXG4gICAgZmlsdGVyLCBsYWdcblxuVGhlIGZvbGxvd2luZyBvYmplY3RzIGFyZSBtYXNrZWQgZnJvbSDigJhwYWNrYWdlOmJhc2XigJk6XG5cbiAgICBpbnRlcnNlY3QsIHNldGRpZmYsIHNldGVxdWFsLCB1bmlvblxuIn0= -->
+<pre><code>
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin -->
+<pre class="r"><code>library(nycflights13)
 library(ggplot2)
 sc &lt;- spark_connect(master = &quot;local&quot;, version = &quot;2.0.0&quot;, hadoop_version=&quot;2.7&quot;)
 flights &lt;- copy_to(sc, flights, &quot;flights&quot;)
 airlines &lt;- copy_to(sc, airlines, &quot;airlines&quot;)
 src_tbls(sc)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiYWlybGluZXNcIiBcImZsaWdodHNcIiBcbiJ9 -->
+<pre><code>[1] &quot;airlines&quot; &quot;flights&quot; </code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -218,17 +235,30 @@ src_tbls(sc)</code></pre>
 </ul>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjpbInNlbGVjdChmbGlnaHRzLCB5ZWFyOmRheSwgYXJyX2RlbGF5LCBkZXBfZGVsYXkpIiwiIiwiZmlsdGVyKGZsaWdodHMsIGRlcF9kZWxheSA+IDEwMDApIiwiIiwiYXJyYW5nZShmbGlnaHRzLCBkZXNjKGRlcF9kZWxheSkpIiwiIiwic3VtbWFyaXNlKGZsaWdodHMsIG1lYW5fZGVwX2RlbGF5ID0gbWVhbihkZXBfZGVsYXkpKSIsIiIsIm11dGF0ZShmbGlnaHRzLCBzcGVlZCA9IGRpc3RhbmNlIC8gYWlyX3RpbWUgKiA2MCkiXX0= -->
-<pre class="r"><code>select(flights, year:day, arr_delay, dep_delay)
-
-filter(flights, dep_delay &gt; 1000)
-
-arrange(flights, desc(dep_delay))
-
-summarise(flights, mean_dep_delay = mean(dep_delay))
-
-mutate(flights, speed = distance / air_time * 60)</code></pre>
+<!-- rnb-source-begin -->
+<pre class="r"><code>mutate(flights, speed = distance / air_time * 60)
+</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiU291cmNlOiAgIHF1ZXJ5IFs/PyB4IDIwXVxuRGF0YWJhc2U6IHNwYXJrIGNvbm5lY3Rpb24gbWFzdGVyPWxvY2FsWzRdIGFwcD1zcGFya2x5ciBsb2NhbD1UUlVFXG5cbiAgICB5ZWFyIG1vbnRoICAgZGF5IGRlcF90aW1lIHNjaGVkX2RlcF90aW1lIGRlcF9kZWxheSBhcnJfdGltZSBzY2hlZF9hcnJfdGltZSBhcnJfZGVsYXkgY2FycmllclxuICAgPGludD4gPGludD4gPGludD4gICAgPGludD4gICAgICAgICAgPGludD4gICAgIDxkYmw+ICAgIDxpbnQ+ICAgICAgICAgIDxpbnQ+ICAgICA8ZGJsPiAgIDxjaHI+XG4xICAgMjAxMyAgICAgMSAgICAgMSAgICAgIDUxNyAgICAgICAgICAgIDUxNSAgICAgICAgIDIgICAgICA4MzAgICAgICAgICAgICA4MTkgICAgICAgIDExICAgICAgVUFcbjIgICAyMDEzICAgICAxICAgICAxICAgICAgNTMzICAgICAgICAgICAgNTI5ICAgICAgICAgNCAgICAgIDg1MCAgICAgICAgICAgIDgzMCAgICAgICAgMjAgICAgICBVQVxuMyAgIDIwMTMgICAgIDEgICAgIDEgICAgICA1NDIgICAgICAgICAgICA1NDAgICAgICAgICAyICAgICAgOTIzICAgICAgICAgICAgODUwICAgICAgICAzMyAgICAgIEFBXG40ICAgMjAxMyAgICAgMSAgICAgMSAgICAgIDU0NCAgICAgICAgICAgIDU0NSAgICAgICAgLTEgICAgIDEwMDQgICAgICAgICAgIDEwMjIgICAgICAgLTE4ICAgICAgQjZcbjUgICAyMDEzICAgICAxICAgICAxICAgICAgNTU0ICAgICAgICAgICAgNjAwICAgICAgICAtNiAgICAgIDgxMiAgICAgICAgICAgIDgzNyAgICAgICAtMjUgICAgICBETFxuNiAgIDIwMTMgICAgIDEgICAgIDEgICAgICA1NTQgICAgICAgICAgICA1NTggICAgICAgIC00ICAgICAgNzQwICAgICAgICAgICAgNzI4ICAgICAgICAxMiAgICAgIFVBXG43ICAgMjAxMyAgICAgMSAgICAgMSAgICAgIDU1NSAgICAgICAgICAgIDYwMCAgICAgICAgLTUgICAgICA5MTMgICAgICAgICAgICA4NTQgICAgICAgIDE5ICAgICAgQjZcbjggICAyMDEzICAgICAxICAgICAxICAgICAgNTU3ICAgICAgICAgICAgNjAwICAgICAgICAtMyAgICAgIDcwOSAgICAgICAgICAgIDcyMyAgICAgICAtMTQgICAgICBFVlxuOSAgIDIwMTMgICAgIDEgICAgIDEgICAgICA1NTcgICAgICAgICAgICA2MDAgICAgICAgIC0zICAgICAgODM4ICAgICAgICAgICAgODQ2ICAgICAgICAtOCAgICAgIEI2XG4xMCAgMjAxMyAgICAgMSAgICAgMSAgICAgIDU1OCAgICAgICAgICAgIDYwMCAgICAgICAgLTIgICAgICA3NTMgICAgICAgICAgICA3NDUgICAgICAgICA4ICAgICAgQUFcbiMgLi4uIHdpdGggbW9yZSByb3dzLCBhbmQgMTAgbW9yZSB2YXJpYWJsZXM6IGZsaWdodCA8aW50PiwgdGFpbG51bSA8Y2hyPiwgb3JpZ2luIDxjaHI+LFxuIyAgIGRlc3QgPGNocj4sIGFpcl90aW1lIDxkYmw+LCBkaXN0YW5jZSA8ZGJsPiwgaG91ciA8ZGJsPiwgbWludXRlIDxkYmw+LCB0aW1lX2hvdXIgPGRibD4sXG4jICAgc3BlZWQgPGRibD5cbiJ9 -->
+<pre><code>Source:   query [?? x 20]
+Database: spark connection master=local[4] app=sparklyr local=TRUE
+
+    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time arr_delay carrier
+   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;   &lt;chr&gt;
+1   2013     1     1      517            515         2      830            819        11      UA
+2   2013     1     1      533            529         4      850            830        20      UA
+3   2013     1     1      542            540         2      923            850        33      AA
+4   2013     1     1      544            545        -1     1004           1022       -18      B6
+5   2013     1     1      554            600        -6      812            837       -25      DL
+6   2013     1     1      554            558        -4      740            728        12      UA
+7   2013     1     1      555            600        -5      913            854        19      B6
+8   2013     1     1      557            600        -3      709            723       -14      EV
+9   2013     1     1      557            600        -3      838            846        -8      B6
+10  2013     1     1      558            600        -2      753            745         8      AA
+# ... with more rows, and 10 more variables: flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;,
+#   dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dbl&gt;,
+#   speed &lt;dbl&gt;</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -242,7 +272,7 @@ mutate(flights, speed = distance / air_time * 60)</code></pre>
 <p>For example, take the following code:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjpbImMxIDwtIGZpbHRlcihmbGlnaHRzLCBkYXkgPT0gMTcsIG1vbnRoID09IDUsIGNhcnJpZXIgJWluJSBjKCdVQScsICdXTicsICdBQScsICdETCcpKSIsImMyIDwtIHNlbGVjdChjMSwgeWVhciwgbW9udGgsIGRheSwgY2FycmllciwgZGVwX2RlbGF5LCBhaXJfdGltZSwgZGlzdGFuY2UpIiwiYzMgPC0gYXJyYW5nZShjMiwgeWVhciwgbW9udGgsIGRheSwgY2FycmllcikiLCJjNCA8LSBtdXRhdGUoYzMsIGFpcl90aW1lX2hvdXJzID0gYWlyX3RpbWUgLyA2MCkiXX0= -->
+<!-- rnb-source-begin -->
 <pre class="r"><code>c1 &lt;- filter(flights, day == 17, month == 5, carrier %in% c('UA', 'WN', 'AA', 'DL'))
 c2 &lt;- select(c1, year, month, day, carrier, dep_delay, air_time, distance)
 c3 &lt;- arrange(c2, year, month, day, carrier)
@@ -253,9 +283,27 @@ c4 &lt;- mutate(c3, air_time_hours = air_time / 60)</code></pre>
 <p>This sequence of operations never actually touches the database. It’s not until you ask for the data (e.g. by printing <code>c4</code>) that dplyr requests the results from the database.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYzQifQ== -->
+<!-- rnb-source-begin -->
 <pre class="r"><code>c4</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiU291cmNlOiAgIHF1ZXJ5IFs/PyB4IDhdXG5EYXRhYmFzZTogc3BhcmsgY29ubmVjdGlvbiBtYXN0ZXI9bG9jYWxbNF0gYXBwPXNwYXJrbHlyIGxvY2FsPVRSVUVcblxuICAgIHllYXIgbW9udGggICBkYXkgY2FycmllciBkZXBfZGVsYXkgYWlyX3RpbWUgZGlzdGFuY2UgYWlyX3RpbWVfaG91cnNcbiAgIDxpbnQ+IDxpbnQ+IDxpbnQ+ICAgPGNocj4gICAgIDxkYmw+ICAgIDxkYmw+ICAgIDxkYmw+ICAgICAgICAgIDxkYmw+XG4xICAgMjAxMyAgICAgNSAgICAxNyAgICAgIEFBICAgICAgICAtMiAgICAgIDI5NCAgICAgMjI0OCAgICAgICA0LjkwMDAwMFxuMiAgIDIwMTMgICAgIDUgICAgMTcgICAgICBBQSAgICAgICAgLTEgICAgICAxNDYgICAgIDEwOTYgICAgICAgMi40MzMzMzNcbjMgICAyMDEzICAgICA1ICAgIDE3ICAgICAgQUEgICAgICAgIC0yICAgICAgMTg1ICAgICAxMzcyICAgICAgIDMuMDgzMzMzXG40ICAgMjAxMyAgICAgNSAgICAxNyAgICAgIEFBICAgICAgICAtOSAgICAgIDE4NiAgICAgMTM4OSAgICAgICAzLjEwMDAwMFxuNSAgIDIwMTMgICAgIDUgICAgMTcgICAgICBBQSAgICAgICAgIDIgICAgICAxNDcgICAgIDEwOTYgICAgICAgMi40NTAwMDBcbjYgICAyMDEzICAgICA1ICAgIDE3ICAgICAgQUEgICAgICAgIC00ICAgICAgMTE0ICAgICAgNzMzICAgICAgIDEuOTAwMDAwXG43ICAgMjAxMyAgICAgNSAgICAxNyAgICAgIEFBICAgICAgICAtNyAgICAgIDExNyAgICAgIDczMyAgICAgICAxLjk1MDAwMFxuOCAgIDIwMTMgICAgIDUgICAgMTcgICAgICBBQSAgICAgICAgLTcgICAgICAxNDIgICAgIDEwODkgICAgICAgMi4zNjY2NjdcbjkgICAyMDEzICAgICA1ICAgIDE3ICAgICAgQUEgICAgICAgIC02ICAgICAgMTQ4ICAgICAxMDg5ICAgICAgIDIuNDY2NjY3XG4xMCAgMjAxMyAgICAgNSAgICAxNyAgICAgIEFBICAgICAgICAtNyAgICAgIDEzNyAgICAgIDk0NCAgICAgICAyLjI4MzMzM1xuIyAuLi4gd2l0aCBtb3JlIHJvd3NcbiJ9 -->
+<pre><code>Source:   query [?? x 8]
+Database: spark connection master=local[4] app=sparklyr local=TRUE
+
+    year month   day carrier dep_delay air_time distance air_time_hours
+   &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;          &lt;dbl&gt;
+1   2013     5    17      AA        -2      294     2248       4.900000
+2   2013     5    17      AA        -1      146     1096       2.433333
+3   2013     5    17      AA        -2      185     1372       3.083333
+4   2013     5    17      AA        -9      186     1389       3.100000
+5   2013     5    17      AA         2      147     1096       2.450000
+6   2013     5    17      AA        -4      114      733       1.900000
+7   2013     5    17      AA        -7      117      733       1.950000
+8   2013     5    17      AA        -7      142     1089       2.366667
+9   2013     5    17      AA        -6      148     1089       2.466667
+10  2013     5    17      AA        -7      137      944       2.283333
+# ... with more rows</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -264,7 +312,7 @@ c4 &lt;- mutate(c3, air_time_hours = air_time / 60)</code></pre>
 <p>You can use <a href="https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html">magrittr</a> pipes to write cleaner syntax. Using the same example from above, you can write a much cleaner version like this:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjpbImM0IDwtIGZsaWdodHMgJT4lIiwiICBmaWx0ZXIobW9udGggPT0gNSwgZGF5ID09IDE3LCBjYXJyaWVyICVpbiUgYygnVUEnLCAnV04nLCAnQUEnLCAnREwnKSkgJT4lIiwiICBzZWxlY3QoY2FycmllciwgZGVwX2RlbGF5LCBhaXJfdGltZSwgZGlzdGFuY2UpICU+JSIsIiAgYXJyYW5nZShjYXJyaWVyKSAlPiUiLCIgIG11dGF0ZShhaXJfdGltZV9ob3VycyA9IGFpcl90aW1lIC8gNjApIl19 -->
+<!-- rnb-source-begin -->
 <pre class="r"><code>c4 &lt;- flights %&gt;%
   filter(month == 5, day == 17, carrier %in% c('UA', 'WN', 'AA', 'DL')) %&gt;%
   select(carrier, dep_delay, air_time, distance) %&gt;%
@@ -279,11 +327,22 @@ c4 &lt;- mutate(c3, air_time_hours = air_time / 60)</code></pre>
 <p>The <code>group_by</code> function corresponds to the <code>GROUP BY</code> statement in SQL.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjpbImM0ICU+JSIsIiAgZ3JvdXBfYnkoY2FycmllcikgJT4lIiwiICBzdW1tYXJpemUoY291bnQgPSBuKCksIG1lYW5fZGVwX2RlbGF5ID0gbWVhbihkZXBfZGVsYXkpKSJdfQ== -->
+<!-- rnb-source-begin -->
 <pre class="r"><code>c4 %&gt;%
   group_by(carrier) %&gt;%
   summarize(count = n(), mean_dep_delay = mean(dep_delay))</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiU291cmNlOiAgIHF1ZXJ5IFs/PyB4IDNdXG5EYXRhYmFzZTogc3BhcmsgY29ubmVjdGlvbiBtYXN0ZXI9bG9jYWxbNF0gYXBwPXNwYXJrbHlyIGxvY2FsPVRSVUVcblxuICBjYXJyaWVyICAgICBjb3VudCBtZWFuX2RlcF9kZWxheVxuICAgIDxjaHI+ICAgIDxsaXN0PiAgICAgICAgICA8ZGJsPlxuMSAgICAgIEFBIDxkYmwgWzFdPiAgICAgICAxLjQ2ODA4NVxuMiAgICAgIERMIDxkYmwgWzFdPiAgICAgICA2LjIzNTI5NFxuMyAgICAgIFVBIDxkYmwgWzFdPiAgICAgICA5LjYzMzcyMVxuNCAgICAgIFdOIDxkYmwgWzFdPiAgICAgICA3Ljk3MDU4OFxuIn0= -->
+<pre><code>Source:   query [?? x 3]
+Database: spark connection master=local[4] app=sparklyr local=TRUE
+
+  carrier     count mean_dep_delay
+    &lt;chr&gt;    &lt;list&gt;          &lt;dbl&gt;
+1      AA &lt;dbl [1]&gt;       1.468085
+2      DL &lt;dbl [1]&gt;       6.235294
+3      UA &lt;dbl [1]&gt;       9.633721
+4      WN &lt;dbl [1]&gt;       7.970588</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -292,7 +351,7 @@ c4 &lt;- mutate(c3, air_time_hours = air_time / 60)</code></pre>
 <p>You can copy data from Spark into R’s memory by using <code>collect()</code>.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiY2FycmllcmhvdXJzIDwtIGNvbGxlY3QoYzQpIn0= -->
+<!-- rnb-source-begin -->
 <pre class="r"><code>carrierhours &lt;- collect(c4)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
@@ -300,17 +359,36 @@ c4 &lt;- mutate(c3, air_time_hours = air_time / 60)</code></pre>
 <p><code>collect()</code> executes the Spark query and returns the results to R for further analysis and visualization.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjpbIiMgVGVzdCB0aGUgc2lnbmlmaWNhbmNlIG9mIHBhaXJ3aXNlIGRpZmZlcmVuY2VzIGFuZCBwbG90IHRoZSByZXN1bHRzIiwid2l0aChjYXJyaWVyaG91cnMsIHBhaXJ3aXNlLnQudGVzdChhaXJfdGltZSwgY2FycmllcikpIiwiZ2dwbG90KGNhcnJpZXJob3VycywgYWVzKGNhcnJpZXIsIGFpcl90aW1lX2hvdXJzKSkgKyBnZW9tX2JveHBsb3QoKSJdfQ== -->
+<!-- rnb-source-begin -->
 <pre class="r"><code># Test the significance of pairwise differences and plot the results
-with(carrierhours, pairwise.t.test(air_time, carrier))
-ggplot(carrierhours, aes(carrier, air_time_hours)) + geom_boxplot()</code></pre>
+with(carrierhours, pairwise.t.test(air_time, carrier))</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5cdFBhaXJ3aXNlIGNvbXBhcmlzb25zIHVzaW5nIHQgdGVzdHMgd2l0aCBwb29sZWQgU0QgXG5cbmRhdGE6ICBhaXJfdGltZSBhbmQgY2FycmllciBcblxuICAgQUEgICAgICBETCAgICAgIFVBICAgICBcbkRMIDAuMjUwNTcgLSAgICAgICAtICAgICAgXG5VQSAwLjA3OTU3IDAuMDAwNDQgLSAgICAgIFxuV04gMC4wNzk1NyAwLjIzNDg4IDAuMDAwNDFcblxuUCB2YWx1ZSBhZGp1c3RtZW50IG1ldGhvZDogaG9sbSBcbiJ9 -->
+<pre><code>
+    Pairwise comparisons using t tests with pooled SD 
+
+data:  air_time and carrier 
+
+   AA      DL      UA     
+DL 0.25057 -       -      
+UA 0.07957 0.00044 -      
+WN 0.07957 0.23488 0.00041
+
+P value adjustment method: holm </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin -->
+<pre class="r"><code>ggplot(carrierhours, aes(carrier, air_time_hours)) + geom_boxplot()</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-plot-begin -->
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAooAAAGRCAMAAADVU2J7AAAC4lBMVEUAAAABAQECAgIDAwMEBAQGBgYHBwcICAgJCQkLCwsMDAwNDQ0ODg4PDw8QEBASEhITExMUFBQVFRUWFhYXFxcYGBgZGRkaGhobGxscHBwdHR0eHh4gICAhISEjIyMkJCQlJSUmJiYpKSkqKiorKyssLCwtLS0uLi4vLy8xMTEyMjIzMzM0NDQ1NTU2NjY3Nzc4ODg5OTk6Ojo7Ozs8PDw9PT0+Pj4/Pz9AQEBBQUFCQkJDQ0NERERFRUVGRkZHR0dISEhJSUlKSkpLS0tMTExNTU1OTk5PT09QUFBRUVFSUlJTU1NUVFRVVVVWVlZXV1dYWFhZWVlaWlpbW1tcXFxdXV1eXl5fX19gYGBhYWFiYmJjY2NkZGRlZWVmZmZnZ2doaGhpaWlqampra2tsbGxtbW1ubm5vb29wcHBxcXFycnJzc3N0dHR1dXV2dnZ3d3d4eHh5eXl6enp7e3t8fHx9fX1+fn5/f3+AgICBgYGCgoKDg4OEhISFhYWGhoaHh4eIiIiJiYmLi4uMjIyNjY2Ojo6Pj4+QkJCRkZGSkpKTk5OUlJSVlZWWlpaXl5eYmJiZmZmampqbm5ucnJydnZ2enp6fn5+goKChoaGioqKjo6OkpKSlpaWmpqanp6eoqKipqamqqqqrq6usrKytra2urq6wsLCxsbGysrKzs7O0tLS1tbW2tra3t7e4uLi5ubm6urq7u7u8vLy9vb2+vr6/v7/AwMDBwcHCwsLDw8PExMTFxcXGxsbHx8fIyMjJycnKysrLy8vMzMzNzc3Ozs7Pz8/Q0NDR0dHS0tLT09PU1NTV1dXW1tbX19fY2NjZ2dna2trb29vc3Nzd3d3e3t7f39/g4ODh4eHi4uLj4+Pk5OTl5eXm5ubn5+fo6Ojp6enq6urr6+vs7Ozt7e3u7u7v7+/w8PDx8fHy8vLz8/P09PT19fX29vb39/f4+Pj5+fn6+vr7+/v8/Pz9/f3+/v7///+eO51ZAAAACXBIWXMAAA7DAAAOwwHHb6hkAAATbElEQVR4nO3de4BU5XmA8fWaSlujQtNLGttoa5oMXqiiUDQRWkCWIrjsgkJqAC+ABlZEo6kCaoxgQBA1ola0Kmi51LCBVQqiAhGrgAkEAoIrRXSBXWBv8/3fmdkzZxf92Jk9+873vbPzPH/MnB1nPt8z/pzLXuYUGSIVFfkegKg5KJKSoEhKgiIpCYqkJCiSkjpAsVq82nr5NSN2qOGw7xHC6o/4niDsaF0OFu04xf3i1cbl14zYF6ba9whhTUd8TxB2tDEHi0KxzaBoDYrug6I1KLoPitag6D4oWoOi+6BoDYrug6I1KLoPitag6D4oWoOi+6BoDYrug6I1KLoPitag6D49FPfOnzClwvcQ6aDoPj0UJ8QSLfE9RRAU3aeG4kdJibEf+h4jCIruU0NxbYriIN9jBPmjGB9/MHG6cdyoWXWpr1u2oOioPSmKU3yPEeSN4vJJ/RMUa0t2Nk5blPy6ZQuKznop+aD4O99TBHmj+OG7xQmKq+8x5r3bkl+3bEHRXdvefOtT3zOk8/hacUiC4uLZxuwZkfyqZWvBggVv1ohXF5dfM2JHzFHfI4TF631PENbQJL/moXZSLAspJrfiiSeNqW3fkii70m8+sqC4+l5jNk1MftWylUz+kZonaGv8tCVNsWZ4VfyhxJuVj4+lt6DoNCimKZoNt970aOJRdODm9BYUnQbFTMnPBEVrUISikqAIRSVBEYpKgiIUlQRFKCoJilBUEhShqCQoQlFJUISikqAIRSVBEYpKgiIUlQRFKCoJilBUEhShqCQoQlFJUISikqAIRSVBEYpKgiIUlQRFKCoJilBUEhShqCQoQlFJUISikqAIRSVBEYpKgiIUlQRFKCoJilBUEhShqCQoQlFJUISikqAIRSVBEYpKgiIUlQTFTB0Wry4uv2bEas0R3yOExet8TxBW3yS/5sGOUzwk3rG4/JoRqzG1vkcIi9f5niCsvkl+zeqOU5R/pOYJ2hpP0FBUEhShqCQoQlFJUISikqAIRSVBEYpKgiIUlQRFKCoJilBUEhShqCQoQlFJUISikqAIRSVBEYpKgiIUlQRFKCoJilBUEhShqCQoQlFJUISikqAIRSVBEYpKgiIUlQRFKCoJilBUEhShqCQoQlFJUISikqAIRSVBEYpKgiIUlQRFKCoJilBUEhShqCQoQlFJUISikqCY7tXiRAMPJDfLBxUXz4ei46DYundmps5Ka3lUdB8UW3XkzqOps5L0BQcPHjzymXi1cfk1I1Ztqn2PENaUg7s6Ykcbc7Bouyg+vjZ1tmN4+ejp+xIb8VgsNjWrWxJlqC44z4rinvHx1PmuBdWNCycntyoqKj6QP64RR7OyxtGsWlq4NPDbYEz14HhwqfyLBl4rWuO1Ylh8zOfJs4+PVUysiS+9K32x/ExQtAbFsG1jUmcDNzc9WTr6vvQtoegqKGZKfiYoWoMiFJUERSgqCYpQVBIUoagkKEJRSVCEopKgCEUlQRGKSoIiFJUERSgqCYpQVBIUoagkKEJRSVCEopKgCEUlQRGKSoIiFJUERSgqCYpQVFJhUly73Sy95id1X2EHRY8VJMWfFb1S+/WB37wdilC05o7iXz4Yf/q8+Et/BUUoWnNH8fR3TMkEs/40KELRmjuKF9zzhzN+ZR76FhShaM0dxcWnFsUa7i96GIpQtObwHfTOihrzxqqsJELRVQVJsX+WCqHosoKk2Oc2KDYHRWvuKK77zp1LKhNBEYrWHH4zJwiKULTGz6DdB0Vr7ih+6R9CUUUFSbEoCIpQtOaO4rZE7z/5Dx9AEYrWXL9WXNYbilC05pri9i5ZUZQ/rBFHs7JWkEez+iDZ+iHnZUXxmHgNOVgzYnWm3vcIYfFG3xOENcbl16yxUmx+09J1RVYU5R+peYK2VpBP0IdTxb/KDooeK0iKpqly7i9WNkERivbcUfz0uyd/69xTvrcPilC05o7i0B67jNl1UclX3UHRXwVJsesbydPKblCEojV3FM9pptgVilC05vAJ+pLdxuy+eBgUoWjN4duW2CnnnntKjLctULTn8ps5b8ybV8k3c6B4ghxSPLYzFRShaM0dxf/8Gr+v2BwUrbmj+Ndlv69KBkVNFJdt9D1BmDuKf/xhVgih6LS+j/ieIMwdxX6LfFK89ZIL+1aKrxotKFpzRLGysvLFP79vube/g74jlqjHXullo3Xg4AHfI4QVHsXTW/JCsVeSYmyR9LLR2hBb43uEsMKjeFzPuad4WYris9LLRguK1nxQ7OOe4g1JiRftlF42WlC0ViAU11+YoDhGetWIQdFagVCcmHqC3ia9bLSgaK1AKPZOUVwivWy0oGitQCheyjtoe1B0TfHiFMWl0stGC4rWCoRi9xTF+6WXjRYUrRUUxZ9LLxstKFpzSPHAaw8f2pw8xN+b7in2SFF8XXrZaEHRmjuKW87pdmrVtd/ekdlhDij2SVH8lfSy0YKiNXcUfzC4vlvVgR8M8kKx+Zs5v5ZeNlpQtOaO4hlvm25VZuWZXij2TFFcLL1stHJEcd8jd7e/y4ZFuNHyXIzv8sinlUmKr/+FF4rNrxVflV42Wjmi+GHs+wOc1HNkLsZ3SHFcj33dqjb//Q+9UGz+vuIz0stGK2cU/yer+7bDTRmRi/EdUqy55uSTziy6qjqrvZWeqPmbOT+TXjZaULTm8vuKW156YZOnz1dspviA9LLRgqI1hxQPbk2V1d5KT3RJiuJz0stGC4rW3FGcdbLHv4MelKK4XXrZaEHRmjuKZ43f8UWyrPZWeqLrUxTfkV42WlC05vDzFa0/ZykfVFw8P7W1cdyoWXXpi6UnKk1RXC29bLSgaM0dxfF32d6ylNYGG7UlOxunhX8qLT3RI0mJ/ZT88SkUrbmjuPtr5/f750THXXgk/Dzk1fcY81549HLpiT6ZHIsN1PIn+VC05o7i5d8YNzXZcRfuGF4+enrqIxcXzzZmz4jERnzs2LG/rBfv0P/JrxmxLbENuVh2lzOKo3Ixfn1TXH7N9HPulz4zZ5Nlr3YtqG5cODm5laJYltiIl5eXvyB/XCNFR7P6MLY+F8vudEbxhlyM7/BoVpevtuxVXYMx1YOTLyJX32vMponpy+UfqRV9fBNP0NbcPUEvO/+JFRWJjruwYmJNfOldxnx8rGZ4VfyhnL1tgaJgeU/xjKDjLmx6snT0fYnrD9xsNtx606M5+2bO/v2v3i6/ZsSgaM3H37ZkkfxMc3vJrxkxKFpzRHHuW8nPtav09qF2UBQsvykW3W68fqgdFAXLb4o7D7Rvb+VngqJY+U0xUZ/G5GnVNVntrfxMUBQrzynOmFF0/4xEo87Oam/lZ4KiWDmi+NrcHCwajNya4hVXFF1+RaJ/ejarvZWfCYpi5YjifUNysGgw8vFP0LGG9JaHD0CGomB5T7ElD5+ZA0XBoNixoCgWFDsWFMWCYseColhQ7FhQFAuKHQuKYkGxY0FRLCh2LCiKlfcU+69Kb3n4AGQoCpb3FPvc9tWdOmHyM0FRrLynuO47dy7hV2eTQdGaO4r86mw6KFrz8bYli+RngqJY+U2Rv21pFRStOaLI37a0CorWHFHkb1taBUVrrl8rbuid1d7KzwRFsfKe4m+6n5XotEuz2lv5maAoVt5TvOzq57v+cs7Z27PaW/mZoChW3lM8Y6W5frmZ+69Z7a38TFAUK+8pdqkws6ea9WdltbfyM0FRrLyn2KffrjXn1z3WNau9lZ8JimLlPcUt332g4bIuJ92d1d7KzwRFsfKeojFNpnZpZXZHVpOfCYpidQKK7Uh+JiiKBcWOBUWxoNixoCgWFDsWFMWCYseColiFRVH+uEbze8mvGTGOZmVt2rXya9qPZtWu5P/34FFRrMJ6VJSfCYpiQbFjQVEsKHasHFFcVzqs3RVfNKj9Nyp9M9MoULQUjFwIFJ+KlbvpotmZRoGipWDkgqDYXeS/buZ6QjFKwchQFAyKkQpGhqJgUIxUMDIUBYNipIKRoSgYFCMVjAxFwaAYqWBkKAoGxUgFI0NRMChGKhgZioJBMVLByFAULBuKDy5yUllZTu7KvKQ4v/0/wh3W79IINxq9M9OuqqLoqtLsKbSjvKR4479Mc9KE2PpMuwpFsfKT4kSR/7oZ25BnFO9d4KTroBgGRVu8bbEUjAxFwaAYqWBkKAoGxUgFI0NRMChGKhgZioJBMVLByFAULL8ovnh3+xvcO8KNHskwSDAyFAXLL4rFV5Y6qX8sww8hgpGhKFieUZzhZpRlUAyDojUoCgdFa1BsCYq2oGgpuB4UBYOiLSi2BEVrUBQOitag2BIUbUHRUnA9KAoGRVtQbAmK1qAoHBStQbElKNqCoqXgetlQXPGjkXftTW2VDyounp++uO31oWgLipaC62VBcU/JvoZXfpzaLK1tdXnb60PRFhQtBdfLguKmBQmOw5NbR0paX972+lC0BUVLwfWye61Y9+C85NmO4eWjp+9Lbi1atOjdw2021hnF/217kMOHn3FG8fFMo2xzRvH6TKMcHuyMYlWbcxwMrpcVxbf+7YnG5PmuBdWNCycnNuKxWGxq27e5qc9YJw2Pbc80/ovOKD6d6Rp7nVEcnfEqQ5xRPNTmP68LzrOgGH9s0u7gRg3GVA9OH7i87UfdG519DsL6TM9EPEFby8Mn6I23pB4SzcfHKibWxJfelb687fWhaAuKloLrZUHxmQHFxcWlxgzc3PRk6ej70rfMRHHsHie9DkVbnZPiiWp7fd5B24KipeB6BUHR1UuF/DqaFRSFg6I1KLakiWL3AW6Coi0otsRrRWtQFA6K1qDYEhRtQdFScD0oCpYNxevc/Dz0KiiG/eji3k7qGduQ6T5XRHFv+YT294/FEW70VKZRCofiigfb3w09Itzo0apM97kiipHqm+lT4aJVMBSj1PkPIRQpKGZK/s6BojUoZkr+zoGiNShmSv7OgaI1KGZK/s6BorUcURw4sNxJI6AYBkVrA1z9lggUw6BoDYptBEVrOaI46Ho3R768A4phULRW5upBscfetgcJ7j0oCpZfFHd/0P6mDIpwo+0ZBgnuPSgKll8Uo5SXB1aLUq4oxhz9FveFc3IyPxQ7DcX3f9L+49JNjN0S4Wh2GX9JKFKKKL69IgeLFhDFKG2IrfE9Qpgiikcbc7AoFNsMitag6D4oWoOi+6BoDYrug6I1KLoPitag6D4oWoOi+6BoDYrug6I1KLoPitag6D4oWoOi+6BoDYrug6I1KLoPitaUUsx4uKR293gv+TUj9n7sbd8jhPWd6XuCsPom+TXbdTQre4fEm9dLfs2IbYqt8z1CWN+ZvicIq2+SX7O64xTlH6l5grbGEzQUlQRFKCoJilBUEhShqCQoQlFJUISikqAIRSVBEYpKgiIUlQRFKCoJilBUEhShqCQoQlFJUISikqAIRSVBEYpKgiIUlQRFKCoJilBUEhShqCQoFjTFT7dU+R4h7Le7fE8QVjAUt6ySXzNiX5hq3yOENR3xPUFYwVCsjcuvGTEoWoOi+6BoDYrug6I1KLoPitag6D4oWoOi+6BoDYrug6I1KLoPitag6D4oWoOi+6BoDYrug6I1KLoPitag6D4oWoOi+6BoDYrug6I1pRTlW3mv7wnC9pbv9D1C2PT/9j1B2OKf525tVRSf7OV7grDfxt7zPUJY31/4niBs+rW5WxuK9qBoDYrug6K1gqFIhRwUSUlQJCVpodgwfEy89bnHhpSUlUzeYmr613kexJj+nydOnpvv/26Z/agxu/u/Y8xrk/b3X5q4YPE88X+HFoprxw37qPW5x4Z8YpreHbZHFUXfd8vaGxP6RiTePk1fuL+4dG+npvjTRbPmtD73WIKiMU8/poqi77vl8IDPzJ0rR8Tjw7fuL1k+qakTUzxwzf6NQ+tazn2WorjmDk0U/d8tP36jtqTx5t/tHtq4vyR+9yudmOIrU03jdatbzn2mkKL/u+X52WseMM/+x/JpZn+J2V/6h05LMT6mbMyYofeE515T9ARdXJU4eeIZBXfLljGzKsxH4x9alqRoVo1/qbNS3DqkxphtAz5Ln3sdJvm2Zb2Oty0/nX00/vuR7yu4WxqHXve5aSod+kmKYnzaiM5K8dHUjk16OX3udZjkN3MmbTY1/UvLysq2eh2leubIklsqjYa7ZdqExMnM0fEURVNd2lkpEkGRtARFUhIUSUlQJCVBkZQExdy3s2iu7xHyISjmvgO3v+V7hHwIiqQkKMpVNeSsbjcdNVuv+pMuPX9jzOnrruwfnFSampu/2aXvluBCsgVFsRr/7vtrl3WdYr7Xt+LXV3dPqLtg4srgpNJc02PluuKunzd/TbagKNZ//dEBY+aPbHpglzHPn5WgeKdJn1RuPflTY+q7vdb8NdmColgzYs3nDWvn3NA1SXGJSZ9UvnxSt0SnPtz8NdmColj/flHqrLbneVOXPZWkWGnCkxfOrEp2qPlrsgVFsV7uUp14lu69tMsxY+Z8ieKmos3GHLh2MxRPHBTFqvubfm+t+vYtlSfN3fD4OadtOI5i/MoLVqy6+m/roHjioCjXrgFn/tnNtfGpZ3998PZLex9H0Xwx6ht/OnCHgeKJgyIpCYqkJCiSkqBISoIiKQmKpCQokpKgSEqCIikJiqSk/wdwj8WpIFFBiQAAAABJRU5ErkJggg==" /></p>
+<!-- rnb-plot-end -->
+<!-- unknown-chunk-output -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>If you want to execute a query and store the results in a temporary table, use <code>compute()</code></p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjpbImNvbXB1dGUoYzQsICdjYXJyaWVyaG91cnMnKSIsInNyY190YmxzKHNjKSJdfQ== -->
+<!-- rnb-source-begin -->
 <pre class="r"><code>compute(c4, 'carrierhours')
 src_tbls(sc)</code></pre>
 <!-- rnb-source-end -->
@@ -340,28 +418,82 @@ mean, sum, min, max</code></pre>
 <p>dplyr supports Spark SQL window functions. Window functions are used in conjunction with mutate and filter to solve a wide range of problems. You can compare the dplyr syntax to the query it has generated by using <code>sql_render()</code>.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjpbIiMgRmluZCB0aGUgbW9zdCBhbmQgbGVhc3QgZGVsYXllZCBmbGlnaHQgZWFjaCBkYXkiLCJiZXN0d29yc3QgPC0gZmxpZ2h0cyAlPiUiLCIgIGdyb3VwX2J5KHllYXIsIG1vbnRoLCBkYXkpICU+JSIsIiAgc2VsZWN0KGRlcF9kZWxheSkgJT4lICIsIiAgZmlsdGVyKGRlcF9kZWxheSA9PSBtaW4oZGVwX2RlbGF5KSB8fCBkZXBfZGVsYXkgPT0gbWF4KGRlcF9kZWxheSkpIiwic3FsX3JlbmRlcihiZXN0d29yc3QpIiwiYmVzdHdvcnN0Il19 -->
+<!-- rnb-source-begin -->
 <pre class="r"><code># Find the most and least delayed flight each day
 bestworst &lt;- flights %&gt;%
   group_by(year, month, day) %&gt;%
   select(dep_delay) %&gt;% 
   filter(dep_delay == min(dep_delay) || dep_delay == max(dep_delay))
-sql_render(bestworst)
-bestworst</code></pre>
+sql_render(bestworst)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiPFNRTD4gU0VMRUNUIGB5ZWFyYCwgYG1vbnRoYCwgYGRheWAsIGBkZXBfZGVsYXlgXG5GUk9NIChTRUxFQ1QgYHllYXJgLCBgbW9udGhgLCBgZGF5YCwgYGRlcF9kZWxheWAsIG1pbihgZGVwX2RlbGF5YCkgT1ZFUiAoUEFSVElUSU9OIEJZIGB5ZWFyYCwgYG1vbnRoYCwgYGRheWApIEFTIGB6eno0YCwgbWF4KGBkZXBfZGVsYXlgKSBPVkVSIChQQVJUSVRJT04gQlkgYHllYXJgLCBgbW9udGhgLCBgZGF5YCkgQVMgYHp6ejVgXG5GUk9NIChTRUxFQ1QgYHllYXJgIEFTIGB5ZWFyYCwgYG1vbnRoYCBBUyBgbW9udGhgLCBgZGF5YCBBUyBgZGF5YCwgYGRlcF9kZWxheWAgQVMgYGRlcF9kZWxheWBcbkZST00gYGZsaWdodHNgKSBgcHh1eWx3eW9wZmApIGB1c3dhdmtlY3BiYFxuV0hFUkUgKGBkZXBfZGVsYXlgID0gYHp6ejRgIE9SIGBkZXBfZGVsYXlgID0gYHp6ejVgKVxuIn0= -->
+<pre><code>&lt;SQL&gt; SELECT `year`, `month`, `day`, `dep_delay`
+FROM (SELECT `year`, `month`, `day`, `dep_delay`, min(`dep_delay`) OVER (PARTITION BY `year`, `month`, `day`) AS `zzz4`, max(`dep_delay`) OVER (PARTITION BY `year`, `month`, `day`) AS `zzz5`
+FROM (SELECT `year` AS `year`, `month` AS `month`, `day` AS `day`, `dep_delay` AS `dep_delay`
+FROM `flights`) `pxuylwyopf`) `uswavkecpb`
+WHERE (`dep_delay` = `zzz4` OR `dep_delay` = `zzz5`)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin -->
+<pre class="r"><code>bestworst</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiU291cmNlOiAgIHF1ZXJ5IFs/PyB4IDRdXG5EYXRhYmFzZTogc3BhcmsgY29ubmVjdGlvbiBtYXN0ZXI9bG9jYWxbNF0gYXBwPXNwYXJrbHlyIGxvY2FsPVRSVUVcbkdyb3VwczogeWVhciwgbW9udGgsIGRheVxuXG4gICAgeWVhciBtb250aCAgIGRheSBkZXBfZGVsYXlcbiAgIDxpbnQ+IDxpbnQ+IDxpbnQ+ICAgICA8ZGJsPlxuMSAgIDIwMTMgICAgIDEgICAgIDEgICAgICAgODUzXG4yICAgMjAxMyAgICAgMSAgICAgMSAgICAgICAtMTVcbjMgICAyMDEzICAgICAxICAgICAxICAgICAgIC0xNVxuNCAgIDIwMTMgICAgIDEgICAgIDkgICAgICAxMzAxXG41ICAgMjAxMyAgICAgMSAgICAgOSAgICAgICAtMTdcbjYgICAyMDEzICAgICAxICAgIDE0ICAgICAgIC0yMFxuNyAgIDIwMTMgICAgIDEgICAgMTQgICAgICAgMzM0XG44ICAgMjAxMyAgICAgMSAgICAyMyAgICAgICAtMThcbjkgICAyMDEzICAgICAxICAgIDIzICAgICAgIDQ3OFxuMTAgIDIwMTMgICAgIDEgICAgMjQgICAgICAgLTE1XG4jIC4uLiB3aXRoIG1vcmUgcm93c1xuIn0= -->
+<pre><code>Source:   query [?? x 4]
+Database: spark connection master=local[4] app=sparklyr local=TRUE
+Groups: year, month, day
+
+    year month   day dep_delay
+   &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;
+1   2013     1     1       853
+2   2013     1     1       -15
+3   2013     1     1       -15
+4   2013     1     9      1301
+5   2013     1     9       -17
+6   2013     1    14       -20
+7   2013     1    14       334
+8   2013     1    23       -18
+9   2013     1    23       478
+10  2013     1    24       -15
+# ... with more rows</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjpbIiMgUmFuayBlYWNoIGZsaWdodCB3aXRoaW4gYSBkYWlseSIsInJhbmtlZCA8LSBmbGlnaHRzICU+JSIsIiAgZ3JvdXBfYnkoeWVhciwgbW9udGgsIGRheSkgJT4lIiwiICBzZWxlY3QoZGVwX2RlbGF5KSAlPiUgIiwiICBtdXRhdGUocmFuayA9IHJhbmsoZGVzYyhkZXBfZGVsYXkpKSkiLCJzcWxfcmVuZGVyKHJhbmtlZCkiLCJyYW5rZWQiXX0= -->
+<!-- rnb-source-begin -->
 <pre class="r"><code># Rank each flight within a daily
 ranked &lt;- flights %&gt;%
   group_by(year, month, day) %&gt;%
   select(dep_delay) %&gt;% 
   mutate(rank = rank(desc(dep_delay)))
-sql_render(ranked)
-ranked</code></pre>
+sql_render(ranked)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiPFNRTD4gU0VMRUNUIGB5ZWFyYCwgYG1vbnRoYCwgYGRheWAsIGBkZXBfZGVsYXlgLCByYW5rKCkgT1ZFUiAoUEFSVElUSU9OIEJZIGB5ZWFyYCwgYG1vbnRoYCwgYGRheWAgT1JERVIgQlkgYGRlcF9kZWxheWAgREVTQykgQVMgYHJhbmtgXG5GUk9NIChTRUxFQ1QgYHllYXJgIEFTIGB5ZWFyYCwgYG1vbnRoYCBBUyBgbW9udGhgLCBgZGF5YCBBUyBgZGF5YCwgYGRlcF9kZWxheWAgQVMgYGRlcF9kZWxheWBcbkZST00gYGZsaWdodHNgKSBgcmtidXdhZWlycWBcbiJ9 -->
+<pre><code>&lt;SQL&gt; SELECT `year`, `month`, `day`, `dep_delay`, rank() OVER (PARTITION BY `year`, `month`, `day` ORDER BY `dep_delay` DESC) AS `rank`
+FROM (SELECT `year` AS `year`, `month` AS `month`, `day` AS `day`, `dep_delay` AS `dep_delay`
+FROM `flights`) `rkbuwaeirq`</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin -->
+<pre class="r"><code>ranked</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiU291cmNlOiAgIHF1ZXJ5IFs/PyB4IDVdXG5EYXRhYmFzZTogc3BhcmsgY29ubmVjdGlvbiBtYXN0ZXI9bG9jYWxbNF0gYXBwPXNwYXJrbHlyIGxvY2FsPVRSVUVcbkdyb3VwczogeWVhciwgbW9udGgsIGRheVxuXG4gICAgeWVhciBtb250aCAgIGRheSBkZXBfZGVsYXkgIHJhbmtcbiAgIDxpbnQ+IDxpbnQ+IDxpbnQ+ICAgICA8ZGJsPiA8aW50PlxuMSAgIDIwMTMgICAgIDEgICAgIDEgICAgICAgODUzICAgICAxXG4yICAgMjAxMyAgICAgMSAgICAgMSAgICAgICAzNzkgICAgIDJcbjMgICAyMDEzICAgICAxICAgICAxICAgICAgIDI5MCAgICAgM1xuNCAgIDIwMTMgICAgIDEgICAgIDEgICAgICAgMjg1ICAgICA0XG41ICAgMjAxMyAgICAgMSAgICAgMSAgICAgICAyNjAgICAgIDVcbjYgICAyMDEzICAgICAxICAgICAxICAgICAgIDI1NSAgICAgNlxuNyAgIDIwMTMgICAgIDEgICAgIDEgICAgICAgMjE2ICAgICA3XG44ICAgMjAxMyAgICAgMSAgICAgMSAgICAgICAxOTIgICAgIDhcbjkgICAyMDEzICAgICAxICAgICAxICAgICAgIDE1NyAgICAgOVxuMTAgIDIwMTMgICAgIDEgICAgIDEgICAgICAgMTU1ICAgIDEwXG4jIC4uLiB3aXRoIG1vcmUgcm93c1xuIn0= -->
+<pre><code>Source:   query [?? x 5]
+Database: spark connection master=local[4] app=sparklyr local=TRUE
+Groups: year, month, day
+
+    year month   day dep_delay  rank
+   &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;int&gt;
+1   2013     1     1       853     1
+2   2013     1     1       379     2
+3   2013     1     1       290     3
+4   2013     1     1       285     4
+5   2013     1     1       260     5
+6   2013     1     1       255     6
+7   2013     1     1       216     7
+8   2013     1     1       192     8
+9   2013     1     1       157     9
+10  2013     1     1       155    10
+# ... with more rows</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -377,11 +509,78 @@ ranked</code></pre>
 <p>The following statements are equivalent:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjpbImZsaWdodHMgJT4lIGlubmVyX2pvaW4oYWlybGluZXMpIiwiZmxpZ2h0cyAlPiUgaW5uZXJfam9pbihhaXJsaW5lcywgYnkgPSBcImNhcnJpZXJcIikiLCJmbGlnaHRzICU+JSBpbm5lcl9qb2luKGFpcmxpbmVzLCBieSA9IGMoXCJjYXJyaWVyXCIgPSBcImNhcnJpZXJcIikpIl19 -->
-<pre class="r"><code>flights %&gt;% inner_join(airlines)
-flights %&gt;% inner_join(airlines, by = &quot;carrier&quot;)
-flights %&gt;% inner_join(airlines, by = c(&quot;carrier&quot; = &quot;carrier&quot;))</code></pre>
+<!-- rnb-source-begin -->
+<pre class="r"><code>flights %&gt;% inner_join(airlines)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiSm9pbmluZywgYnkgPSBcImNhcnJpZXJcIlxuIn0= -->
+<pre><code>Joining, by = &quot;carrier&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiU291cmNlOiAgIHF1ZXJ5IFs/PyB4IDIwXVxuRGF0YWJhc2U6IHNwYXJrIGNvbm5lY3Rpb24gbWFzdGVyPWxvY2FsWzRdIGFwcD1zcGFya2x5ciBsb2NhbD1UUlVFXG5cbiAgIGNhcnJpZXIgIHllYXIgbW9udGggICBkYXkgZGVwX3RpbWUgc2NoZWRfZGVwX3RpbWUgZGVwX2RlbGF5IGFycl90aW1lIHNjaGVkX2Fycl90aW1lIGFycl9kZWxheVxuICAgICA8Y2hyPiA8aW50PiA8aW50PiA8aW50PiAgICA8aW50PiAgICAgICAgICA8aW50PiAgICAgPGRibD4gICAgPGludD4gICAgICAgICAgPGludD4gICAgIDxkYmw+XG4xICAgICAgIFVBICAyMDEzICAgICAxICAgICAxICAgICAgNTE3ICAgICAgICAgICAgNTE1ICAgICAgICAgMiAgICAgIDgzMCAgICAgICAgICAgIDgxOSAgICAgICAgMTFcbjIgICAgICAgVUEgIDIwMTMgICAgIDEgICAgIDEgICAgICA1MzMgICAgICAgICAgICA1MjkgICAgICAgICA0ICAgICAgODUwICAgICAgICAgICAgODMwICAgICAgICAyMFxuMyAgICAgICBBQSAgMjAxMyAgICAgMSAgICAgMSAgICAgIDU0MiAgICAgICAgICAgIDU0MCAgICAgICAgIDIgICAgICA5MjMgICAgICAgICAgICA4NTAgICAgICAgIDMzXG40ICAgICAgIEI2ICAyMDEzICAgICAxICAgICAxICAgICAgNTQ0ICAgICAgICAgICAgNTQ1ICAgICAgICAtMSAgICAgMTAwNCAgICAgICAgICAgMTAyMiAgICAgICAtMThcbjUgICAgICAgREwgIDIwMTMgICAgIDEgICAgIDEgICAgICA1NTQgICAgICAgICAgICA2MDAgICAgICAgIC02ICAgICAgODEyICAgICAgICAgICAgODM3ICAgICAgIC0yNVxuNiAgICAgICBVQSAgMjAxMyAgICAgMSAgICAgMSAgICAgIDU1NCAgICAgICAgICAgIDU1OCAgICAgICAgLTQgICAgICA3NDAgICAgICAgICAgICA3MjggICAgICAgIDEyXG43ICAgICAgIEI2ICAyMDEzICAgICAxICAgICAxICAgICAgNTU1ICAgICAgICAgICAgNjAwICAgICAgICAtNSAgICAgIDkxMyAgICAgICAgICAgIDg1NCAgICAgICAgMTlcbjggICAgICAgRVYgIDIwMTMgICAgIDEgICAgIDEgICAgICA1NTcgICAgICAgICAgICA2MDAgICAgICAgIC0zICAgICAgNzA5ICAgICAgICAgICAgNzIzICAgICAgIC0xNFxuOSAgICAgICBCNiAgMjAxMyAgICAgMSAgICAgMSAgICAgIDU1NyAgICAgICAgICAgIDYwMCAgICAgICAgLTMgICAgICA4MzggICAgICAgICAgICA4NDYgICAgICAgIC04XG4xMCAgICAgIEFBICAyMDEzICAgICAxICAgICAxICAgICAgNTU4ICAgICAgICAgICAgNjAwICAgICAgICAtMiAgICAgIDc1MyAgICAgICAgICAgIDc0NSAgICAgICAgIDhcbiMgLi4uIHdpdGggbW9yZSByb3dzLCBhbmQgMTAgbW9yZSB2YXJpYWJsZXM6IGZsaWdodCA8aW50PiwgdGFpbG51bSA8Y2hyPiwgb3JpZ2luIDxjaHI+LFxuIyAgIGRlc3QgPGNocj4sIGFpcl90aW1lIDxkYmw+LCBkaXN0YW5jZSA8ZGJsPiwgaG91ciA8ZGJsPiwgbWludXRlIDxkYmw+LCB0aW1lX2hvdXIgPGRibD4sXG4jICAgbmFtZSA8Y2hyPlxuIn0= -->
+<pre><code>Source:   query [?? x 20]
+Database: spark connection master=local[4] app=sparklyr local=TRUE
+
+   carrier  year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time arr_delay
+     &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;
+1       UA  2013     1     1      517            515         2      830            819        11
+2       UA  2013     1     1      533            529         4      850            830        20
+3       AA  2013     1     1      542            540         2      923            850        33
+4       B6  2013     1     1      544            545        -1     1004           1022       -18
+5       DL  2013     1     1      554            600        -6      812            837       -25
+6       UA  2013     1     1      554            558        -4      740            728        12
+7       B6  2013     1     1      555            600        -5      913            854        19
+8       EV  2013     1     1      557            600        -3      709            723       -14
+9       B6  2013     1     1      557            600        -3      838            846        -8
+10      AA  2013     1     1      558            600        -2      753            745         8
+# ... with more rows, and 10 more variables: flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;,
+#   dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dbl&gt;,
+#   name &lt;chr&gt;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin -->
+<pre class="r"><code>flights %&gt;% inner_join(airlines, by = &quot;carrier&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiU291cmNlOiAgIHF1ZXJ5IFs/PyB4IDIwXVxuRGF0YWJhc2U6IHNwYXJrIGNvbm5lY3Rpb24gbWFzdGVyPWxvY2FsWzRdIGFwcD1zcGFya2x5ciBsb2NhbD1UUlVFXG5cbiAgIGNhcnJpZXIgIHllYXIgbW9udGggICBkYXkgZGVwX3RpbWUgc2NoZWRfZGVwX3RpbWUgZGVwX2RlbGF5IGFycl90aW1lIHNjaGVkX2Fycl90aW1lIGFycl9kZWxheVxuICAgICA8Y2hyPiA8aW50PiA8aW50PiA8aW50PiAgICA8aW50PiAgICAgICAgICA8aW50PiAgICAgPGRibD4gICAgPGludD4gICAgICAgICAgPGludD4gICAgIDxkYmw+XG4xICAgICAgIFVBICAyMDEzICAgICAxICAgICAxICAgICAgNTE3ICAgICAgICAgICAgNTE1ICAgICAgICAgMiAgICAgIDgzMCAgICAgICAgICAgIDgxOSAgICAgICAgMTFcbjIgICAgICAgVUEgIDIwMTMgICAgIDEgICAgIDEgICAgICA1MzMgICAgICAgICAgICA1MjkgICAgICAgICA0ICAgICAgODUwICAgICAgICAgICAgODMwICAgICAgICAyMFxuMyAgICAgICBBQSAgMjAxMyAgICAgMSAgICAgMSAgICAgIDU0MiAgICAgICAgICAgIDU0MCAgICAgICAgIDIgICAgICA5MjMgICAgICAgICAgICA4NTAgICAgICAgIDMzXG40ICAgICAgIEI2ICAyMDEzICAgICAxICAgICAxICAgICAgNTQ0ICAgICAgICAgICAgNTQ1ICAgICAgICAtMSAgICAgMTAwNCAgICAgICAgICAgMTAyMiAgICAgICAtMThcbjUgICAgICAgREwgIDIwMTMgICAgIDEgICAgIDEgICAgICA1NTQgICAgICAgICAgICA2MDAgICAgICAgIC02ICAgICAgODEyICAgICAgICAgICAgODM3ICAgICAgIC0yNVxuNiAgICAgICBVQSAgMjAxMyAgICAgMSAgICAgMSAgICAgIDU1NCAgICAgICAgICAgIDU1OCAgICAgICAgLTQgICAgICA3NDAgICAgICAgICAgICA3MjggICAgICAgIDEyXG43ICAgICAgIEI2ICAyMDEzICAgICAxICAgICAxICAgICAgNTU1ICAgICAgICAgICAgNjAwICAgICAgICAtNSAgICAgIDkxMyAgICAgICAgICAgIDg1NCAgICAgICAgMTlcbjggICAgICAgRVYgIDIwMTMgICAgIDEgICAgIDEgICAgICA1NTcgICAgICAgICAgICA2MDAgICAgICAgIC0zICAgICAgNzA5ICAgICAgICAgICAgNzIzICAgICAgIC0xNFxuOSAgICAgICBCNiAgMjAxMyAgICAgMSAgICAgMSAgICAgIDU1NyAgICAgICAgICAgIDYwMCAgICAgICAgLTMgICAgICA4MzggICAgICAgICAgICA4NDYgICAgICAgIC04XG4xMCAgICAgIEFBICAyMDEzICAgICAxICAgICAxICAgICAgNTU4ICAgICAgICAgICAgNjAwICAgICAgICAtMiAgICAgIDc1MyAgICAgICAgICAgIDc0NSAgICAgICAgIDhcbiMgLi4uIHdpdGggbW9yZSByb3dzLCBhbmQgMTAgbW9yZSB2YXJpYWJsZXM6IGZsaWdodCA8aW50PiwgdGFpbG51bSA8Y2hyPiwgb3JpZ2luIDxjaHI+LFxuIyAgIGRlc3QgPGNocj4sIGFpcl90aW1lIDxkYmw+LCBkaXN0YW5jZSA8ZGJsPiwgaG91ciA8ZGJsPiwgbWludXRlIDxkYmw+LCB0aW1lX2hvdXIgPGRibD4sXG4jICAgbmFtZSA8Y2hyPlxuIn0= -->
+<pre><code>Source:   query [?? x 20]
+Database: spark connection master=local[4] app=sparklyr local=TRUE
+
+   carrier  year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time arr_delay
+     &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;
+1       UA  2013     1     1      517            515         2      830            819        11
+2       UA  2013     1     1      533            529         4      850            830        20
+3       AA  2013     1     1      542            540         2      923            850        33
+4       B6  2013     1     1      544            545        -1     1004           1022       -18
+5       DL  2013     1     1      554            600        -6      812            837       -25
+6       UA  2013     1     1      554            558        -4      740            728        12
+7       B6  2013     1     1      555            600        -5      913            854        19
+8       EV  2013     1     1      557            600        -3      709            723       -14
+9       B6  2013     1     1      557            600        -3      838            846        -8
+10      AA  2013     1     1      558            600        -2      753            745         8
+# ... with more rows, and 10 more variables: flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;,
+#   dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dbl&gt;,
+#   name &lt;chr&gt;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin -->
+<pre class="r"><code>flights %&gt;% inner_join(airlines, by = c(&quot;carrier&quot; = &quot;carrier&quot;))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiU291cmNlOiAgIHF1ZXJ5IFs/PyB4IDIwXVxuRGF0YWJhc2U6IHNwYXJrIGNvbm5lY3Rpb24gbWFzdGVyPWxvY2FsWzRdIGFwcD1zcGFya2x5ciBsb2NhbD1UUlVFXG5cbiAgIGNhcnJpZXIgIHllYXIgbW9udGggICBkYXkgZGVwX3RpbWUgc2NoZWRfZGVwX3RpbWUgZGVwX2RlbGF5IGFycl90aW1lIHNjaGVkX2Fycl90aW1lIGFycl9kZWxheVxuICAgICA8Y2hyPiA8aW50PiA8aW50PiA8aW50PiAgICA8aW50PiAgICAgICAgICA8aW50PiAgICAgPGRibD4gICAgPGludD4gICAgICAgICAgPGludD4gICAgIDxkYmw+XG4xICAgICAgIFVBICAyMDEzICAgICAxICAgICAxICAgICAgNTE3ICAgICAgICAgICAgNTE1ICAgICAgICAgMiAgICAgIDgzMCAgICAgICAgICAgIDgxOSAgICAgICAgMTFcbjIgICAgICAgVUEgIDIwMTMgICAgIDEgICAgIDEgICAgICA1MzMgICAgICAgICAgICA1MjkgICAgICAgICA0ICAgICAgODUwICAgICAgICAgICAgODMwICAgICAgICAyMFxuMyAgICAgICBBQSAgMjAxMyAgICAgMSAgICAgMSAgICAgIDU0MiAgICAgICAgICAgIDU0MCAgICAgICAgIDIgICAgICA5MjMgICAgICAgICAgICA4NTAgICAgICAgIDMzXG40ICAgICAgIEI2ICAyMDEzICAgICAxICAgICAxICAgICAgNTQ0ICAgICAgICAgICAgNTQ1ICAgICAgICAtMSAgICAgMTAwNCAgICAgICAgICAgMTAyMiAgICAgICAtMThcbjUgICAgICAgREwgIDIwMTMgICAgIDEgICAgIDEgICAgICA1NTQgICAgICAgICAgICA2MDAgICAgICAgIC02ICAgICAgODEyICAgICAgICAgICAgODM3ICAgICAgIC0yNVxuNiAgICAgICBVQSAgMjAxMyAgICAgMSAgICAgMSAgICAgIDU1NCAgICAgICAgICAgIDU1OCAgICAgICAgLTQgICAgICA3NDAgICAgICAgICAgICA3MjggICAgICAgIDEyXG43ICAgICAgIEI2ICAyMDEzICAgICAxICAgICAxICAgICAgNTU1ICAgICAgICAgICAgNjAwICAgICAgICAtNSAgICAgIDkxMyAgICAgICAgICAgIDg1NCAgICAgICAgMTlcbjggICAgICAgRVYgIDIwMTMgICAgIDEgICAgIDEgICAgICA1NTcgICAgICAgICAgICA2MDAgICAgICAgIC0zICAgICAgNzA5ICAgICAgICAgICAgNzIzICAgICAgIC0xNFxuOSAgICAgICBCNiAgMjAxMyAgICAgMSAgICAgMSAgICAgIDU1NyAgICAgICAgICAgIDYwMCAgICAgICAgLTMgICAgICA4MzggICAgICAgICAgICA4NDYgICAgICAgIC04XG4xMCAgICAgIEFBICAyMDEzICAgICAxICAgICAxICAgICAgNTU4ICAgICAgICAgICAgNjAwICAgICAgICAtMiAgICAgIDc1MyAgICAgICAgICAgIDc0NSAgICAgICAgIDhcbiMgLi4uIHdpdGggbW9yZSByb3dzLCBhbmQgMTAgbW9yZSB2YXJpYWJsZXM6IGZsaWdodCA8aW50PiwgdGFpbG51bSA8Y2hyPiwgb3JpZ2luIDxjaHI+LFxuIyAgIGRlc3QgPGNocj4sIGFpcl90aW1lIDxkYmw+LCBkaXN0YW5jZSA8ZGJsPiwgaG91ciA8ZGJsPiwgbWludXRlIDxkYmw+LCB0aW1lX2hvdXIgPGRibD4sXG4jICAgbmFtZSA8Y2hyPlxuIn0= -->
+<pre><code>Source:   query [?? x 20]
+Database: spark connection master=local[4] app=sparklyr local=TRUE
+
+   carrier  year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time arr_delay
+     &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;
+1       UA  2013     1     1      517            515         2      830            819        11
+2       UA  2013     1     1      533            529         4      850            830        20
+3       AA  2013     1     1      542            540         2      923            850        33
+4       B6  2013     1     1      544            545        -1     1004           1022       -18
+5       DL  2013     1     1      554            600        -6      812            837       -25
+6       UA  2013     1     1      554            558        -4      740            728        12
+7       B6  2013     1     1      555            600        -5      913            854        19
+8       EV  2013     1     1      557            600        -3      709            723       -14
+9       B6  2013     1     1      557            600        -3      838            846        -8
+10      AA  2013     1     1      558            600        -2      753            745         8
+# ... with more rows, and 10 more variables: flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;,
+#   dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dbl&gt;,
+#   name &lt;chr&gt;</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -390,9 +589,28 @@ flights %&gt;% inner_join(airlines, by = c(&quot;carrier&quot; = &quot;carrier&q
 <p>You can use <code>sdf_sample</code> to take a random sample of rows.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoic2RmX3NhbXBsZShmbGlnaHRzLCAwLjAxKSJ9 -->
+<!-- rnb-source-begin -->
 <pre class="r"><code>sdf_sample(flights, 0.01)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiU291cmNlOiAgIHF1ZXJ5IFs/PyB4IDE5XVxuRGF0YWJhc2U6IHNwYXJrIGNvbm5lY3Rpb24gbWFzdGVyPWxvY2FsWzRdIGFwcD1zcGFya2x5ciBsb2NhbD1UUlVFXG5cbiAgICB5ZWFyIG1vbnRoICAgZGF5IGRlcF90aW1lIHNjaGVkX2RlcF90aW1lIGRlcF9kZWxheSBhcnJfdGltZSBzY2hlZF9hcnJfdGltZSBhcnJfZGVsYXkgY2FycmllclxuICAgPGludD4gPGludD4gPGludD4gICAgPGludD4gICAgICAgICAgPGludD4gICAgIDxkYmw+ICAgIDxpbnQ+ICAgICAgICAgIDxpbnQ+ICAgICA8ZGJsPiAgIDxjaHI+XG4xICAgMjAxMyAgICAgMSAgICAgMSAgICAgIDkwNCAgICAgICAgICAgIDkwNiAgICAgICAgLTIgICAgIDEyMDcgICAgICAgICAgIDEyMjYgICAgICAgLTE5ICAgICAgVUFcbjIgICAyMDEzICAgICAxICAgICAxICAgICAxMDQ3ICAgICAgICAgICAxMDU1ICAgICAgICAtOCAgICAgMTM1OSAgICAgICAgICAgMTQwNSAgICAgICAgLTYgICAgICBBQVxuMyAgIDIwMTMgICAgIDEgICAgIDEgICAgIDEyNTUgICAgICAgICAgIDEyNTkgICAgICAgIC00ICAgICAxNTAxICAgICAgICAgICAxNTAyICAgICAgICAtMSAgICAgIFVTXG40ICAgMjAxMyAgICAgMSAgICAgMSAgICAgMTMxNyAgICAgICAgICAgMTMyNSAgICAgICAgLTggICAgIDE0NTQgICAgICAgICAgIDE1MDUgICAgICAgLTExICAgICAgTVFcbjUgICAyMDEzICAgICAxICAgICAxICAgICAxNjAyICAgICAgICAgICAxNjA1ICAgICAgICAtMyAgICAgMTgzNCAgICAgICAgICAgMTgzOCAgICAgICAgLTQgICAgICBETFxuNiAgIDIwMTMgICAgIDEgICAgIDEgICAgIDE2MDcgICAgICAgICAgIDE1NTUgICAgICAgIDEyICAgICAxNzM1ICAgICAgICAgICAxNzE1ICAgICAgICAyMCAgICAgIEI2XG43ICAgMjAxMyAgICAgMSAgICAgMSAgICAgMTk0MSAgICAgICAgICAgMTk0MCAgICAgICAgIDEgICAgIDIyMzEgICAgICAgICAgIDIyNDEgICAgICAgLTEwICAgICAgQjZcbjggICAyMDEzICAgICAxICAgICAyICAgICAgNzU3ICAgICAgICAgICAgODAwICAgICAgICAtMyAgICAgMTA1OCAgICAgICAgICAgMTEyNyAgICAgICAtMjkgICAgICBETFxuOSAgIDIwMTMgICAgIDEgICAgIDIgICAgICA5MTkgICAgICAgICAgICA5MjAgICAgICAgIC0xICAgICAxMjQwICAgICAgICAgICAxMjQ1ICAgICAgICAtNSAgICAgIEFBXG4xMCAgMjAxMyAgICAgMSAgICAgMiAgICAgMTAxNCAgICAgICAgICAgMTAxMCAgICAgICAgIDQgICAgIDExMjggICAgICAgICAgIDExNDAgICAgICAgLTEyICAgICAgTVFcbiMgLi4uIHdpdGggbW9yZSByb3dzLCBhbmQgOSBtb3JlIHZhcmlhYmxlczogZmxpZ2h0IDxpbnQ+LCB0YWlsbnVtIDxjaHI+LCBvcmlnaW4gPGNocj4sXG4jICAgZGVzdCA8Y2hyPiwgYWlyX3RpbWUgPGRibD4sIGRpc3RhbmNlIDxkYmw+LCBob3VyIDxkYmw+LCBtaW51dGUgPGRibD4sIHRpbWVfaG91ciA8ZGJsPlxuIn0= -->
+<pre><code>Source:   query [?? x 19]
+Database: spark connection master=local[4] app=sparklyr local=TRUE
+
+    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time arr_delay carrier
+   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;   &lt;chr&gt;
+1   2013     1     1      904            906        -2     1207           1226       -19      UA
+2   2013     1     1     1047           1055        -8     1359           1405        -6      AA
+3   2013     1     1     1255           1259        -4     1501           1502        -1      US
+4   2013     1     1     1317           1325        -8     1454           1505       -11      MQ
+5   2013     1     1     1602           1605        -3     1834           1838        -4      DL
+6   2013     1     1     1607           1555        12     1735           1715        20      B6
+7   2013     1     1     1941           1940         1     2231           2241       -10      B6
+8   2013     1     2      757            800        -3     1058           1127       -29      DL
+9   2013     1     2      919            920        -1     1240           1245        -5      AA
+10  2013     1     2     1014           1010         4     1128           1140       -12      MQ
+# ... with more rows, and 9 more variables: flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;,
+#   dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dbl&gt;</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -401,7 +619,7 @@ flights %&gt;% inner_join(airlines, by = c(&quot;carrier&quot; = &quot;carrier&q
 <p>It is often useful to save the results of your analysis or the tables that you have generated on your Spark cluster into persistent storage. The best option in many scenarios is to write the table out to a <a href="https://parquet.apache.org/">Parquet</a> file using the <a href="reference/sparklyr/spark_write_parquet.html">spark_write_parquet</a> function. For example:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoic3Bhcmtfd3JpdGVfcGFycXVldChmbGlnaHRzLCBcIm55Y2ZsaWdodHMxMy9wYXJxdWV0MlwiKSJ9 -->
+<!-- rnb-source-begin -->
 <pre class="r"><code>spark_write_parquet(flights, &quot;nycflights13/parquet2&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
@@ -409,7 +627,7 @@ flights %&gt;% inner_join(airlines, by = c(&quot;carrier&quot; = &quot;carrier&q
 <p>This will write the Spark DataFrame referenced by the tbl R variable to the given HDFS path. You can use the <a href="reference/sparklyr/spark_read_parquet.html">spark_read_parquet</a> function to read the same table back into a subsequent Spark session:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoic3BhcmtfcmVhZF9wYXJxdWV0KHNjLCBcImRhdGFcIiwgXCJueWNmbGlnaHRzMTMvcGFycXVldDJcIikifQ== -->
+<!-- rnb-source-begin -->
 <pre class="r"><code>spark_read_parquet(sc, &quot;data&quot;, &quot;nycflights13/parquet2&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->

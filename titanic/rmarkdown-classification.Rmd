@@ -1,7 +1,7 @@
 ---
 title: "Comparison of ML Classifiers Using Sparklyr"
 output: 
-  html_notebook:
+  html_document:
     toc: true
     toc_depth: 2
     toc_float:

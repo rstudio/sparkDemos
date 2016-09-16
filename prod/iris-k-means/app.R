@@ -2,7 +2,6 @@ library(sparklyr)
 library(dplyr)
 library(shiny)
 
-
 #Connect to Spark
 sc <- spark_connect(master = "local")
 

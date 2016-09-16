@@ -15,7 +15,6 @@ library(ggplot2)
 library(DT)
 library(leaflet)
 library(geosphere)
-library(readr)
 library(sparklyr)
 
 # Copy data to spark

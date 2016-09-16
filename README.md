@@ -1,25 +1,86 @@
-# Apache Spark and sparklyr demos
+---
+title: "Sparklyr Demos"
+output: html_document
+---
 
-![](sparklyr-illustration.png)
+![](img/sparklyr-presentation-demos.001.jpeg)
 
-## Scripts
+***
 
-Use these scripts for demonstrating Apache Spark capabilities.
+![](img/sparklyr-presentation-demos.002.jpeg)
 
-* [Spark SQL and dplyr (nycflights13)](nycflights13/dplyr.Rmd)
-* [Spark ML (titanic)](titanic/notebook-classification.Rmd)
-* [Spark cluster mode (full flights)](flights/sparkClusterDemo.Rmd)
+***
 
-## External links
+![](img/sparklyr-presentation-demos.003.jpeg)
 
-Use these links to show output content.
+***
 
-* [Sparklyr Home](http://spark.rstudio.com/index.html)
-* [Using sparklyr with an Apache Spark cluster](https://beta.rstudioconnect.com/connect/#/apps/1446)
-* [Flights analysis](https://beta.rstudioconnect.com/content/1438/)
-* [Flights flex dashboard](https://beta.rstudioconnect.com/content/1439)
-* [nycflights13 flex dashboard](https://beta.rstudioconnect.com/content/1429/)
+![](img/sparklyr-presentation-demos.004.jpeg)
 
-## Presentation
+***
 
-* [Using Apache Spark from R](using_apache_spark_from_r.pdf)
+![](img/sparklyr-presentation-demos.005.jpeg)
+
+***
+
+![](img/sparklyr-presentation-demos.006.jpeg)
+
+***
+
+![](img/sparklyr-presentation-demos.007.jpeg)
+
+***
+
+![](img/sparklyr-presentation-demos.008.jpeg)
+
+***
+
+![](img/sparklyr-presentation-demos.009.jpeg)
+
+***
+
+![](img/sparklyr-presentation-demos.010.jpeg)
+
+***
+
+![](img/sparklyr-presentation-demos.011.jpeg)
+
+***
+
+![](img/sparklyr-presentation-demos.012.jpeg)
+
+***
+
+![](img/sparklyr-presentation-demos.013.jpeg)
+
+***
+
+![](img/sparklyr-presentation-demos.014.jpeg)
+
+***
+
+![](img/sparklyr-presentation-demos.015.jpeg)
+
+***
+
+![](img/sparklyr-presentation-demos.016.jpeg)
+
+***
+
+![](img/sparklyr-presentation-demos.017.jpeg)
+
+***
+
+![](img/sparklyr-presentation-demos.018.jpeg)
+
+***
+
+![](img/sparklyr-presentation-demos.019.jpeg)
+
+***
+
+![](img/sparklyr-presentation-demos.020.jpeg)
+
+***
+
+![](img/sparklyr-presentation-demos.021.jpeg)

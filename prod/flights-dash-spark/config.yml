@@ -1,0 +1,3 @@
+default:
+  sparklyr.cores.local: 1
+  sparklyr.shell.driver-memory: 2G

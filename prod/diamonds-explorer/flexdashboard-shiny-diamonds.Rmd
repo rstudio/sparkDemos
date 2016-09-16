@@ -1,0 +1,79 @@
+---
+title: "ggplot2 Diamonds Explorer"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    social: menu
+    source_code: embed
+runtime: shiny
+---
+
+```{r global, include=FALSE}
+library(ggplot2)
+library(mgcv)
+library(flexdashboard)
+library(sparklyr)
+library(dplyr)
+
+sc <- spark_connect(master = "local")
+spark_read_parquet(sc, "diamonds", path = "diamonds-parquet")
+diamonds_tbl <- tbl(sc, "diamonds")
+```
+
+Inputs {.sidebar}
+-----------------------------------------------------------------------
+
+```{r}
+n <- (count(diamonds_tbl)  %>% as.data.frame())$n
+sliderInput('sampleSize', 'Sample Size', min = 1, max = n,
+            value = min(1000, n), step = 1000, round = 0)
+
+checkboxInput('jitter', 'Jitter', value = TRUE)
+checkboxInput('smooth', 'Smooth', value = TRUE)
+
+selectInput('x', 'X', tbl_vars(diamonds_tbl))
+selectInput('y', 'Y', tbl_vars(diamonds_tbl), tbl_vars(diamonds_tbl)[2])
+selectInput('color', 'Color', c('None', tbl_vars(diamonds_tbl)))
+
+# Determine column type and select only strings
+factor_cols <- sparklyr:::sdf_schema(diamonds_tbl) %>% 
+  sapply(unlist) %>%
+  t() %>% 
+  as.data.frame() %>% 
+  filter(type == "StringType") %>% 
+  select(name)
+
+selectInput('facet_row', 'Facet Row', c(None='.', factor_cols))
+selectInput('facet_col', 'Facet Column', c(None='.', factor_cols))
+```
+
+Outputs
+-----------------------------------------------------------------------
+
+### Diamonds
+
+```{r}
+dataset <- reactive({
+  diamonds_tbl %>% 
+    sdf_sample(fraction = (input$sampleSize / diamonds %>% count())) %>% 
+    collect()
+})
+
+renderPlot({
+  p <- ggplot(dataset(), aes_string(x = input$x, y = input$y)) + geom_point()
+  
+  if (input$color != 'None')
+    p <- p + aes_string(color = input$color)
+  
+  facets <- paste(input$facet_row, '~', input$facet_col)
+  if (facets != '. ~ .')
+    p <- p + facet_grid(facets)
+  
+  if (input$jitter)
+    p <- p + geom_jitter()
+  if (input$smooth)
+    p <- p + geom_smooth()
+  
+  print(p)
+})
+```

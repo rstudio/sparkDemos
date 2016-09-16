@@ -1,0 +1,165 @@
+---
+title: "Time Gained in Flight"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    social: menu
+    source_code: embed
+runtime: shiny
+---
+
+```{r global, include=FALSE}
+# Attach packages
+library(dplyr)
+library(ggplot2)
+library(DT)
+library(leaflet)
+library(geosphere)
+library(readr)
+library(sparklyr)
+
+# Copy data to spark
+sc <- spark_connect(master = "local", version = "2.0.0")
+flights_tbl <- copy_to(sc, nycflights13::flights, "flights")
+airports_tbl <- copy_to(sc, nycflights13::airports, "airports")
+airlines_tbl <- copy_to(sc, nycflights13::airlines, "airlines")
+
+# Prepare model data
+model_tbl <- flights_tbl %>%
+  filter(!is.na(arr_delay) & !is.na(dep_delay) & !is.na(distance)) %>%
+  filter(dep_delay > 15 & dep_delay < 240) %>%
+  filter(arr_delay > -60 & arr_delay < 360) %>%
+  left_join(airlines_tbl, by = c("carrier" = "carrier")) %>%
+  mutate(gain = dep_delay - arr_delay) %>%
+  select(origin, dest, carrier, airline = name, distance, dep_delay, arr_delay, gain)
+
+# Training and validation
+partition_tbl <- sdf_partition(model_tbl, train = 0.5, test = 0.5, seed = 777)
+
+# Model time gained as function of distance, departure delay, and airline carrier
+ml1 <- ml_linear_regression(partition_tbl$train, gain ~ distance + dep_delay + carrier)
+
+# Score data 
+pred_tbl <- sdf_predict(ml1, partition_tbl$test)
+
+# Aggregate flight route and carrier
+lookup_tbl <- pred_tbl %>%
+  group_by(origin, dest, carrier, airline) %>%
+  summarize(
+    flights = as.numeric(n()),
+    distance = mean(distance),
+    avg_dep_delay = mean(dep_delay),
+    avg_arr_delay = mean(arr_delay),
+    avg_gain = mean(gain),
+    pred_gain = mean(prediction)
+    )
+
+# Register and cache lookup table
+sdf_register(lookup_tbl, "lookup")
+tbl_cache(sc, "lookup")
+```
+
+
+Summary
+========================================================================
+
+Inputs {.sidebar}
+-----------------------------------------------------------------------
+
+### Select Airports
+
+```{r shinyinputs}
+# Shiny inputs for flight orgin and destination
+carrier_origin <- ungroup(lookup_tbl) %>% distinct(origin) %>% collect %>% .[['origin']]
+carrier_dest <- ungroup(lookup_tbl) %>% distinct(dest) %>% collect %>% .[['dest']]
+selectInput("origin",  "Flight origin", carrier_origin, selected =  "JFK")
+selectInput("dest", "Flight destination", carrier_dest, selected = "SFO")
+```
+
+### Background
+
+Given that your flight was delayed by 15 minutes or more, what is the likelihood 
+your airline carrier will make up time in route? Some of the most signficant factors 
+for making up time are flight distance and airline carrier. The data model behind 
+this dashboard is based on flights from NYC airports in 2013.
+
+
+Row
+-----------------------------------------------------------------------
+
+### Observed versus predicted time gain
+
+```{r barplot}
+# Aggregregate time gain by carrier and by route 
+plot_data <- reactive({
+  req(input$origin, input$dest)
+  lookup_tbl %>%
+    filter(origin==input$origin & dest==input$dest) %>%
+    ungroup() %>%
+    select(airline, flights, distance, avg_dep_delay, avg_arr_delay, avg_gain, pred_gain) %>%
+    collect
+})
+
+# Plot observed versus predicted time gain for carriers and route
+renderPlot({
+  ggplot(plot_data(), aes(factor(airline), pred_gain)) + 
+    geom_bar(stat = "identity", fill = '#2780E3') +
+    geom_point(aes(factor(airline), avg_gain)) +
+    coord_flip() +
+    labs(x = "", y = "Time gained in flight (minutes)") +
+    labs(title = "Observed gain (point) vs Predicted gain (bar)")
+})
+```
+
+### Route
+
+```{r leaflet}
+# Identify origin lat and long
+origin <- reactive({
+  req(input$origin)
+  airports_tbl %>%
+    filter(faa == input$origin) %>%
+    collect
+  })
+
+# Identify destination lat and log
+dest <- reactive({
+  req(input$dest)
+  airports_tbl %>%
+    filter(faa == input$dest) %>%
+    collect
+})
+
+# Plot route
+renderLeaflet({
+  gcIntermediate(
+    select(origin(), lon, lat),
+    select(dest(), lon, lat),
+    n=100, addStartEnd=TRUE, sp=TRUE
+    ) %>%
+    leaflet() %>%
+    addProviderTiles("CartoDB.Positron") %>%
+    addPolylines()
+})
+```
+
+Row
+-----------------------------------------------------------------------
+
+### Data details
+
+```{r datatable}
+# Print table of observed and predicted gains by airline
+renderDataTable(
+  datatable(plot_data()) %>%
+    formatRound(c("flights", "distance"), 0) %>%
+    formatRound(c("avg_arr_delay", "avg_dep_delay", "avg_gain", "pred_gain"), 1)
+)
+```
+
+Model Output
+========================================================================
+
+```{r model}
+renderPrint(summary(ml1))
+```

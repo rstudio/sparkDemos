@@ -76,4 +76,3 @@ print.table(tab[, match], zero.print = ".")
 ```
 
 
-

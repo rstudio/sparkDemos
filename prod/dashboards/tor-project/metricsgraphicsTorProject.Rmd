@@ -7,21 +7,26 @@ output:
     source_code: embed
 ---
 
-```{r setup, include=FALSE}
+```{r global, include=FALSE, message = FALSE}
 library(flexdashboard)
 library(metricsgraphics)
 library(readr)
 library(dplyr)
 library(tidyr)
-```
+library(sparklyr)
 
-```{r, echo=FALSE, message=FALSE}
+sc <- spark_connect(master = "local", version = "2.0.0")
+
 servers <- read_csv("https://metrics.torproject.org/stats/servers.csv",
                     col_types="Dcccccii")
 hidden <- read_csv("https://metrics.torproject.org/stats/hidserv.csv",
                    col_types="Dcddddd")
 
-servers <- filter(servers, date >= as.Date('2016-01-01'))
+servers_tbl <- copy_to(sc, servers, "servers")
+hidden_tbl <- copy_to(sc, hidden, "hidden")
+
+str(servers)
+servers <- filter(servers_tbl, date >= '2016-01-01')
 hidden <- filter(hidden, 
                  date >= as.Date('2016-01-01'),
                  type=="dir-onions-seen")

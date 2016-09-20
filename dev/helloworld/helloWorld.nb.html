@@ -171,51 +171,31 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShkcGx5cilcbmBgYCJ9 -->
-<pre class="r"><code>library(dplyr)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaXJpc190YmxcblxuYGBgIn0= -->
+<pre class="r"><code>iris_tbl
+</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYZHBseXLigJlcblxuVGhlIGZvbGxvd2luZyBvYmplY3RzIGFyZSBtYXNrZWQgZnJvbSDigJhwYWNrYWdlOnN0YXRz4oCZOlxuXG4gICAgZmlsdGVyLCBsYWdcblxuVGhlIGZvbGxvd2luZyBvYmplY3RzIGFyZSBtYXNrZWQgZnJvbSDigJhwYWNrYWdlOmJhc2XigJk6XG5cbiAgICBpbnRlcnNlY3QsIHNldGRpZmYsIHNldGVxdWFsLCB1bmlvblxuIn0= -->
-<pre><code>
-Attaching package: ‘dplyr’
-
-The following objects are masked from ‘package:stats’:
-
-    filter, lag
-
-The following objects are masked from ‘package:base’:
-
-    intersect, setdiff, setequal, union</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShzcGFya2x5cilcbnNjIDwtIHNwYXJrX2Nvbm5lY3QobWFzdGVyID0gXCJsb2NhbFwiLCB2ZXJzaW9uID0gXCIyLjAuMFwiKVxuaXJpc190YmwgPC0gY29weV90byhzYywgaXJpcywgXCJpcmlzXCIpXG5gYGAifQ== -->
-<pre class="r"><code>library(sparklyr)
-sc &lt;- spark_connect(master = &quot;local&quot;, version = &quot;2.0.0&quot;)
-iris_tbl &lt;- copy_to(sc, iris, &quot;iris&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiVGhlIGZvbGxvd2luZyBjb2x1bW5zIGhhdmUgYmVlbiByZW5hbWVkOlxuLSAnU2VwYWwuTGVuZ3RoJyA9PiAnU2VwYWxfTGVuZ3RoJyAoIzEpXG4tICdTZXBhbC5XaWR0aCcgID0+ICdTZXBhbF9XaWR0aCcgICgjMilcbi0gJ1BldGFsLkxlbmd0aCcgPT4gJ1BldGFsX0xlbmd0aCcgKCMzKVxuLSAnUGV0YWwuV2lkdGgnICA9PiAnUGV0YWxfV2lkdGgnICAoIzQpXG4ifQ== -->
-<pre><code>The following columns have been renamed:
-- 'Sepal.Length' =&gt; 'Sepal_Length' (#1)
-- 'Sepal.Width'  =&gt; 'Sepal_Width'  (#2)
-- 'Petal.Length' =&gt; 'Petal_Length' (#3)
-- 'Petal.Width'  =&gt; 'Petal_Width'  (#4)</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaXJpc190YmwgJT4lXG4gIGdyb3VwX2J5KFNwZWNpZXMpICU+JVxuICBzdW1tYXJpemUobjEgPSBuKCksIG4yID0gYXMubnVtZXJpYyhuKCkpKVxuYGBgIn0= -->
-<pre class="r"><code>iris_tbl %&gt;%
-  group_by(Species) %&gt;%
-  summarize(n1 = n(), n2 = as.numeric(n()))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiU291cmNlOiAgIHF1ZXJ5IFs/PyB4IDNdXG5EYXRhYmFzZTogc3BhcmsgY29ubmVjdGlvbiBtYXN0ZXI9bG9jYWxbNF0gYXBwPXNwYXJrbHlyIGxvY2FsPVRSVUVcblxuICAgICBTcGVjaWVzICAgICAgICBuMSAgICBuMlxuICAgICAgIDxjaHI+ICAgIDxsaXN0PiA8ZGJsPlxuMSB2ZXJzaWNvbG9yIDxkYmwgWzFdPiAgICA1MFxuMiAgdmlyZ2luaWNhIDxkYmwgWzFdPiAgICA1MFxuMyAgICAgc2V0b3NhIDxkYmwgWzFdPiAgICA1MFxuIn0= -->
-<pre><code>Source:   query [?? x 3]
+<!-- rnb-output-begin eyJkYXRhIjoiU291cmNlOiAgIHF1ZXJ5IFs/PyB4IDVdXG5EYXRhYmFzZTogc3BhcmsgY29ubmVjdGlvbiBtYXN0ZXI9bG9jYWxbNF0gYXBwPXNwYXJrbHlyIGxvY2FsPVRSVUVcblxuICAgU2VwYWxfTGVuZ3RoIFNlcGFsX1dpZHRoIFBldGFsX0xlbmd0aCBQZXRhbF9XaWR0aCBTcGVjaWVzXG4gICAgICAgICAgPGRibD4gICAgICAgPGRibD4gICAgICAgIDxkYmw+ICAgICAgIDxkYmw+ICAgPGNocj5cbjEgICAgICAgICAgIDUuMSAgICAgICAgIDMuNSAgICAgICAgICAxLjQgICAgICAgICAwLjIgIHNldG9zYVxuMiAgICAgICAgICAgNC45ICAgICAgICAgMy4wICAgICAgICAgIDEuNCAgICAgICAgIDAuMiAgc2V0b3NhXG4zICAgICAgICAgICA0LjcgICAgICAgICAzLjIgICAgICAgICAgMS4zICAgICAgICAgMC4yICBzZXRvc2FcbjQgICAgICAgICAgIDQuNiAgICAgICAgIDMuMSAgICAgICAgICAxLjUgICAgICAgICAwLjIgIHNldG9zYVxuNSAgICAgICAgICAgNS4wICAgICAgICAgMy42ICAgICAgICAgIDEuNCAgICAgICAgIDAuMiAgc2V0b3NhXG42ICAgICAgICAgICA1LjQgICAgICAgICAzLjkgICAgICAgICAgMS43ICAgICAgICAgMC40ICBzZXRvc2FcbjcgICAgICAgICAgIDQuNiAgICAgICAgIDMuNCAgICAgICAgICAxLjQgICAgICAgICAwLjMgIHNldG9zYVxuOCAgICAgICAgICAgNS4wICAgICAgICAgMy40ICAgICAgICAgIDEuNSAgICAgICAgIDAuMiAgc2V0b3NhXG45ICAgICAgICAgICA0LjQgICAgICAgICAyLjkgICAgICAgICAgMS40ICAgICAgICAgMC4yICBzZXRvc2FcbjEwICAgICAgICAgIDQuOSAgICAgICAgIDMuMSAgICAgICAgICAxLjUgICAgICAgICAwLjEgIHNldG9zYVxuIyAuLi4gd2l0aCBtb3JlIHJvd3NcbiJ9 -->
+<pre><code>Source:   query [?? x 5]
 Database: spark connection master=local[4] app=sparklyr local=TRUE
 
-     Species        n1    n2
-       &lt;chr&gt;    &lt;list&gt; &lt;dbl&gt;
-1 versicolor &lt;dbl [1]&gt;    50
-2  virginica &lt;dbl [1]&gt;    50
-3     setosa &lt;dbl [1]&gt;    50</code></pre>
+   Sepal_Length Sepal_Width Petal_Length Petal_Width Species
+          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;   &lt;chr&gt;
+1           5.1         3.5          1.4         0.2  setosa
+2           4.9         3.0          1.4         0.2  setosa
+3           4.7         3.2          1.3         0.2  setosa
+4           4.6         3.1          1.5         0.2  setosa
+5           5.0         3.6          1.4         0.2  setosa
+6           5.4         3.9          1.7         0.4  setosa
+7           4.6         3.4          1.4         0.3  setosa
+8           5.0         3.4          1.5         0.2  setosa
+9           4.4         2.9          1.4         0.2  setosa
+10          4.9         3.1          1.5         0.1  setosa
+# ... with more rows</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiU3BhcmtseXIiCm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCmBgYHtyfQpsaWJyYXJ5KGRwbHlyKQpsaWJyYXJ5KHNwYXJrbHlyKQoKc2MgPC0gc3BhcmtfY29ubmVjdChtYXN0ZXIgPSAibG9jYWwiLCB2ZXJzaW9uID0gIjIuMC4wIikKaXJpc190YmwgPC0gY29weV90byhzYywgaXJpcywgImlyaXMiKQoKaXJpc190YmwgJT4lCiAgZ3JvdXBfYnkoU3BlY2llcykgJT4lCiAgc3VtbWFyaXplKG4xID0gbigpLCBuMiA9IGFzLm51bWVyaWMobigpKSkKYGBgCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiU3BhcmtseXIiCm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCmBgYHtyfQpsaWJyYXJ5KGRwbHlyKQpsaWJyYXJ5KHNwYXJrbHlyKQoKc2MgPC0gc3BhcmtfY29ubmVjdChtYXN0ZXIgPSAibG9jYWwiLCB2ZXJzaW9uID0gIjIuMC4wIikKaXJpc190YmwgPC0gY29weV90byhzYywgaXJpcywgImlyaXMiKQoKaXJpc190YmwgJT4lCiAgZ3JvdXBfYnkoU3BlY2llcykgJT4lCiAgc3VtbWFyaXplKG4xID0gYXMubnVtZXJpYyhuKCkpLCBuMiA9IGFzLm51bWVyaWMobigpKSkKYGBgCg==</div>
 
 
 

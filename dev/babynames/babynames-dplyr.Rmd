@@ -1,78 +1,109 @@
 ---
-title: "Babynames with dplyr"
+title: "Analysis of babynames with dplyr"
 output: html_notebook
 ---
 
+Use dplyr syntax to write Spark SQL queries. Use select, where, group by, joins, and window functions in Spark SQL.
 
-```{r}
+## Setup
+
+```{r setup}
 library(babynames)
 library(dplyr)
 library(ggplot2)
+library(dygraphs)
 library(reshape2)
-library(mgcv)
-library(e1071)
+library(rbokeh)
 ```
 
+## Total births
+
+Plot total US births recorded from the Social Security Administration.
 
 ```{r}
-
-# Focus on the last 60 years
-recent <- filter(babynames, year >= 1950)
-
-# Still a lot of names, so pull out those names which are both moderately
-# popular (> 1 / 1000) and in top 1000 for at least 30 years.  In a real
-# analysis you'd probably want to analyse more data.
-
-per_name <- recent %>% group_by(sex, name) %>% summarise(years = length(name), percent_avg = mean(prop))
-long <- filter(per_name, years >= 30 & percent_avg > 0.001)
-bnames_long <- inner_join(recent, long[c("sex", "name")], by = c("sex", "name"))
-
-# To cluster, we need to reshape the data so that each year forms a column.
-# We'll have to do this a few times, so we'll create a function to do this
-# specifically for this data.  To learn more about how this works, see the 
-# documentation for the reshape package.
-widen <- function(variable) {
-  select(reshape2::dcast(bnames_long, sex + name ~ year, fill = 0,
-    value.var = variable), -sex, -name)
-}
-
-long$cluster1 <- kmeans(widen('prop'), 20)$cluster
-
-bnames_cl <- inner_join(bnames_long, long, by = c("sex", "name"))
-ggplot(bnames_cl, aes(year, prop)) +
-  geom_line(aes(group = interaction(sex, name))) +
-  facet_wrap(~ cluster1)
-
-#long %>% group_by(cluster1) %>% do(names=.$name)
-
-# Hmmmm.  Maybe be clustering too much based on absolute size, and not
-# on relative shape.  Lets rescale percent to 0,1
-
-smooth <- function(var, date) {
-  predict(gam(var ~ s(date)))
-}
-scale01 <- function(x) (x - min(x)) / diff(range(x))
-
-bnames_long <- bnames_long %>% group_by(sex, name) %>%
-  mutate(percent_std = scale01(prop),
-         percent_smo = scale01(smooth(prop, year)))
-
-long$cluster2 <- kmeans(widen("percent_std"), 20)$cluster
-long$cluster3 <- kmeans(widen("percent_smo"), 20)$cluster
-
-bnames_cl <- inner_join(bnames_long, long, by = c("sex", "name"))
-qplot(year, percent_std, data = bnames_cl, group = interaction(name, sex), geom = "line") + 
-  facet_wrap(~ cluster2)
-
-qplot(year, percent_smo, data = bnames_cl, group = interaction(name, sex), geom = "line", colour = sex) + 
-  facet_wrap(~ cluster2)
-
-#long %>% group_by(cluster2) %>% do(names=.$name)
-
-tab <- table(long[c("cluster2", "cluster3")])
-
-match <- matchClasses(tab)
-print.table(tab[, match], zero.print = ".")
+applicants %>%
+  mutate(male = ifelse(sex == "M", n_all, 0), female = ifelse(sex == "F", n_all, 0)) %>%
+  group_by(year) %>%
+  summarize(Male = sum(male), Female = sum(female)) %>%
+  dygraph(main = "Total US Births (SSN)") %>%
+  dySeries("Male") %>%
+  dySeries("Female") %>%
+  dyOptions(stackedGraph = TRUE) %>%
+  dyRangeSelector(height = 20)
 ```
 
+## Top 5 names from 1986
 
+Identify the top 5 male and female names from 1986. Visualize the popularity trend over time.
+
+```{r}
+topNames <- babynames %>%
+  filter(year >= 1986) %>%  
+  group_by(name, sex) %>%
+  summarize(count = sum(n)) %>%
+  filter(count > 1000)
+
+filteredNames <- babynames %>%
+  filter(year >= 1986) %>%
+  inner_join(topNames)
+
+yearlyNames <- filteredNames %>%
+  group_by(year, name, sex) %>%
+  summarize(count = sum(n))
+
+top5Names1986 <- yearlyNames %>%
+  filter(year == 1986) %>%
+  group_by(name, sex) %>%
+  summarize(count = sum(count)) %>%
+  group_by(sex) %>%
+  mutate(rank = min_rank(desc(count))) %>%
+  filter(rank <= 5) %>%
+  arrange(sex, rank) %>%
+  select(name, sex, rank)
+
+top5Names1986
+
+inner_join(yearlyNames, top5Names1986) %>%
+ggplot(aes(year, count, color=name)) +
+  facet_grid(~sex) +
+  geom_line() +
+  ggtitle("Most Popular Names of 1986")
+```
+
+## Top 5 names from 2014
+
+Identify the top 5 male and female names from 2014. Visualize the popularity trend over time.
+
+```{r}
+top5Names2014 <- yearlyNames %>%
+  filter(year == 2014) %>%
+  group_by(name, sex) %>%
+  summarize(count = sum(count)) %>%
+  group_by(sex) %>%
+  mutate(rank = min_rank(desc(count))) %>%
+  filter(rank <= 5) %>%
+  arrange(sex, rank) %>%
+  select(name, sex, rank)
+
+inner_join(yearlyNames, top5Names2014) %>%
+ggplot(aes(year, count, color=name)) +
+  facet_grid(~sex) +
+  geom_line() +
+  ggtitle("Most Popular Names of 2014")
+```
+
+## Same names
+
+Visualize the most popular names that are used by both males and females.
+
+```{r}
+sameName <- babynames %>%
+  mutate(male = ifelse(sex == "M", n, 0), female = ifelse(sex == "F", n, 0)) %>%
+  group_by(name) %>%
+  summarize(Male = sum(male), Female = sum(female)) %>%
+  filter(Male > 30000 & Female > 30000)
+
+figure(width = NULL, height = NULL) %>%
+  ly_points(log10(Male), log10(Female), data = sameName,
+    hover = list(name, Male, Female))
+```

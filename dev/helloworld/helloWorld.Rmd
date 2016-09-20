@@ -12,5 +12,5 @@ iris_tbl <- copy_to(sc, iris, "iris")
 
 iris_tbl %>%
   group_by(Species) %>%
-  summarize(n1 = n(), n2 = as.numeric(n()))
+  summarize(n1 = as.numeric(n()), n2 = as.numeric(n()))
 ```

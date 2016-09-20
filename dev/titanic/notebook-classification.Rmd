@@ -96,6 +96,7 @@ titanic2_tbl <- titanic_tbl %>%
   filter(!is.na(Embarked)) %>%
   mutate(Age = if_else(is.na(Age), mean(Age), Age)) %>%
   sdf_register("titanic2")
+sql_render(titanic2_tbl)
 ```
 
 > Tip: `sdf_register` is used to save our table for later analysis.

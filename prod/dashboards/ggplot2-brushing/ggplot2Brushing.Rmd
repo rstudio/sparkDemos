@@ -11,16 +11,21 @@ runtime: shiny
 ```{r global, include=FALSE}
 # load data in 'global' chunk so it can be shared by all users of the dashboard
 library(datasets)
-mtcars2 <- mtcars[, c("mpg", "cyl", "wt")]
+library(flexdashboard)
+library(sparklyr)
+library(dplyr)
+
+sc <- spark_connect(master = "local", version = "2.0.0")
+mtcars2_tbl <- copy_to(sc, mtcars[, c("mpg", "cyl", "wt")], "mtcars")
 ```
 
 
 ```{r}
 # Reactive that returns the whole dataset if there is no brush
 selectedData <- reactive({
-  data <- brushedPoints(mtcars2, input$plot1_brush)
+  data <- brushedPoints(collect(mtcars2_tbl), input$plot1_brush)
   if (nrow(data) == 0)
-    data <- mtcars2
+    data_tbl <- collect(mtcars2_tbl)
   data
 })
 ```
@@ -34,7 +39,7 @@ Column {data-width=650}
 library(ggplot2)
 plotOutput("plot1", brush = brushOpts(id = "plot1_brush"))
 output$plot1 <- renderPlot({
-  ggplot(mtcars2, aes(wt, mpg)) + geom_point()
+  ggplot(collect(mtcars2_tbl), aes(wt, mpg)) + geom_point()
 })
 ```
 

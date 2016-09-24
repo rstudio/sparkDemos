@@ -8,20 +8,20 @@ Use dplyr syntax to write Apache Spark SQL queries. Use select, where, group by,
 ## Setup
 
 ```{r setup}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 library(sparklyr)
 library(dplyr)
 library(babynames)
 library(ggplot2)
 library(dygraphs)
 library(rbokeh)
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```
 
 ## Connect to Spark
 
 Install and connect to a local Spark instance. Copy data into Spark DataFrames.
 
-```{r}
+```{r, eval=FALSE}
 #spark_install("2.0.0")
 sc <- spark_connect(master = "local", version = "2.0.0")
 babynames_tbl <- copy_to(sc, babynames, "babynames")
@@ -32,7 +32,7 @@ applicants_tbl <- copy_to(sc, applicants, "applicants")
 
 Plot total US births recorded from the Social Security Administration.
 
-```{r}
+```{r, fig.height=5, fig.width=12}
 birthsYearly <- applicants_tbl %>%
   mutate(male = ifelse(sex == "M", n_all, 0), female = ifelse(sex == "F", n_all, 0)) %>%
   group_by(year) %>%
@@ -76,7 +76,7 @@ tbl_cache(sc, "yearlyNames")
 
 Identify the top 5 male and female names from 1986. Visualize the popularity trend over time.
 
-```{r}
+```{r, fig.height=5, fig.width=12}
 topNames1986_tbl <- yearlyNames_tbl %>%
   filter(year == 1986) %>%
   group_by(name, sex) %>%
@@ -104,7 +104,7 @@ ggplot(topNames1986Yearly, aes(year, count, color=name)) +
 
 Identify the top 5 male and female names from 2014. Visualize the popularity trend over time.
 
-```{r}
+```{r, fig.height=5, fig.width=12}
 topNames2014_tbl <- yearlyNames_tbl %>%
   filter(year == 2014) %>%
   group_by(name, sex) %>%
@@ -132,7 +132,7 @@ ggplot(topNames2014Yearly, aes(year, count, color=name)) +
 
 Visualize the most popular names that are shared by both males and females.
 
-```{r}
+```{r, fig.height=5, fig.width=12}
 sharedName <- babynames_tbl %>%
   mutate(male = ifelse(sex == "M", n, 0), female = ifelse(sex == "F", n, 0)) %>%
   group_by(name) %>%

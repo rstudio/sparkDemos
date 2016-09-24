@@ -3,11 +3,6 @@ title: "Analyzing a billion NYC taxi trips in Spark"
 output: html_notebook
 ---
 
-```{r setup, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
-install.packages('miniUI')
-install.packages('DT')
-```
-
 # Access your data
 
 We analyze the full taxi data as described by [Todd Schneider](http://toddwschneider.com/posts/analyzing-1-1-billion-nyc-taxi-and-uber-trips-with-a-vengeance/) in using R and sparklyr. We load the billion record trips table into Apache Spark and then use sparklyr and dplyr to manipulate the data and run machine learning algorithms at scale.
@@ -118,9 +113,9 @@ pickup_dropoff <- collect(pickup_dropoff_tbl)
 ggplot(pickup_dropoff, aes(x = pickup_hour)) +
           geom_line(aes(y = trip_time_p50, alpha = "Median")) +
           geom_ribbon(aes(ymin = trip_time_p25, ymax = trip_time_p75, 
-                          alpha = "25–75th percentile")) +
+                          alpha = "25-75th percentile")) +
           geom_ribbon(aes(ymin = trip_time_p10, ymax = trip_time_p90, 
-                          alpha = "10–90th percentile")) +
+                          alpha = "10-90th percentile")) +
           scale_y_continuous("trip duration in minutes")
 
 ```
@@ -276,10 +271,10 @@ server <- function(input, output) {
     geom_line(aes(y = trip_time_p50 / 60, alpha = "Median")) +
     geom_ribbon(aes(ymin = trip_time_p25 / 60, 
                     ymax = trip_time_p75 / 60, 
-                    alpha = "25–75th percentile")) +
+                    alpha = "25-75th percentile")) +
     geom_ribbon(aes(ymin = trip_time_p10 / 60, 
                     ymax = trip_time_p90 / 60, 
-                    alpha = "10–90th percentile")) +
+                    alpha = "10-90th percentile")) +
     scale_y_continuous("trip duration in minutes") + 
     ggtitle("Trip time in minutes")
    })

@@ -91,7 +91,7 @@ topNames1986_tbl <- yearlyNames_tbl %>%
 tbl_cache(sc, "topNames1986")
 
 topNames1986Yearly <- yearlyNames_tbl %>%
-  inner_join(topNames1986_tbl) %>%
+  inner_join(select(topNames1986_tbl, sex, name)) %>%
   collect
 
 ggplot(topNames1986Yearly, aes(year, count, color=name)) +
@@ -119,7 +119,7 @@ topNames2014_tbl <- yearlyNames_tbl %>%
 tbl_cache(sc, "topNames2014")
 
 topNames2014Yearly <- yearlyNames_tbl %>%
-  inner_join(topNames2014_tbl) %>%
+  inner_join(select(topNames2014_tbl, sex, name)) %>%
   collect
 
 ggplot(topNames2014Yearly, aes(year, count, color=name)) +

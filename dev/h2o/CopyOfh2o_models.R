@@ -1,0 +1,109 @@
+library(rsparkling)
+library(dplyr)
+library(ggplot2)
+
+# Set up
+sc <- spark_connect("local", version = "1.6.2")
+iris_tbl <- copy_to(sc, iris, "iris", overwrite = TRUE)
+iris_hf <- as_h2o_frame(sc, iris_tbl)
+
+### K means clustering
+
+# Iris
+kmeans_model <- h2o.kmeans(training_frame = iris_hf, 
+                           x = 3:4,
+                           k = 3,
+                           seed = 1)
+h2o.centers(kmeans_model)
+h2o.centroid_stats(kmeans_model)
+
+### Logistic
+
+# Prepare beaver dataset
+beaver <- beaver2
+beaver$activ <- factor(beaver$activ, labels = c("Non-Active", "Active"))
+beaver_hf <- as.h2o(beaver)  # Send data from R memory to H2O cluster
+
+y <- "activ"
+x <- setdiff(names(beaver_hf), y)
+glm_model <- h2o.glm(x = x, 
+                     y = y,
+                     training_frame = beaver_hf,
+                     family = "binomial",
+                     nfolds = 3,
+                     seed = 1)
+
+h2o.performance(glm_model, xval = TRUE)
+
+### PCA
+
+pca_model <- h2o.prcomp(training_frame = iris_hf,
+                        x = 1:4,
+                        k = 4,
+                        seed = 1)
+print(pca_model)
+
+### Random Forest
+
+y <- "Species"
+x <- setdiff(names(iris_hf), y)
+iris_hf[,y] <- as.factor(iris_hf[,y])
+
+splits <- h2o.splitFrame(iris_hf, seed = 1)
+
+rf_model <- h2o.randomForest(x = x, 
+                             y = y,
+                             training_frame = splits[[1]],
+                             validation_frame = splits[[2]],
+                             nbins = 32,
+                             max_depth = 5,
+                             ntrees = 20,
+                             seed = 1)
+
+h2o.confusionMatrix(rf_model, valid = TRUE)
+
+h2o.varimp_plot(rf_model)
+
+### Gradient Boosted Model
+
+gbm_model <- h2o.gbm(x = x, 
+                     y = y,
+                     training_frame = splits[[1]],
+                     validation_frame = splits[[2]],                     
+                     ntrees = 20,
+                     max_depth = 3,
+                     learn_rate = 0.01,
+                     col_sample_rate = 0.7,
+                     seed = 1)
+
+h2o.confusionMatrix(gbm_model, valid = TRUE)
+
+path <- system.file("extdata", "prostate.csv", 
+                    package = "h2o")
+
+prostate_hf <- h2o.importFile(path)
+str(prostate_hf)
+head(prostate_hf)
+
+splits <- h2o.splitFrame(prostate_hf, seed = 1)
+
+### Deep learning
+
+y <- "VOL"
+#remove response and ID cols
+x <- setdiff(names(prostate_hf), c("ID", y))
+
+dl_fit <- h2o.deeplearning(x = x, y = y,
+                           training_frame = splits[[1]],
+                           epochs = 15,
+                           activation = "Rectifier",
+                           hidden = c(10, 5, 10),
+                           input_dropout_ratio = 0.7)
+
+h2o.performance(dl_fit, newdata = splits[[2]])
+
+path <- system.file("extdata", "prostate.csv", 
+                    package = "h2o")
+prostate_hf <- h2o.importFile(path)
+splits <- h2o.splitFrame(prostate_hf, seed = 1)
+

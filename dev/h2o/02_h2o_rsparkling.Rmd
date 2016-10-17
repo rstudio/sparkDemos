@@ -17,6 +17,12 @@ sc <- spark_connect("local", version = "1.6.2")
 mtcars_tbl <- copy_to(sc, mtcars, "mtcars", overwrite = TRUE)
 ```
 
+## H2O Context
+
+```{r}
+h2o_context(sc)
+```
+
 ## Partition into test and training
 
 ```{r}

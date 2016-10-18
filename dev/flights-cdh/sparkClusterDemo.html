@@ -261,8 +261,8 @@ sudo apt-get -y install libssl-dev</code></pre>
 <p>We will install the preview version of RStudio Server</p>
 <pre class="bash"><code>wget https://s3.amazonaws.com/rstudio-dailybuilds/rstudio-server-1.0.40-amd64.deb
 sudo gdebi rstudio-server-1.0.49-amd64.deb</code></pre>
-<div id="create-and-configure-an-user" class="section level3">
-<h3>Create and configure an User</h3>
+<div id="create-and-configure-a-user" class="section level3">
+<h3>Create and configure a User</h3>
 <p>Create a user called <code>rstudio</code> that will perform the data analysis.</p>
 <pre class="bash"><code>sudo adduser rstudio</code></pre>
 <p>To ease security restriction in this demo, we will add the new user to the default super group defined in the <strong>dfs.permissions.superusergroup</strong> setting in CDH</p>
@@ -283,8 +283,6 @@ library(ggplot2)
 
 Sys.setenv(HADOOP_CONF_DIR='/etc/hadoop/conf.cloudera.hdfs')
 Sys.setenv(YARN_CONF_DIR='/etc/hadoop/conf.cloudera.yarn')
-Sys.setenv(SPARK_HOME=&quot;/home/ubuntu/spark-1.6.0&quot;)
-Sys.setenv(SPARK_HOME_VERSION=&quot;1.6.0&quot;)
 
 sc &lt;- spark_connect(master = &quot;yarn-client&quot;, version=&quot;1.6.0&quot;, spark_home = '/opt/cloudera/parcels/CDH/lib/spark/')</code></pre>
 <p>Once you are connected, you will see the Spark pane appear along with your hive tables.</p>

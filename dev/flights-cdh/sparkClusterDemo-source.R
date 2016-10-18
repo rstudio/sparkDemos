@@ -5,8 +5,8 @@ library(ggplot2)
 
 Sys.setenv(HADOOP_CONF_DIR='/etc/hadoop/conf.cloudera.hdfs')
 Sys.setenv(YARN_CONF_DIR='/etc/hadoop/conf.cloudera.yarn')
-Sys.setenv(SPARK_HOME="/home/ubuntu/spark-1.6.0")
-Sys.setenv(SPARK_HOME_VERSION="1.6.0")
+#Sys.setenv(SPARK_HOME="/home/ubuntu/spark-1.6.0")
+#Sys.setenv(SPARK_HOME_VERSION="1.6.0")
 
 sc <- spark_connect(master = "yarn-client", version="1.6.0", spark_home = '/opt/cloudera/parcels/CDH/lib/spark/')
 

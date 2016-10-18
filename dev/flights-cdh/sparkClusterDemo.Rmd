@@ -36,77 +36,7 @@ For this demo, we have created and populated 3 tables in Hive.  The table names 
 <img src="images/clusterDemo/hue-metastore-1.png" width=`r params$width`/>
 
 
-# Installation
-
-A fully assembled Spark folder that the RStudio user can access is necessary.  To accomplish this, three steps will be taken: first, is to install Java, second to install Scala and third is assembling Spark. Please note that this installation will not replace the already installed Spark parcel, it will be used to simply make the necessary libraries available to 'sparklyr'.
-
-We will install RStudio and the dependencies in the master node.
-
-### Java 
-
-In a terminal session inside the master node run the following:
-
-```{bash eval=FALSE}
-sudo apt-add-repository ppa:webupd8team/java
-sudo apt-get update
-sudo apt-get install oracle-java8-installer
-sudo apt-get install oracle-java8-set-default
-```
-
-### Scala
-
-A Scala version that matches a Spark 1.6.0 assembly is needed, in this case we'll use 2.10.5
-
-```{bash eval=FALSE}
-sudo wget http://www.scala-lang.org/files/archive/scala-2.10.5.tgz
-
-cd /usr/local/src/
-sudo mkdir scala
-cd /home/ubuntu/
-sudo tar -xvf scala-2.10.5.tgz -C /usr/local/src/scala
-```
-
-We will now update the 'bashrc' file to set the Scala version
-
-- Open the bashrc file
-```{bash eval=FALSE}
-vi .bashrc
-```
-- Use the arrow keys to go to the bottom of the file
-- Press the {Insert} key
-- Type the following
-```{bash eval=FALSE}
-export SCALA_HOME=/usr/local/src/scala/scala-2.10.5
-export PATH=$SCALA_HOME/bin:$PATH
-```
-- Press {Esc}
-- Type :wq and Enter (to save and close)
-- Reload the bashrc file
-```{bash eval=FALSE}
-. .bashrc
-```
-- Verify the Scala version
-```{bash eval=FALSE}
-scala -version
-```
-
-### Spark
-
-A version that matches the default Spark parcel installed in CDH 5.8.2 will be downloaded and and assembled
-
-```{bash eval=FALSE}
-sudo apt-get install git
-sudo apt-get upgrade 
-sudo apt-get update
-
-wget http://d3kbcqa49mib13.cloudfront.net/spark-1.6.0.tgz
-tar -xvzf spark-1.6.0.tgz
-cd spark-1.6.0
-
-sudo sbt/sbt assembly
-```
-
-### R
+# Install RStudio
 
 The latest version of R is needed. In Ubuntu, the default core R is not  the latest so we have to update the source list.  We will also install a few other dependencies.
 
@@ -121,7 +51,7 @@ sudo apt-get -y install libcurl4-gnutls-dev
 sudo apt-get -y install libssl-dev
 ```
 
-### RStudio
+We will install the preview version of RStudio Server
 
 ```{bash eval=FALSE}
 wget https://s3.amazonaws.com/rstudio-dailybuilds/rstudio-server-1.0.40-amd64.deb

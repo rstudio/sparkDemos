@@ -325,7 +325,7 @@ save(pred_data, airports, ml1_summary, file = 'flights_pred_2008.RData')
 
 Use the saved data to build an R Markdown [flexdashboard](http://rmarkdown.rstudio.com/flexdashboard/index.html). Publish the flexdashboard 
 
-<img src="images/clusterDemo/flex-1.png" width=`r params$width`/>
+<a href="https://beta.rstudioconnect.com/content/1995/"><img src="images/clusterDemo/flex-1.png" width=`r params$width`/></a>
 
 
 #Appendix

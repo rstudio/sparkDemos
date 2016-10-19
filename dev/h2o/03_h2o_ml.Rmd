@@ -1,25 +1,34 @@
+---
+title: "H2O Sparkling Water Machine Learning"
+output: html_notebook
+---
+
+## Setup
+
+```{r, message=FALSE, warning=FALSE}
 library(rsparkling)
 library(dplyr)
 library(ggplot2)
 
-# Set up
 sc <- spark_connect("local", version = "1.6.2")
 iris_tbl <- copy_to(sc, iris, "iris", overwrite = TRUE)
 iris_hf <- as_h2o_frame(sc, iris_tbl)
+```
 
-### K means clustering
+## K means clustering
 
-# Iris
+```{r}
 kmeans_model <- h2o.kmeans(training_frame = iris_hf, 
                            x = 3:4,
                            k = 3,
                            seed = 1)
 h2o.centers(kmeans_model)
 h2o.centroid_stats(kmeans_model)
+```
 
-### Logistic
+## Logistic
 
-# Prepare beaver dataset
+```{r}
 beaver <- beaver2
 beaver$activ <- factor(beaver$activ, labels = c("Non-Active", "Active"))
 beaver_hf <- as.h2o(beaver)  # Send data from R memory to H2O cluster
@@ -34,17 +43,21 @@ glm_model <- h2o.glm(x = x,
                      seed = 1)
 
 h2o.performance(glm_model, xval = TRUE)
+```
 
-### PCA
+## PCA
 
+```{r}
 pca_model <- h2o.prcomp(training_frame = iris_hf,
                         x = 1:4,
                         k = 4,
                         seed = 1)
 print(pca_model)
+```
 
-### Random Forest
+## Random Forest
 
+```{r}
 y <- "Species"
 x <- setdiff(names(iris_hf), y)
 iris_hf[,y] <- as.factor(iris_hf[,y])
@@ -63,9 +76,11 @@ rf_model <- h2o.randomForest(x = x,
 h2o.confusionMatrix(rf_model, valid = TRUE)
 
 h2o.varimp_plot(rf_model)
+```
 
-### Gradient Boosted Model
+## Gradient Boosted Model
 
+```{r}
 gbm_model <- h2o.gbm(x = x, 
                      y = y,
                      training_frame = splits[[1]],
@@ -86,11 +101,12 @@ str(prostate_hf)
 head(prostate_hf)
 
 splits <- h2o.splitFrame(prostate_hf, seed = 1)
+```
 
-### Deep learning
+## Deep learning
 
+```{r}
 y <- "VOL"
-#remove response and ID cols
 x <- setdiff(names(prostate_hf), c("ID", y))
 
 dl_fit <- h2o.deeplearning(x = x, y = y,
@@ -102,8 +118,7 @@ dl_fit <- h2o.deeplearning(x = x, y = y,
 
 h2o.performance(dl_fit, newdata = splits[[2]])
 
-path <- system.file("extdata", "prostate.csv", 
-                    package = "h2o")
+path <- system.file("extdata", "prostate.csv", package = "h2o")
 prostate_hf <- h2o.importFile(path)
 splits <- h2o.splitFrame(prostate_hf, seed = 1)
-
+```

@@ -33,12 +33,16 @@ applicants_tbl <- copy_to(sc, applicants, "applicants")
 Plot total US births recorded from the Social Security Administration.
 
 ```{r, fig.height=5, fig.width=12}
-birthsYearly <- applicants_tbl %>%
+birthsYearly_tbl <- applicants_tbl %>%
   mutate(male = ifelse(sex == "M", n_all, 0), female = ifelse(sex == "F", n_all, 0)) %>%
   group_by(year) %>%
   summarize(Male = sum(male) / 1000000, Female = sum(female) / 1000000) %>%
-  arrange(year) %>%
-  collect
+  arrange(year)
+
+sql_render(birthsYearly_tbl) # HQL with case statements and 'temp' tables
+sdf_register(birthsYearly_tbl, "birthsYearly") # Register 'temp' tables
+birthsYearly <- collect(birthsYearly_tbl) # collect for visualization
+birthsYearly # datatable view
 
 birthsYearly %>%
   dygraph(main = "Total US Births (SSN)", ylab = "Millions") %>%
@@ -48,11 +52,12 @@ birthsYearly %>%
   dyRangeSelector(height = 20)
 ```
 
-## Aggregate data by name
+## Aggregate data by name and year
 
 Use Spark SQL to create a look up table. Register and cache the look up table in Spark for future queries.
 
 ```{r}
+# names with at least 1000 births
 topNames_tbl <- babynames_tbl %>%
   filter(year >= 1986) %>%  
   group_by(name, sex) %>%
@@ -60,16 +65,19 @@ topNames_tbl <- babynames_tbl %>%
   filter(count > 1000) %>%
   select(name, sex)
 
+# names since 1986
 filteredNames_tbl <- babynames_tbl %>%
   filter(year >= 1986) %>%
-  inner_join(topNames_tbl)
+  inner_join(topNames_tbl) # inner (self) join
 
+# aggregate by year, name, sex
 yearlyNames_tbl <- filteredNames_tbl %>%
   group_by(year, name, sex) %>%
   summarize(count = as.numeric(sum(n)))
 
+# register table for future queries
 sdf_register(yearlyNames_tbl, "yearlyNames")
-tbl_cache(sc, "yearlyNames")
+tbl_cache(sc, "yearlyNames") # cache into Spark memory (see sparkUI)
 ```
 
 ## Most popular names (1986)
@@ -77,6 +85,7 @@ tbl_cache(sc, "yearlyNames")
 Identify the top 5 male and female names from 1986. Visualize the popularity trend over time.
 
 ```{r, fig.height=5, fig.width=12}
+# top 4 names by sex
 topNames1986_tbl <- yearlyNames_tbl %>%
   filter(year == 1986) %>%
   group_by(name, sex) %>%
@@ -134,6 +143,7 @@ Visualize the most popular names that are shared by both males and females.
 
 ```{r, fig.height=5, fig.width=12}
 sharedName <- babynames_tbl %>%
+  filter(year > 1955) %>%
   mutate(male = ifelse(sex == "M", n, 0), female = ifelse(sex == "F", n, 0)) %>%
   group_by(name) %>%
   summarize(Male = as.numeric(sum(male)), 
@@ -146,7 +156,7 @@ sharedName <- babynames_tbl %>%
 figure(width = NULL, height = NULL, 
        xlab = "Log10 Number of Males", 
        ylab = "Log10 Number of Females",
-       title = "Top shared names (1880 - 2014)") %>%
+       title = "Top shared names (1955 - 2014)") %>%
   ly_points(log10(Male), log10(Female), data = sharedName,
             color = AvgYear, size = scale(sqrt(count)),
             hover = list(name, Male, Female, AvgYear), legend = FALSE)

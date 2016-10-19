@@ -306,4 +306,3 @@ runGadget(ui, server)
 # Communicate your insights
 
 We estimated taxi trip times by time of day for multiple pickup and dropoff locations. We found the key drivers for predicting tip amounts for specific pickup and dropoff locations. We also found the top dropoff locations for specific pickup locations. Finally, we published these results in an R markdown notebook.
-

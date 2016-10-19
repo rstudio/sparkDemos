@@ -17,12 +17,6 @@ sc <- spark_connect("local", version = "1.6.2")
 mtcars_tbl <- copy_to(sc, mtcars, "mtcars", overwrite = TRUE)
 ```
 
-## H2O Context
-
-```{r}
-h2o_context(sc)
-```
-
 ## Partition into test and training
 
 ```{r}
@@ -46,7 +40,7 @@ glm_model <- h2o.glm(x = c("wt", "cyl"),
                      training_frame = training,
                      lambda_search = TRUE)
 # Examine model
-print(glm_model)
+summary(glm_model)
 ```
 
 ## Score test data and compare to actuals
@@ -82,5 +76,4 @@ ggplot(data, aes(x = actual, y = predict)) +
     title = "Predicted vs. Actual Fuel Consumption"
   )
 ```
-
 

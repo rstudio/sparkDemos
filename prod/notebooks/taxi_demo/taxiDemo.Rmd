@@ -35,7 +35,7 @@ config$spark.executor.cores	<- 32
 config$spark.executor.memory <- "40g"
 
 # Connect to cluster
-sc <- spark_connect(master = "yarn-client", config = config, version = '1.6.1')
+sc <- spark_connect(master = "yarn-client", config = config, version = '2.0.1')
 ```
 
 ## Prepare your data

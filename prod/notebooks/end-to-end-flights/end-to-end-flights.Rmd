@@ -158,7 +158,7 @@ Some carriers make up more time than others in flight, but the differences are r
 
 ```{r}
 # Summarize by origin, destination, and carrier
-summary_2008 <- score_2008 %>%
+summary_2008 <- sdf_predict(ml1, data_2008) %>%
   rename(carrier = uniquecarrier, airline = description) %>%
   group_by(origin, dest, carrier, airline) %>%
   summarize(

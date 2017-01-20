@@ -1,0 +1,33 @@
+library(sparklyr)
+library(dplyr)
+
+Sys.setenv(JAVA_HOME="/usr/lib/jvm/java-7-oracle-cloudera/")
+Sys.setenv(SPARK_HOME = '/opt/cloudera/parcels/CDH/lib/spark')
+
+
+conf <- list()
+#conf$spark.num.executors <- 60
+conf$spark.executor.cores <- 16
+conf$spark.executor.memory <- "24G"
+conf$spark.yarn.am.cores  <-   16
+conf$spark.yarn.am.memory <- "24G"
+
+sc <- spark_connect(master = "yarn-client", version="1.6.0", config = conf)
+
+
+system.time(nrow(tbl(sc,"trips_model_data")))
+
+
+test_table <- tbl(sc,"trips_model_data") %>%
+  select(trip_distance,
+         tip_amount,
+         fare_amount)
+
+system.time(sdf_register(test_table, "test_table"))
+system.time(tbl_cache(sc, "test_table"))
+
+
+system.time({
+  test_model <- tbl(sc, "test_table") %>%
+    ml_linear_regression(tip_amount~trip_distance+fare_amount)})
+

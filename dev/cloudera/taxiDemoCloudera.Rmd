@@ -32,9 +32,9 @@ Sys.setenv(SPARK_HOME = '/opt/cloudera/parcels/CDH/lib/spark')
 # Configure cluster
 conf <- list()
 conf$spark.executor.cores <- 16
-conf$spark.executor.memory <- "24G"
+conf$spark.executor.memory <- "26G"
 conf$spark.yarn.am.cores  <- 16
-conf$spark.yarn.am.memory <- "24G"
+conf$spark.yarn.am.memory <- "26G"
 
 # Connect to cluster
 sc <- spark_connect(master = "yarn-client", config = conf, version = '1.6.0')
@@ -64,7 +64,7 @@ trips_joined_tbl <- trips_tbl %>%
   sdf_register("trips_par_joined")
 
 # Cache table
-system.time(tbl_cache(sc, "trips_par_joined")) # 4.3 vs 4.8 min
+system.time(tbl_cache(sc, "trips_par_joined")) # 4.2 vs 4.3 vs 4.8 min
 ```
 
 # Understand your data
@@ -142,7 +142,9 @@ model_tbl <- trips_joined_tbl %>%
   filter(!is.na(pickup_week)) %>%
   filter(!is.na(passenger_count)) %>%
   filter(!is.na(trip_time)) %>%
-  filter(!is.na(trip_distance))
+  filter(!is.na(trip_distance)) %>%
+  select(tip_amount, fare_amount, vendor_id, pickup_hour, 
+         pickup_week, passenger_count, trip_time, trip_distance)
 
 # Partitioin into train and validate
 model_partition_tbl <- model_tbl %>%

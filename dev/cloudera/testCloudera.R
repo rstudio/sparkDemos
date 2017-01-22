@@ -59,6 +59,3 @@ source("dev/cloudera/bigvis_tile.R")
 trips_par_tbl <- tbl(sc, "trips_par")
 bigvis_compute_tiles(trips_par_tbl, "pickup_nyct2010_gid", "dropoff_nyct2010_gid", 50) %>%
   bigvis_ggplot_tiles()
-
-bigvis_compute_tiles(trips_par_tbl, "pickup_nyct2010_gid", "dropoff_nyct2010_gid", 50) %>%
-  bigvis_ggplot_tiles

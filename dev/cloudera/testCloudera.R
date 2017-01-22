@@ -1,5 +1,6 @@
 library(sparklyr)
 library(dplyr)
+library(ggplot2)
 
 Sys.setenv(JAVA_HOME="/usr/lib/jvm/java-7-oracle-cloudera/")
 Sys.setenv(SPARK_HOME = '/opt/cloudera/parcels/CDH/lib/spark')
@@ -14,6 +15,7 @@ conf$spark.yarn.am.memory <- "24G"
 
 sc <- spark_connect(master = "yarn-client", version="1.6.0", config = conf)
 
+###
 
 system.time(nrow(tbl(sc,"trips_model_data")))
 
@@ -42,3 +44,21 @@ spark_plot_point(test, "ct2010", "boroct2010")
 spark_plot_hist(trips_joined_tbl, "pickup_nyct2010_gid")
 spark_plot_hist(trips_joined_tbl, "pickup_latitude")
 spark_plot_boxbin(trips_joined_tbl, "pickup_nyct2010_gid", "dropoff_nyct2010_gid") # fails
+
+### Plot1
+
+
+source("dev/cloudera/bigvis_histogram.R")
+nyct2010_tbl <- tbl(sc, "nyct2010")
+bigvis_compute_histogram(nyct2010_tbl, "ct2010") %>%
+  bigvis_ggplot_histogram
+
+## Plot2
+
+source("dev/cloudera/bigvis_tile.R")
+trips_par_tbl <- tbl(sc, "trips_par")
+bigvis_compute_tiles(trips_par_tbl, "pickup_nyct2010_gid", "dropoff_nyct2010_gid", 50) %>%
+  bigvis_ggplot_tiles()
+
+bigvis_compute_tiles(trips_par_tbl, "pickup_nyct2010_gid", "dropoff_nyct2010_gid", 50) %>%
+  bigvis_ggplot_tiles

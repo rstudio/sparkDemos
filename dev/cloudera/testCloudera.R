@@ -59,3 +59,16 @@ source("dev/cloudera/bigvis_tile.R")
 trips_par_tbl <- tbl(sc, "trips_par")
 bigvis_compute_tiles(trips_par_tbl, "pickup_nyct2010_gid", "dropoff_nyct2010_gid", 50) %>%
   bigvis_ggplot_tiles()
+
+trips_model_data_tbl <- tbl(sc, "trips_model_data")
+tmp<-bigvis_compute_tiles(trips_model_data_tbl, "pickup_latitude","pickup_longitude", 500)
+bigvis_ggplot_tiles(tmp)
+
+trips_model_data_tbl %>%
+  filter(pickup_boro == "Manhattan") %>%
+  bigvis_compute_tiles("pickup_longitude", "pickup_latitude", 500) %>%
+  bigvis_ggplot_tiles
+
+trips_model_data_tbl %>%
+  bigvis_compute_tiles("pickup_longitude", "pickup_latitude", 1000) %>%
+  bigvis_ggplot_tiles

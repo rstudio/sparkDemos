@@ -1,0 +1,45 @@
+---
+title: "Data Science Tool Chain with Spark"
+output: html_notebook
+---
+
+```{r}
+library(sparklyr)
+library(dplyr)
+library(ggplot2)
+
+Sys.setenv(JAVA_HOME="/usr/lib/jvm/java-7-oracle-cloudera/")
+Sys.setenv(SPARK_HOME = '/opt/cloudera/parcels/CDH/lib/spark')
+
+conf <- spark_config()
+conf$spark.executor.cores <- 16
+conf$spark.executor.memory <- "24G"
+conf$spark.yarn.am.cores  <-   16
+conf$spark.yarn.am.memory <- "24G"
+
+sc <- spark_connect(master = "yarn-client", version="1.6.0", config = conf)
+
+nyct2010_tbl <- tbl(sc, "nyct2010")
+trips_par_tbl <- tbl(sc, "trips_par")
+trips_model_data_tbl <- tbl(sc, "trips_model_data")
+```
+
+### Histogram
+
+```{r}
+source("bigvis_histogram.R")
+
+bigvis_compute_histogram(nyct2010_tbl, "ct2010") %>%
+  bigvis_ggplot_histogram
+```
+
+### Tile plot
+
+```{r}
+source("bigvis_tile.R")
+
+trips_model_data_tbl %>%
+  bigvis_compute_tiles("pickup_longitude", "pickup_latitude", 500) %>%
+  bigvis_ggplot_tiles
+```
+

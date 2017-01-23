@@ -31,6 +31,7 @@ source("bigvis_histogram.R")
 
 bigvis_compute_histogram(nyct2010_tbl, "ct2010") %>%
   bigvis_ggplot_histogram
+
 ```
 
 ### Tile plot
@@ -41,5 +42,6 @@ source("bigvis_tile.R")
 trips_model_data_tbl %>%
   bigvis_compute_tiles("pickup_longitude", "pickup_latitude", 500) %>%
   bigvis_ggplot_tiles
+
 ```
 

@@ -45,30 +45,82 @@ spark_plot_hist(trips_joined_tbl, "pickup_nyct2010_gid")
 spark_plot_hist(trips_joined_tbl, "pickup_latitude")
 spark_plot_boxbin(trips_joined_tbl, "pickup_nyct2010_gid", "dropoff_nyct2010_gid") # fails
 
-### Plot1
+### Histogram
 
-
-source("dev/cloudera/bigvis_histogram.R")
+source("dev/cloudera/sqlvis_histogram.R")
 nyct2010_tbl <- tbl(sc, "nyct2010")
 bigvis_compute_histogram(nyct2010_tbl, "ct2010") %>%
   bigvis_ggplot_histogram
 
-## Plot2
+trips_model_data_tbl %>%
+  filter(pickup_nta == "Airport" & dropoff_boro != "Staten Island") %>%
+  filter(fare_amount > 0 & fare_amount < 100) %>%
+  sqlvis_compute_histogram("fare_amount") %>%
+  sqlvis_ggplot_histogram(title = "Airport Pickup Fare Amount")
+
+trips_model_data_tbl %>%
+  filter(fare_amount > 0 & fare_amount < 100) %>%
+  sqlvis_compute_histogram("fare_amount") %>%
+  sqlvis_ggplot_histogram(title = "Fare Amount")
+
+trips_model_data_tbl %>%
+  filter(fare_amount > 0 & fare_amount < 100) %>%
+  filter(pickup_boro == "Manhattan" & dropoff_boro == "Brooklyn") %>%
+  sqlvis_compute_histogram("fare_amount") %>%
+  sqlvis_ggplot_histogram(title = "Fare Amount Manhattan to Brooklyn")
+
+trips_model_data_tbl %>%
+  filter(tip_amount > 0 & tip_amount < 25) %>%
+  filter(pickup_boro == "Manhattan" & dropoff_boro == "Brooklyn") %>%
+  sqlvis_compute_histogram("tip_amount") %>%
+  sqlvis_ggplot_histogram(title = "Tip Amount Manhattan to Brooklyn")
+
+## Raster
 
 source("dev/cloudera/bigvis_tile.R")
-trips_par_tbl <- tbl(sc, "trips_par")
-bigvis_compute_tiles(trips_par_tbl, "pickup_nyct2010_gid", "dropoff_nyct2010_gid", 50) %>%
-  bigvis_ggplot_tiles()
 
-trips_model_data_tbl <- tbl(sc, "trips_model_data")
-tmp<-bigvis_compute_tiles(trips_model_data_tbl, "pickup_latitude","pickup_longitude", 500)
-bigvis_ggplot_tiles(tmp)
+trips_model_data_tbl %>%
+  bigvis_compute_tiles("pickup_longitude", "pickup_latitude") %>%
+  sqlvis_ggplot_raster(title = "All Pickups")
+
+trips_model_data_tbl %>%
+  bigvis_compute_tiles("dropoff_longitude", "dropoff_latitude") %>%
+  sqlvis_ggplot_raster(title = "All Dropoffs")
 
 trips_model_data_tbl %>%
   filter(pickup_boro == "Manhattan") %>%
-  bigvis_compute_tiles("pickup_longitude", "pickup_latitude", 500) %>%
-  bigvis_ggplot_tiles
+  bigvis_compute_tiles("pickup_longitude", "pickup_latitude") %>%
+  sqlvis_ggplot_raster(title = "Manhattan Pickups")
 
 trips_model_data_tbl %>%
-  bigvis_compute_tiles("pickup_longitude", "pickup_latitude", 1000) %>%
-  bigvis_ggplot_tiles
+  filter(pickup_boro == "Manhattan") %>%
+  bigvis_compute_tiles("dropoff_longitude", "dropoff_latitude") %>%
+  sqlvis_ggplot_raster(title = "Manhattan Dropoffs")
+
+trips_model_data_tbl %>%
+  filter(pickup_boro != dropoff_boro) %>%
+  bigvis_compute_tiles("dropoff_longitude", "dropoff_latitude") %>%
+  sqlvis_ggplot_raster(title = "Manhattan Dropoffs")
+
+trips_model_data_tbl %>%
+  filter(pickup_nta == "Lincoln Square" & dropoff_boro == "Manhattan") %>%
+  bigvis_compute_tiles("dropoff_longitude", "dropoff_latitude") %>%
+  sqlvis_ggplot_raster(title = "Lincon Square Pickup and Manhattan Dropoffs")
+
+trips_model_data_tbl %>%
+  filter(pickup_nta == "Airport" & dropoff_boro != "Staten Island") %>%
+  bigvis_compute_tiles("dropoff_longitude", "dropoff_latitude") %>%
+  sqlvis_ggplot_raster(title = "Airport Pickup")
+
+trips_model_data_tbl %>%
+  filter(fare_amount > 0 & fare_amount < 100) %>%
+  filter(tip_amount > 0 & tip_amount < 25) %>%
+  filter(pickup_boro == "Manhattan" & dropoff_boro == "Brooklyn") %>%
+  bigvis_compute_tiles("fare_amount", "tip_amount") %>%
+  sqlvis_ggplot_raster(title = "Tip and Fare Correlation") -> p
+
+p
+p + geom_abline(intercept = 0, 
+                slope = c(10,15,20,22,25,27,30,33)/25, 
+                col = 'red', alpha = 0.2, size = 1)
+

@@ -1,5 +1,5 @@
 ### Big data histogram
-bigvis_compute_histogram <- function(data, x, bins = 30){
+sqlvis_compute_histogram <- function(data, x, bins = 30){
 
   x_name <-x
   
@@ -35,17 +35,19 @@ bigvis_compute_histogram <- function(data, x, bins = 30){
 
   }
 
-bigvis_ggplot_histogram <- function(plot_table){
+sqlvis_ggplot_histogram <- function(plot_table, ...){
   plot_table %>%
-    ggplot2::ggplot(ggplot2::aes(x=bin_ceiling, y=count, fill=count), color="black") +
+    ggplot2::ggplot(ggplot2::aes(x = bin_ceiling, y = count)) +
     ggplot2::geom_bar(stat = "identity") +
-    ggplot2::theme(legend.position = "none")
+    ggplot2::theme(legend.position = "none") +
+    labs(x = "", ...)
   }
 
-bigvis_ggvis_histogram <- function(plot_table){
+sqlvis_ggvis_histogram <- function(plot_table, ...){
   plot_table %>%
     ggvis::ggvis(x=~bin_ceiling, y=~count) %>%
     ggvis::layer_bars() %>%
-    ggvis::add_axis("y", title="")
+    ggvis::add_axis("y", title="") +
+    labs(x = "", ...)
 }
 

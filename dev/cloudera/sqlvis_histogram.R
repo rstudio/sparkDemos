@@ -1,53 +1,54 @@
 ### Big data histogram
-sqlvis_compute_histogram <- function(data, x, bins = 30){
+sqlvis_compute_histogram <- function(data, x_name, bins = 30){
 
-  x_name <-x
+  data_prep <- data %>%
+    select_(x_field = x_name) %>%
+    filter(!is.na(x_field)) %>%
+    mutate(x_field = as.double(x_field))
+    
+  s <- data_prep %>%
+    summarise(max_x = max(x_field), min_x = min(x_field)) %>%
+    mutate(bin_value = (max_x - min_x) / bins) %>%
+    collect()
   
-  ranges <- data %>%
-    dplyr::select_(x_field=x) %>%
-    dplyr::filter(!is.na(x_field)) %>%
-    dplyr::summarise(xmax = max(x_field),
-                     xmin = min(x_field)) %>%
-    dplyr::collect()
-  
-  max_x <- ranges$xmax[1]
-  min_x <- ranges$xmin[1]
-  
-  bin_value <- (max_x - min_x) / (bins)
-  
-  all_bins <- data.frame(key_bin=0:(bins-1), bin=1:bins, bin_ceiling=(0:(bins-1)*bin_value)+min_x)
-  new_bins <- as.numeric(c((0:(bins-1)*bin_value)+min_x, max_x))
+  new_bins <- as.numeric(c((0:(bins - 1) * s$bin_value) + s$min_x, s$max_x))
 
-  plot_table <- data %>%
-    dplyr::select_(x_field=x) %>%
-    dplyr::filter(!is.na(x_field)) %>%
-    dplyr::mutate(x_field = as.double(x_field)) %>%
-    sparklyr::ft_bucketizer(input.col = "x_field", output.col = "key_bin", splits=new_bins) %>%
-    dplyr::group_by(key_bin) %>%
-    dplyr::tally() %>%
-    dplyr::collect()
+  plot_table <- data_prep %>%
+    ft_bucketizer(input.col = "x_field", output.col = "key_bin", splits = new_bins) %>%
+    group_by(key_bin) %>%
+    tally() %>%
+    collect()
+  
+  all_bins <- data.frame(
+    key_bin = 0:(bins - 1), 
+    bin = 1:bins, 
+    bin_ceiling = head(new_bins, -1)
+  )
   
   plot_table %>%
-    dplyr::full_join(all_bins, by="key_bin") %>%
-    dplyr::arrange(key_bin) %>%
-    dplyr::mutate(n = ifelse(!is.na(n), n, 0)) %>%
-    dplyr::select(bin = key_bin, count = n, bin_ceiling)
-
+    full_join(all_bins, by="key_bin") %>%
+    arrange(key_bin) %>%
+    mutate(n = ifelse(!is.na(n), n, 0)) %>%
+    select(bin = key_bin, count = n, bin_ceiling) %>%
+    rename_(.dots = setNames(list("bin_ceiling"), x_name))
+  
   }
 
 sqlvis_ggplot_histogram <- function(plot_table, ...){
   plot_table %>%
-    ggplot2::ggplot(ggplot2::aes(x = bin_ceiling, y = count)) +
-    ggplot2::geom_bar(stat = "identity") +
-    ggplot2::theme(legend.position = "none") +
-    labs(x = "", ...)
+    select(x = 3, y = 2) %>%
+    ggplot(aes(x, y)) +
+    geom_bar(stat = "identity", fill = "cornflowerblue") +
+    theme(legend.position = "none") +
+    labs(x = colnames(plot_table)[3], y = colnames(plot_table)[2], ...)
   }
 
 sqlvis_ggvis_histogram <- function(plot_table, ...){
   plot_table %>%
-    ggvis::ggvis(x=~bin_ceiling, y=~count) %>%
-    ggvis::layer_bars() %>%
-    ggvis::add_axis("y", title="") +
-    labs(x = "", ...)
+    select(x = 3, y = 2) %>%
+    ggvis(x = ~x, y = ~y) %>%
+    layer_bars() %>%
+    add_axis("x", title = colnames(plot_table)[3]) %>%
+    add_axis("y", title = colnames(plot_table)[2])
 }
 

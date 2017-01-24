@@ -30,7 +30,7 @@ Sys.setenv(JAVA_HOME="/usr/lib/jvm/java-7-oracle-cloudera/")
 Sys.setenv(SPARK_HOME = '/opt/cloudera/parcels/CDH/lib/spark')
 
 # Configure cluster
-conf <- spark_config()
+conf <- list()
 conf$spark.executor.cores <- 16
 conf$spark.executor.memory <- "26G"
 conf$spark.yarn.am.cores  <- 16
@@ -43,40 +43,28 @@ sc <- spark_connect(master = "yarn-client", config = conf, version = '1.6.0')
 ## Prepare your data
 
 ```{r data}
-# Load lookup table
-nyct2010_tbl <- spark_read_csv(sc, "nyct2010", "/user/nathan/nyct2010.csv")
-
 # Create table references
 trips_tbl <- tbl(sc, "trips_par")
+nyct2010_tbl <- tbl(sc, "nyct2010")
 
 # Join tables
 trips_joined_tbl <- trips_tbl %>%
   filter(!is.na(pickup_nyct2010_gid) & !is.na(dropoff_nyct2010_gid)) %>%
-  filter(cab_type_id %in% c(1, 2)) %>%
-  mutate(cab_type = ifelse(cab_type_id == 1, "yellow", "green")) %>%
-  mutate(pay_type = ifelse(
-    lower(payment_type) %in% c('2', 'csh', 'cash', 'cas'), "cash", ifelse(
-      lower(payment_type) %in% c('1', 'crd', 'credit', 'cre'), "credit", "unk"))) %>%
-  mutate(other_amount = round(total_amount - fare_amount - tip_amount, 2)) %>%
+  select(pickup_datetime, dropoff_datetime,
+         pickup_latitude, dropoff_latitude, 
+         pickup_longitude, dropoff_longitude,
+         pickup_nyct2010_gid, dropoff_nyct2010_gid,
+         tip_amount, fare_amount, vendor_id, passenger_count, trip_distance) %>%
   left_join(
-    select(nyct2010_tbl, pickup_gid = gid, 
-           pickup_boro = boroname, pickup_nta = ntaname), 
+    select(nyct2010_tbl, pickup_gid = gid, pickup_boro = boroname, pickup_nta = ntaname), 
     by = c("pickup_nyct2010_gid" = "pickup_gid")) %>%
   left_join(
-    select(nyct2010_tbl, dropoff_gid = gid, 
-           dropoff_boro = boroname, dropoff_nta = ntaname), 
+    select(nyct2010_tbl, dropoff_gid = gid, dropoff_boro = boroname, dropoff_nta = ntaname), 
     by = c("dropoff_nyct2010_gid" = "dropoff_gid")) %>%
-    select(pickup_datetime, pickup_latitude, pickup_longitude, 
-         pickup_nyct2010_gid, pickup_boro, pickup_nta,
-         dropoff_datetime, dropoff_latitude, dropoff_longitude, 
-         dropoff_nyct2010_gid, dropoff_boro, dropoff_nta,
-         cab_type, passenger_count, trip_distance, 
-         pay_type, fare_amount, tip_amount, other_amount, total_amount) %>%
   sdf_register("trips_par_joined")
 
 # Cache table
-system.time(tbl_cache(sc, "trips_model_data")) # 4.2 vs 4.3 vs 4.8 min
-trips_model_data_tbl <- tbl(sc, "trips_model_data")
+system.time(tbl_cache(sc, "trips_par_joined")) # 4.2 vs 4.3 vs 4.8 min
 ```
 
 # Understand your data
@@ -85,14 +73,29 @@ trips_model_data_tbl <- tbl(sc, "trips_model_data")
 
 Use dplyr syntax to write Spark SQL. When you're ready to visualize your data, use `collect` to bring data into R memory. Notice the data describe roughly 170 million trips per year.
 
-You can measure the time between pickup and dropoff for any two locations. In this example, we measure the time between JFK and mid-town. Notice the longest trip times occur around 4 PM.
-
 ```{r counts}
 # Calculate total trips
-trips_model_data_tbl %>% count
+trips_joined_tbl %>% count
 
+# Calculate trips by year
+trip_by_year <- trips_joined_tbl %>%
+  mutate(year = year(pickup_datetime)) %>%
+  group_by(year) %>%
+  summarize(n = n()) %>%
+  collect()
+
+# Plot trips by year
+ggplot(trip_by_year, aes(year, n)) + 
+  geom_bar(stat="Identity") +
+  scale_y_continuous(labels = scales::comma) +
+  labs(title = "Number of trips by year", x = "Year", y = "")
+```
+
+You can measure the time between pickup and dropoff for any two locations. In this example, we measure the time between JFK and mid-town. Notice the longest trip times occur around 4 PM.
+
+```{r hourly}
 # Calcluate trip time for a specific pickup and dropoff
-pickup_dropoff_tbl <- trips_model_data_tbl %>%
+pickup_dropoff_tbl <- trips_joined_tbl %>%
   filter(pickup_nta == "Turtle Bay-East Midtown" & dropoff_nta == "Airport") %>%
   mutate(pickup_hour = hour(pickup_datetime)) %>%
   mutate(trip_time = unix_timestamp(dropoff_datetime) - unix_timestamp(pickup_datetime)) %>%
@@ -119,84 +122,47 @@ ggplot(pickup_dropoff, aes(x = pickup_hour)) +
 
 ```
 
+## Spark ML
 
-```{r}
-# Visualization wrappers
-source("sqlvis_histogram.R")
+With Spark ML you can run machine learning algorithms against all your data in Spark. Here we attempt to understand what factors influence tip amounts.
 
-trips_model_data_tbl %>%
-  filter(tip_amount > 0 & tip_amount < 25) %>%
-  filter(pay_type == "cash") %>%
-  sqlvis_compute_histogram("tip_amount") %>%
-  sqlvis_ggplot_histogram(title = "Cash tip amount")
+```{r model}
+# Select a model data set
+model_tbl <- trips_joined_tbl %>%
+  filter(pickup_nta == "Turtle Bay-East Midtown" & dropoff_nta == "Airport") %>%
+  mutate(pickup_hour = hour(pickup_datetime)) %>%
+  mutate(pickup_week = weekofyear(pickup_datetime)) %>%
+  mutate(pickup_year = year(pickup_datetime)) %>%
+  mutate(trip_time = unix_timestamp(dropoff_datetime) - unix_timestamp(pickup_datetime)) %>%
+  filter(!is.na(pickup_nyct2010_gid) & !is.na(dropoff_nyct2010_gid)) %>%
+  filter(!is.na(tip_amount)) %>%
+  filter(!is.na(fare_amount)) %>%
+  filter(!is.na(vendor_id)) %>%
+  filter(!is.na(pickup_hour)) %>%
+  filter(!is.na(pickup_week)) %>%
+  filter(!is.na(passenger_count)) %>%
+  filter(!is.na(trip_time)) %>%
+  filter(!is.na(trip_distance)) %>%
+  select(tip_amount, fare_amount, vendor_id, pickup_hour, 
+         pickup_week, passenger_count, trip_time, trip_distance)
 
-trips_model_data_tbl %>%
-  filter(tip_amount > 0 & tip_amount < 25) %>%
-  filter(pay_type == "credit") %>%
-  sqlvis_compute_histogram("tip_amount") %>%
-  sqlvis_ggplot_histogram(title = "Credit tip amount")
+# Partitioin into train and validate
+model_partition_tbl <- model_tbl %>%
+  sdf_partition(train = 0.2, test = 0.8, seed = 1234)
 
-```
+# Create table references
+trips_train_tbl <- sdf_register(model_partition_tbl$train, "trips_train")
+trips_test_tbl <- sdf_register(model_partition_tbl$train, "trips_test")
 
-```{r}
+# Cache model data
+system.time(tbl_cache(sc, "trips_train"))
 
-# Fare amount Manhattan:Brooklyn
-trips_model_data_tbl %>%
-  filter(fare_amount > 0 & fare_amount < 100) %>%
-  filter(pickup_boro == "Manhattan" & dropoff_boro == "Brooklyn") %>%
-  sqlvis_compute_histogram("fare_amount") %>%
-  sqlvis_ggplot_histogram(title = "Fare Amount Manhattan to Brooklyn")
-
-# Tip amount Manhattan:Brooklyn
-trips_model_data_tbl %>%
-  filter(tip_amount > 0 & tip_amount < 25) %>%
-  filter(pickup_boro == "Manhattan" & dropoff_boro == "Brooklyn") %>%
-  sqlvis_compute_histogram("tip_amount") %>%
-  sqlvis_ggplot_histogram(title = "Tip Amount Manhattan to Brooklyn")
-
-```
-
-Push your calculations into Spark even for visualizations. Collect only the information you need to create visualizations in ggplot2.
-
-```{r}
-source("sqlvis_raster.R")
-
-trips_model_data_tbl %>%
-  sqlvis_compute_tiles("pickup_longitude", "pickup_latitude", 300) %>%
-  sqlvis_ggplot_raster(title = "All Pickups")
-
-trips_model_data_tbl %>%
-  filter(pickup_nta == "Airport" & dropoff_boro != "Staten Island") %>%
-  sqlvis_compute_tiles("dropoff_longitude", "dropoff_latitude", 300) %>%
-  sqlvis_ggplot_raster(title = "Airport Dropoffs")
-
-trips_model_data_tbl %>%
-  filter(fare_amount > 0 & fare_amount < 100) %>%
-  filter(tip_amount > 0 & tip_amount < 25) %>%
-  filter(pickup_boro == "Manhattan" & dropoff_boro == "Brooklyn") %>%
-  sqlvis_compute_tiles("fare_amount", "tip_amount") %>%
-  sqlvis_ggplot_raster(title = "Tip and Fare Correlation") -> p
-
-p
-p + geom_abline(intercept = 0, 
-                slope = c(10,15,20,22,25,27,30,33)/25, 
-                col = 'red', alpha = 0.2, size = 1)
-```
-
-### Facets
-
-```{r}
-trips_model_data_tbl %>%
-  filter(pickup_boro == "Manhattan" & year(pickup_datetime) > 2009) %>%
-  sqlvis_compute_tiles_g("pickup_longitude", "pickup_latitude", "year(pickup_datetime)", 300) %>%
-  sqlvis_ggplot_raster_g(title = "Manhattan Pickups", ncol = 3)
-
-trips_model_data_tbl %>%
-  filter(fare_amount > 0 & fare_amount < 100) %>%
-  filter(tip_amount > 0 & tip_amount < 25) %>%
-  sqlvis_compute_tiles_g("fare_amount", "tip_amount", "cab_type") %>%
-  sqlvis_ggplot_raster_g(title = "Tip and Fare Correlation by Cab Type", ncol = 2)
-
+# Model data
+model_formula <- formula(tip_amount ~ 
+                           fare_amount + vendor_id + pickup_hour + pickup_week + 
+                           passenger_count + trip_time + trip_distance)
+m1 <- ml_linear_regression(trips_train_tbl, model_formula)
+summary(m1)
 ```
 
 ## HTML Widgets
@@ -205,7 +171,7 @@ Spark makes it easy to drill down to any level of you data. You can visualize th
 
 ```{r topdropoffs}
 # Summarize trips from JFK Airport
-jfk_pickup_tbl <- trips_model_data_tbl %>%
+jfk_pickup_tbl <- trips_joined_tbl %>%
   filter(pickup_nta == "Airport") %>%
   filter(!is.na(dropoff_nyct2010_gid)) %>%
   mutate(trip_time = unix_timestamp(dropoff_datetime) - unix_timestamp(pickup_datetime)) %>%
@@ -276,7 +242,7 @@ ui <- miniPage(
 server <- function(input, output) {
 
   shiny_pickup_dropoff_hour <- reactive({
-    trips_model_data_tbl %>%
+    trips_joined_tbl %>%
     filter(pickup_nta == input$pickup & dropoff_nta == input$dropoff) %>%
     mutate(pickup_hour = hour(pickup_datetime)) %>%
     mutate(trip_time = unix_timestamp(dropoff_datetime) - unix_timestamp(pickup_datetime)) %>%
@@ -341,31 +307,7 @@ server <- function(input, output) {
 runGadget(ui, server)
 ```
 
-## Spark ML
+# Communicate your insights
 
-With Spark ML you can run machine learning algorithms against all your data in Spark. Here we attempt to understand what factors influence tip amounts.
-
-```{r model}
-# Select a model data set
-model_tbl <- trips_model_data_tbl %>%
-  filter(pickup_nta == "Turtle Bay-East Midtown" & dropoff_nta == "Airport") %>%
-  select(tip_amount, fare_amount, pay_type, cab_type, passenger_count) 
-
-# Partitioin into train and validate
-model_partition_tbl <- model_tbl %>%
-  sdf_partition(train = 0.2, test = 0.8, seed = 1234)
-
-# Create table references
-trips_train_tbl <- sdf_register(model_partition_tbl$train, "trips_train")
-trips_test_tbl <- sdf_register(model_partition_tbl$train, "trips_test")
-
-# Cache model data
-system.time(tbl_cache(sc, "trips_train"))
-
-# Model data
-model_formula <- formula(tip_amount ~ fare_amount + pay_type + cab_type + passenger_count)
-m1 <- ml_linear_regression(trips_train_tbl, model_formula)
-summary(m1)
-```
-
+We estimated taxi trip times by time of day for multiple pickup and dropoff locations. We found the key drivers for predicting tip amounts for specific pickup and dropoff locations. We also found the top dropoff locations for specific pickup locations. Finally, we published these results in an R markdown notebook.
 

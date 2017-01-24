@@ -1,19 +1,10 @@
 ---
-title: "Analyzing a billion NYC taxi trips in Spark"
+title: "Data Science Toolchain with Spark and R"
+subtitle: "Analyzing a billion NYC taxi trips in Spark"
 output: html_notebook
 ---
 
 # Access your data
-
-We analyze the full taxi data as described by [Todd Schneider](http://toddwschneider.com/posts/analyzing-1-1-billion-nyc-taxi-and-uber-trips-with-a-vengeance/) in using R and sparklyr. We load the billion record trips table into Apache Spark and then use sparklyr and dplyr to manipulate the data and run machine learning algorithms at scale.
-
-The data represent 200 GB of uncompressed data in CSV format. When converted and compressed in the parquet format, the data are 70 GB. The data are stored in HDFS and pre-loaded in a Hive table.
-
-The Hadoop cluster runs on Elastic Map Reduce (EMR) in AWS and has 12 worker nodes and one master node. The master node has R, RStudio Server Pro, and sparklyr loaded onto it.
-
-## Connect to spark
-
-Use sparklyr to create a new connection to Apache Spark. 
 
 ```{r connect, message=FALSE, warning=FALSE}
 # Load libraries
@@ -40,7 +31,9 @@ conf$spark.yarn.am.memory <- "26G"
 sc <- spark_connect(master = "yarn-client", config = conf, version = '1.6.0')
 ```
 
-## Prepare your data
+# Understand
+
+## Transform
 
 ```{r data}
 # Load lookup table
@@ -77,53 +70,27 @@ trips_joined_tbl <- trips_tbl %>%
 # Cache table
 system.time(tbl_cache(sc, "trips_model_data")) # 4.2 vs 4.3 vs 4.8 min
 trips_model_data_tbl <- tbl(sc, "trips_model_data")
+
+# Visualizations wrappers
+source("sqlvis_histogram.R")
+source("sqlvis_raster.R")
 ```
 
-# Understand your data
-
-## Spark SQL and dplyr
-
-Use dplyr syntax to write Spark SQL. When you're ready to visualize your data, use `collect` to bring data into R memory. Notice the data describe roughly 170 million trips per year.
-
-You can measure the time between pickup and dropoff for any two locations. In this example, we measure the time between JFK and mid-town. Notice the longest trip times occur around 4 PM.
+## Visualize
 
 ```{r counts}
 # Calculate total trips
 trips_model_data_tbl %>% count
+```
 
-# Calcluate trip time for a specific pickup and dropoff
-pickup_dropoff_tbl <- trips_model_data_tbl %>%
-  filter(pickup_nta == "Turtle Bay-East Midtown" & dropoff_nta == "Airport") %>%
-  mutate(pickup_hour = hour(pickup_datetime)) %>%
-  mutate(trip_time = unix_timestamp(dropoff_datetime) - unix_timestamp(pickup_datetime)) %>%
-  group_by(pickup_hour) %>% 
-  summarize(n = n(),
-            trip_time_mean = mean(trip_time),
-            trip_time_p10 = percentile(trip_time, 0.10),
-            trip_time_p25 = percentile(trip_time, 0.25),
-            trip_time_p50 = percentile(trip_time, 0.50),
-            trip_time_p75 = percentile(trip_time, 0.75),
-            trip_time_p90 = percentile(trip_time, 0.90))
-
-# Collect results
-pickup_dropoff <- collect(pickup_dropoff_tbl)
-
-# Plot
-ggplot(pickup_dropoff, aes(x = pickup_hour)) +
-          geom_line(aes(y = trip_time_p50, alpha = "Median")) +
-          geom_ribbon(aes(ymin = trip_time_p25, ymax = trip_time_p75, 
-                          alpha = "25–75th percentile")) +
-          geom_ribbon(aes(ymin = trip_time_p10, ymax = trip_time_p90, 
-                          alpha = "10–90th percentile")) +
-          scale_y_continuous("trip duration in minutes")
-
+```{r pickups}
+trips_model_data_tbl %>%
+  sqlvis_compute_tiles("pickup_longitude", "pickup_latitude", 300) %>%
+  sqlvis_ggplot_raster(title = "All Pickups")
 ```
 
 
-```{r}
-# Visualization wrappers
-source("sqlvis_histogram.R")
-
+```{r tip_pay_type}
 trips_model_data_tbl %>%
   filter(tip_amount > 0 & tip_amount < 25) %>%
   filter(pay_type == "cash") %>%
@@ -139,37 +106,6 @@ trips_model_data_tbl %>%
 ```
 
 ```{r}
-
-# Fare amount Manhattan:Brooklyn
-trips_model_data_tbl %>%
-  filter(fare_amount > 0 & fare_amount < 100) %>%
-  filter(pickup_boro == "Manhattan" & dropoff_boro == "Brooklyn") %>%
-  sqlvis_compute_histogram("fare_amount") %>%
-  sqlvis_ggplot_histogram(title = "Fare Amount Manhattan to Brooklyn")
-
-# Tip amount Manhattan:Brooklyn
-trips_model_data_tbl %>%
-  filter(tip_amount > 0 & tip_amount < 25) %>%
-  filter(pickup_boro == "Manhattan" & dropoff_boro == "Brooklyn") %>%
-  sqlvis_compute_histogram("tip_amount") %>%
-  sqlvis_ggplot_histogram(title = "Tip Amount Manhattan to Brooklyn")
-
-```
-
-Push your calculations into Spark even for visualizations. Collect only the information you need to create visualizations in ggplot2.
-
-```{r}
-source("sqlvis_raster.R")
-
-trips_model_data_tbl %>%
-  sqlvis_compute_tiles("pickup_longitude", "pickup_latitude", 300) %>%
-  sqlvis_ggplot_raster(title = "All Pickups")
-
-trips_model_data_tbl %>%
-  filter(pickup_nta == "Airport" & dropoff_boro != "Staten Island") %>%
-  sqlvis_compute_tiles("dropoff_longitude", "dropoff_latitude", 300) %>%
-  sqlvis_ggplot_raster(title = "Airport Dropoffs")
-
 trips_model_data_tbl %>%
   filter(fare_amount > 0 & fare_amount < 100) %>%
   filter(tip_amount > 0 & tip_amount < 25) %>%
@@ -183,27 +119,16 @@ p + geom_abline(intercept = 0,
                 col = 'red', alpha = 0.2, size = 1)
 ```
 
-### Facets
-
-```{r}
-trips_model_data_tbl %>%
-  filter(pickup_boro == "Manhattan" & year(pickup_datetime) > 2009) %>%
-  sqlvis_compute_tiles_g("pickup_longitude", "pickup_latitude", "year(pickup_datetime)", 300) %>%
-  sqlvis_ggplot_raster_g(title = "Manhattan Pickups", ncol = 3)
-
+```{r facets}
 trips_model_data_tbl %>%
   filter(fare_amount > 0 & fare_amount < 100) %>%
   filter(tip_amount > 0 & tip_amount < 25) %>%
-  sqlvis_compute_tiles_g("fare_amount", "tip_amount", "cab_type") %>%
-  sqlvis_ggplot_raster_g(title = "Tip and Fare Correlation by Cab Type", ncol = 2)
-
+  sqlvis_compute_tiles_g("fare_amount", "tip_amount", "pay_type") %>%
+  sqlvis_ggplot_raster_g(title = "Tip and Fare Correlation by Pay Type", ncol = 3)
 ```
 
-## HTML Widgets
 
-Spark makes it easy to drill down to any level of you data. You can visualize the top dropoffs for any pickup location by entering your pickup location. In this example the pickup location is JFK International Airport.
-
-```{r topdropoffs}
+```{r htmlwidgets}
 # Summarize trips from JFK Airport
 jfk_pickup_tbl <- trips_model_data_tbl %>%
   filter(pickup_nta == "Airport") %>%
@@ -232,10 +157,6 @@ leaflet(jfk_pickup) %>%
   addCircleMarkers(~dropoff_longitude, ~dropoff_latitude, stroke = F, color = "red") %>%
   addCircleMarkers(-73.7781, 40.6413, fill = FALSE, color = "green")
 ```
-
-## Shiny Gadget
-
-It is often useful to visualize the analyses interactively. Use a Shiny gadget to explore other pickup and dropoff locations.
 
 ```{r gadget, message=FALSE, warning=FALSE}
 # Create list of geo groups to select from
@@ -341,9 +262,7 @@ server <- function(input, output) {
 runGadget(ui, server)
 ```
 
-## Spark ML
-
-With Spark ML you can run machine learning algorithms against all your data in Spark. Here we attempt to understand what factors influence tip amounts.
+## Model
 
 ```{r model}
 # Select a model data set

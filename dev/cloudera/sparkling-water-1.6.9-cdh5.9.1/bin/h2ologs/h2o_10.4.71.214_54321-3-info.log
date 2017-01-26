@@ -1,0 +1,275 @@
+12-31 17:53:13.017 10.4.71.214:54321     72954  #r thread INFO: ----- H2O started  -----
+12-31 17:53:13.033 10.4.71.214:54321     72954  #r thread INFO: Build git branch: master
+12-31 17:53:13.033 10.4.71.214:54321     72954  #r thread INFO: Build git hash: 77d9e41f3936ece0bf38950097df03f9496a9711
+12-31 17:53:13.033 10.4.71.214:54321     72954  #r thread INFO: Build git describe: jenkins-master-3731-13-g77d9e41
+12-31 17:53:13.033 10.4.71.214:54321     72954  #r thread INFO: Build project version: 3.11.0.99999 (latest version: 3.10.2.1)
+12-31 17:53:13.033 10.4.71.214:54321     72954  #r thread INFO: Build age: 24 minutes
+12-31 17:53:13.033 10.4.71.214:54321     72954  #r thread INFO: Built by: 'mateusz'
+12-31 17:53:13.034 10.4.71.214:54321     72954  #r thread INFO: Built on: '2016-12-31 17:28:56'
+12-31 17:53:13.034 10.4.71.214:54321     72954  #r thread INFO: Processed H2O arguments: [-name, sparkling-water-mateusz_138622928, -ga_opt_out, -log_level, INFO, -baseport, 54321, -ip, 10.4.71.214, -log_dir, /Users/mateusz/Dev/code/github/sparkling-water/bin/h2ologs]
+12-31 17:53:13.034 10.4.71.214:54321     72954  #r thread INFO: Java availableProcessors: 8
+12-31 17:53:13.034 10.4.71.214:54321     72954  #r thread INFO: Java heap totalMemory: 614.0 MB
+12-31 17:53:13.034 10.4.71.214:54321     72954  #r thread INFO: Java heap maxMemory: 2.67 GB
+12-31 17:53:13.034 10.4.71.214:54321     72954  #r thread INFO: Java version: Java 1.8.0_112 (from Oracle Corporation)
+12-31 17:53:13.034 10.4.71.214:54321     72954  #r thread INFO: JVM launch parameters: [-Dscala.usejavacp=true, -Xmx3G, -XX:MaxPermSize=384m]
+12-31 17:53:13.034 10.4.71.214:54321     72954  #r thread INFO: OS version: Mac OS X 10.12.1 (x86_64)
+12-31 17:53:13.034 10.4.71.214:54321     72954  #r thread INFO: Machine physical memory: 16.00 GB
+12-31 17:53:13.034 10.4.71.214:54321     72954  #r thread INFO: X-h2o-cluster-id: 1483174391251
+12-31 17:53:13.034 10.4.71.214:54321     72954  #r thread INFO: User name: 'mateusz'
+12-31 17:53:13.034 10.4.71.214:54321     72954  #r thread INFO: Opted out of sending usage metrics.
+12-31 17:53:13.034 10.4.71.214:54321     72954  #r thread INFO: IPv6 stack selected: false
+12-31 17:53:13.035 10.4.71.214:54321     72954  #r thread INFO: Network address/interface is not reachable in 150ms: /fe80:0:0:0:aede:48ff:fe00:1122%en5/name:en5 (en5)
+12-31 17:53:13.035 10.4.71.214:54321     72954  #r thread INFO: Network address/interface is not reachable in 150ms: /fe80:0:0:0:cd39:9c:240a:ce69%utun0/name:utun0 (utun0)
+12-31 17:53:13.035 10.4.71.214:54321     72954  #r thread INFO: Network address/interface is not reachable in 150ms: /fe80:0:0:0:4caa:2fff:fe36:5fef%awdl0/name:awdl0 (awdl0)
+12-31 17:53:13.035 10.4.71.214:54321     72954  #r thread INFO: Possible IP Address: en0 (en0), fe80:0:0:0:d1:d5ab:e410:2b7d%en0
+12-31 17:53:13.035 10.4.71.214:54321     72954  #r thread INFO: Possible IP Address: en0 (en0), 10.4.71.214
+12-31 17:53:13.035 10.4.71.214:54321     72954  #r thread INFO: Possible IP Address: lo0 (lo0), fe80:0:0:0:0:0:0:1%lo0
+12-31 17:53:13.035 10.4.71.214:54321     72954  #r thread INFO: Possible IP Address: lo0 (lo0), 0:0:0:0:0:0:0:1
+12-31 17:53:13.035 10.4.71.214:54321     72954  #r thread INFO: Possible IP Address: lo0 (lo0), 127.0.0.1
+12-31 17:53:13.035 10.4.71.214:54321     72954  #r thread INFO: Internal communication uses port: 54322
+12-31 17:53:13.035 10.4.71.214:54321     72954  #r thread INFO: Listening for HTTP and REST traffic on http://10.4.71.214:54321/
+12-31 17:53:13.066 10.4.71.214:54321     72954  #r thread INFO: H2O cloud name: 'sparkling-water-mateusz_138622928' on /10.4.71.214:54321, discovery address /225.49.200.231:57649
+12-31 17:53:13.067 10.4.71.214:54321     72954  #r thread INFO: If you have trouble connecting, try SSH tunneling from your local machine (e.g., via port 55555):
+12-31 17:53:13.067 10.4.71.214:54321     72954  #r thread INFO:   1. Open a terminal and run 'ssh -L 55555:localhost:54321 mateusz@10.4.71.214'
+12-31 17:53:13.067 10.4.71.214:54321     72954  #r thread INFO:   2. Point your browser to http://localhost:55555
+12-31 17:53:13.067 10.4.71.214:54321     72954  #r thread INFO: Log dir: '/Users/mateusz/Dev/code/github/sparkling-water/bin/h2ologs'
+12-31 17:53:13.067 10.4.71.214:54321     72954  #r thread INFO: Cur dir: '/Users/mateusz/Dev/code/github/sparkling-water/bin'
+12-31 17:53:13.074 10.4.71.214:54321     72954  #r thread INFO: HDFS subsystem successfully initialized
+12-31 17:53:13.085 10.4.71.214:54321     72954  #r thread INFO: S3 subsystem successfully initialized
+12-31 17:53:13.085 10.4.71.214:54321     72954  #r thread INFO: Flow dir: '/Users/mateusz/h2oflows'
+12-31 17:53:13.107 10.4.71.214:54321     72954  #r thread INFO: Cloud of size 1 formed [10.4.71.214/10.4.71.214:54321]
+12-31 17:53:13.148 10.4.71.214:54321     72954  #r thread INFO: Registered parsers: [GUESS, ARFF, XLS, SVMLight, CSV]
+12-31 17:53:13.148 10.4.71.214:54321     72954  #r thread INFO: Registered 0 extensions in: 365mS
+12-31 17:53:13.606 10.4.71.214:54321     72954  #r thread INFO: Registered: 136 REST APIs in: 458mS
+12-31 17:53:13.607 10.4.71.214:54321     72954  #r thread INFO: 
+12-31 17:53:13.607 10.4.71.214:54321     72954  #r thread INFO: Open H2O Flow in your web browser: http://10.4.71.214:54321
+12-31 17:53:13.607 10.4.71.214:54321     72954  #r thread INFO: 
+12-31 17:53:16.458 10.4.71.214:54321     72954  main      INFO: Registered: 216 schemas in 617ms
+12-31 17:53:16.555 10.4.71.214:54321     72954  #4444-107 INFO: GET /flow/index.html, parms: {}
+12-31 17:53:16.558 10.4.71.214:54321     72954  #4444-107 INFO: Trying to load resource /flow/index.html via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 17:53:16.558 10.4.71.214:54321     72954  #4444-107 INFO: Trying to load resource /flow/index.html via classloader org.apache.spark.repl.ExecutorClassLoader@77bf155f
+12-31 17:53:16.575 10.4.71.214:54321     72954  #4444-108 INFO: Trying to load resource /flow/css/flow.css via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 17:53:16.574 10.4.71.214:54321     72954  #4444-107 INFO: Trying to load resource /flow/css/flow-lib.css via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 17:53:16.576 10.4.71.214:54321     72954  #4444-109 INFO: Trying to load resource /flow/css/scala-editor.css via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 17:53:16.578 10.4.71.214:54321     72954  #4444-110 INFO: Trying to load resource /flow/custom/custom.css via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 17:53:16.578 10.4.71.214:54321     72954  #4444-108 INFO: Trying to load resource /flow/css/flow.css via classloader org.apache.spark.repl.ExecutorClassLoader@77bf155f
+12-31 17:53:16.578 10.4.71.214:54321     72954  #4444-109 INFO: Trying to load resource /flow/css/scala-editor.css via classloader org.apache.spark.repl.ExecutorClassLoader@77bf155f
+12-31 17:53:16.578 10.4.71.214:54321     72954  #4444-110 INFO: Trying to load resource /flow/custom/custom.css via classloader org.apache.spark.repl.ExecutorClassLoader@77bf155f
+12-31 17:53:16.580 10.4.71.214:54321     72954  #4444-107 INFO: Trying to load resource /flow/css/flow-lib.css via classloader org.apache.spark.repl.ExecutorClassLoader@77bf155f
+12-31 17:53:16.612 10.4.71.214:54321     72954  #4444-107 INFO: Trying to load resource /flow/js/flow-lib.js via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 17:53:16.614 10.4.71.214:54321     72954  #4444-107 INFO: Trying to load resource /flow/js/flow-lib.js via classloader org.apache.spark.repl.ExecutorClassLoader@77bf155f
+12-31 17:53:16.614 10.4.71.214:54321     72954  #4444-108 INFO: Trying to load resource /flow/js/flow.js via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 17:53:16.615 10.4.71.214:54321     72954  #4444-108 INFO: Trying to load resource /flow/js/flow.js via classloader org.apache.spark.repl.ExecutorClassLoader@77bf155f
+12-31 17:53:16.686 10.4.71.214:54321     72954  #4444-108 INFO: Trying to load resource /flow/img/h2o.png via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 17:53:16.687 10.4.71.214:54321     72954  #4444-108 INFO: Trying to load resource /flow/img/h2o.png via classloader org.apache.spark.repl.ExecutorClassLoader@77bf155f
+12-31 17:53:16.756 10.4.71.214:54321     72954  #4444-108 INFO: GET /flow/fonts/fontawesome-webfont.woff, parms: {v=4.2.0}
+12-31 17:53:16.756 10.4.71.214:54321     72954  #4444-108 INFO: Trying to load resource /flow/fonts/fontawesome-webfont.woff via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 17:53:16.757 10.4.71.214:54321     72954  #4444-108 INFO: Trying to load resource /flow/fonts/fontawesome-webfont.woff via classloader org.apache.spark.repl.ExecutorClassLoader@77bf155f
+12-31 17:53:17.147 10.4.71.214:54321     72954  #4444-107 INFO: GET /flow/index.html, parms: {}
+12-31 17:53:17.147 10.4.71.214:54321     72954  #4444-107 INFO: Trying to load resource /flow/index.html via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 17:53:17.147 10.4.71.214:54321     72954  #4444-107 INFO: Trying to load resource /flow/index.html via classloader org.apache.spark.repl.ExecutorClassLoader@77bf155f
+12-31 17:53:17.158 10.4.71.214:54321     72954  #4444-107 INFO: GET /3/Metadata/endpoints, parms: {}
+12-31 17:53:17.184 10.4.71.214:54321     72954  #4444-107 INFO: Locking cloud to new members, because hex.schemas.DeepLearningV3
+12-31 17:53:17.430 10.4.71.214:54321     72954  #4444-107 INFO: GET /3/NodePersistentStorage/notebook, parms: {}
+12-31 17:53:17.438 10.4.71.214:54321     72954  #4444-108 INFO: GET /3/NodePersistentStorage/categories/environment/names/clips/exists, parms: {}
+12-31 17:53:17.442 10.4.71.214:54321     72954  #4444-109 INFO: GET /flow/help/catalog.json, parms: {}
+12-31 17:53:17.442 10.4.71.214:54321     72954  #4444-109 INFO: Trying to load resource /flow/help/catalog.json via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 17:53:17.442 10.4.71.214:54321     72954  #4444-109 INFO: Trying to load resource /flow/help/catalog.json via classloader org.apache.spark.repl.ExecutorClassLoader@77bf155f
+12-31 17:53:17.443 10.4.71.214:54321     72954  #4444-110 INFO: GET /3/About, parms: {}
+12-31 17:53:17.452 10.4.71.214:54321     72954  #4444-108 INFO: GET /3/ModelBuilders, parms: {}
+12-31 17:53:17.452 10.4.71.214:54321     72954  #4444-107 INFO: Trying to load resource /flow/img/h2o-flow.png via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 17:53:17.452 10.4.71.214:54321     72954  #4444-111 INFO: POST /3/scalaint, parms: {}
+12-31 17:53:17.454 10.4.71.214:54321     72954  #4444-107 INFO: Trying to load resource /flow/img/h2o-flow.png via classloader org.apache.spark.repl.ExecutorClassLoader@77bf155f
+12-31 17:53:17.613 10.4.71.214:54321     72954  #4444-108 INFO: GET /flow/fonts/Lato-Regular.woff2, parms: {}
+12-31 17:53:17.613 10.4.71.214:54321     72954  #4444-108 INFO: Trying to load resource /flow/fonts/Lato-Regular.woff2 via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 17:53:17.614 10.4.71.214:54321     72954  #4444-108 INFO: Trying to load resource /flow/fonts/Lato-Regular.woff2 via classloader org.apache.spark.repl.ExecutorClassLoader@77bf155f
+12-31 17:53:18.653 10.4.71.214:54321     72954  #4444-108 INFO: Trying to load resource /favicon.ico via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 17:53:18.655 10.4.71.214:54321     72954  #4444-108 INFO: Trying to load resource /favicon.ico via classloader org.apache.spark.repl.ExecutorClassLoader@77bf155f
+12-31 17:53:35.186 10.4.71.214:54321     72954  #4444-108 INFO: GET /3/Frames, parms: {}
+12-31 17:53:35.280 10.4.71.214:54321     72954  #4444-108 INFO: POST /3/ModelBuilders/deeplearning/parameters, parms: {classification_stop=0, score_training_samples=10000, regression_stop=0.000001, score_duty_cycle=0.1, loss=Automatic, max_runtime_secs=0, score_validation_sampling=Uniform, huber_alpha=0.9, class_sampling_factors=, sparsity_beta=0, ignore_const_cols=true, stopping_metric=AUTO, elastic_averaging_regularization=0.001, initial_weight_distribution=UniformAdaptive, l2=0, l1=0, force_load_balance=true, fold_assignment=AUTO, max_confusion_matrix_size=20, adaptive_rate=true, keep_cross_validation_fold_assignment=false, momentum_stable=0, max_w2=3.4028235e+38, nesterov_accelerated_gradient=true, momentum_start=0, average_activation=0, checkpoint=, max_hit_ratio_k=0, standardize=true, input_dropout_ratio=0, categorical_encoding=AUTO, pretrained_autoencoder=, distribution=AUTO, score_each_iteration=false, quiet_mode=false, elastic_averaging_moving_rate=0.9, fast_mode=true, initial_weight_scale=1, export_weights_and_biases=false, activation=Rectifier, quantile_alpha=0.5, score_validation_samples=0, tweedie_power=1.5, balance_classes=false, epsilon=1e-8, score_interval=5, train_samples_per_iteration=-2, rate_annealing=0.000001, rate=0.005, single_node_mode=false, sparse=false, nfolds=0, autoencoder=false, diagnostics=true, target_ratio_comm_to_comp=0.05, mini_batch_size=1, stopping_tolerance=0, max_after_balance_size=5, momentum_ramp=1000000, replicate_training_data=true, shuffle_training_data=false, variable_importances=false, keep_cross_validation_predictions=false, col_major=false, elastic_averaging=false, max_categorical_features=2147483647, use_all_factor_levels=true, hidden_dropout_ratios=, seed=-1, reproducible=false, model_id=deeplearning-7036e662-a050-4c20-88f6-b2b92e487645, hidden=[200,200], overwrite_with_best_model=true, stopping_rounds=5, epochs=10, rho=0.99, rate_decay=1, missing_values_handling=MeanImputation}
+12-31 18:10:13.052 10.4.71.214:54321     73838  #r thread INFO: ----- H2O started  -----
+12-31 18:10:13.069 10.4.71.214:54321     73838  #r thread INFO: Build git branch: master
+12-31 18:10:13.069 10.4.71.214:54321     73838  #r thread INFO: Build git hash: 77d9e41f3936ece0bf38950097df03f9496a9711
+12-31 18:10:13.069 10.4.71.214:54321     73838  #r thread INFO: Build git describe: jenkins-master-3731-13-g77d9e41
+12-31 18:10:13.070 10.4.71.214:54321     73838  #r thread INFO: Build project version: 3.11.0.99999 (latest version: 3.10.2.1)
+12-31 18:10:13.070 10.4.71.214:54321     73838  #r thread INFO: Build age: 41 minutes
+12-31 18:10:13.070 10.4.71.214:54321     73838  #r thread INFO: Built by: 'mateusz'
+12-31 18:10:13.070 10.4.71.214:54321     73838  #r thread INFO: Built on: '2016-12-31 17:28:56'
+12-31 18:10:13.070 10.4.71.214:54321     73838  #r thread INFO: Processed H2O arguments: [-name, sparkling-water-mateusz_-1795148704, -ga_opt_out, -log_level, INFO, -baseport, 54321, -ip, 10.4.71.214, -log_dir, /Users/mateusz/Dev/code/github/sparkling-water/bin/h2ologs]
+12-31 18:10:13.070 10.4.71.214:54321     73838  #r thread INFO: Java availableProcessors: 8
+12-31 18:10:13.070 10.4.71.214:54321     73838  #r thread INFO: Java heap totalMemory: 614.0 MB
+12-31 18:10:13.070 10.4.71.214:54321     73838  #r thread INFO: Java heap maxMemory: 2.67 GB
+12-31 18:10:13.070 10.4.71.214:54321     73838  #r thread INFO: Java version: Java 1.8.0_112 (from Oracle Corporation)
+12-31 18:10:13.070 10.4.71.214:54321     73838  #r thread INFO: JVM launch parameters: [-Dscala.usejavacp=true, -Xmx3G, -XX:MaxPermSize=384m]
+12-31 18:10:13.070 10.4.71.214:54321     73838  #r thread INFO: OS version: Mac OS X 10.12.1 (x86_64)
+12-31 18:10:13.070 10.4.71.214:54321     73838  #r thread INFO: Machine physical memory: 16.00 GB
+12-31 18:10:13.070 10.4.71.214:54321     73838  #r thread INFO: X-h2o-cluster-id: 1483175411298
+12-31 18:10:13.070 10.4.71.214:54321     73838  #r thread INFO: User name: 'mateusz'
+12-31 18:10:13.071 10.4.71.214:54321     73838  #r thread INFO: Opted out of sending usage metrics.
+12-31 18:10:13.071 10.4.71.214:54321     73838  #r thread INFO: IPv6 stack selected: false
+12-31 18:10:13.071 10.4.71.214:54321     73838  #r thread INFO: Network address/interface is not reachable in 150ms: /fe80:0:0:0:aede:48ff:fe00:1122%en5/name:en5 (en5)
+12-31 18:10:13.071 10.4.71.214:54321     73838  #r thread INFO: Network address/interface is not reachable in 150ms: /fe80:0:0:0:cd39:9c:240a:ce69%utun0/name:utun0 (utun0)
+12-31 18:10:13.071 10.4.71.214:54321     73838  #r thread INFO: Network address/interface is not reachable in 150ms: /fe80:0:0:0:4caa:2fff:fe36:5fef%awdl0/name:awdl0 (awdl0)
+12-31 18:10:13.071 10.4.71.214:54321     73838  #r thread INFO: Possible IP Address: en0 (en0), fe80:0:0:0:d1:d5ab:e410:2b7d%en0
+12-31 18:10:13.071 10.4.71.214:54321     73838  #r thread INFO: Possible IP Address: en0 (en0), 10.4.71.214
+12-31 18:10:13.071 10.4.71.214:54321     73838  #r thread INFO: Possible IP Address: lo0 (lo0), fe80:0:0:0:0:0:0:1%lo0
+12-31 18:10:13.071 10.4.71.214:54321     73838  #r thread INFO: Possible IP Address: lo0 (lo0), 0:0:0:0:0:0:0:1
+12-31 18:10:13.071 10.4.71.214:54321     73838  #r thread INFO: Possible IP Address: lo0 (lo0), 127.0.0.1
+12-31 18:10:13.071 10.4.71.214:54321     73838  #r thread INFO: Internal communication uses port: 54322
+12-31 18:10:13.071 10.4.71.214:54321     73838  #r thread INFO: Listening for HTTP and REST traffic on http://10.4.71.214:54321/
+12-31 18:10:13.098 10.4.71.214:54321     73838  #r thread INFO: H2O cloud name: 'sparkling-water-mateusz_-1795148704' on /10.4.71.214:54321, discovery address /238.214.181.157:61142
+12-31 18:10:13.099 10.4.71.214:54321     73838  #r thread INFO: If you have trouble connecting, try SSH tunneling from your local machine (e.g., via port 55555):
+12-31 18:10:13.099 10.4.71.214:54321     73838  #r thread INFO:   1. Open a terminal and run 'ssh -L 55555:localhost:54321 mateusz@10.4.71.214'
+12-31 18:10:13.099 10.4.71.214:54321     73838  #r thread INFO:   2. Point your browser to http://localhost:55555
+12-31 18:10:13.099 10.4.71.214:54321     73838  #r thread INFO: Log dir: '/Users/mateusz/Dev/code/github/sparkling-water/bin/h2ologs'
+12-31 18:10:13.099 10.4.71.214:54321     73838  #r thread INFO: Cur dir: '/Users/mateusz/Dev/code/github/sparkling-water/bin'
+12-31 18:10:13.108 10.4.71.214:54321     73838  #r thread INFO: HDFS subsystem successfully initialized
+12-31 18:10:13.114 10.4.71.214:54321     73838  #r thread INFO: S3 subsystem successfully initialized
+12-31 18:10:13.114 10.4.71.214:54321     73838  #r thread INFO: Flow dir: '/Users/mateusz/h2oflows'
+12-31 18:10:13.129 10.4.71.214:54321     73838  #r thread INFO: Cloud of size 1 formed [10.4.71.214/10.4.71.214:54321]
+12-31 18:10:13.172 10.4.71.214:54321     73838  #r thread INFO: Registered parsers: [GUESS, ARFF, XLS, SVMLight, CSV]
+12-31 18:10:13.172 10.4.71.214:54321     73838  #r thread INFO: Registered 0 extensions in: 369mS
+12-31 18:10:13.536 10.4.71.214:54321     73838  #r thread INFO: Registered: 136 REST APIs in: 364mS
+12-31 18:10:13.536 10.4.71.214:54321     73838  #r thread INFO: 
+12-31 18:10:13.536 10.4.71.214:54321     73838  #r thread INFO: Open H2O Flow in your web browser: http://10.4.71.214:54321
+12-31 18:10:13.536 10.4.71.214:54321     73838  #r thread INFO: 
+12-31 18:10:16.458 10.4.71.214:54321     73838  main      INFO: Registered: 216 schemas in 639ms
+12-31 18:10:16.564 10.4.71.214:54321     73838  #9702-108 INFO: GET /flow/index.html, parms: {}
+12-31 18:10:16.567 10.4.71.214:54321     73838  #9702-108 INFO: Trying to load resource /flow/index.html via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 18:10:16.568 10.4.71.214:54321     73838  #9702-108 INFO: Trying to load resource /flow/index.html via classloader org.apache.spark.repl.ExecutorClassLoader@38f27238
+12-31 18:10:16.584 10.4.71.214:54321     73838  #9702-108 INFO: Trying to load resource /flow/css/flow-lib.css via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 18:10:16.585 10.4.71.214:54321     73838  #9702-108 INFO: Trying to load resource /flow/css/flow-lib.css via classloader org.apache.spark.repl.ExecutorClassLoader@38f27238
+12-31 18:10:16.593 10.4.71.214:54321     73838  #9702-109 INFO: Trying to load resource /flow/css/flow.css via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 18:10:16.594 10.4.71.214:54321     73838  #9702-109 INFO: Trying to load resource /flow/css/flow.css via classloader org.apache.spark.repl.ExecutorClassLoader@38f27238
+12-31 18:10:16.594 10.4.71.214:54321     73838  #9702-111 INFO: Trying to load resource /flow/custom/custom.css via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 18:10:16.595 10.4.71.214:54321     73838  #9702-111 INFO: Trying to load resource /flow/custom/custom.css via classloader org.apache.spark.repl.ExecutorClassLoader@38f27238
+12-31 18:10:16.596 10.4.71.214:54321     73838  #9702-110 INFO: Trying to load resource /flow/css/scala-editor.css via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 18:10:16.597 10.4.71.214:54321     73838  #9702-110 INFO: Trying to load resource /flow/css/scala-editor.css via classloader org.apache.spark.repl.ExecutorClassLoader@38f27238
+12-31 18:10:16.629 10.4.71.214:54321     73838  #9702-111 INFO: Trying to load resource /flow/js/flow-lib.js via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 18:10:16.630 10.4.71.214:54321     73838  #9702-111 INFO: Trying to load resource /flow/js/flow-lib.js via classloader org.apache.spark.repl.ExecutorClassLoader@38f27238
+12-31 18:10:16.629 10.4.71.214:54321     73838  #9702-109 INFO: Trying to load resource /flow/js/flow.js via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 18:10:16.632 10.4.71.214:54321     73838  #9702-109 INFO: Trying to load resource /flow/js/flow.js via classloader org.apache.spark.repl.ExecutorClassLoader@38f27238
+12-31 18:10:16.690 10.4.71.214:54321     73838  #9702-109 INFO: Trying to load resource /flow/img/h2o.png via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 18:10:16.691 10.4.71.214:54321     73838  #9702-109 INFO: Trying to load resource /flow/img/h2o.png via classloader org.apache.spark.repl.ExecutorClassLoader@38f27238
+12-31 18:10:16.744 10.4.71.214:54321     73838  #9702-109 INFO: GET /flow/fonts/fontawesome-webfont.woff, parms: {v=4.2.0}
+12-31 18:10:16.744 10.4.71.214:54321     73838  #9702-109 INFO: Trying to load resource /flow/fonts/fontawesome-webfont.woff via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 18:10:16.745 10.4.71.214:54321     73838  #9702-109 INFO: Trying to load resource /flow/fonts/fontawesome-webfont.woff via classloader org.apache.spark.repl.ExecutorClassLoader@38f27238
+12-31 18:10:17.188 10.4.71.214:54321     73838  #9702-111 INFO: GET /flow/index.html, parms: {}
+12-31 18:10:17.189 10.4.71.214:54321     73838  #9702-111 INFO: Trying to load resource /flow/index.html via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 18:10:17.189 10.4.71.214:54321     73838  #9702-111 INFO: Trying to load resource /flow/index.html via classloader org.apache.spark.repl.ExecutorClassLoader@38f27238
+12-31 18:10:17.200 10.4.71.214:54321     73838  #9702-111 INFO: GET /3/Metadata/endpoints, parms: {}
+12-31 18:10:17.226 10.4.71.214:54321     73838  #9702-111 INFO: Locking cloud to new members, because hex.schemas.DeepLearningV3
+12-31 18:10:17.485 10.4.71.214:54321     73838  #9702-111 INFO: GET /3/NodePersistentStorage/notebook, parms: {}
+12-31 18:10:17.491 10.4.71.214:54321     73838  #9702-109 INFO: GET /3/NodePersistentStorage/categories/environment/names/clips/exists, parms: {}
+12-31 18:10:17.497 10.4.71.214:54321     73838  #9702-110 INFO: GET /flow/help/catalog.json, parms: {}
+12-31 18:10:17.497 10.4.71.214:54321     73838  #9702-110 INFO: Trying to load resource /flow/help/catalog.json via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 18:10:17.498 10.4.71.214:54321     73838  #9702-108 INFO: GET /3/About, parms: {}
+12-31 18:10:17.498 10.4.71.214:54321     73838  #9702-110 INFO: Trying to load resource /flow/help/catalog.json via classloader org.apache.spark.repl.ExecutorClassLoader@38f27238
+12-31 18:10:17.506 10.4.71.214:54321     73838  #9702-112 INFO: POST /3/scalaint, parms: {}
+12-31 18:10:17.507 10.4.71.214:54321     73838  #9702-113 INFO: GET /3/ModelBuilders, parms: {}
+12-31 18:10:17.508 10.4.71.214:54321     73838  #9702-111 INFO: Trying to load resource /flow/img/h2o-flow.png via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 18:10:17.509 10.4.71.214:54321     73838  #9702-111 INFO: Trying to load resource /flow/img/h2o-flow.png via classloader org.apache.spark.repl.ExecutorClassLoader@38f27238
+12-31 18:10:17.652 10.4.71.214:54321     73838  #9702-113 INFO: GET /flow/fonts/Lato-Regular.woff2, parms: {}
+12-31 18:10:17.652 10.4.71.214:54321     73838  #9702-113 INFO: Trying to load resource /flow/fonts/Lato-Regular.woff2 via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 18:10:17.653 10.4.71.214:54321     73838  #9702-113 INFO: Trying to load resource /flow/fonts/Lato-Regular.woff2 via classloader org.apache.spark.repl.ExecutorClassLoader@38f27238
+12-31 18:53:48.200 10.4.71.214:54321     78072  #r thread INFO: ----- H2O started  -----
+12-31 18:53:48.213 10.4.71.214:54321     78072  #r thread INFO: Build git branch: master
+12-31 18:53:48.213 10.4.71.214:54321     78072  #r thread INFO: Build git hash: 77d9e41f3936ece0bf38950097df03f9496a9711
+12-31 18:53:48.213 10.4.71.214:54321     78072  #r thread INFO: Build git describe: jenkins-master-3731-13-g77d9e41
+12-31 18:53:48.214 10.4.71.214:54321     78072  #r thread INFO: Build project version: 3.11.0.99999 (latest version: 3.10.2.1)
+12-31 18:53:48.214 10.4.71.214:54321     78072  #r thread INFO: Build age: 1 hour and 24 minutes
+12-31 18:53:48.214 10.4.71.214:54321     78072  #r thread INFO: Built by: 'mateusz'
+12-31 18:53:48.214 10.4.71.214:54321     78072  #r thread INFO: Built on: '2016-12-31 17:28:56'
+12-31 18:53:48.214 10.4.71.214:54321     78072  #r thread INFO: Processed H2O arguments: [-name, sparkling-water-mateusz_107786410, -ga_opt_out, -log_level, INFO, -baseport, 54321, -ip, 10.4.71.214, -log_dir, /Users/mateusz/Dev/code/github/sparkling-water/bin/h2ologs]
+12-31 18:53:48.214 10.4.71.214:54321     78072  #r thread INFO: Java availableProcessors: 8
+12-31 18:53:48.214 10.4.71.214:54321     78072  #r thread INFO: Java heap totalMemory: 704.0 MB
+12-31 18:53:48.214 10.4.71.214:54321     78072  #r thread INFO: Java heap maxMemory: 2.67 GB
+12-31 18:53:48.214 10.4.71.214:54321     78072  #r thread INFO: Java version: Java 1.8.0_112 (from Oracle Corporation)
+12-31 18:53:48.214 10.4.71.214:54321     78072  #r thread INFO: JVM launch parameters: [-Dscala.usejavacp=true, -Xmx3G, -XX:MaxPermSize=384m]
+12-31 18:53:48.214 10.4.71.214:54321     78072  #r thread INFO: OS version: Mac OS X 10.12.1 (x86_64)
+12-31 18:53:48.214 10.4.71.214:54321     78072  #r thread INFO: Machine physical memory: 16.00 GB
+12-31 18:53:48.214 10.4.71.214:54321     78072  #r thread INFO: X-h2o-cluster-id: 1483178026231
+12-31 18:53:48.215 10.4.71.214:54321     78072  #r thread INFO: User name: 'mateusz'
+12-31 18:53:48.215 10.4.71.214:54321     78072  #r thread INFO: Opted out of sending usage metrics.
+12-31 18:53:48.215 10.4.71.214:54321     78072  #r thread INFO: IPv6 stack selected: false
+12-31 18:53:48.215 10.4.71.214:54321     78072  #r thread INFO: Network address/interface is not reachable in 150ms: /fe80:0:0:0:aede:48ff:fe00:1122%en5/name:en5 (en5)
+12-31 18:53:48.215 10.4.71.214:54321     78072  #r thread INFO: Network address/interface is not reachable in 150ms: /fe80:0:0:0:cd39:9c:240a:ce69%utun0/name:utun0 (utun0)
+12-31 18:53:48.215 10.4.71.214:54321     78072  #r thread INFO: Network address/interface is not reachable in 150ms: /fe80:0:0:0:4caa:2fff:fe36:5fef%awdl0/name:awdl0 (awdl0)
+12-31 18:53:48.215 10.4.71.214:54321     78072  #r thread INFO: Possible IP Address: en0 (en0), fe80:0:0:0:d1:d5ab:e410:2b7d%en0
+12-31 18:53:48.215 10.4.71.214:54321     78072  #r thread INFO: Possible IP Address: en0 (en0), 10.4.71.214
+12-31 18:53:48.215 10.4.71.214:54321     78072  #r thread INFO: Possible IP Address: lo0 (lo0), fe80:0:0:0:0:0:0:1%lo0
+12-31 18:53:48.215 10.4.71.214:54321     78072  #r thread INFO: Possible IP Address: lo0 (lo0), 0:0:0:0:0:0:0:1
+12-31 18:53:48.216 10.4.71.214:54321     78072  #r thread INFO: Possible IP Address: lo0 (lo0), 127.0.0.1
+12-31 18:53:48.216 10.4.71.214:54321     78072  #r thread INFO: Internal communication uses port: 54322
+12-31 18:53:48.216 10.4.71.214:54321     78072  #r thread INFO: Listening for HTTP and REST traffic on http://10.4.71.214:54321/
+12-31 18:53:48.245 10.4.71.214:54321     78072  #r thread INFO: H2O cloud name: 'sparkling-water-mateusz_107786410' on /10.4.71.214:54321, discovery address /231.179.43.62:59315
+12-31 18:53:48.245 10.4.71.214:54321     78072  #r thread INFO: If you have trouble connecting, try SSH tunneling from your local machine (e.g., via port 55555):
+12-31 18:53:48.245 10.4.71.214:54321     78072  #r thread INFO:   1. Open a terminal and run 'ssh -L 55555:localhost:54321 mateusz@10.4.71.214'
+12-31 18:53:48.245 10.4.71.214:54321     78072  #r thread INFO:   2. Point your browser to http://localhost:55555
+12-31 18:53:48.245 10.4.71.214:54321     78072  #r thread INFO: Log dir: '/Users/mateusz/Dev/code/github/sparkling-water/bin/h2ologs'
+12-31 18:53:48.245 10.4.71.214:54321     78072  #r thread INFO: Cur dir: '/Users/mateusz/Dev/code/github/sparkling-water/bin'
+12-31 18:53:48.256 10.4.71.214:54321     78072  #r thread INFO: HDFS subsystem successfully initialized
+12-31 18:53:48.262 10.4.71.214:54321     78072  #r thread INFO: S3 subsystem successfully initialized
+12-31 18:53:48.262 10.4.71.214:54321     78072  #r thread INFO: Flow dir: '/Users/mateusz/h2oflows'
+12-31 18:53:48.286 10.4.71.214:54321     78072  #r thread INFO: Cloud of size 1 formed [10.4.71.214/10.4.71.214:54321]
+12-31 18:53:48.332 10.4.71.214:54321     78072  #r thread INFO: Registered parsers: [GUESS, ARFF, XLS, SVMLight, CSV]
+12-31 18:53:48.332 10.4.71.214:54321     78072  #r thread INFO: Registered 0 extensions in: 333mS
+12-31 18:53:48.750 10.4.71.214:54321     78072  #r thread INFO: Registered: 136 REST APIs in: 417mS
+12-31 18:53:48.751 10.4.71.214:54321     78072  #r thread INFO: 
+12-31 18:53:48.751 10.4.71.214:54321     78072  #r thread INFO: Open H2O Flow in your web browser: http://10.4.71.214:54321
+12-31 18:53:48.751 10.4.71.214:54321     78072  #r thread INFO: 
+12-31 18:53:51.789 10.4.71.214:54321     78072  main      INFO: Registered: 216 schemas in 745ms
+12-31 18:53:51.902 10.4.71.214:54321     78072  #7626-108 INFO: GET /flow/index.html, parms: {}
+12-31 18:53:51.905 10.4.71.214:54321     78072  #7626-108 INFO: Trying to load resource /flow/index.html via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 18:53:51.906 10.4.71.214:54321     78072  #7626-108 INFO: Trying to load resource /flow/index.html via classloader org.apache.spark.repl.ExecutorClassLoader@61197ec6
+12-31 18:53:51.928 10.4.71.214:54321     78072  #7626-108 INFO: Trying to load resource /flow/css/flow-lib.css via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 18:53:51.930 10.4.71.214:54321     78072  #7626-109 INFO: Trying to load resource /flow/css/flow.css via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 18:53:51.930 10.4.71.214:54321     78072  #7626-108 INFO: Trying to load resource /flow/css/flow-lib.css via classloader org.apache.spark.repl.ExecutorClassLoader@61197ec6
+12-31 18:53:51.931 10.4.71.214:54321     78072  #7626-111 INFO: Trying to load resource /flow/custom/custom.css via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 18:53:51.931 10.4.71.214:54321     78072  #7626-110 INFO: Trying to load resource /flow/css/scala-editor.css via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 18:53:51.932 10.4.71.214:54321     78072  #7626-109 INFO: Trying to load resource /flow/css/flow.css via classloader org.apache.spark.repl.ExecutorClassLoader@61197ec6
+12-31 18:53:51.932 10.4.71.214:54321     78072  #7626-111 INFO: Trying to load resource /flow/custom/custom.css via classloader org.apache.spark.repl.ExecutorClassLoader@61197ec6
+12-31 18:53:51.932 10.4.71.214:54321     78072  #7626-110 INFO: Trying to load resource /flow/css/scala-editor.css via classloader org.apache.spark.repl.ExecutorClassLoader@61197ec6
+12-31 18:53:51.986 10.4.71.214:54321     78072  #7626-108 INFO: Trying to load resource /flow/js/flow-lib.js via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 18:53:51.987 10.4.71.214:54321     78072  #7626-110 INFO: Trying to load resource /flow/js/flow.js via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 18:53:51.987 10.4.71.214:54321     78072  #7626-108 INFO: Trying to load resource /flow/js/flow-lib.js via classloader org.apache.spark.repl.ExecutorClassLoader@61197ec6
+12-31 18:53:51.987 10.4.71.214:54321     78072  #7626-110 INFO: Trying to load resource /flow/js/flow.js via classloader org.apache.spark.repl.ExecutorClassLoader@61197ec6
+12-31 18:53:52.028 10.4.71.214:54321     78072  #7626-111 INFO: Trying to load resource /flow/img/h2o.png via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 18:53:52.029 10.4.71.214:54321     78072  #7626-111 INFO: Trying to load resource /flow/img/h2o.png via classloader org.apache.spark.repl.ExecutorClassLoader@61197ec6
+12-31 18:53:52.126 10.4.71.214:54321     78072  #7626-111 INFO: GET /flow/fonts/fontawesome-webfont.woff, parms: {v=4.2.0}
+12-31 18:53:52.126 10.4.71.214:54321     78072  #7626-111 INFO: Trying to load resource /flow/fonts/fontawesome-webfont.woff via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 18:53:52.126 10.4.71.214:54321     78072  #7626-111 INFO: Trying to load resource /flow/fonts/fontawesome-webfont.woff via classloader org.apache.spark.repl.ExecutorClassLoader@61197ec6
+12-31 18:53:52.507 10.4.71.214:54321     78072  #7626-108 INFO: GET /flow/index.html, parms: {}
+12-31 18:53:52.507 10.4.71.214:54321     78072  #7626-108 INFO: Trying to load resource /flow/index.html via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 18:53:52.508 10.4.71.214:54321     78072  #7626-108 INFO: Trying to load resource /flow/index.html via classloader org.apache.spark.repl.ExecutorClassLoader@61197ec6
+12-31 18:53:52.521 10.4.71.214:54321     78072  #7626-108 INFO: GET /3/Metadata/endpoints, parms: {}
+12-31 18:53:52.547 10.4.71.214:54321     78072  #7626-108 INFO: Locking cloud to new members, because hex.schemas.DeepLearningV3
+12-31 18:53:52.806 10.4.71.214:54321     78072  #7626-108 INFO: GET /3/NodePersistentStorage/notebook, parms: {}
+12-31 18:53:52.815 10.4.71.214:54321     78072  #7626-110 INFO: GET /3/NodePersistentStorage/categories/environment/names/clips/exists, parms: {}
+12-31 18:53:52.817 10.4.71.214:54321     78072  #7626-111 INFO: GET /flow/help/catalog.json, parms: {}
+12-31 18:53:52.817 10.4.71.214:54321     78072  #7626-111 INFO: Trying to load resource /flow/help/catalog.json via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 18:53:52.818 10.4.71.214:54321     78072  #7626-111 INFO: Trying to load resource /flow/help/catalog.json via classloader org.apache.spark.repl.ExecutorClassLoader@61197ec6
+12-31 18:53:52.819 10.4.71.214:54321     78072  #7626-109 INFO: GET /3/About, parms: {}
+12-31 18:53:52.821 10.4.71.214:54321     78072  #7626-112 INFO: GET /3/ModelBuilders, parms: {}
+12-31 18:53:52.824 10.4.71.214:54321     78072  #7626-113 INFO: POST /3/scalaint, parms: {}
+12-31 18:53:52.827 10.4.71.214:54321     78072  #7626-108 INFO: Trying to load resource /flow/img/h2o-flow.png via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 18:53:52.828 10.4.71.214:54321     78072  #7626-108 INFO: Trying to load resource /flow/img/h2o-flow.png via classloader org.apache.spark.repl.ExecutorClassLoader@61197ec6
+12-31 18:53:52.948 10.4.71.214:54321     78072  #7626-112 INFO: GET /flow/fonts/Lato-Regular.woff2, parms: {}
+12-31 18:53:52.949 10.4.71.214:54321     78072  #7626-112 INFO: Trying to load resource /flow/fonts/Lato-Regular.woff2 via classloader sun.misc.Launcher$AppClassLoader@593634ad
+12-31 18:53:52.949 10.4.71.214:54321     78072  #7626-112 INFO: Trying to load resource /flow/fonts/Lato-Regular.woff2 via classloader org.apache.spark.repl.ExecutorClassLoader@61197ec6
+12-31 18:53:57.295 10.4.71.214:54321     78072  #7626-112 INFO: GET /3/Frames, parms: {}
+12-31 18:53:57.385 10.4.71.214:54321     78072  #7626-112 INFO: POST /3/ModelBuilders/deepwater/parameters, parms: {device_id=[0], keep_cross_validation_fold_assignment=false, nfolds=0, momentum_ramp=10000, target_ratio_comm_to_comp=0.05, score_training_samples=10000, stopping_tolerance=0, mini_batch_size=32, hidden=, gpu=true, class_sampling_factors=, network=auto, learning_rate=0.005, momentum_start=0.9, score_interval=5, standardize=true, categorical_encoding=AUTO, overwrite_with_best_model=true, epochs=10, clip_gradient=10, backend=mxnet, network_definition_file=, input_dropout_ratio=0, seed=-1, autoencoder=false, shuffle_training_data=true, image_shape=[0,0], score_each_iteration=false, max_runtime_secs=0, hidden_dropout_ratios=, regression_stop=0, score_validation_samples=0, score_duty_cycle=0.1, export_native_parameters_prefix=, mean_image_file=, stopping_metric=AUTO, sparse=false, ignore_const_cols=true, model_id=deepwater-b715b8fa-758a-469e-9d4f-60bf92888401, fold_assignment=AUTO, train_samples_per_iteration=-2, learning_rate_annealing=0.000001, classification_stop=0, distribution=AUTO, max_after_balance_size=5, checkpoint=, balance_classes=false, problem_type=auto, stopping_rounds=5, keep_cross_validation_predictions=false, momentum_stable=0.99, channels=3, network_parameters_file=}
+12-31 20:58:01.780 10.4.71.214:54321     78072  #14:54321 ERRR: Got IO error when sending batch UDP bytes: java.io.IOException: Broken pipe
+12-31 20:58:02.090 10.4.71.214:54321     78072  #14:54321 ERRR: Got IO error when sending batch UDP bytes: java.net.ConnectException: Connection refused
+12-31 20:58:37.792 10.4.71.214:54321     78072  #14:54321 ERRR: Got IO error when sending batch UDP bytes: java.net.ConnectException: Connection refused
+12-31 20:58:43.135 10.4.71.214:54321     78072  #14:54321 ERRR: Got IO error when sending batch UDP bytes: java.net.ConnectException: Connection refused
+12-31 20:58:45.463 10.4.71.214:54321     78072  #14:54321 ERRR: Got IO error when sending batch UDP bytes: java.net.ConnectException: Connection refused
+12-31 20:58:46.808 10.4.71.214:54321     78072  #14:54321 ERRR: Got IO error when sending batch UDP bytes: java.net.ConnectException: Connection refused
+12-31 20:58:52.357 10.4.71.214:54321     78072  #14:54321 ERRR: Got IO error when sending batch UDP bytes: java.net.ConnectException: Connection refused
+12-31 21:00:00.325 10.4.71.214:54321     78072  #14:54321 ERRR: Got IO error when sending batch UDP bytes: java.net.ConnectException: Connection refused
+12-31 21:00:07.652 10.4.71.214:54321     78072  #14:54321 ERRR: Got IO error when sending batch UDP bytes: java.net.ConnectException: Connection refused
+12-31 21:00:09.972 10.4.71.214:54321     78072  #14:54321 ERRR: Got IO error when sending batch UDP bytes: java.net.ConnectException: Connection refused
+12-31 21:00:12.294 10.4.71.214:54321     78072  #14:54321 ERRR: Got IO error when sending batch UDP bytes: java.net.ConnectException: Connection refused
+12-31 21:00:13.607 10.4.71.214:54321     78072  #14:54321 ERRR: Got IO error when sending batch UDP bytes: java.net.ConnectException: Connection refused
+12-31 21:00:15.917 10.4.71.214:54321     78072  #14:54321 ERRR: Got IO error when sending batch UDP bytes: java.net.ConnectException: Connection refused
+12-31 21:00:17.227 10.4.71.214:54321     78072  #14:54321 ERRR: Got IO error when sending batch UDP bytes: java.net.ConnectException: Connection refused

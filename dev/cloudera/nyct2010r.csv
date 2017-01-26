@@ -1,0 +1,2168 @@
+gid,ctlabel,borocode,boroname,ct2010,boroct2010,cdeligibil,ntacode,ntaname,puma
+1,9,5,Staten Island,900,5000900,I,SI22,West New Brighton-New Brighton-St. George,3903
+2,125,5,Staten Island,12500,5012500,I,SI22,West New Brighton-New Brighton-St. George,3903
+3,133.01,5,Staten Island,13301,5013301,E,SI22,West New Brighton-New Brighton-St. George,3903
+4,197,5,Staten Island,19700,5019700,I,SI07,Westerleigh,3903
+5,20.02,5,Staten Island,2002,5002002,I,SI14,Grasmere-Arrochar-Ft. Wadsworth,3902
+6,64,5,Staten Island,6400,5006400,I,SI14,Grasmere-Arrochar-Ft. Wadsworth,3902
+7,74,5,Staten Island,7400,5007400,I,SI14,Grasmere-Arrochar-Ft. Wadsworth,3902
+24,140,1,Manhattan,14000,1014000,I,MN40,Upper East Side-Carnegie Hill,3805
+8,187.01,5,Staten Island,18701,5018701,I,SI07,Westerleigh,3903
+9,22.02,1,Manhattan,2202,1002202,I,MN28,Lower East Side,3809
+10,32,1,Manhattan,3200,1003200,I,MN22,East Village,3809
+11,68,1,Manhattan,6800,1006800,I,MN21,Gramercy,3808
+12,89,1,Manhattan,8900,1008900,I,MN13,Hudson Yards-Chelsea-Flatiron-Union Square,3807
+13,96,1,Manhattan,9600,1009600,E,MN17,Midtown-Midtown South,3807
+14,98,1,Manhattan,9800,1009800,I,MN19,Turtle Bay-East Midtown,3808
+15,100,1,Manhattan,10000,1010000,I,MN19,Turtle Bay-East Midtown,3808
+16,102,1,Manhattan,10200,1010200,I,MN17,Midtown-Midtown South,3807
+17,104,1,Manhattan,10400,1010400,I,MN17,Midtown-Midtown South,3807
+18,112.01,1,Manhattan,11201,1011201,I,MN17,Midtown-Midtown South,3807
+19,112.02,1,Manhattan,11202,1011202,I,MN17,Midtown-Midtown South,3807
+20,112.03,1,Manhattan,11203,1011203,I,MN19,Turtle Bay-East Midtown,3808
+21,113,1,Manhattan,11300,1011300,I,MN17,Midtown-Midtown South,3807
+22,114.02,1,Manhattan,11402,1011402,I,MN40,Upper East Side-Carnegie Hill,3805
+23,130,1,Manhattan,13000,1013000,I,MN40,Upper East Side-Carnegie Hill,3805
+25,142,1,Manhattan,14200,1014200,I,MN40,Upper East Side-Carnegie Hill,3805
+26,146.01,1,Manhattan,14601,1014601,I,MN32,Yorkville,3805
+27,146.02,1,Manhattan,14602,1014602,I,MN32,Yorkville,3805
+28,148.01,1,Manhattan,14801,1014801,I,MN40,Upper East Side-Carnegie Hill,3805
+29,148.02,1,Manhattan,14802,1014802,I,MN40,Upper East Side-Carnegie Hill,3805
+30,153,1,Manhattan,15300,1015300,I,MN14,Lincoln Square,3806
+31,154,1,Manhattan,15400,1015400,I,MN32,Yorkville,3805
+32,156.01,1,Manhattan,15601,1015601,I,MN32,Yorkville,3805
+33,156.02,1,Manhattan,15602,1015602,E,MN33,East Harlem South,3804
+34,160.01,1,Manhattan,16001,1016001,I,MN40,Upper East Side-Carnegie Hill,3805
+35,184,1,Manhattan,18400,1018400,E,MN34,East Harlem North,3804
+36,190,1,Manhattan,19000,1019000,I,MN11,Central Harlem South,3803
+37,201.01,1,Manhattan,20101,1020101,I,MN09,Morningside Heights,3802
+38,201.02,1,Manhattan,20102,1020102,E,MN11,Central Harlem South,3803
+39,206,1,Manhattan,20600,1020600,E,MN03,Central Harlem North-Polo Grounds,3803
+40,218,1,Manhattan,21800,1021800,E,MN11,Central Harlem South,3803
+41,220,1,Manhattan,22000,1022000,E,MN11,Central Harlem South,3803
+42,229,1,Manhattan,22900,1022900,E,MN04,Hamilton Heights,3802
+43,234,1,Manhattan,23400,1023400,E,MN03,Central Harlem North-Polo Grounds,3803
+44,239,1,Manhattan,23900,1023900,E,MN36,Washington Heights South,3801
+45,249,1,Manhattan,24900,1024900,E,MN36,Washington Heights South,3801
+46,253,1,Manhattan,25300,1025300,E,MN36,Washington Heights South,3801
+47,257,1,Manhattan,25700,1025700,E,MN11,Central Harlem South,3803
+48,261,1,Manhattan,26100,1026100,E,MN36,Washington Heights South,3801
+49,263,1,Manhattan,26300,1026300,E,MN36,Washington Heights South,3801
+50,267,1,Manhattan,26700,1026700,E,MN35,Washington Heights North,3801
+51,269,1,Manhattan,26900,1026900,E,MN35,Washington Heights North,3801
+52,277,1,Manhattan,27700,1027700,E,MN35,Washington Heights North,3801
+67,76,3,Brooklyn,7600,3007600,E,BK32,Sunset Park West,4012
+53,2,3,Brooklyn,200,3000200,I,BK32,Sunset Park West,4012
+54,5.01,3,Brooklyn,501,3000501,I,BK09,Brooklyn Heights-Cobble Hill,4004
+55,20,3,Brooklyn,2000,3002000,E,BK32,Sunset Park West,4012
+56,41,3,Brooklyn,4100,3004100,I,BK38,DUMBO-Vinegar Hill-Downtown Brooklyn-Boerum Hill,4004
+57,52.01,3,Brooklyn,5201,3005201,E,BK31,Bay Ridge,4013
+58,52.02,3,Brooklyn,5202,3005202,I,BK31,Bay Ridge,4013
+59,58,3,Brooklyn,5800,3005800,E,BK31,Bay Ridge,4013
+60,60,3,Brooklyn,6000,3006000,I,BK31,Bay Ridge,4013
+61,62,3,Brooklyn,6200,3006200,I,BK31,Bay Ridge,4013
+62,64,3,Brooklyn,6400,3006400,I,BK31,Bay Ridge,4013
+63,65,3,Brooklyn,6500,3006500,I,BK33,Carroll Gardens-Columbia Street-Red Hook,4005
+64,67,3,Brooklyn,6700,3006700,I,BK33,Carroll Gardens-Columbia Street-Red Hook,4005
+65,69,3,Brooklyn,6900,3006900,I,BK38,DUMBO-Vinegar Hill-Downtown Brooklyn-Boerum Hill,4004
+66,74,3,Brooklyn,7400,3007400,E,BK32,Sunset Park West,4012
+68,78,3,Brooklyn,7800,3007800,E,BK32,Sunset Park West,4012
+69,80,3,Brooklyn,8000,3008000,E,BK32,Sunset Park West,4012
+70,98,3,Brooklyn,9800,3009800,E,BK34,Sunset Park East,4012
+71,100,3,Brooklyn,10000,3010000,E,BK34,Sunset Park East,4012
+72,101,3,Brooklyn,10100,3010100,E,BK32,Sunset Park West,4012
+73,102,3,Brooklyn,10200,3010200,E,BK34,Sunset Park East,4012
+74,104,3,Brooklyn,10400,3010400,E,BK34,Sunset Park East,4012
+75,106,3,Brooklyn,10600,3010600,E,BK34,Sunset Park East,4012
+76,108,3,Brooklyn,10800,3010800,E,BK34,Sunset Park East,4012
+77,110,3,Brooklyn,11000,3011000,E,BK34,Sunset Park East,4012
+78,114,3,Brooklyn,11400,3011400,E,BK88,Borough Park,4014
+79,116,3,Brooklyn,11600,3011600,E,BK88,Borough Park,4014
+80,117,3,Brooklyn,11700,3011700,I,BK37,Park Slope-Gowanus,4005
+81,118,3,Brooklyn,11800,3011800,E,BK34,Sunset Park East,4012
+82,121,3,Brooklyn,12100,3012100,I,BK37,Park Slope-Gowanus,4005
+83,128.01,3,Brooklyn,12801,3012801,I,BK30,Dyker Heights,4013
+84,130,3,Brooklyn,13000,3013000,E,BK31,Bay Ridge,4013
+85,132,3,Brooklyn,13200,3013200,E,BK30,Dyker Heights,4013
+86,133,3,Brooklyn,13300,3013300,I,BK37,Park Slope-Gowanus,4005
+87,136,3,Brooklyn,13600,3013600,I,BK31,Bay Ridge,4013
+88,137,3,Brooklyn,13700,3013700,I,BK37,Park Slope-Gowanus,4005
+89,138,3,Brooklyn,13800,3013800,E,BK31,Bay Ridge,4013
+90,139,3,Brooklyn,13900,3013900,E,BK37,Park Slope-Gowanus,4005
+91,151,3,Brooklyn,15100,3015100,I,BK37,Park Slope-Gowanus,4005
+92,153,3,Brooklyn,15300,3015300,I,BK37,Park Slope-Gowanus,4005
+93,155,3,Brooklyn,15500,3015500,I,BK37,Park Slope-Gowanus,4005
+94,157,3,Brooklyn,15700,3015700,I,BK37,Park Slope-Gowanus,4005
+95,165,3,Brooklyn,16500,3016500,I,BK37,Park Slope-Gowanus,4005
+96,170,3,Brooklyn,17000,3017000,I,BK27,Bath Beach,4017
+97,172,3,Brooklyn,17200,3017200,E,BK27,Bath Beach,4017
+98,178,3,Brooklyn,17800,3017800,E,BK27,Bath Beach,4017
+99,180,3,Brooklyn,18000,3018000,E,BK27,Bath Beach,4017
+100,182,3,Brooklyn,18200,3018200,E,BK28,Bensonhurst West,4017
+101,184,3,Brooklyn,18400,3018400,E,BK28,Bensonhurst West,4017
+102,186,3,Brooklyn,18600,3018600,I,BK28,Bensonhurst West,4017
+103,188,3,Brooklyn,18800,3018800,I,BK28,Bensonhurst West,4017
+104,190,3,Brooklyn,19000,3019000,E,BK28,Bensonhurst West,4017
+105,192,3,Brooklyn,19200,3019200,E,BK88,Borough Park,4014
+106,194,3,Brooklyn,19400,3019400,E,BK30,Dyker Heights,4013
+107,195,3,Brooklyn,19500,3019500,E,BK69,Clinton Hill,4004
+108,196,3,Brooklyn,19600,3019600,E,BK30,Dyker Heights,4013
+109,197,3,Brooklyn,19700,3019700,I,BK69,Clinton Hill,4004
+110,198,3,Brooklyn,19800,3019800,E,BK30,Dyker Heights,4013
+111,201,3,Brooklyn,20100,3020100,I,BK69,Clinton Hill,4004
+112,204,3,Brooklyn,20400,3020400,I,BK30,Dyker Heights,4013
+113,208,3,Brooklyn,20800,3020800,I,BK30,Dyker Heights,4013
+114,210,3,Brooklyn,21000,3021000,E,BK30,Dyker Heights,4013
+115,212,3,Brooklyn,21200,3021200,E,BK30,Dyker Heights,4013
+116,214,3,Brooklyn,21400,3021400,E,BK88,Borough Park,4014
+117,216,3,Brooklyn,21600,3021600,E,BK88,Borough Park,4014
+118,218,3,Brooklyn,21800,3021800,E,BK88,Borough Park,4014
+119,219,3,Brooklyn,21900,3021900,E,BK61,Crown Heights North,4006
+120,220,3,Brooklyn,22000,3022000,E,BK88,Borough Park,4014
+121,221,3,Brooklyn,22100,3022100,E,BK61,Crown Heights North,4006
+200,414.01,3,Brooklyn,41401,3041401,E,BK25,Homecrest,4016
+122,222,3,Brooklyn,22200,3022200,E,BK88,Borough Park,4014
+123,224,3,Brooklyn,22400,3022400,E,BK88,Borough Park,4014
+124,226,3,Brooklyn,22600,3022600,E,BK88,Borough Park,4014
+125,227,3,Brooklyn,22700,3022700,E,BK69,Clinton Hill,4004
+126,228,3,Brooklyn,22800,3022800,E,BK88,Borough Park,4014
+127,229,3,Brooklyn,22900,3022900,E,BK69,Clinton Hill,4004
+128,231,3,Brooklyn,23100,3023100,I,BK69,Clinton Hill,4004
+129,232,3,Brooklyn,23200,3023200,E,BK88,Borough Park,4014
+130,234,3,Brooklyn,23400,3023400,E,BK88,Borough Park,4014
+131,235,3,Brooklyn,23500,3023500,E,BK69,Clinton Hill,4004
+132,236,3,Brooklyn,23600,3023600,E,BK88,Borough Park,4014
+133,238,3,Brooklyn,23800,3023800,E,BK88,Borough Park,4014
+134,240,3,Brooklyn,24000,3024000,E,BK88,Borough Park,4014
+135,242,3,Brooklyn,24200,3024200,E,BK88,Borough Park,4014
+136,245,3,Brooklyn,24500,3024500,E,BK75,Bedford,4003
+137,246,3,Brooklyn,24600,3024600,E,BK88,Borough Park,4014
+138,247,3,Brooklyn,24700,3024700,E,BK61,Crown Heights North,4006
+139,248,3,Brooklyn,24800,3024800,E,BK28,Bensonhurst West,4017
+140,249,3,Brooklyn,24900,3024900,E,BK75,Bedford,4003
+141,250,3,Brooklyn,25000,3025000,E,BK28,Bensonhurst West,4017
+142,252,3,Brooklyn,25200,3025200,E,BK28,Bensonhurst West,4017
+143,254,3,Brooklyn,25400,3025400,E,BK28,Bensonhurst West,4017
+144,256,3,Brooklyn,25600,3025600,E,BK28,Bensonhurst West,4017
+145,258,3,Brooklyn,25800,3025800,E,BK28,Bensonhurst West,4017
+146,260,3,Brooklyn,26000,3026000,E,BK28,Bensonhurst West,4017
+147,262,3,Brooklyn,26200,3026200,I,BK28,Bensonhurst West,4017
+148,263,3,Brooklyn,26300,3026300,E,BK75,Bedford,4003
+149,264,3,Brooklyn,26400,3026400,E,BK28,Bensonhurst West,4017
+150,266,3,Brooklyn,26600,3026600,I,BK28,Bensonhurst West,4017
+151,267,3,Brooklyn,26700,3026700,I,BK75,Bedford,4003
+152,268,3,Brooklyn,26800,3026800,E,BK28,Bensonhurst West,4017
+153,269,3,Brooklyn,26900,3026900,E,BK75,Bedford,4003
+154,270,3,Brooklyn,27000,3027000,E,BK28,Bensonhurst West,4017
+155,271,3,Brooklyn,27100,3027100,E,BK61,Crown Heights North,4006
+340,796.01,3,Brooklyn,79601,3079601,E,BK60,Prospect Lefferts Gardens-Wingate,4011
+156,272,3,Brooklyn,27200,3027200,E,BK28,Bensonhurst West,4017
+157,273,3,Brooklyn,27300,3027300,I,BK35,Stuyvesant Heights,4003
+158,274,3,Brooklyn,27400,3027400,E,BK28,Bensonhurst West,4017
+159,276,3,Brooklyn,27600,3027600,E,BK28,Bensonhurst West,4017
+160,278,3,Brooklyn,27800,3027800,E,BK28,Bensonhurst West,4017
+161,279,3,Brooklyn,27900,3027900,E,BK35,Stuyvesant Heights,4003
+162,284,3,Brooklyn,28400,3028400,E,BK28,Bensonhurst West,4017
+163,285.01,3,Brooklyn,28501,3028501,I,BK78,Bushwick South,4002
+164,288,3,Brooklyn,28800,3028800,E,BK28,Bensonhurst West,4017
+165,290,3,Brooklyn,29000,3029000,E,BK28,Bensonhurst West,4017
+166,291,3,Brooklyn,29100,3029100,E,BK35,Stuyvesant Heights,4003
+167,293,3,Brooklyn,29300,3029300,E,BK35,Stuyvesant Heights,4003
+168,295,3,Brooklyn,29500,3029500,I,BK35,Stuyvesant Heights,4003
+169,296,3,Brooklyn,29600,3029600,E,BK28,Bensonhurst West,4017
+170,297,3,Brooklyn,29700,3029700,I,BK61,Crown Heights North,4006
+171,298,3,Brooklyn,29800,3029800,E,BK29,Bensonhurst East,4017
+341,800,3,Brooklyn,80000,3080000,I,BK60,Prospect Lefferts Gardens-Wingate,4011
+172,300,3,Brooklyn,30000,3030000,E,BK29,Bensonhurst East,4017
+173,302,3,Brooklyn,30200,3030200,E,BK29,Bensonhurst East,4017
+174,305,3,Brooklyn,30500,3030500,E,BK61,Crown Heights North,4006
+175,309,3,Brooklyn,30900,3030900,E,BK61,Crown Heights North,4006
+176,311,3,Brooklyn,31100,3031100,E,BK61,Crown Heights North,4006
+177,317.01,3,Brooklyn,31701,3031701,E,BK61,Crown Heights North,4006
+178,323,3,Brooklyn,32300,3032300,E,BK63,Crown Heights South,4011
+179,326,3,Brooklyn,32600,3032600,E,BK21,Seagate-Coney Island,4018
+180,329,3,Brooklyn,32900,3032900,E,BK60,Prospect Lefferts Gardens-Wingate,4011
+181,331,3,Brooklyn,33100,3033100,E,BK63,Crown Heights South,4011
+182,333,3,Brooklyn,33300,3033300,E,BK63,Crown Heights South,4011
+183,335,3,Brooklyn,33500,3033500,E,BK63,Crown Heights South,4011
+184,337,3,Brooklyn,33700,3033700,E,BK61,Crown Heights North,4006
+185,339,3,Brooklyn,33900,3033900,E,BK61,Crown Heights North,4006
+186,341,3,Brooklyn,34100,3034100,E,BK61,Crown Heights North,4006
+201,415,3,Brooklyn,41500,3041500,E,BK78,Bushwick South,4002
+187,342,3,Brooklyn,34200,3034200,E,BK21,Seagate-Coney Island,4018
+188,363,3,Brooklyn,36300,3036300,E,BK79,Ocean Hill,4007
+189,365.02,3,Brooklyn,36502,3036502,E,BK79,Ocean Hill,4007
+190,388,3,Brooklyn,38800,3038800,E,BK25,Homecrest,4016
+191,396,3,Brooklyn,39600,3039600,I,BK25,Homecrest,4016
+192,397,3,Brooklyn,39700,3039700,E,BK78,Bushwick South,4002
+193,399,3,Brooklyn,39900,3039900,E,BK78,Bushwick South,4002
+194,400,3,Brooklyn,40000,3040000,E,BK29,Bensonhurst East,4017
+195,401,3,Brooklyn,40100,3040100,E,BK78,Bushwick South,4002
+196,404,3,Brooklyn,40400,3040400,I,BK29,Bensonhurst East,4017
+197,406,3,Brooklyn,40600,3040600,E,BK29,Bensonhurst East,4017
+198,408,3,Brooklyn,40800,3040800,E,BK29,Bensonhurst East,4017
+199,413,3,Brooklyn,41300,3041300,E,BK78,Bushwick South,4002
+202,417,3,Brooklyn,41700,3041700,E,BK78,Bushwick South,4002
+203,418,3,Brooklyn,41800,3041800,E,BK25,Homecrest,4016
+204,419,3,Brooklyn,41900,3041900,E,BK78,Bushwick South,4002
+205,420,3,Brooklyn,42000,3042000,E,BK25,Homecrest,4016
+206,421,3,Brooklyn,42100,3042100,E,BK78,Bushwick South,4002
+207,426,3,Brooklyn,42600,3042600,E,BK29,Bensonhurst East,4017
+208,427,3,Brooklyn,42700,3042700,E,BK77,Bushwick North,4002
+209,428,3,Brooklyn,42800,3042800,E,BK29,Bensonhurst East,4017
+210,429,3,Brooklyn,42900,3042900,E,BK77,Bushwick North,4002
+211,430,3,Brooklyn,43000,3043000,E,BK29,Bensonhurst East,4017
+212,431,3,Brooklyn,43100,3043100,E,BK77,Bushwick North,4002
+213,432,3,Brooklyn,43200,3043200,E,BK29,Bensonhurst East,4017
+214,433,3,Brooklyn,43300,3043300,E,BK77,Bushwick North,4002
+215,434,3,Brooklyn,43400,3043400,E,BK29,Bensonhurst East,4017
+216,435,3,Brooklyn,43500,3043500,E,BK77,Bushwick North,4002
+217,436,3,Brooklyn,43600,3043600,E,BK29,Bensonhurst East,4017
+218,437,3,Brooklyn,43700,3043700,E,BK77,Bushwick North,4002
+219,439,3,Brooklyn,43900,3043900,E,BK77,Bushwick North,4002
+220,440,3,Brooklyn,44000,3044000,I,BK46,Ocean Parkway South,4014
+221,441,3,Brooklyn,44100,3044100,E,BK77,Bushwick North,4002
+222,442,3,Brooklyn,44200,3044200,E,BK46,Ocean Parkway South,4014
+223,443,3,Brooklyn,44300,3044300,E,BK77,Bushwick North,4002
+224,444,3,Brooklyn,44400,3044400,E,BK46,Ocean Parkway South,4014
+225,446,3,Brooklyn,44600,3044600,E,BK88,Borough Park,4014
+226,452,3,Brooklyn,45200,3045200,I,BK46,Ocean Parkway South,4014
+227,454,3,Brooklyn,45400,3045400,I,BK46,Ocean Parkway South,4014
+228,456,3,Brooklyn,45600,3045600,E,BK43,Midwood,4015
+229,458,3,Brooklyn,45800,3045800,I,BK43,Midwood,4015
+230,460,3,Brooklyn,46000,3046000,I,BK42,Flatbush,4015
+231,464,3,Brooklyn,46400,3046400,E,BK88,Borough Park,4014
+247,510.01,3,Brooklyn,51001,3051001,E,BK42,Flatbush,4015
+232,470,3,Brooklyn,47000,3047000,E,BK88,Borough Park,4014
+233,472,3,Brooklyn,47200,3047200,E,BK88,Borough Park,4014
+234,474,3,Brooklyn,47400,3047400,E,BK88,Borough Park,4014
+235,476,3,Brooklyn,47600,3047600,E,BK88,Borough Park,4014
+236,481,3,Brooklyn,48100,3048100,I,BK90,East Williamsburg,4001
+237,486,3,Brooklyn,48600,3048600,E,BK41,Kensington-Ocean Parkway,4014
+238,488,3,Brooklyn,48800,3048800,E,BK41,Kensington-Ocean Parkway,4014
+239,495,3,Brooklyn,49500,3049500,I,BK90,East Williamsburg,4001
+240,496,3,Brooklyn,49600,3049600,E,BK41,Kensington-Ocean Parkway,4014
+241,498,3,Brooklyn,49800,3049800,E,BK41,Kensington-Ocean Parkway,4014
+242,499,3,Brooklyn,49900,3049900,E,BK76,Greenpoint,4001
+243,503,3,Brooklyn,50300,3050300,E,BK90,East Williamsburg,4001
+244,505,3,Brooklyn,50500,3050500,E,BK90,East Williamsburg,4001
+245,507,3,Brooklyn,50700,3050700,E,BK75,Bedford,4003
+246,508.01,3,Brooklyn,50801,3050801,E,BK42,Flatbush,4015
+248,514,3,Brooklyn,51400,3051400,E,BK42,Flatbush,4015
+249,516.01,3,Brooklyn,51601,3051601,E,BK42,Flatbush,4015
+250,516.02,3,Brooklyn,51602,3051602,E,BK42,Flatbush,4015
+251,517,3,Brooklyn,51700,3051700,I,BK73,North Side-South Side,4001
+252,518,3,Brooklyn,51800,3051800,I,BK42,Flatbush,4015
+253,520,3,Brooklyn,52000,3052000,E,BK42,Flatbush,4015
+254,526,3,Brooklyn,52600,3052600,I,BK42,Flatbush,4015
+255,528,3,Brooklyn,52800,3052800,I,BK42,Flatbush,4015
+256,530,3,Brooklyn,53000,3053000,E,BK43,Midwood,4015
+257,531,3,Brooklyn,53100,3053100,E,BK75,Bedford,4003
+258,532,3,Brooklyn,53200,3053200,I,BK43,Midwood,4015
+259,533,3,Brooklyn,53300,3053300,E,BK72,Williamsburg,4001
+260,534,3,Brooklyn,53400,3053400,E,BK43,Midwood,4015
+261,538,3,Brooklyn,53800,3053800,E,BK43,Midwood,4015
+262,542,3,Brooklyn,54200,3054200,E,BK43,Midwood,4015
+263,544,3,Brooklyn,54400,3054400,E,BK43,Midwood,4015
+375,898,3,Brooklyn,89800,3089800,E,BK81,Brownsville,4007
+264,548,3,Brooklyn,54800,3054800,I,BK44,Madison,4016
+265,550,3,Brooklyn,55000,3055000,E,BK44,Madison,4016
+266,552,3,Brooklyn,55200,3055200,E,BK44,Madison,4016
+267,553,3,Brooklyn,55300,3055300,E,BK73,North Side-South Side,4001
+268,558,3,Brooklyn,55800,3055800,E,BK44,Madison,4016
+269,560,3,Brooklyn,56000,3056000,E,BK44,Madison,4016
+270,562,3,Brooklyn,56200,3056200,I,BK44,Madison,4016
+271,564,3,Brooklyn,56400,3056400,I,BK44,Madison,4016
+272,565,3,Brooklyn,56500,3056500,I,BK76,Greenpoint,4001
+273,566,3,Brooklyn,56600,3056600,I,BK44,Madison,4016
+274,568,3,Brooklyn,56800,3056800,I,BK44,Madison,4016
+275,569,3,Brooklyn,56900,3056900,I,BK76,Greenpoint,4001
+276,570,3,Brooklyn,57000,3057000,I,BK17,Sheepshead Bay-Gerritsen Beach-Manhattan Beach,4016
+277,571,3,Brooklyn,57100,3057100,E,BK76,Greenpoint,4001
+291,600,3,Brooklyn,60000,3060000,I,BK17,Sheepshead Bay-Gerritsen Beach-Manhattan Beach,4016
+278,572,3,Brooklyn,57200,3057200,E,BK17,Sheepshead Bay-Gerritsen Beach-Manhattan Beach,4016
+279,573,3,Brooklyn,57300,3057300,I,BK76,Greenpoint,4001
+280,574,3,Brooklyn,57400,3057400,I,BK44,Madison,4016
+281,576,3,Brooklyn,57600,3057600,I,BK44,Madison,4016
+282,578,3,Brooklyn,57800,3057800,I,BK44,Madison,4016
+283,580,3,Brooklyn,58000,3058000,E,BK44,Madison,4016
+284,586,3,Brooklyn,58600,3058600,E,BK17,Sheepshead Bay-Gerritsen Beach-Manhattan Beach,4016
+285,591,3,Brooklyn,59100,3059100,E,BK76,Greenpoint,4001
+286,592,3,Brooklyn,59200,3059200,I,BK17,Sheepshead Bay-Gerritsen Beach-Manhattan Beach,4016
+287,593,3,Brooklyn,59300,3059300,E,BK76,Greenpoint,4001
+288,594.01,3,Brooklyn,59401,3059401,I,BK17,Sheepshead Bay-Gerritsen Beach-Manhattan Beach,4016
+289,594.02,3,Brooklyn,59402,3059402,I,BK17,Sheepshead Bay-Gerritsen Beach-Manhattan Beach,4016
+290,596,3,Brooklyn,59600,3059600,E,BK17,Sheepshead Bay-Gerritsen Beach-Manhattan Beach,4016
+292,610.03,3,Brooklyn,61003,3061003,E,BK19,Brighton Beach,4018
+293,612,3,Brooklyn,61200,3061200,I,BK17,Sheepshead Bay-Gerritsen Beach-Manhattan Beach,4016
+294,632,3,Brooklyn,63200,3063200,I,BK17,Sheepshead Bay-Gerritsen Beach-Manhattan Beach,4016
+295,636,3,Brooklyn,63600,3063600,I,BK45,Georgetown-Marine Park-Bergen Beach-Mill Basin,4009
+296,638,3,Brooklyn,63800,3063800,I,BK44,Madison,4016
+297,640,3,Brooklyn,64000,3064000,I,BK45,Georgetown-Marine Park-Bergen Beach-Mill Basin,4009
+298,646,3,Brooklyn,64600,3064600,I,BK45,Georgetown-Marine Park-Bergen Beach-Mill Basin,4009
+299,648,3,Brooklyn,64800,3064800,I,BK45,Georgetown-Marine Park-Bergen Beach-Mill Basin,4009
+300,650,3,Brooklyn,65000,3065000,I,BK58,Flatlands,4009
+301,652,3,Brooklyn,65200,3065200,I,BK45,Georgetown-Marine Park-Bergen Beach-Mill Basin,4009
+302,654,3,Brooklyn,65400,3065400,I,BK45,Georgetown-Marine Park-Bergen Beach-Mill Basin,4009
+303,656,3,Brooklyn,65600,3065600,I,BK45,Georgetown-Marine Park-Bergen Beach-Mill Basin,4009
+304,658,3,Brooklyn,65800,3065800,I,BK45,Georgetown-Marine Park-Bergen Beach-Mill Basin,4009
+305,660,3,Brooklyn,66000,3066000,I,BK45,Georgetown-Marine Park-Bergen Beach-Mill Basin,4009
+306,670,3,Brooklyn,67000,3067000,I,BK45,Georgetown-Marine Park-Bergen Beach-Mill Basin,4009
+307,672,3,Brooklyn,67200,3067200,I,BK58,Flatlands,4009
+308,674,3,Brooklyn,67400,3067400,I,BK58,Flatlands,4009
+309,676,3,Brooklyn,67600,3067600,I,BK58,Flatlands,4009
+310,678,3,Brooklyn,67800,3067800,I,BK58,Flatlands,4009
+311,680,3,Brooklyn,68000,3068000,I,BK58,Flatlands,4009
+312,682,3,Brooklyn,68200,3068200,I,BK58,Flatlands,4009
+313,686,3,Brooklyn,68600,3068600,I,BK45,Georgetown-Marine Park-Bergen Beach-Mill Basin,4009
+314,688,3,Brooklyn,68800,3068800,I,BK58,Flatlands,4009
+315,690,3,Brooklyn,69000,3069000,I,BK58,Flatlands,4009
+316,692,3,Brooklyn,69200,3069200,I,BK58,Flatlands,4009
+317,728,3,Brooklyn,72800,3072800,I,BK58,Flatlands,4009
+318,734,3,Brooklyn,73400,3073400,I,BK58,Flatlands,4009
+319,736,3,Brooklyn,73600,3073600,E,BK58,Flatlands,4009
+320,738,3,Brooklyn,73800,3073800,I,BK58,Flatlands,4009
+321,740,3,Brooklyn,74000,3074000,I,BK58,Flatlands,4009
+322,742,3,Brooklyn,74200,3074200,I,BK58,Flatlands,4009
+323,744,3,Brooklyn,74400,3074400,I,BK58,Flatlands,4009
+324,746,3,Brooklyn,74600,3074600,I,BK58,Flatlands,4009
+325,748,3,Brooklyn,74800,3074800,I,BK43,Midwood,4015
+326,750,3,Brooklyn,75000,3075000,E,BK43,Midwood,4015
+327,752,3,Brooklyn,75200,3075200,I,BK43,Midwood,4015
+328,754,3,Brooklyn,75400,3075400,I,BK43,Midwood,4015
+329,756,3,Brooklyn,75600,3075600,I,BK43,Midwood,4015
+330,760,3,Brooklyn,76000,3076000,I,BK43,Midwood,4015
+331,762,3,Brooklyn,76200,3076200,E,BK43,Midwood,4015
+332,764,3,Brooklyn,76400,3076400,I,BK42,Flatbush,4015
+333,768,3,Brooklyn,76800,3076800,E,BK43,Midwood,4015
+334,770,3,Brooklyn,77000,3077000,E,BK42,Flatbush,4015
+335,774,3,Brooklyn,77400,3077400,I,BK42,Flatbush,4015
+336,784,3,Brooklyn,78400,3078400,I,BK91,East Flatbush-Farragut,4010
+337,786,3,Brooklyn,78600,3078600,E,BK42,Flatbush,4015
+338,790,3,Brooklyn,79000,3079000,E,BK95,Erasmus,4010
+339,792,3,Brooklyn,79200,3079200,E,BK95,Erasmus,4010
+342,804,3,Brooklyn,80400,3080400,E,BK60,Prospect Lefferts Gardens-Wingate,4011
+343,806,3,Brooklyn,80600,3080600,E,BK60,Prospect Lefferts Gardens-Wingate,4011
+344,810,3,Brooklyn,81000,3081000,E,BK60,Prospect Lefferts Gardens-Wingate,4011
+345,814,3,Brooklyn,81400,3081400,I,BK91,East Flatbush-Farragut,4010
+346,818,3,Brooklyn,81800,3081800,E,BK95,Erasmus,4010
+347,824,3,Brooklyn,82400,3082400,E,BK95,Erasmus,4010
+348,826,3,Brooklyn,82600,3082600,E,BK95,Erasmus,4010
+349,828,3,Brooklyn,82800,3082800,E,BK95,Erasmus,4010
+350,832,3,Brooklyn,83200,3083200,I,BK91,East Flatbush-Farragut,4010
+351,836,3,Brooklyn,83600,3083600,I,BK91,East Flatbush-Farragut,4010
+352,838,3,Brooklyn,83800,3083800,I,BK91,East Flatbush-Farragut,4010
+353,840,3,Brooklyn,84000,3084000,I,BK91,East Flatbush-Farragut,4010
+354,846,3,Brooklyn,84600,3084600,I,BK96,Rugby-Remsen Village,4010
+355,848,3,Brooklyn,84800,3084800,I,BK96,Rugby-Remsen Village,4010
+356,850,3,Brooklyn,85000,3085000,I,BK91,East Flatbush-Farragut,4010
+357,856,3,Brooklyn,85600,3085600,E,BK91,East Flatbush-Farragut,4010
+358,860,3,Brooklyn,86000,3086000,E,BK91,East Flatbush-Farragut,4010
+359,862,3,Brooklyn,86200,3086200,E,BK96,Rugby-Remsen Village,4010
+360,864,3,Brooklyn,86400,3086400,I,BK96,Rugby-Remsen Village,4010
+361,866,3,Brooklyn,86600,3086600,E,BK96,Rugby-Remsen Village,4010
+362,868,3,Brooklyn,86800,3086800,E,BK96,Rugby-Remsen Village,4010
+363,870,3,Brooklyn,87000,3087000,E,BK91,East Flatbush-Farragut,4010
+364,872,3,Brooklyn,87200,3087200,I,BK91,East Flatbush-Farragut,4010
+365,874.01,3,Brooklyn,87401,3087401,E,BK60,Prospect Lefferts Gardens-Wingate,4011
+366,876,3,Brooklyn,87600,3087600,I,BK60,Prospect Lefferts Gardens-Wingate,4011
+367,878,3,Brooklyn,87800,3087800,E,BK60,Prospect Lefferts Gardens-Wingate,4011
+368,882,3,Brooklyn,88200,3088200,E,BK96,Rugby-Remsen Village,4010
+369,884,3,Brooklyn,88400,3088400,E,BK96,Rugby-Remsen Village,4010
+370,886,3,Brooklyn,88600,3088600,E,BK96,Rugby-Remsen Village,4010
+371,888,3,Brooklyn,88800,3088800,E,BK96,Rugby-Remsen Village,4010
+372,890,3,Brooklyn,89000,3089000,E,BK96,Rugby-Remsen Village,4010
+373,894,3,Brooklyn,89400,3089400,E,BK81,Brownsville,4007
+374,896,3,Brooklyn,89600,3089600,E,BK81,Brownsville,4007
+376,902,3,Brooklyn,90200,3090200,E,BK81,Brownsville,4007
+377,906,3,Brooklyn,90600,3090600,E,BK81,Brownsville,4007
+378,916,3,Brooklyn,91600,3091600,E,BK81,Brownsville,4007
+379,918,3,Brooklyn,91800,3091800,E,BK81,Brownsville,4007
+380,920,3,Brooklyn,92000,3092000,E,BK81,Brownsville,4007
+381,922,3,Brooklyn,92200,3092200,E,BK81,Brownsville,4007
+382,924,3,Brooklyn,92400,3092400,E,BK81,Brownsville,4007
+383,928,3,Brooklyn,92800,3092800,I,BK96,Rugby-Remsen Village,4010
+384,930,3,Brooklyn,93000,3093000,I,BK96,Rugby-Remsen Village,4010
+385,938,3,Brooklyn,93800,3093800,E,BK96,Rugby-Remsen Village,4010
+386,954,3,Brooklyn,95400,3095400,I,BK50,Canarsie,4009
+387,956,3,Brooklyn,95600,3095600,I,BK50,Canarsie,4009
+858,66,3,Brooklyn,6600,3006600,E,BK31,Bay Ridge,4013
+388,958,3,Brooklyn,95800,3095800,I,BK50,Canarsie,4009
+389,964,3,Brooklyn,96400,3096400,E,BK50,Canarsie,4009
+390,966,3,Brooklyn,96600,3096600,I,BK50,Canarsie,4009
+391,968,3,Brooklyn,96800,3096800,I,BK50,Canarsie,4009
+392,970,3,Brooklyn,97000,3097000,I,BK50,Canarsie,4009
+393,984,3,Brooklyn,98400,3098400,I,BK50,Canarsie,4009
+394,986,3,Brooklyn,98600,3098600,I,BK50,Canarsie,4009
+395,988,3,Brooklyn,98800,3098800,I,BK50,Canarsie,4009
+396,990,3,Brooklyn,99000,3099000,I,BK50,Canarsie,4009
+397,992,3,Brooklyn,99200,3099200,I,BK50,Canarsie,4009
+398,994,3,Brooklyn,99400,3099400,I,BK50,Canarsie,4009
+399,996,3,Brooklyn,99600,3099600,I,BK50,Canarsie,4009
+400,1004,3,Brooklyn,100400,3100400,I,BK50,Canarsie,4009
+401,1006,3,Brooklyn,100600,3100600,I,BK50,Canarsie,4009
+402,1008,3,Brooklyn,100800,3100800,E,BK50,Canarsie,4009
+403,1010,3,Brooklyn,101000,3101000,I,BK50,Canarsie,4009
+404,1012,3,Brooklyn,101200,3101200,E,BK50,Canarsie,4009
+405,1014,3,Brooklyn,101400,3101400,I,BK50,Canarsie,4009
+406,1016,3,Brooklyn,101600,3101600,I,BK50,Canarsie,4009
+407,1018,3,Brooklyn,101800,3101800,I,BK50,Canarsie,4009
+408,1020,3,Brooklyn,102000,3102000,I,BK50,Canarsie,4009
+409,1024,3,Brooklyn,102400,3102400,I,BK50,Canarsie,4009
+410,1026,3,Brooklyn,102600,3102600,I,BK50,Canarsie,4009
+411,1110,3,Brooklyn,111000,3111000,E,BK82,East New York,4008
+412,1120,3,Brooklyn,112000,3112000,E,BK82,East New York,4008
+413,1122,3,Brooklyn,112200,3112200,E,BK85,East New York (Pennsylvania Ave),4007
+414,1124,3,Brooklyn,112400,3112400,E,BK82,East New York,4008
+415,1126,3,Brooklyn,112600,3112600,E,BK85,East New York (Pennsylvania Ave),4007
+416,1128,3,Brooklyn,112800,3112800,E,BK85,East New York (Pennsylvania Ave),4007
+417,1130,3,Brooklyn,113000,3113000,E,BK85,East New York (Pennsylvania Ave),4007
+418,1134,3,Brooklyn,113400,3113400,E,BK85,East New York (Pennsylvania Ave),4007
+419,1146,3,Brooklyn,114600,3114600,E,BK83,Cypress Hills-City Line,4008
+420,1150,3,Brooklyn,115000,3115000,E,BK82,East New York,4008
+421,1152,3,Brooklyn,115200,3115200,E,BK82,East New York,4008
+422,1156,3,Brooklyn,115600,3115600,E,BK85,East New York (Pennsylvania Ave),4007
+423,1158,3,Brooklyn,115800,3115800,E,BK85,East New York (Pennsylvania Ave),4007
+424,1160,3,Brooklyn,116000,3116000,E,BK82,East New York,4008
+425,1162,3,Brooklyn,116200,3116200,E,BK82,East New York,4008
+426,1164,3,Brooklyn,116400,3116400,E,BK82,East New York,4008
+427,1166,3,Brooklyn,116600,3116600,E,BK82,East New York,4008
+428,1168,3,Brooklyn,116800,3116800,E,BK82,East New York,4008
+429,1170,3,Brooklyn,117000,3117000,E,BK82,East New York,4008
+430,1172.01,3,Brooklyn,117201,3117201,E,BK83,Cypress Hills-City Line,4008
+431,1172.02,3,Brooklyn,117202,3117202,E,BK83,Cypress Hills-City Line,4008
+432,1192,3,Brooklyn,119200,3119200,E,BK82,East New York,4008
+433,1194,3,Brooklyn,119400,3119400,E,BK82,East New York,4008
+434,16,2,Bronx,1600,2001600,E,BX09,Soundview-Castle Hill-Clason Point-Harding Park,3709
+435,27.01,2,Bronx,2701,2002701,E,BX39,Mott Haven-Port Morris,3710
+436,33,2,Bronx,3300,2003300,E,BX39,Mott Haven-Port Morris,3710
+437,35,2,Bronx,3500,2003500,E,BX39,Mott Haven-Port Morris,3710
+438,37,2,Bronx,3700,2003700,E,BX39,Mott Haven-Port Morris,3710
+439,38,2,Bronx,3800,2003800,E,BX09,Soundview-Castle Hill-Clason Point-Harding Park,3709
+440,40.01,2,Bronx,4001,2004001,E,BX55,Soundview-Bruckner,3709
+441,44,2,Bronx,4400,2004400,E,BX55,Soundview-Bruckner,3709
+442,48,2,Bronx,4800,2004800,E,BX55,Soundview-Bruckner,3709
+443,50.02,2,Bronx,5002,2005002,E,BX55,Soundview-Bruckner,3709
+444,68,2,Bronx,6800,2006800,E,BX55,Soundview-Bruckner,3709
+445,70,2,Bronx,7000,2007000,E,BX55,Soundview-Bruckner,3709
+446,89,2,Bronx,8900,2008900,E,BX27,Hunts Point,3710
+447,121.01,2,Bronx,12101,2012101,E,BX35,Morrisania-Melrose,3705
+448,121.02,2,Bronx,12102,2012102,E,BX27,Hunts Point,3710
+449,125,2,Bronx,12500,2012500,E,BX35,Morrisania-Melrose,3705
+450,127.01,2,Bronx,12701,2012701,E,BX27,Hunts Point,3710
+451,129.01,2,Bronx,12901,2012901,E,BX33,Longwood,3710
+452,130,2,Bronx,13000,2013000,I,BX52,Schuylerville-Throgs Neck-Edgewater Park,3703
+453,131,2,Bronx,13100,2013100,E,BX33,Longwood,3710
+454,135,2,Bronx,13500,2013500,E,BX35,Morrisania-Melrose,3705
+455,143,2,Bronx,14300,2014300,E,BX14,East Concourse-Concourse Village,3708
+456,151,2,Bronx,15100,2015100,E,BX35,Morrisania-Melrose,3705
+457,159,2,Bronx,15900,2015900,E,BX27,Hunts Point,3710
+458,162,2,Bronx,16200,2016200,I,BX52,Schuylerville-Throgs Neck-Edgewater Park,3703
+459,163,2,Bronx,16300,2016300,I,BX99,park-cemetery-etc-Bronx,3705
+474,236,2,Bronx,23600,2023600,I,BX37,Van Nest-Morris Park-Westchester Square,3704
+460,166,2,Bronx,16600,2016600,I,BX52,Schuylerville-Throgs Neck-Edgewater Park,3703
+461,175,2,Bronx,17500,2017500,E,BX14,East Concourse-Concourse Village,3708
+462,177.01,2,Bronx,17701,2017701,E,BX14,East Concourse-Concourse Village,3708
+463,179.01,2,Bronx,17901,2017901,E,BX14,East Concourse-Concourse Village,3708
+464,179.02,2,Bronx,17902,2017902,E,BX14,East Concourse-Concourse Village,3708
+465,181.01,2,Bronx,18101,2018101,E,BX14,East Concourse-Concourse Village,3708
+466,181.02,2,Bronx,18102,2018102,E,BX14,East Concourse-Concourse Village,3708
+467,202,2,Bronx,20200,2020200,E,BX59,Westchester-Unionport,3709
+468,204,2,Bronx,20400,2020400,E,BX59,Westchester-Unionport,3709
+469,206.01,2,Bronx,20601,2020601,E,BX59,Westchester-Unionport,3709
+470,216.01,2,Bronx,21601,2021601,E,BX08,West Farms-Bronx River,3709
+471,221.02,2,Bronx,22102,2022102,E,BX63,West Concourse,3708
+472,223,2,Bronx,22300,2022300,E,BX63,West Concourse,3708
+473,232,2,Bronx,23200,2023200,E,BX37,Van Nest-Morris Park-Westchester Square,3704
+475,237.03,2,Bronx,23703,2023703,E,BX40,Fordham South,3707
+476,237.04,2,Bronx,23704,2023704,E,BX40,Fordham South,3707
+477,239,2,Bronx,23900,2023900,E,BX40,Fordham South,3707
+478,241,2,Bronx,24100,2024100,E,BX41,Mount Hope,3707
+479,243,2,Bronx,24300,2024300,E,BX36,University Heights-Morris Heights,3707
+480,245.02,2,Bronx,24502,2024502,E,BX36,University Heights-Morris Heights,3707
+481,246,2,Bronx,24600,2024600,I,BX49,Pelham Parkway,3704
+482,249,2,Bronx,24900,2024900,I,BX36,University Heights-Morris Heights,3707
+483,250,2,Bronx,25000,2025000,E,BX49,Pelham Parkway,3704
+484,252,2,Bronx,25200,2025200,I,BX37,Van Nest-Morris Park-Westchester Square,3704
+485,254,2,Bronx,25400,2025400,I,BX37,Van Nest-Morris Park-Westchester Square,3704
+486,286,2,Bronx,28600,2028600,I,BX37,Van Nest-Morris Park-Westchester Square,3704
+487,287,2,Bronx,28700,2028700,I,BX29,Spuyten Duyvil-Kingsbridge,3701
+488,288,2,Bronx,28800,2028800,I,BX49,Pelham Parkway,3704
+489,301,2,Bronx,30100,2030100,I,BX29,Spuyten Duyvil-Kingsbridge,3701
+490,312,2,Bronx,31200,2031200,I,BX31,Allerton-Pelham Gardens,3704
+491,314,2,Bronx,31400,2031400,I,BX31,Allerton-Pelham Gardens,3704
+492,316,2,Bronx,31600,2031600,I,BX31,Allerton-Pelham Gardens,3704
+493,318,2,Bronx,31800,2031800,I,BX31,Allerton-Pelham Gardens,3704
+494,324,2,Bronx,32400,2032400,E,BX07,Bronxdale,3704
+495,326,2,Bronx,32600,2032600,I,BX31,Allerton-Pelham Gardens,3704
+496,330,2,Bronx,33000,2033000,E,BX07,Bronxdale,3704
+497,338,2,Bronx,33800,2033800,E,BX07,Bronxdale,3704
+498,360,2,Bronx,36000,2036000,I,BX31,Allerton-Pelham Gardens,3704
+499,364,2,Bronx,36400,2036400,I,BX03,Eastchester-Edenwald-Baychester,3702
+500,365.02,2,Bronx,36502,2036502,E,BX17,East Tremont,3705
+501,367,2,Bronx,36700,2036700,E,BX17,East Tremont,3705
+502,368,2,Bronx,36800,2036800,I,BX44,Williamsbridge-Olinville,3702
+503,370,2,Bronx,37000,2037000,I,BX44,Williamsbridge-Olinville,3702
+504,372,2,Bronx,37200,2037200,E,BX44,Williamsbridge-Olinville,3702
+505,387,2,Bronx,38700,2038700,E,BX06,Belmont,3705
+506,392,2,Bronx,39200,2039200,E,BX44,Williamsbridge-Olinville,3702
+507,394,2,Bronx,39400,2039400,E,BX44,Williamsbridge-Olinville,3702
+508,396,2,Bronx,39600,2039600,E,BX44,Williamsbridge-Olinville,3702
+509,398,2,Bronx,39800,2039800,I,BX44,Williamsbridge-Olinville,3702
+510,399.02,2,Bronx,39902,2039902,E,BX05,Bedford Park-Fordham North,3706
+511,401,2,Bronx,40100,2040100,E,BX05,Bedford Park-Fordham North,3706
+512,403.03,2,Bronx,40303,2040303,E,BX28,Van Cortlandt Village,3701
+781,1187,4,Queens,118700,4118700,I,QN52,East Flushing,4103
+513,403.04,2,Bronx,40304,2040304,E,BX28,Van Cortlandt Village,3701
+514,404,2,Bronx,40400,2040400,I,BX44,Williamsbridge-Olinville,3702
+515,405.01,2,Bronx,40501,2040501,E,BX05,Bedford Park-Fordham North,3706
+516,405.02,2,Bronx,40502,2040502,E,BX05,Bedford Park-Fordham North,3706
+517,406,2,Bronx,40600,2040600,I,BX44,Williamsbridge-Olinville,3702
+518,407.01,2,Bronx,40701,2040701,E,BX28,Van Cortlandt Village,3701
+519,407.02,2,Bronx,40702,2040702,E,BX05,Bedford Park-Fordham North,3706
+520,415,2,Bronx,41500,2041500,E,BX05,Bedford Park-Fordham North,3706
+521,422,2,Bronx,42200,2042200,E,BX44,Williamsbridge-Olinville,3702
+522,423,2,Bronx,42300,2042300,E,BX43,Norwood,3706
+523,424,2,Bronx,42400,2042400,I,BX44,Williamsbridge-Olinville,3702
+524,428,2,Bronx,42800,2042800,I,BX62,Woodlawn-Wakefield,3702
+525,429.02,2,Bronx,42902,2042902,E,BX43,Norwood,3706
+526,430,2,Bronx,43000,2043000,I,BX62,Woodlawn-Wakefield,3702
+527,434,2,Bronx,43400,2043400,E,BX62,Woodlawn-Wakefield,3702
+528,436,2,Bronx,43600,2043600,I,BX62,Woodlawn-Wakefield,3702
+529,451.01,2,Bronx,45101,2045101,I,BX62,Woodlawn-Wakefield,3702
+530,153,2,Bronx,15300,2015300,E,BX75,Crotona Park East,3705
+531,89,5,Staten Island,8900,5008900,I,SI22,West New Brighton-New Brighton-St. George,3903
+532,2,4,Queens,200,4000200,E,QN53,Woodhaven,4111
+533,4,4,Queens,400,4000400,I,QN53,Woodhaven,4111
+534,6,4,Queens,600,4000600,E,QN53,Woodhaven,4111
+535,8,4,Queens,800,4000800,I,QN53,Woodhaven,4111
+536,10,4,Queens,1000,4001000,I,QN53,Woodhaven,4111
+537,12,4,Queens,1200,4001200,I,QN53,Woodhaven,4111
+538,14,4,Queens,1400,4001400,I,QN53,Woodhaven,4111
+539,16,4,Queens,1600,4001600,E,QN53,Woodhaven,4111
+540,22,4,Queens,2200,4002200,I,QN53,Woodhaven,4111
+541,28,4,Queens,2800,4002800,I,QN54,Richmond Hill,4111
+542,31,4,Queens,3100,4003100,E,QN68,Queensbridge-Ravenswood-Long Island City,4101
+543,36,4,Queens,3600,4003600,E,QN53,Woodhaven,4111
+544,38,4,Queens,3800,4003800,I,QN53,Woodhaven,4111
+545,39,4,Queens,3900,4003900,E,QN68,Queensbridge-Ravenswood-Long Island City,4101
+546,40.01,4,Queens,4001,4004001,E,QN53,Woodhaven,4111
+547,42,4,Queens,4200,4004200,E,QN53,Woodhaven,4111
+548,44.01,4,Queens,4401,4004401,E,QN56,Ozone Park,4113
+549,50,4,Queens,5000,4005000,I,QN56,Ozone Park,4113
+550,51,4,Queens,5100,4005100,E,QN68,Queensbridge-Ravenswood-Long Island City,4101
+551,52,4,Queens,5200,4005200,E,QN53,Woodhaven,4111
+720,606,4,Queens,60600,4060600,I,QN33,Cambria Heights,4105
+552,54,4,Queens,5400,4005400,I,QN56,Ozone Park,4113
+553,65.02,4,Queens,6502,4006502,E,QN70,Astoria,4101
+554,73,4,Queens,7300,4007300,I,QN71,Old Astoria,4101
+555,79,4,Queens,7900,4007900,E,QN71,Old Astoria,4101
+556,91,4,Queens,9100,4009100,E,QN71,Old Astoria,4101
+557,94,4,Queens,9400,4009400,E,QN55,South Ozone Park,4113
+558,97,4,Queens,9700,4009700,I,QN72,Steinway,4101
+559,101,4,Queens,10100,4010100,I,QN72,Steinway,4101
+560,102,4,Queens,10200,4010200,E,QN55,South Ozone Park,4113
+561,104,4,Queens,10400,4010400,E,QN55,South Ozone Park,4113
+562,106,4,Queens,10600,4010600,I,QN55,South Ozone Park,4113
+563,108,4,Queens,10800,4010800,I,QN54,Richmond Hill,4111
+564,111,4,Queens,11100,4011100,I,QN72,Steinway,4101
+565,112,4,Queens,11200,4011200,I,QN54,Richmond Hill,4111
+871,392,3,Brooklyn,39200,3039200,E,BK25,Homecrest,4016
+566,113,4,Queens,11300,4011300,E,QN72,Steinway,4101
+567,114,4,Queens,11400,4011400,E,QN54,Richmond Hill,4111
+568,115,4,Queens,11500,4011500,E,QN72,Steinway,4101
+569,116,4,Queens,11600,4011600,E,QN54,Richmond Hill,4111
+570,117,4,Queens,11700,4011700,I,QN72,Steinway,4101
+571,118,4,Queens,11800,4011800,I,QN54,Richmond Hill,4111
+572,119,4,Queens,11900,4011900,E,QN72,Steinway,4101
+573,121,4,Queens,12100,4012100,E,QN72,Steinway,4101
+574,124,4,Queens,12400,4012400,E,QN54,Richmond Hill,4111
+575,126.01,4,Queens,12601,4012601,E,QN54,Richmond Hill,4111
+576,126.02,4,Queens,12602,4012602,I,QN54,Richmond Hill,4111
+577,128,4,Queens,12800,4012800,I,QN54,Richmond Hill,4111
+578,130,4,Queens,13000,4013000,I,QN54,Richmond Hill,4111
+579,136,4,Queens,13600,4013600,I,QN60,Kew Gardens,4111
+594,178,4,Queens,17800,4017800,E,QN55,South Ozone Park,4113
+580,140,4,Queens,14000,4014000,I,QN60,Kew Gardens,4111
+581,143,4,Queens,14300,4014300,E,QN70,Astoria,4101
+582,145,4,Queens,14500,4014500,I,QN70,Astoria,4101
+583,147,4,Queens,14700,4014700,I,QN70,Astoria,4101
+584,149,4,Queens,14900,4014900,E,QN70,Astoria,4101
+585,153,4,Queens,15300,4015300,I,QN70,Astoria,4101
+586,154,4,Queens,15400,4015400,I,QN54,Richmond Hill,4111
+587,156,4,Queens,15600,4015600,I,QN54,Richmond Hill,4111
+588,158.02,4,Queens,15802,4015802,E,QN55,South Ozone Park,4113
+589,161,4,Queens,16100,4016100,E,QN70,Astoria,4101
+590,164,4,Queens,16400,4016400,E,QN55,South Ozone Park,4113
+591,166,4,Queens,16600,4016600,E,QN55,South Ozone Park,4113
+592,168,4,Queens,16800,4016800,E,QN55,South Ozone Park,4113
+593,172,4,Queens,17200,4017200,I,QN55,South Ozone Park,4113
+595,180,4,Queens,18000,4018000,E,QN55,South Ozone Park,4113
+596,184.01,4,Queens,18401,4018401,E,QN76,Baisley Park,4112
+597,184.02,4,Queens,18402,4018402,I,QN76,Baisley Park,4112
+598,185.01,4,Queens,18501,4018501,I,QN31,Hunters Point-Sunnyside-West Maspeth,4109
+599,185.02,4,Queens,18502,4018502,E,QN31,Hunters Point-Sunnyside-West Maspeth,4109
+600,186,4,Queens,18600,4018600,I,QN76,Baisley Park,4112
+601,190,4,Queens,19000,4019000,I,QN76,Baisley Park,4112
+602,230,4,Queens,23000,4023000,I,QN35,Briarwood-Jamaica Hills,4106
+603,232,4,Queens,23200,4023200,I,QN35,Briarwood-Jamaica Hills,4106
+604,236,4,Queens,23600,4023600,E,QN35,Briarwood-Jamaica Hills,4106
+605,238,4,Queens,23800,4023800,E,QN61,Jamaica,4112
+961,259.01,3,Brooklyn,25901,3025901,E,BK75,Bedford,4003
+606,247,4,Queens,24700,4024700,I,QN63,Woodside,4109
+607,259,4,Queens,25900,4025900,E,QN63,Woodside,4109
+608,261,4,Queens,26100,4026100,E,QN63,Woodside,4109
+609,266,4,Queens,26600,4026600,E,QN01,South Jamaica,4112
+610,269.01,4,Queens,26901,4026901,E,QN29,Elmhurst,4107
+611,269.02,4,Queens,26902,4026902,E,QN29,Elmhurst,4107
+612,270,4,Queens,27000,4027000,I,QN01,South Jamaica,4112
+613,271,4,Queens,27100,4027100,E,QN29,Elmhurst,4107
+614,272,4,Queens,27200,4027200,E,QN76,Baisley Park,4112
+615,273,4,Queens,27300,4027300,E,QN28,Jackson Heights,4102
+616,274,4,Queens,27400,4027400,I,QN76,Baisley Park,4112
+617,275,4,Queens,27500,4027500,E,QN28,Jackson Heights,4102
+618,277,4,Queens,27700,4027700,E,QN28,Jackson Heights,4102
+619,279,4,Queens,27900,4027900,E,QN28,Jackson Heights,4102
+620,280,4,Queens,28000,4028000,I,QN08,St. Albans,4112
+621,281,4,Queens,28100,4028100,I,QN28,Jackson Heights,4102
+622,282,4,Queens,28200,4028200,I,QN08,St. Albans,4112
+623,283,4,Queens,28300,4028300,E,QN28,Jackson Heights,4102
+624,285,4,Queens,28500,4028500,I,QN28,Jackson Heights,4102
+625,287,4,Queens,28700,4028700,E,QN28,Jackson Heights,4102
+626,289,4,Queens,28900,4028900,E,QN28,Jackson Heights,4102
+627,309.03,4,Queens,30903,4030903,E,QN28,Jackson Heights,4102
+628,327,4,Queens,32700,4032700,E,QN28,Jackson Heights,4102
+629,329,4,Queens,32900,4032900,I,QN28,Jackson Heights,4102
+630,337,4,Queens,33700,4033700,E,QN28,Jackson Heights,4102
+631,339,4,Queens,33900,4033900,E,QN28,Jackson Heights,4102
+644,394,4,Queens,39400,4039400,I,QN08,St. Albans,4112
+632,347,4,Queens,34700,4034700,I,QN28,Jackson Heights,4102
+633,351,4,Queens,35100,4035100,E,QN28,Jackson Heights,4102
+634,353,4,Queens,35300,4035300,E,QN27,East Elmhurst,4102
+635,361,4,Queens,36100,4036100,E,QN27,East Elmhurst,4102
+636,363,4,Queens,36300,4036300,E,QN27,East Elmhurst,4102
+637,365,4,Queens,36500,4036500,E,QN27,East Elmhurst,4102
+638,367,4,Queens,36700,4036700,E,QN27,East Elmhurst,4102
+639,371,4,Queens,37100,4037100,I,QN27,East Elmhurst,4102
+640,375,4,Queens,37500,4037500,E,QN26,North Corona,4102
+641,377,4,Queens,37700,4037700,E,QN26,North Corona,4102
+642,379,4,Queens,37900,4037900,E,QN26,North Corona,4102
+643,384,4,Queens,38400,4038400,I,QN08,St. Albans,4112
+645,398,4,Queens,39800,4039800,I,QN08,St. Albans,4112
+646,399,4,Queens,39900,4039900,E,QN25,Corona,4107
+647,400,4,Queens,40000,4040000,I,QN08,St. Albans,4112
+648,401,4,Queens,40100,4040100,E,QN26,North Corona,4102
+649,402,4,Queens,40200,4040200,I,QN08,St. Albans,4112
+650,403,4,Queens,40300,4040300,E,QN26,North Corona,4102
+651,411,4,Queens,41100,4041100,E,QN25,Corona,4107
+652,413,4,Queens,41300,4041300,E,QN25,Corona,4107
+653,415,4,Queens,41500,4041500,E,QN25,Corona,4107
+654,434,4,Queens,43400,4043400,I,QN01,South Jamaica,4112
+655,443.01,4,Queens,44301,4044301,E,QN25,Corona,4107
+656,443.02,4,Queens,44302,4044302,E,QN25,Corona,4107
+657,446.02,4,Queens,44602,4044602,E,QN61,Jamaica,4112
+669,484,4,Queens,48400,4048400,I,QN07,Hollis,4112
+658,448,4,Queens,44800,4044800,E,QN35,Briarwood-Jamaica Hills,4106
+659,457,4,Queens,45700,4045700,E,QN29,Elmhurst,4107
+660,459,4,Queens,45900,4045900,I,QN29,Elmhurst,4107
+661,461,4,Queens,46100,4046100,E,QN29,Elmhurst,4107
+662,463,4,Queens,46300,4046300,E,QN29,Elmhurst,4107
+663,465,4,Queens,46500,4046500,E,QN29,Elmhurst,4107
+664,467,4,Queens,46700,4046700,E,QN29,Elmhurst,4107
+665,469,4,Queens,46900,4046900,E,QN29,Elmhurst,4107
+666,479,4,Queens,47900,4047900,I,QN50,Elmhurst-Maspeth,4109
+667,481,4,Queens,48100,4048100,E,QN29,Elmhurst,4107
+668,483,4,Queens,48300,4048300,E,QN50,Elmhurst-Maspeth,4109
+670,489,4,Queens,48900,4048900,E,QN50,Elmhurst-Maspeth,4109
+671,495,4,Queens,49500,4049500,I,QN30,Maspeth,4110
+672,496,4,Queens,49600,4049600,I,QN34,Queens Village,4105
+673,499,4,Queens,49900,4049900,E,QN29,Elmhurst,4107
+674,502.01,4,Queens,50201,4050201,I,QN07,Hollis,4112
+675,502.02,4,Queens,50202,4050202,I,QN07,Hollis,4112
+676,504,4,Queens,50400,4050400,I,QN07,Hollis,4112
+677,506,4,Queens,50600,4050600,I,QN07,Hollis,4112
+678,508,4,Queens,50800,4050800,I,QN07,Hollis,4112
+679,510,4,Queens,51000,4051000,I,QN07,Hollis,4112
+944,556,3,Brooklyn,55600,3055600,I,BK25,Homecrest,4016
+680,512,4,Queens,51200,4051200,I,QN34,Queens Village,4105
+681,516,4,Queens,51600,4051600,I,QN34,Queens Village,4105
+682,517,4,Queens,51700,4051700,I,QN30,Maspeth,4110
+683,518,4,Queens,51800,4051800,I,QN08,St. Albans,4112
+684,520,4,Queens,52000,4052000,I,QN08,St. Albans,4112
+685,521,4,Queens,52100,4052100,I,QN30,Maspeth,4110
+686,522,4,Queens,52200,4052200,I,QN08,St. Albans,4112
+687,524,4,Queens,52400,4052400,I,QN08,St. Albans,4112
+688,525,4,Queens,52500,4052500,I,QN30,Maspeth,4110
+689,526,4,Queens,52600,4052600,I,QN08,St. Albans,4112
+690,528,4,Queens,52800,4052800,E,QN08,St. Albans,4112
+691,530,4,Queens,53000,4053000,I,QN08,St. Albans,4112
+692,532,4,Queens,53200,4053200,I,QN34,Queens Village,4105
+693,534.01,4,Queens,53401,4053401,I,QN33,Cambria Heights,4105
+694,536.01,4,Queens,53601,4053601,I,QN34,Queens Village,4105
+695,540,4,Queens,54000,4054000,E,QN34,Queens Village,4105
+696,542,4,Queens,54200,4054200,I,QN34,Queens Village,4105
+697,545,4,Queens,54500,4054500,E,QN20,Ridgewood,4110
+698,547,4,Queens,54700,4054700,E,QN20,Ridgewood,4110
+699,549,4,Queens,54900,4054900,E,QN20,Ridgewood,4110
+700,551,4,Queens,55100,4055100,E,QN20,Ridgewood,4110
+701,553,4,Queens,55300,4055300,E,QN20,Ridgewood,4110
+702,555,4,Queens,55500,4055500,E,QN20,Ridgewood,4110
+703,556,4,Queens,55600,4055600,I,QN34,Queens Village,4105
+704,558,4,Queens,55800,4055800,I,QN34,Queens Village,4105
+705,565,4,Queens,56500,4056500,E,QN19,Glendale,4110
+706,577,4,Queens,57700,4057700,E,QN19,Glendale,4110
+707,579,4,Queens,57900,4057900,E,QN19,Glendale,4110
+708,581,4,Queens,58100,4058100,I,QN20,Ridgewood,4110
+709,583,4,Queens,58300,4058300,I,QN20,Ridgewood,4110
+710,585,4,Queens,58500,4058500,E,QN20,Ridgewood,4110
+711,587,4,Queens,58700,4058700,E,QN20,Ridgewood,4110
+712,589,4,Queens,58900,4058900,E,QN20,Ridgewood,4110
+713,591,4,Queens,59100,4059100,E,QN20,Ridgewood,4110
+714,593,4,Queens,59300,4059300,E,QN20,Ridgewood,4110
+715,594,4,Queens,59400,4059400,I,QN33,Cambria Heights,4105
+716,596,4,Queens,59600,4059600,I,QN33,Cambria Heights,4105
+717,598,4,Queens,59800,4059800,I,QN33,Cambria Heights,4105
+718,599,4,Queens,59900,4059900,I,QN30,Maspeth,4110
+719,600,4,Queens,60000,4060000,E,QN33,Cambria Heights,4105
+721,608,4,Queens,60800,4060800,I,QN33,Cambria Heights,4105
+722,613.01,4,Queens,61301,4061301,I,QN20,Ridgewood,4110
+723,614,4,Queens,61400,4061400,I,QN33,Cambria Heights,4105
+724,618,4,Queens,61800,4061800,I,QN66,Laurelton,4105
+725,627,4,Queens,62700,4062700,E,QN19,Glendale,4110
+726,629,4,Queens,62900,4062900,E,QN19,Glendale,4110
+727,632,4,Queens,63200,4063200,I,QN66,Laurelton,4105
+728,641.01,4,Queens,64101,4064101,I,QN53,Woodhaven,4111
+729,657.02,4,Queens,65702,4065702,I,QN21,Middle Village,4110
+730,657.03,4,Queens,65703,4065703,I,QN21,Middle Village,4110
+731,659,4,Queens,65900,4065900,I,QN21,Middle Village,4110
+782,1189,4,Queens,118900,4118900,I,QN52,East Flushing,4103
+732,660,4,Queens,66000,4066000,I,QN05,Rosedale,4105
+733,661,4,Queens,66100,4066100,I,QN21,Middle Village,4110
+734,663,4,Queens,66300,4066300,I,QN21,Middle Village,4110
+735,667.01,4,Queens,66701,4066701,I,QN21,Middle Village,4110
+736,671,4,Queens,67100,4067100,I,QN21,Middle Village,4110
+737,677,4,Queens,67700,4067700,I,QN21,Middle Village,4110
+738,679,4,Queens,67900,4067900,I,QN21,Middle Village,4110
+739,687,4,Queens,68700,4068700,I,QN18,Rego Park,4108
+740,690,4,Queens,69000,4069000,I,QN03,Springfield Gardens South-Brookville,4105
+741,693,4,Queens,69300,4069300,E,QN18,Rego Park,4108
+742,695,4,Queens,69500,4069500,I,QN18,Rego Park,4108
+743,697.01,4,Queens,69701,4069701,E,QN18,Rego Park,4108
+744,697.02,4,Queens,69702,4069702,I,QN18,Rego Park,4108
+745,711,4,Queens,71100,4071100,I,QN17,Forest Hills,4108
+746,713.04,4,Queens,71304,4071304,I,QN17,Forest Hills,4108
+747,713.06,4,Queens,71306,4071306,I,QN17,Forest Hills,4108
+748,719,4,Queens,71900,4071900,I,QN17,Forest Hills,4108
+749,721,4,Queens,72100,4072100,I,QN17,Forest Hills,4108
+750,729,4,Queens,72900,4072900,I,QN17,Forest Hills,4108
+751,731,4,Queens,73100,4073100,I,QN17,Forest Hills,4108
+752,739,4,Queens,73900,4073900,I,QN17,Forest Hills,4108
+753,741,4,Queens,74100,4074100,I,QN17,Forest Hills,4108
+754,743,4,Queens,74300,4074300,E,QN17,Forest Hills,4108
+755,779.03,4,Queens,77903,4077903,I,QN37,Kew Gardens Hills,4106
+756,779.04,4,Queens,77904,4077904,I,QN37,Kew Gardens Hills,4106
+757,779.06,4,Queens,77906,4077906,I,QN37,Kew Gardens Hills,4106
+758,799,4,Queens,79900,4079900,I,QN62,Queensboro Hill,4103
+759,818,4,Queens,81800,4081800,I,QN55,South Ozone Park,4113
+760,853,4,Queens,85300,4085300,E,QN22,Flushing,4103
+761,861,4,Queens,86100,4086100,I,QN52,East Flushing,4103
+762,871,4,Queens,87100,4087100,E,QN22,Flushing,4103
+763,922,4,Queens,92200,4092200,I,QN10,Breezy Point-Belle Harbor-Rockaway Park-Broad Channel,4114
+764,928,4,Queens,92800,4092800,I,QN10,Breezy Point-Belle Harbor-Rockaway Park-Broad Channel,4114
+765,934.01,4,Queens,93401,4093401,I,QN10,Breezy Point-Belle Harbor-Rockaway Park-Broad Channel,4114
+766,998.01,4,Queens,99801,4099801,E,QN15,Far Rockaway-Bayswater,4114
+767,1029,4,Queens,102900,4102900,I,QN49,Whitestone,4103
+768,1033,4,Queens,103300,4103300,I,QN49,Whitestone,4103
+780,1185,4,Queens,118500,4118500,I,QN52,East Flushing,4103
+1970,151,4,Queens,15100,4015100,I,QN70,Astoria,4101
+769,1039,4,Queens,103900,4103900,I,QN49,Whitestone,4103
+770,1059,4,Queens,105900,4105900,I,QN51,Murray Hill,4103
+771,1123,4,Queens,112300,4112300,I,QN46,Bayside-Bayside Hills,4104
+772,1139,4,Queens,113900,4113900,I,QN48,Auburndale,4104
+773,1147,4,Queens,114700,4114700,I,QN51,Murray Hill,4103
+774,1155,4,Queens,115500,4115500,E,QN51,Murray Hill,4103
+775,1157,4,Queens,115700,4115700,I,QN51,Murray Hill,4103
+776,1161,4,Queens,116100,4116100,E,QN22,Flushing,4103
+777,1167,4,Queens,116700,4116700,E,QN51,Murray Hill,4103
+778,1175,4,Queens,117500,4117500,I,QN51,Murray Hill,4103
+779,1181,4,Queens,118100,4118100,I,QN48,Auburndale,4104
+783,1191,4,Queens,119100,4119100,E,QN52,East Flushing,4103
+784,1193,4,Queens,119300,4119300,I,QN52,East Flushing,4103
+785,1195,4,Queens,119500,4119500,I,QN52,East Flushing,4103
+786,1199,4,Queens,119900,4119900,E,QN52,East Flushing,4103
+787,1201,4,Queens,120100,4120100,I,QN52,East Flushing,4103
+788,1203,4,Queens,120300,4120300,I,QN52,East Flushing,4103
+789,1205,4,Queens,120500,4120500,E,QN52,East Flushing,4103
+790,1207,4,Queens,120700,4120700,I,QN52,East Flushing,4103
+791,1241,4,Queens,124100,4124100,I,QN38,Pomonok-Flushing Heights-Hillcrest,4106
+792,1247,4,Queens,124700,4124700,I,QN38,Pomonok-Flushing Heights-Hillcrest,4106
+793,1265,4,Queens,126500,4126500,I,QN38,Pomonok-Flushing Heights-Hillcrest,4106
+829,64,2,Bronx,6400,2006400,E,BX08,West Farms-Bronx River,3709
+794,1291.04,4,Queens,129104,4129104,I,QN42,Oakland Gardens,4104
+795,1339,4,Queens,133900,4133900,I,QN41,Fresh Meadows-Utopia,4106
+796,1409.01,4,Queens,140901,4140901,E,QN46,Bayside-Bayside Hills,4104
+797,1409.02,4,Queens,140902,4140902,I,QN48,Auburndale,4104
+798,1451.02,4,Queens,145102,4145102,I,QN46,Bayside-Bayside Hills,4104
+799,1459,4,Queens,145900,4145900,I,QN48,Auburndale,4104
+800,1529.02,4,Queens,152902,4152902,I,QN45,Douglas Manor-Douglaston-Little Neck,4104
+801,1571.02,4,Queens,157102,4157102,I,QN43,Bellerose,4105
+802,1579.01,4,Queens,157901,4157901,I,QN44,Glen Oaks-Floral Park-New Hyde Park,4105
+803,1579.02,4,Queens,157902,4157902,I,QN44,Glen Oaks-Floral Park-New Hyde Park,4105
+804,1579.03,4,Queens,157903,4157903,I,QN44,Glen Oaks-Floral Park-New Hyde Park,4105
+805,18,4,Queens,1800,4001800,I,QN53,Woodhaven,4111
+806,20,4,Queens,2000,4002000,E,QN53,Woodhaven,4111
+807,204,4,Queens,20400,4020400,E,QN61,Jamaica,4112
+808,27.02,2,Bronx,2702,2002702,E,BX39,Mott Haven-Port Morris,3710
+809,30,4,Queens,3000,4003000,I,QN53,Woodhaven,4111
+810,32,4,Queens,3200,4003200,E,QN53,Woodhaven,4111
+811,323,2,Bronx,32300,2032300,I,BX22,North Riverdale-Fieldston-Riverdale,3701
+812,1129,4,Queens,112900,4112900,I,QN46,Bayside-Bayside Hills,4104
+813,267,4,Queens,26700,4026700,E,QN29,Elmhurst,4107
+814,345,2,Bronx,34500,2034500,I,BX22,North Riverdale-Fieldston-Riverdale,3701
+815,369.01,2,Bronx,36901,2036901,E,BX17,East Tremont,3705
+816,369.02,2,Bronx,36902,2036902,E,BX17,East Tremont,3705
+817,730,3,Brooklyn,73000,3073000,I,BK58,Flatlands,4009
+818,732,3,Brooklyn,73200,3073200,I,BK58,Flatlands,4009
+819,389,2,Bronx,38900,2038900,E,BX06,Belmont,3705
+820,470,4,Queens,47000,4047000,I,QN61,Jamaica,4112
+821,233.01,2,Bronx,23301,2023301,E,BX41,Mount Hope,3707
+822,235.01,2,Bronx,23501,2023501,E,BX41,Mount Hope,3707
+823,165,2,Bronx,16500,2016500,E,BX01,Claremont-Bathgate,3705
+824,403.02,2,Bronx,40302,2040302,E,BX05,Bedford Park-Fordham North,3706
+825,267.02,2,Bronx,26702,2026702,E,BX28,Van Cortlandt Village,3701
+826,409,2,Bronx,40900,2040900,E,BX28,Van Cortlandt Village,3701
+827,480,4,Queens,48000,4048000,I,QN61,Jamaica,4112
+828,500,4,Queens,50000,4050000,E,QN07,Hollis,4112
+830,233.02,2,Bronx,23302,2023302,E,BX41,Mount Hope,3707
+831,235.02,2,Bronx,23502,2023502,E,BX41,Mount Hope,3707
+832,188,4,Queens,18800,4018800,I,QN76,Baisley Park,4112
+833,192,4,Queens,19200,4019200,I,QN76,Baisley Park,4112
+834,174,4,Queens,17400,4017400,I,QN55,South Ozone Park,4113
+835,176,4,Queens,17600,4017600,E,QN55,South Ozone Park,4113
+836,1435,4,Queens,143500,4143500,I,QN46,Bayside-Bayside Hills,4104
+837,1211,4,Queens,121100,4121100,I,QN99,park-cemetery-etc-Queens,4103
+838,138,4,Queens,13800,4013800,I,QN60,Kew Gardens,4111
+857,235.02,1,Manhattan,23502,1023502,E,MN03,Central Harlem North-Polo Grounds,3803
+839,284,4,Queens,28400,4028400,I,QN76,Baisley Park,4112
+840,358,4,Queens,35800,4035800,I,QN66,Laurelton,4105
+841,580,4,Queens,58000,4058000,I,QN34,Queens Village,4105
+842,557,4,Queens,55700,4055700,E,QN20,Ridgewood,4110
+843,567,4,Queens,56700,4056700,E,QN19,Glendale,4110
+844,713.03,4,Queens,71303,4071303,I,QN17,Forest Hills,4108
+845,713.05,4,Queens,71305,4071305,I,QN17,Forest Hills,4108
+846,779.02,4,Queens,77902,4077902,I,QN37,Kew Gardens Hills,4106
+847,779.07,4,Queens,77907,4077907,E,QN37,Kew Gardens Hills,4106
+848,170,4,Queens,17000,4017000,I,QN55,South Ozone Park,4113
+849,194,4,Queens,19400,4019400,I,QN01,South Jamaica,4112
+850,22,3,Brooklyn,2200,3002200,E,BK32,Sunset Park West,4012
+851,119,2,Bronx,11900,2011900,E,BX27,Hunts Point,3710
+852,974,3,Brooklyn,97400,3097400,I,BK50,Canarsie,4009
+853,1098,3,Brooklyn,109800,3109800,I,BK82,East New York,4008
+854,445,3,Brooklyn,44500,3044500,E,BK77,Bushwick North,4002
+855,447,3,Brooklyn,44700,3044700,E,BK77,Bushwick North,4002
+856,616.02,4,Queens,61602,4061602,I,QN05,Rosedale,4105
+859,134,3,Brooklyn,13400,3013400,I,BK31,Bay Ridge,4013
+860,197.02,1,Manhattan,19702,1019702,E,MN11,Central Harlem South,3803
+861,40,1,Manhattan,4000,1004000,I,MN22,East Village,3809
+862,70,3,Brooklyn,7000,3007000,I,BK31,Bay Ridge,4013
+863,72,3,Brooklyn,7200,3007200,E,BK32,Sunset Park West,4012
+864,38,3,Brooklyn,3800,3003800,I,BK31,Bay Ridge,4013
+865,50,3,Brooklyn,5000,3005000,I,BK31,Bay Ridge,4013
+866,516,2,Bronx,51600,2051600,I,BX10,Pelham Bay-Country Club-City Island,3703
+867,620,3,Brooklyn,62000,3062000,I,BK17,Sheepshead Bay-Gerritsen Beach-Manhattan Beach,4016
+868,390,3,Brooklyn,39000,3039000,I,BK25,Homecrest,4016
+869,328,2,Bronx,32800,2032800,E,BX07,Bronxdale,3704
+870,340,2,Bronx,34000,2034000,E,BX07,Bronxdale,3704
+872,584,3,Brooklyn,58400,3058400,I,BK25,Homecrest,4016
+873,788,3,Brooklyn,78800,3078800,E,BK42,Flatbush,4015
+874,49,3,Brooklyn,4900,3004900,I,BK33,Carroll Gardens-Columbia Street-Red Hook,4005
+875,63,3,Brooklyn,6300,3006300,I,BK33,Carroll Gardens-Columbia Street-Red Hook,4005
+876,94,3,Brooklyn,9400,3009400,E,BK34,Sunset Park East,4012
+877,96,3,Brooklyn,9600,3009600,E,BK34,Sunset Park East,4012
+878,82,3,Brooklyn,8200,3008200,E,BK32,Sunset Park West,4012
+879,86,3,Brooklyn,8600,3008600,I,BK34,Sunset Park East,4012
+880,1176.02,3,Brooklyn,117602,3117602,E,BK83,Cypress Hills-City Line,4008
+881,1178,3,Brooklyn,117800,3117800,E,BK83,Cypress Hills-City Line,4008
+882,328,4,Queens,32800,4032800,I,QN66,Laurelton,4105
+883,205,1,Manhattan,20500,1020500,I,MN09,Morningside Heights,3802
+884,349,3,Brooklyn,34900,3034900,E,BK61,Crown Heights North,4006
+885,551,3,Brooklyn,55100,3055100,E,BK73,North Side-South Side,4001
+886,418,2,Bronx,41800,2041800,E,BX62,Woodlawn-Wakefield,3702
+887,351,3,Brooklyn,35100,3035100,E,BK61,Crown Heights North,4006
+888,353,3,Brooklyn,35300,3035300,E,BK61,Crown Heights North,4006
+889,77,3,Brooklyn,7700,3007700,I,BK33,Carroll Gardens-Columbia Street-Red Hook,4005
+890,199,3,Brooklyn,19900,3019900,I,BK69,Clinton Hill,4004
+891,1142.02,3,Brooklyn,114202,3114202,E,BK83,Cypress Hills-City Line,4008
+892,642,3,Brooklyn,64200,3064200,I,BK44,Madison,4016
+893,644,3,Brooklyn,64400,3064400,I,BK45,Georgetown-Marine Park-Bergen Beach-Mill Basin,4009
+894,55,4,Queens,5500,4005500,E,QN68,Queensbridge-Ravenswood-Long Island City,4101
+895,424,4,Queens,42400,4042400,I,QN08,St. Albans,4112
+908,203,1,Manhattan,20300,1020300,E,MN09,Morningside Heights,3802
+896,432,4,Queens,43200,4043200,I,QN08,St. Albans,4112
+897,5.02,3,Brooklyn,502,3000502,I,BK09,Brooklyn Heights-Cobble Hill,4004
+898,776,3,Brooklyn,77600,3077600,E,BK58,Flatlands,4009
+899,101,1,Manhattan,10100,1010100,I,MN17,Midtown-Midtown South,3807
+900,109,1,Manhattan,10900,1010900,I,MN17,Midtown-Midtown South,3807
+901,119,1,Manhattan,11900,1011900,E,MN17,Midtown-Midtown South,3807
+902,125,1,Manhattan,12500,1012500,I,MN17,Midtown-Midtown South,3807
+903,135,1,Manhattan,13500,1013500,E,MN15,Clinton,3807
+904,169,1,Manhattan,16900,1016900,I,MN12,Upper West Side,3806
+905,173,1,Manhattan,17300,1017300,I,MN12,Upper West Side,3806
+906,175,1,Manhattan,17500,1017500,I,MN12,Upper West Side,3806
+907,225,1,Manhattan,22500,1022500,E,MN04,Hamilton Heights,3802
+909,231,1,Manhattan,23100,1023100,E,MN04,Hamilton Heights,3802
+910,245,1,Manhattan,24500,1024500,E,MN36,Washington Heights South,3801
+911,251,1,Manhattan,25100,1025100,E,MN36,Washington Heights South,3801
+912,271,1,Manhattan,27100,1027100,E,MN35,Washington Heights North,3801
+913,291,1,Manhattan,29100,1029100,E,MN01,Marble Hill-Inwood,3801
+914,293,1,Manhattan,29300,1029300,E,MN01,Marble Hill-Inwood,3801
+915,26.01,1,Manhattan,2601,1002601,E,MN28,Lower East Side,3809
+916,26.02,1,Manhattan,2602,1002602,E,MN28,Lower East Side,3809
+917,11,3,Brooklyn,1100,3001100,I,BK38,DUMBO-Vinegar Hill-Downtown Brooklyn-Boerum Hill,4004
+918,200,3,Brooklyn,20000,3020000,E,BK30,Dyker Heights,4013
+919,202,3,Brooklyn,20200,3020200,I,BK30,Dyker Heights,4013
+920,160,3,Brooklyn,16000,3016000,E,BK31,Bay Ridge,4013
+1305,185,1,Manhattan,18500,1018500,I,MN12,Upper West Side,3806
+921,168,3,Brooklyn,16800,3016800,I,BK27,Bath Beach,4017
+922,64,1,Manhattan,6400,1006400,I,MN21,Gramercy,3808
+923,108,1,Manhattan,10800,1010800,I,MN19,Turtle Bay-East Midtown,3808
+926,360.01,3,Brooklyn,36001,3036001,E,BK19,Brighton Beach,4018
+927,379,2,Bronx,37900,2037900,E,BX41,Mount Hope,3707
+928,381,2,Bronx,38100,2038100,E,BX41,Mount Hope,3707
+929,30.01,1,Manhattan,3001,1003001,E,MN27,Chinatown,3809
+930,30.02,1,Manhattan,3002,1003002,E,MN22,East Village,3809
+931,59,1,Manhattan,5900,1005900,I,MN23,West Village,3810
+932,892,3,Brooklyn,89200,3089200,E,BK81,Brownsville,4007
+933,780,3,Brooklyn,78000,3078000,I,BK91,East Flatbush-Farragut,4010
+934,56,1,Manhattan,5600,1005600,I,MN13,Hudson Yards-Chelsea-Flatiron-Union Square,3807
+945,492,3,Brooklyn,49200,3049200,E,BK41,Kensington-Ocean Parkway,4014
+924,138,2,Bronx,13800,2013800,I,BX52,Schuylerville-Throgs Neck-Edgewater Park,3703
+925,158,2,Bronx,15800,2015800,E,BX52,Schuylerville-Throgs Neck-Edgewater Park,3703
+943,554,3,Brooklyn,55400,3055400,E,BK25,Homecrest,4016
+935,54,3,Brooklyn,5400,3005400,I,BK31,Bay Ridge,4013
+936,25,2,Bronx,2500,2002500,E,BX39,Mott Haven-Port Morris,3710
+937,152,2,Bronx,15200,2015200,E,BX52,Schuylerville-Throgs Neck-Edgewater Park,3703
+938,442,2,Bronx,44200,2044200,E,BX62,Woodlawn-Wakefield,3702
+939,650,4,Queens,65000,4065000,I,QN66,Laurelton,4105
+940,610.04,3,Brooklyn,61004,3061004,E,BK19,Brighton Beach,4018
+941,608,3,Brooklyn,60800,3060800,I,BK17,Sheepshead Bay-Gerritsen Beach-Manhattan Beach,4016
+942,582,3,Brooklyn,58200,3058200,E,BK25,Homecrest,4016
+946,1522,3,Brooklyn,152200,3152200,I,BK42,Flatbush,4015
+947,217,3,Brooklyn,21700,3021700,E,BK61,Crown Heights North,4006
+948,834,3,Brooklyn,83400,3083400,I,BK91,East Flatbush-Farragut,4010
+949,854,3,Brooklyn,85400,3085400,I,BK91,East Flatbush-Farragut,4010
+950,788,4,Queens,78800,4078800,I,QN76,Baisley Park,4112
+951,918,4,Queens,91800,4091800,E,QN99,park-cemetery-etc-Queens,4114
+952,224.03,2,Bronx,22403,2022403,E,BX49,Pelham Parkway,3704
+953,16,1,Manhattan,1600,1001600,E,MN27,Chinatown,3809
+954,462.01,3,Brooklyn,46201,3046201,E,BK42,Flatbush,4015
+955,462.02,3,Brooklyn,46202,3046202,E,BK46,Ocean Parkway South,4014
+956,444,2,Bronx,44400,2044400,I,BX62,Woodlawn-Wakefield,3702
+957,448,2,Bronx,44800,2044800,I,BX62,Woodlawn-Wakefield,3702
+958,342,2,Bronx,34200,2034200,I,BX31,Allerton-Pelham Gardens,3704
+959,344,2,Bronx,34400,2034400,E,BX31,Allerton-Pelham Gardens,3704
+960,512,3,Brooklyn,51200,3051200,E,BK42,Flatbush,4015
+962,259.02,3,Brooklyn,25902,3025902,E,BK75,Bedford,4003
+963,944.01,3,Brooklyn,94401,3094401,I,BK58,Flatlands,4009
+964,566,4,Queens,56600,4056600,I,QN34,Queens Village,4105
+965,279,1,Manhattan,27900,1027900,E,MN35,Washington Heights North,3801
+966,90,3,Brooklyn,9000,3009000,E,BK34,Sunset Park East,4012
+967,662,3,Brooklyn,66200,3066200,I,BK45,Georgetown-Marine Park-Bergen Beach-Mill Basin,4009
+968,42,1,Manhattan,4200,1004200,I,MN22,East Village,3809
+969,61,1,Manhattan,6100,1006100,I,MN23,West Village,3810
+970,139,1,Manhattan,13900,1013900,I,MN15,Clinton,3807
+971,167,2,Bronx,16700,2016700,E,BX01,Claremont-Bathgate,3705
+972,229.02,2,Bronx,22902,2022902,E,BX41,Mount Hope,3707
+973,942.02,4,Queens,94202,4094202,E,QN12,Hammels-Arverne-Edgemere,4114
+1088,363,2,Bronx,36300,2036300,E,BX17,East Tremont,3705
+974,50,5,Staten Island,5000,5005000,I,SI14,Grasmere-Arrochar-Ft. Wadsworth,3902
+975,121,5,Staten Island,12100,5012100,I,SI35,New Brighton-Silver Lake,3903
+976,77,5,Staten Island,7700,5007700,E,SI22,West New Brighton-New Brighton-St. George,3903
+977,11,5,Staten Island,1100,5001100,E,SI22,West New Brighton-New Brighton-St. George,3903
+978,167,3,Brooklyn,16700,3016700,I,BK37,Park Slope-Gowanus,4005
+979,224.04,2,Bronx,22404,2022404,E,BX49,Pelham Parkway,3704
+986,1403,4,Queens,140300,4140300,I,QN46,Bayside-Bayside Hills,4104
+1123,59,4,Queens,5900,4005900,I,QN70,Astoria,4101
+980,698,3,Brooklyn,69800,3069800,I,BK45,Georgetown-Marine Park-Bergen Beach-Mill Basin,4009
+981,947,4,Queens,94700,4094700,I,QN23,College Point,4103
+982,769.02,4,Queens,76902,4076902,I,QN17,Forest Hills,4108
+983,982,3,Brooklyn,98200,3098200,E,BK50,Canarsie,4009
+984,1058.04,3,Brooklyn,105804,3105804,E,BK93,Starrett City,4008
+985,30,3,Brooklyn,3000,3003000,I,BK31,Bay Ridge,4013
+1124,166,3,Brooklyn,16600,3016600,I,BK30,Dyker Heights,4013
+987,320,4,Queens,32000,4032000,I,QN03,Springfield Gardens South-Brookville,4105
+988,613.02,4,Queens,61302,4061302,I,QN20,Ridgewood,4110
+989,623,4,Queens,62300,4062300,E,QN19,Glendale,4110
+990,625,4,Queens,62500,4062500,I,QN19,Glendale,4110
+991,809,4,Queens,80900,4080900,I,QN37,Kew Gardens Hills,4106
+992,745,4,Queens,74500,4074500,E,QN17,Forest Hills,4108
+993,373,4,Queens,37300,4037300,I,QN27,East Elmhurst,4102
+994,1017,4,Queens,101700,4101700,I,QN47,Ft. Totten-Bay Terrace-Clearview,4103
+995,1141,4,Queens,114100,4114100,I,QN51,Murray Hill,4103
+996,220.02,4,Queens,22002,4022002,I,QN35,Briarwood-Jamaica Hills,4106
+997,450,4,Queens,45000,4045000,I,QN35,Briarwood-Jamaica Hills,4106
+998,779.05,4,Queens,77905,4077905,I,QN37,Kew Gardens Hills,4106
+999,1267,4,Queens,126700,4126700,I,QN38,Pomonok-Flushing Heights-Hillcrest,4106
+1000,1215,4,Queens,121500,4121500,E,QN62,Queensboro Hill,4103
+1001,1223,4,Queens,122300,4122300,I,QN38,Pomonok-Flushing Heights-Hillcrest,4106
+1002,1341,4,Queens,134100,4134100,I,QN41,Fresh Meadows-Utopia,4106
+1003,1417,4,Queens,141700,4141700,I,QN48,Auburndale,4104
+1004,471,4,Queens,47100,4047100,E,QN29,Elmhurst,4107
+1005,485,4,Queens,48500,4048500,E,QN50,Elmhurst-Maspeth,4109
+1006,360.02,3,Brooklyn,36002,3036002,E,BK19,Brighton Beach,4018
+1007,610.02,3,Brooklyn,61002,3061002,I,BK19,Brighton Beach,4018
+1008,852,3,Brooklyn,85200,3085200,I,BK99,park-cemetery-etc-Brooklyn,4010
+1009,858,3,Brooklyn,85800,3085800,E,BK91,East Flatbush-Farragut,4010
+1010,1190,3,Brooklyn,119000,3119000,E,BK83,Cypress Hills-City Line,4008
+1011,1196,3,Brooklyn,119600,3119600,E,BK82,East New York,4008
+1012,509,3,Brooklyn,50900,3050900,E,BK72,Williamsburg,4001
+1013,561,3,Brooklyn,56100,3056100,I,BK76,Greenpoint,4001
+1014,365.01,2,Bronx,36501,2036501,E,BX17,East Tremont,3705
+1015,224.01,2,Bronx,22401,2022401,E,BX49,Pelham Parkway,3704
+1016,332.01,2,Bronx,33201,2033201,I,BX07,Bronxdale,3704
+1017,152,4,Queens,15200,4015200,I,QN54,Richmond Hill,4111
+1018,206,4,Queens,20600,4020600,E,QN61,Jamaica,4112
+1019,472,4,Queens,47200,4047200,I,QN06,Jamaica Estates-Holliswood,4106
+1020,476,4,Queens,47600,4047600,I,QN06,Jamaica Estates-Holliswood,4106
+1021,726,3,Brooklyn,72600,3072600,I,BK58,Flatlands,4009
+1022,932,3,Brooklyn,93200,3093200,I,BK91,East Flatbush-Farragut,4010
+1023,590,4,Queens,59000,4059000,I,QN33,Cambria Heights,4105
+1024,72,2,Bronx,7200,2007200,E,BX55,Soundview-Bruckner,3709
+1058,213.01,2,Bronx,21301,2021301,E,BX36,University Heights-Morris Heights,3707
+1025,42,2,Bronx,4200,2004200,E,BX09,Soundview-Castle Hill-Clason Point-Harding Park,3709
+1026,47,4,Queens,4700,4004700,E,QN70,Astoria,4101
+1027,908,3,Brooklyn,90800,3090800,E,BK81,Brownsville,4007
+1028,1144,3,Brooklyn,114400,3114400,E,BK85,East New York (Pennsylvania Ave),4007
+1029,371,2,Bronx,37100,2037100,E,BX17,East Tremont,3705
+1030,393,2,Bronx,39300,2039300,E,BX06,Belmont,3705
+1031,114.02,5,Staten Island,11402,5011402,I,SI45,New Dorp-Midland Beach,3902
+1032,230,1,Manhattan,23000,1023000,E,MN03,Central Harlem North-Polo Grounds,3803
+1033,1118,3,Brooklyn,111800,3111800,E,BK82,East New York,4008
+1085,1163,4,Queens,116300,4116300,E,QN51,Murray Hill,4103
+1034,919,4,Queens,91900,4091900,I,QN23,College Point,4103
+1035,925,4,Queens,92500,4092500,E,QN23,College Point,4103
+1036,15.02,1,Manhattan,1502,1001502,I,MN25,Battery Park City-Lower Manhattan,3810
+1125,548,4,Queens,54800,4054800,I,QN34,Queens Village,4105
+1037,622,3,Brooklyn,62200,3062200,I,BK17,Sheepshead Bay-Gerritsen Beach-Manhattan Beach,4016
+1038,766,3,Brooklyn,76600,3076600,E,BK42,Flatbush,4015
+1039,772,3,Brooklyn,77200,3077200,E,BK42,Flatbush,4015
+1040,17,5,Staten Island,1700,5001700,E,SI37,Stapleton-Rosebank,3903
+1041,120,1,Manhattan,12000,1012000,I,MN40,Upper East Side-Carnegie Hill,3805
+1042,128,1,Manhattan,12800,1012800,I,MN40,Upper East Side-Carnegie Hill,3805
+1043,477,3,Brooklyn,47700,3047700,E,BK90,East Williamsburg,4001
+1044,497,3,Brooklyn,49700,3049700,E,BK90,East Williamsburg,4001
+1045,559,4,Queens,55900,4055900,E,QN20,Ridgewood,4110
+1046,403,3,Brooklyn,40300,3040300,E,BK78,Bushwick South,4002
+1047,407,3,Brooklyn,40700,3040700,I,BK99,park-cemetery-etc-Brooklyn,4002
+1048,527,3,Brooklyn,52700,3052700,E,BK73,North Side-South Side,4001
+1049,529,3,Brooklyn,52900,3052900,E,BK72,Williamsburg,4001
+1050,25,1,Manhattan,2500,1002500,E,MN27,Chinatown,3809
+1051,513,3,Brooklyn,51300,3051300,E,BK73,North Side-South Side,4001
+1086,1047,4,Queens,104700,4104700,I,QN51,Murray Hill,4103
+1052,942.01,4,Queens,94201,4094201,E,QN10,Breezy Point-Belle Harbor-Rockaway Park-Broad Channel,4114
+1053,942.03,4,Queens,94203,4094203,I,QN12,Hammels-Arverne-Edgemere,4114
+1054,456,4,Queens,45600,4045600,I,QN35,Briarwood-Jamaica Hills,4106
+1055,211,2,Bronx,21100,2021100,E,BX26,Highbridge,3708
+1056,505,4,Queens,50500,4050500,I,QN21,Middle Village,4110
+1057,507,4,Queens,50700,4050700,I,QN21,Middle Village,4110
+1059,217,2,Bronx,21700,2021700,E,BX36,University Heights-Morris Heights,3707
+1060,228,2,Bronx,22800,2022800,E,BX49,Pelham Parkway,3704
+1061,230,2,Bronx,23000,2023000,E,BX37,Van Nest-Morris Park-Westchester Square,3704
+1062,277,2,Bronx,27700,2027700,E,BX28,Van Cortlandt Village,3701
+1063,273,2,Bronx,27300,2027300,E,BX28,Van Cortlandt Village,3701
+1064,420,2,Bronx,42000,2042000,E,BX44,Williamsbridge-Olinville,3702
+1065,408,2,Bronx,40800,2040800,E,BX44,Williamsbridge-Olinville,3702
+1066,376,2,Bronx,37600,2037600,E,BX44,Williamsbridge-Olinville,3702
+1067,213.02,2,Bronx,21302,2021302,E,BX26,Highbridge,3708
+1068,319,1,Manhattan,31900,1031900,I,MN99,park-cemetery-etc-Manhattan,3810
+1069,255,3,Brooklyn,25500,3025500,E,BK75,Bedford,4003
+1070,257,3,Brooklyn,25700,3025700,E,BK75,Bedford,4003
+1071,37,4,Queens,3700,4003700,E,QN68,Queensbridge-Ravenswood-Long Island City,4101
+1072,29.01,3,Brooklyn,2901,3002901,E,BK68,Fort Greene,4004
+1087,1159,4,Queens,115900,4115900,I,QN51,Murray Hill,4103
+1073,1571.01,4,Queens,157101,4157101,I,QN43,Bellerose,4105
+1074,76,2,Bronx,7600,2007600,E,BX08,West Farms-Bronx River,3709
+1075,267.01,2,Bronx,26701,2026701,E,BX28,Van Cortlandt Village,3701
+1076,48,1,Manhattan,4800,1004800,I,MN21,Gramercy,3808
+1077,277.06,5,Staten Island,27706,5027706,I,SI24,Todt Hill-Emerson Hill-Heartland Village-Lighthouse Hill,3902
+1078,633.01,4,Queens,63301,4063301,I,QN19,Glendale,4110
+1079,633.02,4,Queens,63302,4063302,I,QN19,Glendale,4110
+1080,244,2,Bronx,24400,2024400,I,BX37,Van Nest-Morris Park-Westchester Square,3704
+1081,378,2,Bronx,37800,2037800,E,BX44,Williamsbridge-Olinville,3702
+1082,855,4,Queens,85500,4085500,E,QN22,Flushing,4103
+1083,863,4,Queens,86300,4086300,E,QN51,Murray Hill,4103
+1084,865,4,Queens,86500,4086500,E,QN22,Flushing,4103
+1089,173,5,Staten Island,17300,5017300,E,SI05,New Springville-Bloomfield-Travis,3902
+1090,225,2,Bronx,22500,2022500,E,BX14,East Concourse-Concourse Village,3708
+1091,227.03,2,Bronx,22703,2022703,E,BX41,Mount Hope,3707
+1092,209,2,Bronx,20900,2020900,E,BX63,West Concourse,3708
+1093,227.02,2,Bronx,22702,2022702,E,BX41,Mount Hope,3707
+1094,199,2,Bronx,19900,2019900,E,BX26,Highbridge,3708
+1095,170.09,5,Staten Island,17009,5017009,I,SI48,Arden Heights,3901
+1096,160.02,1,Manhattan,16002,1016002,I,MN33,East Harlem South,3804
+1097,357,4,Queens,35700,4035700,I,QN27,East Elmhurst,4102
+1098,150.02,1,Manhattan,15002,1015002,I,MN40,Upper East Side-Carnegie Hill,3805
+1099,150.01,1,Manhattan,15001,1015001,I,MN40,Upper East Side-Carnegie Hill,3805
+1100,557,3,Brooklyn,55700,3055700,E,BK73,North Side-South Side,4001
+1101,98,2,Bronx,9800,2009800,E,BX59,Westchester-Unionport,3709
+1102,133,2,Bronx,13300,2013300,E,BX35,Morrisania-Melrose,3705
+1103,96,4,Queens,9600,4009600,E,QN55,South Ozone Park,4113
+1104,45,4,Queens,4500,4004500,I,QN70,Astoria,4101
+1105,53,4,Queens,5300,4005300,E,QN70,Astoria,4101
+1106,1132,3,Brooklyn,113200,3113200,E,BK85,East New York (Pennsylvania Ave),4007
+1107,480,3,Brooklyn,48000,3048000,E,BK42,Flatbush,4015
+1108,482,3,Brooklyn,48200,3048200,E,BK42,Flatbush,4015
+1109,484,3,Brooklyn,48400,3048400,E,BK41,Kensington-Ocean Parkway,4014
+1110,248,5,Staten Island,24800,5024800,I,SI11,Charleston-Richmond Valley-Tottenville,3901
+1111,1174,3,Brooklyn,117400,3117400,E,BK83,Cypress Hills-City Line,4008
+1112,1176.01,3,Brooklyn,117601,3117601,E,BK83,Cypress Hills-City Line,4008
+1113,210.01,2,Bronx,21001,2021001,E,BX46,Parkchester,3709
+1114,238,2,Bronx,23800,2023800,E,BX37,Van Nest-Morris Park-Westchester Square,3704
+1115,222,2,Bronx,22200,2022200,E,BX46,Parkchester,3709
+1116,510.02,3,Brooklyn,51002,3051002,E,BK42,Flatbush,4015
+1117,794,3,Brooklyn,79400,3079400,E,BK95,Erasmus,4010
+1118,189.01,5,Staten Island,18901,5018901,I,SI07,Westerleigh,3903
+1119,36,3,Brooklyn,3600,3003600,I,BK31,Bay Ridge,4013
+1120,68,3,Brooklyn,6800,3006800,E,BK31,Bay Ridge,4013
+1121,1447,4,Queens,144700,4144700,E,QN46,Bayside-Bayside Hills,4104
+1122,57,4,Queens,5700,4005700,E,QN70,Astoria,4101
+1126,473,4,Queens,47300,4047300,I,QN29,Elmhurst,4107
+1127,300,2,Bronx,30000,2030000,E,BX10,Pelham Bay-Country Club-City Island,3703
+1128,235.01,1,Manhattan,23501,1023501,E,MN04,Hamilton Heights,3802
+1129,155,4,Queens,15500,4015500,I,QN70,Astoria,4101
+1130,157,4,Queens,15700,4015700,E,QN70,Astoria,4101
+1131,159,4,Queens,15900,4015900,E,QN70,Astoria,4101
+1132,411,2,Bronx,41100,2041100,E,BX05,Bedford Park-Fordham North,3706
+1133,1198,3,Brooklyn,119800,3119800,E,BK82,East New York,4008
+1134,183.01,2,Bronx,18301,2018301,E,BX14,East Concourse-Concourse Village,3708
+1135,195,2,Bronx,19500,2019500,E,BX63,West Concourse,3708
+1136,191,1,Manhattan,19100,1019100,I,MN12,Upper West Side,3806
+1137,519,3,Brooklyn,51900,3051900,I,BK73,North Side-South Side,4001
+1138,106.01,1,Manhattan,10601,1010601,I,MN19,Turtle Bay-East Midtown,3808
+1139,261,3,Brooklyn,26100,3026100,E,BK75,Bedford,4003
+1140,170.08,5,Staten Island,17008,5017008,I,SI48,Arden Heights,3901
+1141,302,2,Bronx,30200,2030200,I,BX13,Co-op City,3703
+1142,1104,3,Brooklyn,110400,3110400,E,BK82,East New York,4008
+1143,1106,3,Brooklyn,110600,3110600,E,BK82,East New York,4008
+1144,166,1,Manhattan,16600,1016600,E,MN33,East Harlem South,3804
+1151,151,5,Staten Island,15100,5015100,I,SI07,Westerleigh,3903
+1145,47,5,Staten Island,4700,5004700,I,SI08,Grymes Hill-Clifton-Fox Hills,3903
+1146,147,5,Staten Island,14700,5014700,I,SI07,Westerleigh,3903
+1147,169.01,5,Staten Island,16901,5016901,I,SI07,Westerleigh,3903
+1148,45,1,Manhattan,4500,1004500,I,MN24,SoHo-TriBeCa-Civic Center-Little Italy,3810
+1149,132.04,5,Staten Island,13204,5013204,I,SI25,Oakwood-Oakwood Beach,3901
+1150,135,3,Brooklyn,13500,3013500,I,BK37,Park Slope-Gowanus,4005
+1152,140,3,Brooklyn,14000,3014000,I,BK30,Dyker Heights,4013
+1153,367,3,Brooklyn,36700,3036700,E,BK79,Ocean Hill,4007
+1154,405,3,Brooklyn,40500,3040500,I,BK78,Bushwick South,4002
+1155,95,1,Manhattan,9500,1009500,I,MN17,Midtown-Midtown South,3807
+1156,91,1,Manhattan,9100,1009100,I,MN13,Hudson Yards-Chelsea-Flatiron-Union Square,3807
+1157,58,1,Manhattan,5800,1005800,I,MN13,Hudson Yards-Chelsea-Flatiron-Union Square,3807
+1158,63,1,Manhattan,6300,1006300,I,MN23,West Village,3810
+1159,511,3,Brooklyn,51100,3051100,E,BK90,East Williamsburg,4001
+1160,128.05,5,Staten Island,12805,5012805,I,SI25,Oakwood-Oakwood Beach,3901
+1161,133,1,Manhattan,13300,1013300,I,MN15,Clinton,3807
+1162,127,1,Manhattan,12700,1012700,I,MN15,Clinton,3807
+1163,121,1,Manhattan,12100,1012100,E,MN15,Clinton,3807
+1185,374,2,Bronx,37400,2037400,E,BX44,Williamsbridge-Olinville,3702
+1164,129,1,Manhattan,12900,1012900,I,MN15,Clinton,3807
+1165,81,1,Manhattan,8100,1008100,I,MN13,Hudson Yards-Chelsea-Flatiron-Union Square,3807
+1166,54,1,Manhattan,5400,1005400,I,MN13,Hudson Yards-Chelsea-Flatiron-Union Square,3807
+1167,87,1,Manhattan,8700,1008700,I,MN13,Hudson Yards-Chelsea-Flatiron-Union Square,3807
+1168,169,3,Brooklyn,16900,3016900,I,BK40,Windsor Terrace,4012
+1169,171,3,Brooklyn,17100,3017100,I,BK40,Windsor Terrace,4012
+1170,451.02,2,Bronx,45102,2045102,I,BX62,Woodlawn-Wakefield,3702
+1171,414,2,Bronx,41400,2041400,E,BX62,Woodlawn-Wakefield,3702
+1219,455,4,Queens,45500,4045500,E,QN25,Corona,4107
+1172,568,4,Queens,56800,4056800,I,QN34,Queens Village,4105
+1173,592,4,Queens,59200,4059200,I,QN33,Cambria Heights,4105
+1174,622,4,Queens,62200,4062200,I,QN33,Cambria Heights,4105
+1175,183.02,2,Bronx,18302,2018302,E,BX14,East Concourse-Concourse Village,3708
+1176,144.01,1,Manhattan,14401,1014401,I,MN32,Yorkville,3805
+1177,158.01,1,Manhattan,15801,1015801,I,MN40,Upper East Side-Carnegie Hill,3805
+1178,158.02,1,Manhattan,15802,1015802,I,MN33,East Harlem South,3804
+1179,226,1,Manhattan,22600,1022600,E,MN03,Central Harlem North-Polo Grounds,3803
+1180,808,3,Brooklyn,80800,3080800,E,BK60,Prospect Lefferts Gardens-Wingate,4011
+1181,816,3,Brooklyn,81600,3081600,E,BK91,East Flatbush-Farragut,4010
+1182,1022,3,Brooklyn,102200,3102200,E,BK50,Canarsie,4009
+1183,55.01,1,Manhattan,5501,1005501,I,MN23,West Village,3810
+1184,208,1,Manhattan,20800,1020800,E,MN03,Central Harlem North-Polo Grounds,3803
+1186,380,2,Bronx,38000,2038000,E,BX44,Williamsbridge-Olinville,3702
+1187,77,2,Bronx,7700,2007700,E,BX34,Melrose South-Mott Haven North,3710
+1188,75,2,Bronx,7500,2007500,E,BX34,Melrose South-Mott Haven North,3710
+1189,73,2,Bronx,7300,2007300,E,BX34,Melrose South-Mott Haven North,3710
+1190,79,2,Bronx,7900,2007900,E,BX34,Melrose South-Mott Haven North,3710
+1191,132,4,Queens,13200,4013200,I,QN54,Richmond Hill,4111
+1192,356.01,3,Brooklyn,35601,3035601,I,BK23,West Brighton,4018
+1193,491,3,Brooklyn,49100,3049100,E,BK90,East Williamsburg,4001
+1202,263,2,Bronx,26300,2026300,E,BX30,Kingsbridge Heights,3706
+1194,616,3,Brooklyn,61600,3061600,I,BK17,Sheepshead Bay-Gerritsen Beach-Manhattan Beach,4016
+1195,724,3,Brooklyn,72400,3072400,I,BK58,Flatlands,4009
+1196,944.02,3,Brooklyn,94402,3094402,E,BK58,Flatlands,4009
+1203,265,2,Bronx,26500,2026500,E,BX30,Kingsbridge Heights,3706
+1204,422,3,Brooklyn,42200,3042200,E,BK25,Homecrest,4016
+1205,438,3,Brooklyn,43800,3043800,E,BK46,Ocean Parkway South,4014
+1220,562,4,Queens,56200,4056200,I,QN34,Queens Village,4105
+1197,998.02,4,Queens,99802,4099802,E,QN15,Far Rockaway-Bayswater,4114
+1198,375.04,2,Bronx,37504,2037504,E,BX17,East Tremont,3705
+1199,413,2,Bronx,41300,2041300,E,BX05,Bedford Park-Fordham North,3706
+1200,537,3,Brooklyn,53700,3053700,E,BK72,Williamsburg,4001
+1201,261,2,Bronx,26100,2026100,I,BX30,Kingsbridge Heights,3706
+1218,332.02,2,Bronx,33202,2033202,E,BX07,Bronxdale,3704
+1206,1058.01,3,Brooklyn,105801,3105801,E,BK93,Starrett City,4008
+1207,1502,3,Brooklyn,150200,3150200,I,BK40,Windsor Terrace,4012
+1208,382,2,Bronx,38200,2038200,E,BX44,Williamsbridge-Olinville,3702
+1209,490,3,Brooklyn,49000,3049000,E,BK41,Kensington-Ocean Parkway,4014
+1210,494,3,Brooklyn,49400,3049400,E,BK41,Kensington-Ocean Parkway,4014
+1211,75,4,Queens,7500,4007500,E,QN70,Astoria,4101
+1212,77,4,Queens,7700,4007700,I,QN70,Astoria,4101
+1213,149,2,Bronx,14900,2014900,E,BX35,Morrisania-Melrose,3705
+1214,361,2,Bronx,36100,2036100,E,BX17,East Tremont,3705
+1215,555,3,Brooklyn,55500,3055500,I,BK73,North Side-South Side,4001
+1216,619,4,Queens,61900,4061900,I,QN21,Middle Village,4110
+1217,299,4,Queens,29900,4029900,I,QN99,park-cemetery-etc-Queens,4101
+1221,564,4,Queens,56400,4056400,I,QN34,Queens Village,4105
+1222,630,4,Queens,63000,4063000,I,QN66,Laurelton,4105
+1223,309.04,4,Queens,30904,4030904,I,QN28,Jackson Heights,4102
+1224,492,4,Queens,49200,4049200,E,QN06,Jamaica Estates-Holliswood,4106
+1225,303,1,Manhattan,30300,1030300,E,MN01,Marble Hill-Inwood,3801
+1226,122,4,Queens,12200,4012200,E,QN54,Richmond Hill,4111
+1227,144,4,Queens,14400,4014400,I,QN54,Richmond Hill,4111
+1228,150,4,Queens,15000,4015000,I,QN54,Richmond Hill,4111
+1229,385,3,Brooklyn,38500,3038500,E,BK35,Stuyvesant Heights,4003
+1230,299,3,Brooklyn,29900,3029900,E,BK61,Crown Heights North,4006
+1231,379,3,Brooklyn,37900,3037900,E,BK35,Stuyvesant Heights,4003
+1232,381,3,Brooklyn,38100,3038100,E,BK61,Crown Heights North,4006
+1233,301,3,Brooklyn,30100,3030100,E,BK79,Ocean Hill,4007
+1234,371,3,Brooklyn,37100,3037100,E,BK79,Ocean Hill,4007
+1235,189,1,Manhattan,18900,1018900,E,MN12,Upper West Side,3806
+1236,120,4,Queens,12000,4012000,E,QN54,Richmond Hill,4111
+1237,148,4,Queens,14800,4014800,E,QN54,Richmond Hill,4111
+1238,31,2,Bronx,3100,2003100,E,BX39,Mott Haven-Port Morris,3710
+1239,83,2,Bronx,8300,2008300,E,BX33,Longwood,3710
+1240,52,2,Bronx,5200,2005200,E,BX55,Soundview-Bruckner,3709
+1241,929,4,Queens,92900,4092900,I,QN23,College Point,4103
+1242,134,1,Manhattan,13400,1013400,I,MN31,Lenox Hill-Roosevelt Island,3805
+1243,131,3,Brooklyn,13100,3013100,I,BK37,Park Slope-Gowanus,4005
+1244,141,3,Brooklyn,14100,3014100,I,BK37,Park Slope-Gowanus,4005
+1474,36.02,1,Manhattan,3602,1003602,I,MN22,East Village,3809
+1245,149,3,Brooklyn,14900,3014900,I,BK37,Park Slope-Gowanus,4005
+1246,143,3,Brooklyn,14300,3014300,E,BK37,Park Slope-Gowanus,4005
+1247,145,3,Brooklyn,14500,3014500,E,BK32,Sunset Park West,4012
+1248,147,3,Brooklyn,14700,3014700,E,BK32,Sunset Park West,4012
+1249,94,1,Manhattan,9400,1009400,E,MN17,Midtown-Midtown South,3807
+1250,92,1,Manhattan,9200,1009200,I,MN19,Turtle Bay-East Midtown,3808
+1251,114.01,1,Manhattan,11401,1011401,I,MN40,Upper East Side-Carnegie Hill,3805
+1252,122,1,Manhattan,12200,1012200,I,MN40,Upper East Side-Carnegie Hill,3805
+1253,1463,4,Queens,146300,4146300,I,QN46,Bayside-Bayside Hills,4104
+1254,253,3,Brooklyn,25300,3025300,E,BK75,Bedford,4003
+1255,1467,4,Queens,146700,4146700,I,QN46,Bayside-Bayside Hills,4104
+1279,1171,4,Queens,117100,4117100,I,QN51,Murray Hill,4103
+1609,700,3,Brooklyn,70000,3070000,I,BK45,Georgetown-Marine Park-Bergen Beach-Mill Basin,4009
+1256,192,1,Manhattan,19200,1019200,E,MN34,East Harlem North,3804
+1257,142,3,Brooklyn,14200,3014200,I,BK31,Bay Ridge,4013
+1258,206,3,Brooklyn,20600,3020600,I,BK30,Dyker Heights,4013
+1259,1008.01,4,Queens,100801,4100801,I,QN15,Far Rockaway-Bayswater,4114
+1260,25,4,Queens,2500,4002500,E,QN68,Queensbridge-Ravenswood-Long Island City,4101
+1261,295,4,Queens,29500,4029500,I,QN63,Woodside,4109
+1262,1,2,Bronx,100,2000100,I,BX98,Rikers Island,3710
+1263,1,1,Manhattan,100,1000100,I,MN99,park-cemetery-etc-Manhattan,3810
+1264,248,2,Bronx,24800,2024800,I,BX49,Pelham Parkway,3704
+1280,405,4,Queens,40500,4040500,E,QN26,North Corona,4102
+1610,706,3,Brooklyn,70600,3070600,I,BK45,Georgetown-Marine Park-Bergen Beach-Mill Basin,4009
+1265,1116,3,Brooklyn,111600,3111600,E,BK82,East New York,4008
+1266,1210,3,Brooklyn,121000,3121000,E,BK82,East New York,4008
+1267,168,1,Manhattan,16800,1016800,E,MN33,East Harlem South,3804
+1268,115.02,2,Bronx,11502,2011502,E,BX27,Hunts Point,3710
+1269,123,2,Bronx,12300,2012300,E,BX75,Crotona Park East,3705
+1270,448,3,Brooklyn,44800,3044800,E,BK46,Ocean Parkway South,4014
+1271,450,3,Brooklyn,45000,3045000,E,BK46,Ocean Parkway South,4014
+1281,407,4,Queens,40700,4040700,E,QN26,North Corona,4102
+1272,1070,3,Brooklyn,107000,3107000,E,BK82,East New York,4008
+1273,1078,3,Brooklyn,107800,3107800,I,BK82,East New York,4008
+1274,802,3,Brooklyn,80200,3080200,E,BK60,Prospect Lefferts Gardens-Wingate,4011
+1275,383,3,Brooklyn,38300,3038300,I,BK35,Stuyvesant Heights,4003
+1276,546,3,Brooklyn,54600,3054600,E,BK43,Midwood,4015
+1277,758,3,Brooklyn,75800,3075800,I,BK43,Midwood,4015
+1278,1151,4,Queens,115100,4115100,I,QN51,Murray Hill,4103
+1304,181,1,Manhattan,18100,1018100,I,MN12,Upper West Side,3806
+1282,409,4,Queens,40900,4040900,E,QN26,North Corona,4102
+1283,131,1,Manhattan,13100,1013100,I,MN17,Midtown-Midtown South,3807
+1284,137,1,Manhattan,13700,1013700,I,MN17,Midtown-Midtown South,3807
+1285,628,3,Brooklyn,62800,3062800,I,BK17,Sheepshead Bay-Gerritsen Beach-Manhattan Beach,4016
+1286,666,3,Brooklyn,66600,3066600,I,BK99,park-cemetery-etc-Brooklyn,4009
+1287,717.01,4,Queens,71701,4071701,I,QN18,Rego Park,4108
+1288,717.02,4,Queens,71702,4071702,I,QN18,Rego Park,4108
+1289,255,4,Queens,25500,4025500,I,QN63,Woodside,4109
+1290,257,4,Queens,25700,4025700,I,QN63,Woodside,4109
+1291,263,4,Queens,26300,4026300,E,QN63,Woodside,4109
+1292,723,4,Queens,72300,4072300,I,QN17,Forest Hills,4108
+1293,737,4,Queens,73700,4073700,I,QN17,Forest Hills,4108
+1294,265,4,Queens,26500,4026500,E,QN50,Elmhurst-Maspeth,4109
+1295,291,4,Queens,29100,4029100,E,QN28,Jackson Heights,4102
+1296,293,4,Queens,29300,4029300,I,QN63,Woodside,4109
+1297,297,4,Queens,29700,4029700,E,QN63,Woodside,4109
+1298,309.02,4,Queens,30902,4030902,E,QN28,Jackson Heights,4102
+1299,506,3,Brooklyn,50600,3050600,E,BK42,Flatbush,4015
+1300,513,4,Queens,51300,4051300,E,QN30,Maspeth,4110
+1301,157,1,Manhattan,15700,1015700,I,MN14,Lincoln Square,3806
+1302,165,1,Manhattan,16500,1016500,I,MN12,Upper West Side,3806
+1303,177,1,Manhattan,17700,1017700,I,MN12,Upper West Side,3806
+1306,216.02,2,Bronx,21602,2021602,E,BX46,Parkchester,3709
+1307,210.02,2,Bronx,21002,2021002,E,BX46,Parkchester,3709
+1308,212,2,Bronx,21200,2021200,E,BX46,Parkchester,3709
+1309,388,2,Bronx,38800,2038800,E,BX44,Williamsbridge-Olinville,3702
+1310,390,2,Bronx,39000,2039000,E,BX44,Williamsbridge-Olinville,3702
+1311,386,2,Bronx,38600,2038600,E,BX03,Eastchester-Edenwald-Baychester,3702
+1312,209.01,1,Manhattan,20901,1020901,E,MN09,Morningside Heights,3802
+1313,335,2,Bronx,33500,2033500,I,BX22,North Riverdale-Fieldston-Riverdale,3701
+1314,283,3,Brooklyn,28300,3028300,E,BK35,Stuyvesant Heights,4003
+1315,49,1,Manhattan,4900,1004900,I,MN24,SoHo-TriBeCa-Civic Center-Little Italy,3810
+1316,67,1,Manhattan,6700,1006700,I,MN23,West Village,3810
+1317,65,1,Manhattan,6500,1006500,I,MN23,West Village,3810
+1318,170,1,Manhattan,17000,1017000,E,MN33,East Harlem South,3804
+1319,377,3,Brooklyn,37700,3037700,E,BK35,Stuyvesant Heights,4003
+1320,373,3,Brooklyn,37300,3037300,E,BK79,Ocean Hill,4007
+1321,375,3,Brooklyn,37500,3037500,E,BK35,Stuyvesant Heights,4003
+1322,294,4,Queens,29400,4029400,I,QN02,Springfield Gardens North,4112
+1323,227.01,2,Bronx,22701,2022701,E,BX41,Mount Hope,3707
+1324,229.01,2,Bronx,22901,2022901,E,BX41,Mount Hope,3707
+1406,253,2,Bronx,25300,2025300,E,BX30,Kingsbridge Heights,3706
+1325,211,1,Manhattan,21100,1021100,E,MN09,Morningside Heights,3802
+1326,458,4,Queens,45800,4045800,I,QN06,Jamaica Estates-Holliswood,4106
+1327,466,4,Queens,46600,4046600,I,QN06,Jamaica Estates-Holliswood,4106
+1328,197.01,1,Manhattan,19701,1019701,I,MN09,Morningside Heights,3802
+1329,207.01,1,Manhattan,20701,1020701,E,MN09,Morningside Heights,3802
+1330,245.01,2,Bronx,24501,2024501,E,BX36,University Heights-Morris Heights,3707
+1331,214,1,Manhattan,21400,1021400,E,MN03,Central Harlem North-Polo Grounds,3803
+1332,232,1,Manhattan,23200,1023200,E,MN03,Central Harlem North-Polo Grounds,3803
+1333,236,1,Manhattan,23600,1023600,E,MN03,Central Harlem North-Polo Grounds,3803
+1334,475,4,Queens,47500,4047500,E,QN29,Elmhurst,4107
+1335,683,4,Queens,68300,4068300,E,QN29,Elmhurst,4107
+1336,198,1,Manhattan,19800,1019800,I,MN34,East Harlem North,3804
+1337,200,1,Manhattan,20000,1020000,E,MN11,Central Harlem South,3803
+1459,545,3,Brooklyn,54500,3054500,E,BK72,Williamsburg,4001
+1338,119,3,Brooklyn,11900,3011900,E,BK37,Park Slope-Gowanus,4005
+1339,75,3,Brooklyn,7500,3007500,I,BK33,Carroll Gardens-Columbia Street-Red Hook,4005
+1340,317,4,Queens,31700,4031700,I,QN72,Steinway,4101
+1341,610,4,Queens,61000,4061000,I,QN33,Cambria Heights,4105
+1342,612,4,Queens,61200,4061200,I,QN33,Cambria Heights,4105
+1343,161,1,Manhattan,16100,1016100,I,MN12,Upper West Side,3806
+1344,28,2,Bronx,2800,2002800,I,BX09,Soundview-Castle Hill-Clason Point-Harding Park,3709
+1345,50.01,2,Bronx,5001,2005001,E,BX55,Soundview-Bruckner,3709
+1346,145,1,Manhattan,14500,1014500,I,MN14,Lincoln Square,3806
+1347,149,1,Manhattan,14900,1014900,I,MN14,Lincoln Square,3806
+1348,589,3,Brooklyn,58900,3058900,I,BK76,Greenpoint,4001
+1349,169,4,Queens,16900,4016900,I,QN31,Hunters Point-Sunnyside-West Maspeth,4109
+1350,46,2,Bronx,4600,2004600,E,BX09,Soundview-Castle Hill-Clason Point-Harding Park,3709
+1351,343,3,Brooklyn,34300,3034300,E,BK61,Crown Heights North,4006
+1352,345,3,Brooklyn,34500,3034500,E,BK61,Crown Heights North,4006
+1353,92,3,Brooklyn,9200,3009200,E,BK34,Sunset Park East,4012
+1354,112,3,Brooklyn,11200,3011200,E,BK34,Sunset Park East,4012
+1355,83,1,Manhattan,8300,1008300,E,MN13,Hudson Yards-Chelsea-Flatiron-Union Square,3807
+1356,409,3,Brooklyn,40900,3040900,E,BK77,Bushwick North,4002
+1357,411,3,Brooklyn,41100,3041100,E,BK78,Bushwick South,4002
+1358,77,1,Manhattan,7700,1007700,I,MN23,West Village,3810
+1461,33,3,Brooklyn,3300,3003300,I,BK68,Fort Greene,4004
+1359,79,1,Manhattan,7900,1007900,I,MN23,West Village,3810
+1360,310,2,Bronx,31000,2031000,I,BX31,Allerton-Pelham Gardens,3704
+1361,71,3,Brooklyn,7100,3007100,E,BK38,DUMBO-Vinegar Hill-Downtown Brooklyn-Boerum Hill,4004
+1362,127,3,Brooklyn,12700,3012700,E,BK38,DUMBO-Vinegar Hill-Downtown Brooklyn-Boerum Hill,4004
+1363,286,3,Brooklyn,28600,3028600,E,BK27,Bath Beach,4017
+1364,292,3,Brooklyn,29200,3029200,E,BK27,Bath Beach,4017
+1365,916.01,4,Queens,91601,4091601,I,QN10,Breezy Point-Belle Harbor-Rockaway Park-Broad Channel,4114
+1366,916.02,4,Queens,91602,4091602,I,QN99,park-cemetery-etc-Queens,4114
+1369,10.02,1,Manhattan,1002,1001002,E,MN28,Lower East Side,3809
+1462,213.03,1,Manhattan,21303,1021303,E,MN06,Manhattanville,3802
+1367,160,2,Bronx,16000,2016000,I,BX52,Schuylerville-Throgs Neck-Edgewater Park,3703
+1368,274.02,2,Bronx,27402,2027402,I,BX10,Pelham Bay-Country Club-City Island,3703
+1370,22.01,1,Manhattan,2201,1002201,E,MN28,Lower East Side,3809
+1371,122,5,Staten Island,12200,5012200,I,SI45,New Dorp-Midland Beach,3902
+1372,508.03,3,Brooklyn,50803,3050803,E,BK42,Flatbush,4015
+1373,508.04,3,Brooklyn,50804,3050804,E,BK42,Flatbush,4015
+1374,394,3,Brooklyn,39400,3039400,E,BK25,Homecrest,4016
+1375,414.02,3,Brooklyn,41402,3041402,I,BK25,Homecrest,4016
+1376,416,3,Brooklyn,41600,3041600,E,BK25,Homecrest,4016
+1377,934,3,Brooklyn,93400,3093400,I,BK96,Rugby-Remsen Village,4010
+1378,936,3,Brooklyn,93600,3093600,I,BK96,Rugby-Remsen Village,4010
+1379,946,3,Brooklyn,94600,3094600,I,BK96,Rugby-Remsen Village,4010
+1401,174.02,1,Manhattan,17402,1017402,E,MN33,East Harlem South,3804
+1402,186,1,Manhattan,18600,1018600,E,MN11,Central Harlem South,3803
+1380,478,4,Queens,47800,4047800,I,QN06,Jamaica Estates-Holliswood,4106
+1381,482,4,Queens,48200,4048200,I,QN07,Hollis,4112
+1382,285.02,3,Brooklyn,28502,3028502,E,BK35,Stuyvesant Heights,4003
+1383,13,3,Brooklyn,1300,3001300,I,BK38,DUMBO-Vinegar Hill-Downtown Brooklyn-Boerum Hill,4004
+1384,61,4,Queens,6100,4006100,I,QN70,Astoria,4101
+1385,63,4,Queens,6300,4006300,E,QN70,Astoria,4101
+1403,385,2,Bronx,38500,2038500,E,BX01,Claremont-Bathgate,3705
+1404,237.02,2,Bronx,23702,2023702,E,BX05,Bedford Park-Fordham North,3706
+1386,1385.01,4,Queens,138501,4138501,I,QN42,Oakland Gardens,4104
+1387,164,1,Manhattan,16400,1016400,E,MN33,East Harlem South,3804
+1388,243.01,1,Manhattan,24301,1024301,E,MN36,Washington Heights South,3801
+1389,696.01,3,Brooklyn,69601,3069601,I,BK45,Georgetown-Marine Park-Bergen Beach-Mill Basin,4009
+1390,720,3,Brooklyn,72000,3072000,I,BK58,Flatlands,4009
+1391,722,3,Brooklyn,72200,3072200,I,BK58,Flatlands,4009
+1392,950,3,Brooklyn,95000,3095000,I,BK50,Canarsie,4009
+1393,93,1,Manhattan,9300,1009300,I,MN13,Hudson Yards-Chelsea-Flatiron-Union Square,3807
+1405,251,2,Bronx,25100,2025100,E,BX36,University Heights-Morris Heights,3707
+1394,992,4,Queens,99200,4099200,E,QN12,Hammels-Arverne-Edgemere,4114
+1395,227,1,Manhattan,22700,1022700,E,MN04,Hamilton Heights,3802
+1396,259,1,Manhattan,25900,1025900,E,MN03,Central Harlem North-Polo Grounds,3803
+1397,330,4,Queens,33000,4033000,I,QN02,Springfield Gardens North,4112
+1398,838,4,Queens,83800,4083800,I,QN55,South Ozone Park,4113
+1399,840,4,Queens,84000,4084000,I,QN55,South Ozone Park,4113
+1400,174.01,1,Manhattan,17401,1017401,E,MN33,East Harlem South,3804
+1407,255,2,Bronx,25500,2025500,E,BX30,Kingsbridge Heights,3706
+1408,269,2,Bronx,26900,2026900,E,BX30,Kingsbridge Heights,3706
+1409,429.01,2,Bronx,42901,2042901,E,BX43,Norwood,3706
+1410,431,2,Bronx,43100,2043100,E,BX43,Norwood,3706
+1411,215,1,Manhattan,21500,1021500,E,MN03,Central Harlem North-Polo Grounds,3803
+1412,217.03,1,Manhattan,21703,1021703,I,MN06,Manhattanville,3802
+1413,80,1,Manhattan,8000,1008000,I,MN20,Murray Hill-Kips Bay,3808
+1428,1097,4,Queens,109700,4109700,I,QN46,Bayside-Bayside Hills,4104
+1429,69,1,Manhattan,6900,1006900,I,MN23,West Village,3810
+1414,464,4,Queens,46400,4046400,I,QN06,Jamaica Estates-Holliswood,4106
+1415,1277,4,Queens,127700,4127700,I,QN06,Jamaica Estates-Holliswood,4106
+1416,500,3,Brooklyn,50000,3050000,E,BK40,Windsor Terrace,4012
+1417,243,3,Brooklyn,24300,3024300,E,BK75,Bedford,4003
+1418,85,4,Queens,8500,4008500,E,QN68,Queensbridge-Ravenswood-Long Island City,4101
+1419,43,4,Queens,4300,4004300,E,QN68,Queensbridge-Ravenswood-Long Island City,4101
+1420,934.02,4,Queens,93402,4093402,I,QN10,Breezy Point-Belle Harbor-Rockaway Park-Broad Channel,4114
+1421,938,4,Queens,93800,4093800,E,QN10,Breezy Point-Belle Harbor-Rockaway Park-Broad Channel,4114
+1422,251,3,Brooklyn,25100,3025100,E,BK75,Bedford,4003
+1423,265,3,Brooklyn,26500,3026500,E,BK75,Bedford,4003
+1424,373,2,Bronx,37300,2037300,E,BX17,East Tremont,3705
+1425,391,2,Bronx,39100,2039100,E,BX06,Belmont,3705
+1426,51,3,Brooklyn,5100,3005100,I,BK33,Carroll Gardens-Columbia Street-Red Hook,4005
+1427,1093,4,Queens,109300,4109300,I,QN46,Bayside-Bayside Hills,4104
+1472,57,1,Manhattan,5700,1005700,I,MN23,West Village,3810
+1430,75,1,Manhattan,7500,1007500,I,MN23,West Village,3810
+1431,88,1,Manhattan,8800,1008800,I,MN19,Turtle Bay-East Midtown,3808
+1432,90,1,Manhattan,9000,1009000,I,MN19,Turtle Bay-East Midtown,3808
+1433,682,4,Queens,68200,4068200,I,QN66,Laurelton,4105
+1434,31,1,Manhattan,3100,1003100,I,MN24,SoHo-TriBeCa-Civic Center-Little Italy,3810
+1435,15.01,1,Manhattan,1501,1001501,I,MN25,Battery Park City-Lower Manhattan,3810
+1436,29,1,Manhattan,2900,1002900,E,MN27,Chinatown,3809
+1437,18,5,Staten Island,1800,5001800,E,SI14,Grasmere-Arrochar-Ft. Wadsworth,3902
+1438,20.01,5,Staten Island,2001,5002001,I,SI37,Stapleton-Rosebank,3903
+1439,181,3,Brooklyn,18100,3018100,I,BK68,Fort Greene,4004
+1440,78,1,Manhattan,7800,1007800,I,MN20,Murray Hill-Kips Bay,3808
+1441,846.01,4,Queens,84601,4084601,I,QN55,South Ozone Park,4113
+1442,71,1,Manhattan,7100,1007100,I,MN23,West Village,3810
+1443,73,1,Manhattan,7300,1007300,I,MN23,West Village,3810
+1444,1291.02,4,Queens,129102,4129102,I,QN42,Oakland Gardens,4104
+1445,749,4,Queens,74900,4074900,I,QN17,Forest Hills,4108
+1446,769.01,4,Queens,76901,4076901,I,QN17,Forest Hills,4108
+1447,3,5,Staten Island,300,5000300,E,SI22,West New Brighton-New Brighton-St. George,3903
+1448,426,2,Bronx,42600,2042600,I,BX62,Woodlawn-Wakefield,3702
+1460,59,3,Brooklyn,5900,3005900,E,BK33,Carroll Gardens-Columbia Street-Red Hook,4005
+1473,36.01,1,Manhattan,3601,1003601,E,MN27,Chinatown,3809
+1449,1034,3,Brooklyn,103400,3103400,E,BK50,Canarsie,4009
+1452,117,2,Bronx,11700,2011700,E,BX27,Hunts Point,3710
+1453,1180,3,Brooklyn,118000,3118000,I,BK99,park-cemetery-etc-Brooklyn,4008
+1454,334.02,4,Queens,33402,4033402,E,QN02,Springfield Gardens North,4112
+1455,208.04,5,Staten Island,20804,5020804,I,SI32,Rossville-Woodrow,3901
+1456,273.02,5,Staten Island,27302,5027302,I,SI05,New Springville-Bloomfield-Travis,3902
+1457,945,4,Queens,94500,4094500,I,QN49,Whitestone,4103
+1450,696.02,3,Brooklyn,69602,3069602,I,BK45,Georgetown-Marine Park-Bergen Beach-Mill Basin,4009
+1451,93,2,Bronx,9300,2009300,E,BX27,Hunts Point,3710
+1458,319,2,Bronx,31900,2031900,E,BX22,North Riverdale-Fieldston-Riverdale,3701
+1463,998,3,Brooklyn,99800,3099800,I,BK50,Canarsie,4009
+1464,1028,3,Brooklyn,102800,3102800,I,BK50,Canarsie,4009
+1465,37,3,Brooklyn,3700,3003700,I,BK38,DUMBO-Vinegar Hill-Downtown Brooklyn-Boerum Hill,4004
+1466,39,3,Brooklyn,3900,3003900,I,BK38,DUMBO-Vinegar Hill-Downtown Brooklyn-Boerum Hill,4004
+1467,174,3,Brooklyn,17400,3017400,E,BK27,Bath Beach,4017
+1468,176,3,Brooklyn,17600,3017600,E,BK27,Bath Beach,4017
+1469,43,1,Manhattan,4300,1004300,I,MN24,SoHo-TriBeCa-Civic Center-Little Italy,3810
+1470,38,1,Manhattan,3800,1003800,I,MN22,East Village,3809
+1471,55.02,1,Manhattan,5502,1005502,I,MN23,West Village,3810
+1475,18,1,Manhattan,1800,1001800,E,MN27,Chinatown,3809
+1476,41,1,Manhattan,4100,1004100,E,MN24,SoHo-TriBeCa-Civic Center-Little Italy,3810
+1477,86.02,1,Manhattan,8602,1008602,I,MN19,Turtle Bay-East Midtown,3808
+1478,1399,4,Queens,139900,4139900,I,QN46,Bayside-Bayside Hills,4104
+1479,1441,4,Queens,144100,4144100,I,QN46,Bayside-Bayside Hills,4104
+1480,15,3,Brooklyn,1500,3001500,E,BK38,DUMBO-Vinegar Hill-Downtown Brooklyn-Boerum Hill,4004
+1481,31,3,Brooklyn,3100,3003100,I,BK68,Fort Greene,4004
+1482,334.01,4,Queens,33401,4033401,I,QN08,St. Albans,4112
+1483,132.03,5,Staten Island,13203,5013203,I,SI54,Great Kills,3901
+1484,357,3,Brooklyn,35700,3035700,E,BK61,Crown Heights North,4006
+1485,359,3,Brooklyn,35900,3035900,E,BK61,Crown Heights North,4006
+1486,141,2,Bronx,14100,2014100,E,BX35,Morrisania-Melrose,3705
+1487,185,2,Bronx,18500,2018500,E,BX35,Morrisania-Melrose,3705
+1488,71,2,Bronx,7100,2007100,E,BX34,Melrose South-Mott Haven North,3710
+1489,184,2,Bronx,18400,2018400,I,BX52,Schuylerville-Throgs Neck-Edgewater Park,3703
+1490,164,2,Bronx,16400,2016400,I,BX52,Schuylerville-Throgs Neck-Edgewater Park,3703
+1491,274.01,2,Bronx,27401,2027401,I,BX10,Pelham Bay-Country Club-City Island,3703
+1492,281,1,Manhattan,28100,1028100,I,MN35,Washington Heights North,3801
+1493,273,1,Manhattan,27300,1027300,I,MN35,Washington Heights North,3801
+1499,484,2,Bronx,48400,2048400,I,BX03,Eastchester-Edenwald-Baychester,3702
+1500,449.01,2,Bronx,44901,2044901,I,BX62,Woodlawn-Wakefield,3702
+2035,859,4,Queens,85900,4085900,E,QN22,Flushing,4103
+1494,275,1,Manhattan,27500,1027500,I,MN35,Washington Heights North,3801
+1495,39,5,Staten Island,3900,5003900,I,SI08,Grymes Hill-Clifton-Fox Hills,3903
+1496,281,3,Brooklyn,28100,3028100,E,BK35,Stuyvesant Heights,4003
+1497,458,2,Bronx,45800,2045800,E,BX03,Eastchester-Edenwald-Baychester,3702
+1498,460,2,Bronx,46000,2046000,E,BX03,Eastchester-Edenwald-Baychester,3702
+1501,449.02,2,Bronx,44902,2044902,I,BX62,Woodlawn-Wakefield,3702
+1502,511,4,Queens,51100,4051100,I,QN30,Maspeth,4110
+1503,515,4,Queens,51500,4051500,I,QN30,Maspeth,4110
+1504,238.02,1,Manhattan,23802,1023802,I,MN31,Lenox Hill-Roosevelt Island,3805
+1505,254,4,Queens,25400,4025400,E,QN01,South Jamaica,4112
+1506,14.02,1,Manhattan,1402,1001402,E,MN28,Lower East Side,3809
+1515,71,4,Queens,7100,4007100,I,QN71,Old Astoria,4101
+1516,65.01,4,Queens,6501,4006501,E,QN70,Astoria,4101
+1507,86.01,1,Manhattan,8601,1008601,I,MN19,Turtle Bay-East Midtown,3808
+1508,446.01,4,Queens,44601,4044601,E,QN61,Jamaica,4112
+1509,460,4,Queens,46000,4046000,E,QN61,Jamaica,4112
+1510,212,4,Queens,21200,4021200,E,QN61,Jamaica,4112
+1511,240,4,Queens,24000,4024000,E,QN61,Jamaica,4112
+1512,137,4,Queens,13700,4013700,I,QN72,Steinway,4101
+1513,141,4,Queens,14100,4014100,E,QN70,Astoria,4101
+1514,69,4,Queens,6900,4006900,E,QN71,Old Astoria,4101
+1517,125,4,Queens,12500,4012500,I,QN72,Steinway,4101
+1518,97,1,Manhattan,9700,1009700,E,MN13,Hudson Yards-Chelsea-Flatiron-Union Square,3807
+1519,972.03,4,Queens,97203,4097203,E,QN12,Hammels-Arverne-Edgemere,4114
+1520,14.01,1,Manhattan,1401,1001401,I,MN28,Lower East Side,3809
+1521,152,3,Brooklyn,15200,3015200,I,BK30,Dyker Heights,4013
+1522,148,3,Brooklyn,14800,3014800,I,BK30,Dyker Heights,4013
+1523,150,3,Brooklyn,15000,3015000,I,BK30,Dyker Heights,4013
+1524,154,3,Brooklyn,15400,3015400,I,BK99,park-cemetery-etc-Brooklyn,4013
+1525,66,1,Manhattan,6600,1006600,I,MN20,Murray Hill-Kips Bay,3808
+1526,70,1,Manhattan,7000,1007000,I,MN20,Murray Hill-Kips Bay,3808
+1527,58,4,Queens,5800,4005800,I,QN56,Ozone Park,4113
+1528,62.02,4,Queens,6202,4006202,I,QN57,Lindenwood-Howard Beach,4113
+1529,294,3,Brooklyn,29400,3029400,E,BK28,Bensonhurst West,4017
+1544,1182.02,3,Brooklyn,118202,3118202,E,BK83,Cypress Hills-City Line,4008
+1530,304,3,Brooklyn,30400,3030400,E,BK29,Bensonhurst East,4017
+1531,95,4,Queens,9500,4009500,I,QN72,Steinway,4101
+1532,99,4,Queens,9900,4009900,I,QN99,park-cemetery-etc-Queens,4101
+1533,103,4,Queens,10300,4010300,E,QN72,Steinway,4101
+1534,352,4,Queens,35200,4035200,I,QN08,St. Albans,4112
+1535,27,5,Staten Island,2700,5002700,E,SI37,Stapleton-Rosebank,3903
+1536,144.02,1,Manhattan,14402,1014402,I,MN32,Yorkville,3805
+1545,1184,3,Brooklyn,118400,3118400,E,BK83,Cypress Hills-City Line,4008
+1537,152,1,Manhattan,15200,1015200,I,MN32,Yorkville,3805
+1538,147,1,Manhattan,14700,1014700,I,MN14,Lincoln Square,3806
+1539,112.02,5,Staten Island,11202,5011202,I,SI45,New Dorp-Midland Beach,3902
+1540,128.04,5,Staten Island,12804,5012804,I,SI45,New Dorp-Midland Beach,3902
+1541,910,3,Brooklyn,91000,3091000,E,BK81,Brownsville,4007
+1542,912,3,Brooklyn,91200,3091200,E,BK81,Brownsville,4007
+1543,1182.01,3,Brooklyn,118201,3118201,I,BK83,Cypress Hills-City Line,4008
+1546,414,4,Queens,41400,4041400,E,QN01,South Jamaica,4112
+1547,440,4,Queens,44000,4044000,E,QN01,South Jamaica,4112
+1548,97,5,Staten Island,9700,5009700,I,SI22,West New Brighton-New Brighton-St. George,3903
+1553,178,1,Manhattan,17800,1017800,E,MN34,East Harlem North,3804
+1554,997.01,4,Queens,99701,4099701,I,QN47,Ft. Totten-Bay Terrace-Clearview,4103
+1549,133.02,5,Staten Island,13302,5013302,I,SI22,West New Brighton-New Brighton-St. George,3903
+1550,141,5,Staten Island,14100,5014100,I,SI22,West New Brighton-New Brighton-St. George,3903
+1551,219,1,Manhattan,21900,1021900,E,MN06,Manhattanville,3802
+1552,170.07,5,Staten Island,17007,5017007,I,SI48,Arden Heights,3901
+1555,307,1,Manhattan,30700,1030700,I,MN01,Marble Hill-Inwood,3801
+1611,85,2,Bronx,8500,2008500,E,BX33,Longwood,3710
+1556,243.02,1,Manhattan,24302,1024302,E,MN03,Central Harlem North-Polo Grounds,3803
+1557,201,5,Staten Island,20100,5020100,I,SI07,Westerleigh,3903
+1558,244.01,5,Staten Island,24401,5024401,I,SI11,Charleston-Richmond Valley-Tottenville,3901
+1559,59.02,2,Bronx,5902,2005902,E,BX14,East Concourse-Concourse Village,3708
+1612,87,2,Bronx,8700,2008700,E,BX33,Longwood,3710
+1560,61,2,Bronx,6100,2006100,E,BX14,East Concourse-Concourse Village,3708
+1561,247,5,Staten Island,24700,5024700,E,SI28,Port Richmond,3903
+1562,251,5,Staten Island,25100,5025100,I,SI28,Port Richmond,3903
+1563,291.02,5,Staten Island,29102,5029102,I,SI05,New Springville-Bloomfield-Travis,3902
+1564,291.04,5,Staten Island,29104,5029104,I,SI05,New Springville-Bloomfield-Travis,3902
+1565,205,4,Queens,20500,4020500,I,QN31,Hunters Point-Sunnyside-West Maspeth,4109
+1582,223.01,1,Manhattan,22301,1022301,E,MN06,Manhattanville,3802
+1566,229,4,Queens,22900,4022900,I,QN99,park-cemetery-etc-Queens,4109
+1567,303.01,5,Staten Island,30301,5030301,I,SI12,Mariner's Harbor-Arlington-Port Ivory-Graniteville,3903
+1568,65,2,Bronx,6500,2006500,E,BX34,Melrose South-Mott Haven North,3710
+1569,319.02,5,Staten Island,31902,5031902,E,SI12,Mariner's Harbor-Arlington-Port Ivory-Graniteville,3903
+1570,954,4,Queens,95400,4095400,E,QN12,Hammels-Arverne-Edgemere,4114
+1571,964,4,Queens,96400,4096400,I,QN12,Hammels-Arverne-Edgemere,4114
+1583,223.02,1,Manhattan,22302,1022302,E,MN06,Manhattanville,3802
+1584,53,2,Bronx,5300,2005300,E,BX36,University Heights-Morris Heights,3707
+1572,972.02,4,Queens,97202,4097202,E,QN12,Hammels-Arverne-Edgemere,4114
+1573,972.04,4,Queens,97204,4097204,E,QN12,Hammels-Arverne-Edgemere,4114
+1574,257,2,Bronx,25700,2025700,E,BX36,University Heights-Morris Heights,3707
+1585,621,4,Queens,62100,4062100,I,QN21,Middle Village,4110
+1613,1200,3,Brooklyn,120000,3120000,E,BK82,East New York,4008
+1575,1113,4,Queens,111300,4111300,I,QN46,Bayside-Bayside Hills,4104
+1576,1471,4,Queens,147100,4147100,I,QN46,Bayside-Bayside Hills,4104
+1577,1507.01,4,Queens,150701,4150701,I,QN45,Douglas Manor-Douglaston-Little Neck,4104
+1578,120,3,Brooklyn,12000,3012000,E,BK34,Sunset Park East,4012
+1579,122,3,Brooklyn,12200,3012200,E,BK32,Sunset Park West,4012
+1580,126,3,Brooklyn,12600,3012600,E,BK31,Bay Ridge,4013
+1581,635,4,Queens,63500,4063500,I,QN19,Glendale,4110
+1586,171,2,Bronx,17100,2017100,I,BX99,park-cemetery-etc-Bronx,3708
+1587,177.02,2,Bronx,17702,2017702,E,BX14,East Concourse-Concourse Village,3708
+1588,283,2,Bronx,28300,2028300,E,BX29,Spuyten Duyvil-Kingsbridge,3701
+1589,289,2,Bronx,28900,2028900,E,BX29,Spuyten Duyvil-Kingsbridge,3701
+1595,210,1,Manhattan,21000,1021000,E,MN34,East Harlem North,3804
+1596,212,1,Manhattan,21200,1021200,I,MN03,Central Harlem North-Polo Grounds,3803
+1597,221.02,1,Manhattan,22102,1022102,E,MN03,Central Harlem North-Polo Grounds,3803
+1598,228,1,Manhattan,22800,1022800,E,MN03,Central Harlem North-Polo Grounds,3803
+1590,2,2,Bronx,200,2000200,I,BX09,Soundview-Castle Hill-Clason Point-Harding Park,3709
+1591,381,4,Queens,38100,4038100,E,QN26,North Corona,4102
+1592,356,2,Bronx,35600,2035600,I,BX03,Eastchester-Edenwald-Baychester,3702
+1593,207,3,Brooklyn,20700,3020700,I,BK64,Prospect Heights,4006
+1594,215,3,Brooklyn,21500,3021500,I,BK64,Prospect Heights,4006
+1608,187,3,Brooklyn,18700,3018700,E,BK68,Fort Greene,4004
+1599,291.03,5,Staten Island,29103,5029103,I,SI05,New Springville-Bloomfield-Travis,3902
+1600,1257,4,Queens,125700,4125700,I,QN37,Kew Gardens Hills,4106
+1601,779.08,4,Queens,77908,4077908,E,QN37,Kew Gardens Hills,4106
+1602,501,3,Brooklyn,50100,3050100,I,BK90,East Williamsburg,4001
+1603,515,3,Brooklyn,51500,3051500,I,BK73,North Side-South Side,4001
+1604,549,3,Brooklyn,54900,3054900,E,BK73,North Side-South Side,4001
+1605,183,3,Brooklyn,18300,3018300,I,BK68,Fort Greene,4004
+1606,211,3,Brooklyn,21100,3021100,E,BK68,Fort Greene,4004
+1607,185.01,3,Brooklyn,18501,3018501,E,BK68,Fort Greene,4004
+1614,1208,3,Brooklyn,120800,3120800,E,BK82,East New York,4008
+1615,84,2,Bronx,8400,2008400,I,BX09,Soundview-Castle Hill-Clason Point-Harding Park,3709
+1616,67,2,Bronx,6700,2006700,E,BX34,Melrose South-Mott Haven North,3710
+1617,293.01,2,Bronx,29301,2029301,I,BX29,Spuyten Duyvil-Kingsbridge,3701
+1618,531,4,Queens,53100,4053100,I,QN30,Maspeth,4110
+1622,563,3,Brooklyn,56300,3056300,E,BK76,Greenpoint,4001
+1744,54,2,Bronx,5400,2005400,E,BX08,West Farms-Bronx River,3709
+1619,4,2,Bronx,400,2000400,I,BX09,Soundview-Castle Hill-Clason Point-Harding Park,3709
+1635,10.01,1,Manhattan,1001,1001001,I,MN28,Lower East Side,3809
+1636,12,1,Manhattan,1200,1001200,E,MN28,Lower East Side,3809
+1637,295,1,Manhattan,29500,1029500,E,MN01,Marble Hill-Inwood,3801
+1620,939,4,Queens,93900,4093900,I,QN23,College Point,4103
+1621,62,1,Manhattan,6200,1006200,I,MN20,Murray Hill-Kips Bay,3808
+1638,694,4,Queens,69400,4069400,I,QN03,Springfield Gardens South-Brookville,4105
+1623,311,1,Manhattan,31100,1031100,I,MN99,park-cemetery-etc-Manhattan,3801
+1624,285,2,Bronx,28500,2028500,E,BX29,Spuyten Duyvil-Kingsbridge,3701
+1639,1483,4,Queens,148300,4148300,I,QN45,Douglas Manor-Douglaston-Little Neck,4104
+2074,253.02,4,Queens,25302,4025302,E,QN31,Hunters Point-Sunnyside-West Maspeth,4109
+1625,351,2,Bronx,35100,2035100,I,BX22,North Riverdale-Fieldston-Riverdale,3701
+1626,43,3,Brooklyn,4300,3004300,I,BK38,DUMBO-Vinegar Hill-Downtown Brooklyn-Boerum Hill,4004
+1627,45,3,Brooklyn,4500,3004500,I,BK33,Carroll Gardens-Columbia Street-Red Hook,4005
+1628,154,5,Staten Island,15400,5015400,I,SI99,park-cemetery-etc-Staten Island,3901
+1629,156.03,5,Staten Island,15603,5015603,I,SI54,Great Kills,3901
+1630,145,2,Bronx,14500,2014500,E,BX01,Claremont-Bathgate,3705
+1631,147.01,2,Bronx,14701,2014701,E,BX01,Claremont-Bathgate,3705
+1632,84,3,Brooklyn,8400,3008400,E,BK32,Sunset Park West,4012
+1633,88,3,Brooklyn,8800,3008800,E,BK34,Sunset Park East,4012
+1634,175,3,Brooklyn,17500,3017500,E,BK99,park-cemetery-etc-Brooklyn,4012
+1755,374.02,3,Brooklyn,37402,3037402,E,BK26,Gravesend,4018
+1640,205.01,2,Bronx,20501,2020501,E,BX36,University Heights-Morris Heights,3707
+1641,242,1,Manhattan,24200,1024200,E,MN34,East Harlem North,3804
+1642,356.02,3,Brooklyn,35602,3035602,E,BK23,West Brighton,4018
+1643,362,3,Brooklyn,36200,3036200,E,BK19,Brighton Beach,4018
+1644,364,3,Brooklyn,36400,3036400,E,BK19,Brighton Beach,4018
+1645,159,3,Brooklyn,15900,3015900,I,BK37,Park Slope-Gowanus,4005
+1646,222,1,Manhattan,22200,1022200,E,MN11,Central Harlem South,3803
+1647,224,1,Manhattan,22400,1022400,E,MN03,Central Harlem North-Polo Grounds,3803
+1648,757.02,4,Queens,75702,4075702,I,QN17,Forest Hills,4108
+1649,6,5,Staten Island,600,5000600,I,SI37,Stapleton-Rosebank,3903
+1650,158.01,4,Queens,15801,4015801,E,QN55,South Ozone Park,4113
+1651,208,4,Queens,20800,4020800,E,QN61,Jamaica,4112
+1652,246,4,Queens,24600,4024600,I,QN61,Jamaica,4112
+1810,319,3,Brooklyn,31900,3031900,E,BK63,Crown Heights South,4011
+1653,105,4,Queens,10500,4010500,E,QN72,Steinway,4101
+1654,107.01,4,Queens,10701,4010701,I,QN72,Steinway,4101
+1655,189,4,Queens,18900,4018900,E,QN31,Hunters Point-Sunnyside-West Maspeth,4109
+1656,249,4,Queens,24900,4024900,I,QN63,Woodside,4109
+1657,595,4,Queens,59500,4059500,I,QN20,Ridgewood,4110
+1658,33,4,Queens,3300,4003300,E,QN68,Queensbridge-Ravenswood-Long Island City,4101
+1659,383.01,4,Queens,38301,4038301,I,QN99,park-cemetery-etc-Queens,4103
+1660,462,4,Queens,46200,4046200,E,QN61,Jamaica,4112
+1661,468,4,Queens,46800,4046800,E,QN61,Jamaica,4112
+1662,1214,3,Brooklyn,121400,3121400,E,BK82,East New York,4008
+1663,1220,3,Brooklyn,122000,3122000,E,BK82,East New York,4008
+1664,146.05,5,Staten Island,14605,5014605,I,SI54,Great Kills,3901
+1671,1142.01,3,Brooklyn,114201,3114201,E,BK83,Cypress Hills-City Line,4008
+1665,146.06,5,Staten Island,14606,5014606,I,SI54,Great Kills,3901
+1666,72,1,Manhattan,7200,1007200,I,MN20,Murray Hill-Kips Bay,3808
+1667,74,1,Manhattan,7400,1007400,I,MN17,Midtown-Midtown South,3807
+1668,889.01,4,Queens,88901,4088901,E,QN22,Flushing,4103
+1669,869,4,Queens,86900,4086900,E,QN22,Flushing,4103
+1670,561,4,Queens,56100,4056100,I,QN99,park-cemetery-etc-Queens,4110
+1672,554,4,Queens,55400,4055400,I,QN34,Queens Village,4105
+1673,560,4,Queens,56000,4056000,I,QN34,Queens Village,4105
+1674,439,4,Queens,43900,4043900,E,QN25,Corona,4107
+1675,849,4,Queens,84900,4084900,E,QN22,Flushing,4103
+1676,369,3,Brooklyn,36900,3036900,E,BK79,Ocean Hill,4007
+1677,7,3,Brooklyn,700,3000700,I,BK09,Brooklyn Heights-Cobble Hill,4004
+1678,134,5,Staten Island,13400,5013400,I,SI45,New Dorp-Midland Beach,3902
+1679,1429,4,Queens,142900,4142900,I,QN48,Auburndale,4104
+1680,1451.01,4,Queens,145101,4145101,E,QN48,Auburndale,4104
+1681,182,4,Queens,18200,4018200,E,QN76,Baisley Park,4112
+1682,792,4,Queens,79200,4079200,I,QN76,Baisley Park,4112
+1683,62.01,4,Queens,6201,4006201,I,QN57,Lindenwood-Howard Beach,4113
+1685,337,2,Bronx,33700,2033700,I,BX22,North Riverdale-Fieldston-Riverdale,3701
+1686,502.02,3,Brooklyn,50202,3050202,I,BK40,Windsor Terrace,4012
+1687,504,3,Brooklyn,50400,3050400,I,BK40,Windsor Terrace,4012
+1688,279,2,Bronx,27900,2027900,E,BX28,Van Cortlandt Village,3701
+1684,892,4,Queens,89200,4089200,I,QN57,Lindenwood-Howard Beach,4113
+1689,281,2,Bronx,28100,2028100,I,BX28,Van Cortlandt Village,3701
+1690,368,4,Queens,36800,4036800,I,QN08,St. Albans,4112
+1691,40.02,4,Queens,4002,4004002,I,QN56,Ozone Park,4113
+1692,86,4,Queens,8600,4008600,I,QN56,Ozone Park,4113
+1693,973,4,Queens,97300,4097300,I,QN49,Whitestone,4103
+1811,321,3,Brooklyn,32100,3032100,E,BK63,Crown Heights South,4011
+1694,358,2,Bronx,35800,2035800,I,BX03,Eastchester-Edenwald-Baychester,3702
+1695,21,5,Staten Island,2100,5002100,E,SI37,Stapleton-Rosebank,3903
+1696,18,3,Brooklyn,1800,3001800,I,BK32,Sunset Park West,4012
+1697,34,3,Brooklyn,3400,3003400,I,BK31,Bay Ridge,4013
+1698,111,1,Manhattan,11100,1011100,I,MN13,Hudson Yards-Chelsea-Flatiron-Union Square,3807
+1699,115,1,Manhattan,11500,1011500,I,MN15,Clinton,3807
+1700,575,3,Brooklyn,57500,3057500,E,BK76,Greenpoint,4001
+1713,319.01,5,Staten Island,31901,5031901,E,SI12,Mariner's Harbor-Arlington-Port Ivory-Graniteville,3903
+1714,323,5,Staten Island,32300,5032300,E,SI12,Mariner's Harbor-Arlington-Port Ivory-Graniteville,3903
+1715,231,5,Staten Island,23100,5023100,E,SI12,Mariner's Harbor-Arlington-Port Ivory-Graniteville,3903
+1701,579,3,Brooklyn,57900,3057900,E,BK76,Greenpoint,4001
+1702,171,1,Manhattan,17100,1017100,I,MN12,Upper West Side,3806
+1703,179,1,Manhattan,17900,1017900,I,MN12,Upper West Side,3806
+1704,183,1,Manhattan,18300,1018300,I,MN12,Upper West Side,3806
+1705,187,1,Manhattan,18700,1018700,I,MN12,Upper West Side,3806
+1706,162,1,Manhattan,16200,1016200,E,MN33,East Harlem South,3804
+1707,240,1,Manhattan,24000,1024000,I,MN99,park-cemetery-etc-Manhattan,3804
+1708,118,2,Bronx,11800,2011800,I,BX52,Schuylerville-Throgs Neck-Edgewater Park,3703
+1716,198,4,Queens,19800,4019800,E,QN01,South Jamaica,4112
+1717,196,4,Queens,19600,4019600,E,QN01,South Jamaica,4112
+1709,1032.01,4,Queens,103201,4103201,E,QN15,Far Rockaway-Bayswater,4114
+1718,202,4,Queens,20200,4020200,E,QN01,South Jamaica,4112
+1719,220.01,4,Queens,22001,4022001,E,QN35,Briarwood-Jamaica Hills,4106
+1720,437.01,4,Queens,43701,4043701,E,QN25,Corona,4107
+1721,437.02,4,Queens,43702,4043702,E,QN25,Corona,4107
+1710,1008.02,4,Queens,100802,4100802,E,QN15,Far Rockaway-Bayswater,4114
+1711,283,1,Manhattan,28300,1028300,E,MN35,Washington Heights North,3801
+1712,285,1,Manhattan,28500,1028500,E,MN35,Washington Heights North,3801
+1722,803.01,4,Queens,80301,4080301,E,QN62,Queensboro Hill,4103
+1723,264,4,Queens,26400,4026400,E,QN01,South Jamaica,4112
+1724,276,4,Queens,27600,4027600,E,QN76,Baisley Park,4112
+1725,258,4,Queens,25800,4025800,I,QN01,South Jamaica,4112
+1726,88,4,Queens,8800,4008800,I,QN56,Ozone Park,4113
+1727,523,3,Brooklyn,52300,3052300,E,BK73,North Side-South Side,4001
+1728,525,3,Brooklyn,52500,3052500,E,BK73,North Side-South Side,4001
+1733,170.12,5,Staten Island,17012,5017012,I,SI01,Annadale-Huguenot-Prince's Bay-Eltingville,3901
+1734,226,5,Staten Island,22600,5022600,I,SI11,Charleston-Richmond Valley-Tottenville,3901
+1745,56,2,Bronx,5600,2005600,E,BX08,West Farms-Bronx River,3709
+1729,702.01,3,Brooklyn,70201,3070201,I,BK45,Georgetown-Marine Park-Bergen Beach-Mill Basin,4009
+1730,702.02,3,Brooklyn,70202,3070202,E,BK99,park-cemetery-etc-Brooklyn,4009
+1731,702.03,3,Brooklyn,70203,3070203,I,BK99,park-cemetery-etc-Brooklyn,4009
+1732,146.07,5,Staten Island,14607,5014607,I,SI54,Great Kills,3901
+1742,155,1,Manhattan,15500,1015500,I,MN14,Lincoln Square,3806
+1735,208.03,5,Staten Island,20803,5020803,I,SI32,Rossville-Woodrow,3901
+1736,366,3,Brooklyn,36600,3036600,E,BK19,Brighton Beach,4018
+1737,370,3,Brooklyn,37000,3037000,I,BK19,Brighton Beach,4018
+1738,374.01,3,Brooklyn,37401,3037401,E,BK26,Gravesend,4018
+1739,402,3,Brooklyn,40200,3040200,E,BK29,Bensonhurst East,4017
+1740,987,4,Queens,98700,4098700,I,QN49,Whitestone,4103
+1741,151,1,Manhattan,15100,1015100,E,MN14,Lincoln Square,3806
+1743,277.05,5,Staten Island,27705,5027705,I,SI24,Todt Hill-Emerson Hill-Heartland Village-Lighthouse Hill,3902
+1746,157,2,Bronx,15700,2015700,E,BX75,Crotona Park East,3705
+1747,177,3,Brooklyn,17700,3017700,I,BK99,park-cemetery-etc-Brooklyn,4005
+1748,327,3,Brooklyn,32700,3032700,E,BK60,Prospect Lefferts Gardens-Wingate,4011
+1749,588,3,Brooklyn,58800,3058800,E,BK25,Homecrest,4016
+1750,590,3,Brooklyn,59000,3059000,I,BK17,Sheepshead Bay-Gerritsen Beach-Manhattan Beach,4016
+1751,606,3,Brooklyn,60600,3060600,I,BK17,Sheepshead Bay-Gerritsen Beach-Manhattan Beach,4016
+1752,24,4,Queens,2400,4002400,I,QN54,Richmond Hill,4111
+1753,26,4,Queens,2600,4002600,I,QN54,Richmond Hill,4111
+1754,981,4,Queens,98100,4098100,I,QN49,Whitestone,4103
+1756,106.02,1,Manhattan,10602,1010602,I,MN31,Lenox Hill-Roosevelt Island,3805
+1757,110,1,Manhattan,11000,1011000,I,MN31,Lenox Hill-Roosevelt Island,3805
+1758,116,1,Manhattan,11600,1011600,I,MN31,Lenox Hill-Roosevelt Island,3805
+1759,1085,4,Queens,108500,4108500,I,QN46,Bayside-Bayside Hills,4104
+1760,1099,4,Queens,109900,4109900,I,QN46,Bayside-Bayside Hills,4104
+1761,1133,4,Queens,113300,4113300,I,QN46,Bayside-Bayside Hills,4104
+1762,29,5,Staten Island,2900,5002900,E,SI37,Stapleton-Rosebank,3903
+1776,303.02,5,Staten Island,30302,5030302,I,SI12,Mariner's Harbor-Arlington-Port Ivory-Graniteville,3903
+1808,47,1,Manhattan,4700,1004700,I,MN24,SoHo-TriBeCa-Civic Center-Little Italy,3810
+1763,33,5,Staten Island,3300,5003300,I,SI08,Grymes Hill-Clifton-Fox Hills,3903
+1764,128.06,5,Staten Island,12806,5012806,I,SI25,Oakwood-Oakwood Beach,3901
+1765,132.01,5,Staten Island,13201,5013201,I,SI25,Oakwood-Oakwood Beach,3901
+1766,182,1,Manhattan,18200,1018200,E,MN34,East Harlem North,3804
+1767,188,1,Manhattan,18800,1018800,E,MN34,East Harlem North,3804
+1768,194,1,Manhattan,19400,1019400,E,MN34,East Harlem North,3804
+1769,196,1,Manhattan,19600,1019600,E,MN34,East Harlem North,3804
+1809,317.02,3,Brooklyn,31702,3031702,E,BK61,Crown Heights North,4006
+1770,170.05,5,Staten Island,17005,5017005,I,SI01,Annadale-Huguenot-Prince's Bay-Eltingville,3901
+1771,176,5,Staten Island,17600,5017600,I,SI01,Annadale-Huguenot-Prince's Bay-Eltingville,3901
+1779,96.01,5,Staten Island,9601,5009601,I,SI36,Old Town-Dongan Hills-South Beach,3902
+1772,307.01,2,Bronx,30701,2030701,I,BX22,North Riverdale-Fieldston-Riverdale,3701
+1773,309,2,Bronx,30900,2030900,I,BX22,North Riverdale-Fieldston-Riverdale,3701
+1774,146.08,5,Staten Island,14608,5014608,I,SI54,Great Kills,3901
+1775,239,5,Staten Island,23900,5023900,I,SI12,Mariner's Harbor-Arlington-Port Ivory-Graniteville,3903
+1787,230,3,Brooklyn,23000,3023000,E,BK88,Borough Park,4014
+1777,70,5,Staten Island,7000,5007000,I,SI36,Old Town-Dongan Hills-South Beach,3902
+1778,138,5,Staten Island,13800,5013800,I,SI25,Oakwood-Oakwood Beach,3901
+1788,478,3,Brooklyn,47800,3047800,E,BK88,Borough Park,4014
+1780,96.02,5,Staten Island,9602,5009602,I,SI36,Old Town-Dongan Hills-South Beach,3902
+1781,7,5,Staten Island,700,5000700,E,SI22,West New Brighton-New Brighton-St. George,3903
+1782,81,5,Staten Island,8100,5008100,I,SI22,West New Brighton-New Brighton-St. George,3903
+1783,598,3,Brooklyn,59800,3059800,I,BK17,Sheepshead Bay-Gerritsen Beach-Manhattan Beach,4016
+1784,626,3,Brooklyn,62600,3062600,I,BK17,Sheepshead Bay-Gerritsen Beach-Manhattan Beach,4016
+1785,350,3,Brooklyn,35000,3035000,E,BK23,West Brighton,4018
+1786,354,3,Brooklyn,35400,3035400,E,BK23,West Brighton,4018
+1789,112.01,5,Staten Island,11201,5011201,I,SI36,Old Town-Dongan Hills-South Beach,3902
+1790,114.01,5,Staten Island,11401,5011401,I,SI36,Old Town-Dongan Hills-South Beach,3902
+1791,7,1,Manhattan,700,1000700,I,MN25,Battery Park City-Lower Manhattan,3810
+1797,179,3,Brooklyn,17900,3017900,I,BK68,Fort Greene,4004
+1798,538,4,Queens,53800,4053800,I,QN34,Queens Village,4105
+1799,582,4,Queens,58200,4058200,E,QN34,Queens Village,4105
+1807,33,1,Manhattan,3300,1003300,I,MN24,SoHo-TriBeCa-Civic Center-Little Italy,3810
+1792,9,1,Manhattan,900,1000900,I,MN25,Battery Park City-Lower Manhattan,3810
+1793,36,5,Staten Island,3600,5003600,I,SI37,Stapleton-Rosebank,3903
+1794,105,5,Staten Island,10500,5010500,I,SI35,New Brighton-Silver Lake,3903
+1795,161,3,Brooklyn,16100,3016100,I,BK64,Prospect Heights,4006
+1796,35,3,Brooklyn,3500,3003500,I,BK68,Fort Greene,4004
+1800,8,5,Staten Island,800,5000800,I,SI37,Stapleton-Rosebank,3903
+1801,40,5,Staten Island,4000,5004000,E,SI08,Grymes Hill-Clifton-Fox Hills,3903
+1802,163,3,Brooklyn,16300,3016300,I,BK64,Prospect Heights,4006
+1803,203,3,Brooklyn,20300,3020300,E,BK64,Prospect Heights,4006
+1804,205,3,Brooklyn,20500,3020500,I,BK64,Prospect Heights,4006
+1805,37,1,Manhattan,3700,1003700,I,MN24,SoHo-TriBeCa-Civic Center-Little Italy,3810
+1806,39,1,Manhattan,3900,1003900,I,MN24,SoHo-TriBeCa-Civic Center-Little Italy,3810
+1812,389,3,Brooklyn,38900,3038900,E,BK78,Bushwick South,4002
+1813,220,2,Bronx,22000,2022000,E,BX17,East Tremont,3705
+1814,655.01,4,Queens,65501,4065501,I,QN21,Middle Village,4110
+1815,1617,4,Queens,161700,4161700,I,QN43,Bellerose,4105
+1816,387,3,Brooklyn,38700,3038700,E,BK35,Stuyvesant Heights,4003
+1817,395,3,Brooklyn,39500,3039500,E,BK78,Bushwick South,4002
+1818,424,3,Brooklyn,42400,3042400,E,BK29,Bensonhurst East,4017
+1819,410,3,Brooklyn,41000,3041000,E,BK29,Bensonhurst East,4017
+1820,412,3,Brooklyn,41200,3041200,E,BK29,Bensonhurst East,4017
+1831,129.01,3,Brooklyn,12901,3012901,I,BK37,Park Slope-Gowanus,4005
+1832,129.02,3,Brooklyn,12902,3012902,I,BK37,Park Slope-Gowanus,4005
+1821,273.01,5,Staten Island,27301,5027301,I,SI05,New Springville-Bloomfield-Travis,3902
+1822,277.04,5,Staten Island,27704,5027704,I,SI24,Todt Hill-Emerson Hill-Heartland Village-Lighthouse Hill,3902
+1823,244,3,Brooklyn,24400,3024400,E,BK88,Borough Park,4014
+1824,468,3,Brooklyn,46800,3046800,E,BK88,Borough Park,4014
+1825,449,3,Brooklyn,44900,3044900,E,BK90,East Williamsburg,4001
+1826,539,4,Queens,53900,4053900,I,QN20,Ridgewood,4110
+1827,172,1,Manhattan,17200,1017200,E,MN33,East Harlem South,3804
+1828,180,1,Manhattan,18000,1018000,E,MN34,East Harlem North,3804
+1829,275,3,Brooklyn,27500,3027500,I,BK35,Stuyvesant Heights,4003
+1830,277,3,Brooklyn,27700,3027700,E,BK35,Stuyvesant Heights,4003
+1833,453,3,Brooklyn,45300,3045300,E,BK77,Bushwick North,4002
+1834,485,3,Brooklyn,48500,3048500,E,BK78,Bushwick South,4002
+1835,143,1,Manhattan,14300,1014300,I,MN99,park-cemetery-etc-Manhattan,3806
+1836,216,1,Manhattan,21600,1021600,E,MN11,Central Harlem South,3803
+1837,187.02,5,Staten Island,18702,5018702,I,SI05,New Springville-Bloomfield-Travis,3902
+1843,639,4,Queens,63900,4063900,I,QN19,Glendale,4110
+1838,189.02,5,Staten Island,18902,5018902,I,SI05,New Springville-Bloomfield-Travis,3902
+1839,199,1,Manhattan,19900,1019900,I,MN09,Morningside Heights,3802
+1840,331,4,Queens,33100,4033100,I,QN98,Airport,4102
+1841,907,4,Queens,90700,4090700,E,QN23,College Point,4103
+1842,637,4,Queens,63700,4063700,I,QN19,Glendale,4110
+1844,177,5,Staten Island,17700,5017700,I,SI24,Todt Hill-Emerson Hill-Heartland Village-Lighthouse Hill,3902
+1848,9901,5,Staten Island,990100,5990100,I,SI99,park-cemetery-etc-Staten Island,3901
+1849,228,5,Staten Island,22800,5022800,I,SI05,New Springville-Bloomfield-Travis,3902
+1850,308,3,Brooklyn,30800,3030800,E,BK26,Gravesend,4018
+1851,382,3,Brooklyn,38200,3038200,E,BK26,Gravesend,4018
+1845,181,5,Staten Island,18100,5018100,I,SI24,Todt Hill-Emerson Hill-Heartland Village-Lighthouse Hill,3902
+1846,198,5,Staten Island,19800,5019800,I,SI01,Annadale-Huguenot-Prince's Bay-Eltingville,3901
+1852,74,2,Bronx,7400,2007400,E,BX09,Soundview-Castle Hill-Clason Point-Harding Park,3709
+1853,86,2,Bronx,8600,2008600,E,BX09,Soundview-Castle Hill-Clason Point-Harding Park,3709
+1854,1188,3,Brooklyn,118800,3118800,E,BK83,Cypress Hills-City Line,4008
+1855,1202,3,Brooklyn,120200,3120200,E,BK83,Cypress Hills-City Line,4008
+1847,244.02,5,Staten Island,24402,5024402,I,SI11,Charleston-Richmond Valley-Tottenville,3901
+1878,707,4,Queens,70700,4070700,I,QN17,Forest Hills,4108
+1856,747,4,Queens,74700,4074700,I,QN17,Forest Hills,4108
+1857,425,3,Brooklyn,42500,3042500,E,BK78,Bushwick South,4002
+1858,462.01,2,Bronx,46201,2046201,I,BX13,Co-op City,3703
+1859,462.02,2,Bronx,46202,2046202,E,BX13,Co-op City,3703
+1860,221.01,2,Bronx,22101,2022101,E,BX63,West Concourse,3708
+1861,383.01,2,Bronx,38301,2038301,E,BX40,Fordham South,3707
+1862,383.02,2,Bronx,38302,2038302,E,BX40,Fordham South,3707
+1863,1551.01,4,Queens,155101,4155101,I,QN44,Glen Oaks-Floral Park-New Hyde Park,4105
+1864,1551.02,4,Queens,155102,4155102,I,QN44,Glen Oaks-Floral Park-New Hyde Park,4105
+1865,147.02,2,Bronx,14702,2014702,E,BX01,Claremont-Bathgate,3705
+1866,169,2,Bronx,16900,2016900,E,BX01,Claremont-Bathgate,3705
+1867,348,2,Bronx,34800,2034800,E,BX31,Allerton-Pelham Gardens,3704
+1868,350,2,Bronx,35000,2035000,I,BX31,Allerton-Pelham Gardens,3704
+1869,295,2,Bronx,29500,2029500,I,BX29,Spuyten Duyvil-Kingsbridge,3701
+1879,709,4,Queens,70900,4070900,I,QN17,Forest Hills,4108
+2036,50,1,Manhattan,5000,1005000,I,MN21,Gramercy,3808
+1870,297,2,Bronx,29700,2029700,I,BX29,Spuyten Duyvil-Kingsbridge,3701
+1871,134,4,Queens,13400,4013400,I,QN60,Kew Gardens,4111
+1872,775,4,Queens,77500,4077500,I,QN60,Kew Gardens,4111
+1873,98,4,Queens,9800,4009800,E,QN55,South Ozone Park,4113
+1874,110,4,Queens,11000,4011000,E,QN54,Richmond Hill,4111
+1875,846.02,4,Queens,84602,4084602,E,QN55,South Ozone Park,4113
+1876,884,4,Queens,88400,4088400,I,QN57,Lindenwood-Howard Beach,4113
+1877,703,4,Queens,70300,4070300,I,QN18,Rego Park,4108
+1880,607.01,4,Queens,60701,4060701,I,QN21,Middle Village,4110
+1881,489,3,Brooklyn,48900,3048900,E,BK78,Bushwick South,4002
+1882,493,3,Brooklyn,49300,3049300,E,BK78,Bushwick South,4002
+1883,493.02,4,Queens,49302,4049302,E,QN30,Maspeth,4110
+1884,803.02,4,Queens,80302,4080302,I,QN62,Queensboro Hill,4103
+1885,82,1,Manhattan,8200,1008200,I,MN20,Murray Hill-Kips Bay,3808
+1888,201,2,Bronx,20100,2020100,E,BX26,Highbridge,3708
+1889,219,4,Queens,21900,4021900,I,QN31,Hunters Point-Sunnyside-West Maspeth,4109
+1886,223,5,Staten Island,22300,5022300,E,SI12,Mariner's Harbor-Arlington-Port Ivory-Graniteville,3903
+1887,96,2,Bronx,9600,2009600,E,BX59,Westchester-Unionport,3709
+2037,52,1,Manhattan,5200,1005200,I,MN13,Hudson Yards-Chelsea-Flatiron-Union Square,3807
+1890,535,4,Queens,53500,4053500,E,QN30,Maspeth,4110
+1891,78,2,Bronx,7800,2007800,E,BX59,Westchester-Unionport,3709
+1892,92,2,Bronx,9200,2009200,E,BX59,Westchester-Unionport,3709
+1893,296,2,Bronx,29600,2029600,E,BX49,Pelham Parkway,3704
+1894,63,2,Bronx,6300,2006300,E,BX63,West Concourse,3708
+1895,103,1,Manhattan,10300,1010300,I,MN13,Hudson Yards-Chelsea-Flatiron-Union Square,3807
+1896,86.03,1,Manhattan,8603,1008603,I,MN19,Turtle Bay-East Midtown,3808
+1897,238.01,1,Manhattan,23801,1023801,I,MN31,Lenox Hill-Roosevelt Island,3805
+1898,798.01,3,Brooklyn,79801,3079801,E,BK60,Prospect Lefferts Gardens-Wingate,4011
+1899,798.02,3,Brooklyn,79802,3079802,E,BK60,Prospect Lefferts Gardens-Wingate,4011
+1901,85,3,Brooklyn,8500,3008500,E,BK33,Carroll Gardens-Columbia Street-Red Hook,4005
+1902,193,1,Manhattan,19300,1019300,E,MN09,Morningside Heights,3802
+1903,195,1,Manhattan,19500,1019500,I,MN09,Morningside Heights,3802
+1904,56.01,3,Brooklyn,5601,3005601,I,BK31,Bay Ridge,4013
+1905,56.02,3,Brooklyn,5602,3005602,I,BK31,Bay Ridge,4013
+1900,53,3,Brooklyn,5300,3005300,E,BK33,Carroll Gardens-Columbia Street-Red Hook,4005
+1923,616.01,4,Queens,61601,4061601,I,QN66,Laurelton,4105
+1906,132,2,Bronx,13200,2013200,I,BX52,Schuylerville-Throgs Neck-Edgewater Park,3703
+1907,355,3,Brooklyn,35500,3035500,E,BK63,Crown Heights South,4011
+1908,880,3,Brooklyn,88000,3088000,E,BK60,Prospect Lefferts Gardens-Wingate,4011
+1909,231,2,Bronx,23100,2023100,E,BX41,Mount Hope,3707
+1910,395,2,Bronx,39500,2039500,E,BX01,Claremont-Bathgate,3705
+1924,620,4,Queens,62000,4062000,I,QN66,Laurelton,4105
+1911,421,2,Bronx,42100,2042100,E,BX43,Norwood,3706
+1912,419,2,Bronx,41900,2041900,E,BX43,Norwood,3706
+1913,425,2,Bronx,42500,2042500,E,BX43,Norwood,3706
+1914,299,1,Manhattan,29900,1029900,E,MN01,Marble Hill-Inwood,3801
+1915,309,1,Manhattan,30900,1030900,E,MN01,Marble Hill-Inwood,3801
+1938,626,4,Queens,62600,4062600,I,QN66,Laurelton,4105
+1916,247,1,Manhattan,24700,1024700,E,MN36,Washington Heights South,3801
+1917,991,4,Queens,99100,4099100,I,QN49,Whitestone,4103
+1918,1333,4,Queens,133300,4133300,I,QN41,Fresh Meadows-Utopia,4106
+1919,1347,4,Queens,134700,4134700,I,QN41,Fresh Meadows-Utopia,4106
+1920,1367,4,Queens,136700,4136700,I,QN42,Oakland Gardens,4104
+1921,404,4,Queens,40400,4040400,I,QN08,St. Albans,4112
+1922,444,4,Queens,44400,4044400,E,QN61,Jamaica,4112
+1925,376,4,Queens,37600,4037600,I,QN08,St. Albans,4112
+1926,793,4,Queens,79300,4079300,I,QN99,park-cemetery-etc-Queens,4106
+1927,391,3,Brooklyn,39100,3039100,E,BK78,Bushwick South,4002
+1928,423,3,Brooklyn,42300,3042300,E,BK78,Bushwick South,4002
+1929,19,4,Queens,1900,4001900,I,QN31,Hunters Point-Sunnyside-West Maspeth,4109
+1930,171,4,Queens,17100,4017100,I,QN31,Hunters Point-Sunnyside-West Maspeth,4109
+1931,83,4,Queens,8300,4008300,E,QN71,Old Astoria,4101
+1932,81,4,Queens,8100,4008100,E,QN71,Old Astoria,4101
+1933,87,4,Queens,8700,4008700,E,QN71,Old Astoria,4101
+1934,51,2,Bronx,5100,2005100,E,BX39,Mott Haven-Port Morris,3710
+1935,20,1,Manhattan,2000,1002000,E,MN28,Lower East Side,3809
+1936,24,1,Manhattan,2400,1002400,E,MN28,Lower East Side,3809
+1937,624,4,Queens,62400,4062400,I,QN99,park-cemetery-etc-Queens,4105
+1939,1567,4,Queens,156700,4156700,I,QN43,Bellerose,4105
+1940,1621,4,Queens,162100,4162100,I,QN43,Bellerose,4105
+1941,214,4,Queens,21400,4021400,E,QN35,Briarwood-Jamaica Hills,4106
+1942,601,4,Queens,60100,4060100,I,QN30,Maspeth,4110
+1943,603,4,Queens,60300,4060300,I,QN21,Middle Village,4110
+1944,27,1,Manhattan,2700,1002700,I,MN27,Chinatown,3809
+1945,167,1,Manhattan,16700,1016700,I,MN12,Upper West Side,3806
+1946,159,1,Manhattan,15900,1015900,I,MN14,Lincoln Square,3806
+1947,163,1,Manhattan,16300,1016300,I,MN12,Upper West Side,3806
+1948,278,4,Queens,27800,4027800,E,QN76,Baisley Park,4112
+1949,288,4,Queens,28800,4028800,I,QN76,Baisley Park,4112
+1950,493.01,4,Queens,49301,4049301,I,QN30,Maspeth,4110
+1951,497,4,Queens,49700,4049700,I,QN30,Maspeth,4110
+1952,124,1,Manhattan,12400,1012400,I,MN31,Lenox Hill-Roosevelt Island,3805
+1953,132,1,Manhattan,13200,1013200,I,MN31,Lenox Hill-Roosevelt Island,3805
+1962,452,4,Queens,45200,4045200,I,QN35,Briarwood-Jamaica Hills,4106
+1954,19,2,Bronx,1900,2001900,E,BX39,Mott Haven-Port Morris,3710
+1955,23,2,Bronx,2300,2002300,E,BX39,Mott Haven-Port Morris,3710
+1963,454,4,Queens,45400,4045400,E,QN35,Briarwood-Jamaica Hills,4106
+1956,207,5,Staten Island,20700,5020700,E,SI28,Port Richmond,3903
+1957,213,5,Staten Island,21300,5021300,E,SI28,Port Richmond,3903
+1958,280,3,Brooklyn,28000,3028000,I,BK27,Bath Beach,4017
+1959,282,3,Brooklyn,28200,3028200,E,BK27,Bath Beach,4017
+1960,142.01,4,Queens,14201,4014201,E,QN54,Richmond Hill,4111
+1961,142.02,4,Queens,14202,4014202,E,QN54,Richmond Hill,4111
+1964,665.01,4,Queens,66501,4066501,I,QN21,Middle Village,4110
+1965,669,4,Queens,66900,4066900,I,QN21,Middle Village,4110
+1966,307,3,Brooklyn,30700,3030700,E,BK61,Crown Heights North,4006
+1967,347,3,Brooklyn,34700,3034700,E,BK61,Crown Heights North,4006
+1968,857,4,Queens,85700,4085700,E,QN22,Flushing,4103
+1969,199,4,Queens,19900,4019900,E,QN31,Hunters Point-Sunnyside-West Maspeth,4109
+1971,163,4,Queens,16300,4016300,E,QN70,Astoria,4101
+1972,1283,4,Queens,128300,4128300,I,QN99,park-cemetery-etc-Queens,4106
+1973,1291.03,4,Queens,129103,4129103,I,QN42,Oakland Gardens,4104
+1974,118,1,Manhattan,11800,1011800,I,MN31,Lenox Hill-Roosevelt Island,3805
+1975,126,1,Manhattan,12600,1012600,I,MN31,Lenox Hill-Roosevelt Island,3805
+1976,1479,4,Queens,147900,4147900,I,QN45,Douglas Manor-Douglaston-Little Neck,4104
+2049,44,3,Brooklyn,4400,3004400,I,BK31,Bay Ridge,4013
+1977,1507.02,4,Queens,150702,4150702,I,QN45,Douglas Manor-Douglaston-Little Neck,4104
+1978,276,2,Bronx,27600,2027600,I,BX99,park-cemetery-etc-Bronx,3703
+1979,255,1,Manhattan,25500,1025500,E,MN36,Washington Heights South,3801
+1980,265,1,Manhattan,26500,1026500,E,MN36,Washington Heights South,3801
+1981,1529.01,4,Queens,152901,4152901,I,QN45,Douglas Manor-Douglaston-Little Neck,4104
+1982,156.02,5,Staten Island,15602,5015602,I,SI01,Annadale-Huguenot-Prince's Bay-Eltingville,3901
+1983,170.11,5,Staten Island,17011,5017011,I,SI01,Annadale-Huguenot-Prince's Bay-Eltingville,3901
+1997,997.04,4,Queens,99704,4099704,I,QN47,Ft. Totten-Bay Terrace-Clearview,4103
+1984,146.04,5,Staten Island,14604,5014604,I,SI54,Great Kills,3901
+1985,156.01,5,Staten Island,15601,5015601,I,SI54,Great Kills,3901
+1986,348,3,Brooklyn,34800,3034800,E,BK21,Seagate-Coney Island,4018
+1987,343,2,Bronx,34300,2034300,I,BX22,North Riverdale-Fieldston-Riverdale,3701
+1998,366,4,Queens,36600,4036600,I,QN08,St. Albans,4112
+1988,435,2,Bronx,43500,2043500,E,BX99,park-cemetery-etc-Bronx,3702
+1989,397,2,Bronx,39700,2039700,E,BX06,Belmont,3705
+1990,399.01,2,Bronx,39901,2039901,E,BX05,Bedford Park-Fordham North,3706
+1999,426,4,Queens,42600,4042600,I,QN08,St. Albans,4112
+2000,76,1,Manhattan,7600,1007600,I,MN17,Midtown-Midtown South,3807
+2001,84,1,Manhattan,8400,1008400,I,MN17,Midtown-Midtown South,3807
+1991,334,2,Bronx,33400,2033400,E,BX99,park-cemetery-etc-Bronx,3705
+1992,336,2,Bronx,33600,2033600,E,BX07,Bronxdale,3704
+1993,123.01,4,Queens,12301,4012301,I,QN72,Steinway,4101
+1994,135,4,Queens,13500,4013500,I,QN72,Steinway,4101
+1995,427,4,Queens,42700,4042700,E,QN25,Corona,4107
+1996,997.03,4,Queens,99703,4099703,I,QN47,Ft. Totten-Bay Terrace-Clearview,4103
+2002,1010.01,4,Queens,101001,4101001,E,QN15,Far Rockaway-Bayswater,4114
+2003,1010.02,4,Queens,101002,4101002,I,QN15,Far Rockaway-Bayswater,4114
+2004,90,2,Bronx,9000,2009000,E,BX09,Soundview-Castle Hill-Clason Point-Harding Park,3709
+2005,194,2,Bronx,19400,2019400,E,BX52,Schuylerville-Throgs Neck-Edgewater Park,3703
+2006,456,2,Bronx,45600,2045600,I,BX03,Eastchester-Edenwald-Baychester,3702
+2007,504,2,Bronx,50400,2050400,I,BX99,park-cemetery-etc-Bronx,3703
+2010,1227.01,4,Queens,122701,4122701,I,QN38,Pomonok-Flushing Heights-Hillcrest,4106
+2050,46,3,Brooklyn,4600,3004600,I,BK31,Bay Ridge,4013
+2008,1072.01,4,Queens,107201,4107201,I,QN10,Breezy Point-Belle Harbor-Rockaway Park-Broad Channel,4114
+2009,1072.02,4,Queens,107202,4107202,I,QN99,park-cemetery-etc-Queens,4114
+2051,213,3,Brooklyn,21300,3021300,E,BK63,Crown Heights South,4011
+2011,1227.02,4,Queens,122702,4122702,E,QN38,Pomonok-Flushing Heights-Hillcrest,4106
+2012,960,3,Brooklyn,96000,3096000,I,BK50,Canarsie,4009
+2013,962,3,Brooklyn,96200,3096200,I,BK50,Canarsie,4009
+2014,170.1,5,Staten Island,17010,5017010,I,SI48,Arden Heights,3901
+2015,208.01,5,Staten Island,20801,5020801,I,SI32,Rossville-Woodrow,3901
+2052,325,3,Brooklyn,32500,3032500,E,BK63,Crown Heights South,4011
+2016,1032.02,4,Queens,103202,4103202,E,QN15,Far Rockaway-Bayswater,4114
+2017,260,4,Queens,26000,4026000,E,QN01,South Jamaica,4112
+2018,262,4,Queens,26200,4026200,E,QN01,South Jamaica,4112
+2019,187,4,Queens,18700,4018700,I,QN31,Hunters Point-Sunnyside-West Maspeth,4109
+2020,386,3,Brooklyn,38600,3038600,E,BK26,Gravesend,4018
+2021,398,3,Brooklyn,39800,3039800,E,BK26,Gravesend,4018
+2022,23,3,Brooklyn,2300,3002300,E,BK38,DUMBO-Vinegar Hill-Downtown Brooklyn-Boerum Hill,4004
+2026,359,2,Bronx,35900,2035900,E,BX17,East Tremont,3705
+2027,155,2,Bronx,15500,2015500,E,BX75,Crotona Park East,3705
+2023,5,1,Manhattan,500,1000500,I,MN99,park-cemetery-etc-Manhattan,3810
+2024,47,3,Brooklyn,4700,3004700,I,BK33,Carroll Gardens-Columbia Street-Red Hook,4005
+2025,59,5,Staten Island,5900,5005900,I,SI35,New Brighton-Silver Lake,3903
+2028,161,2,Bronx,16100,2016100,E,BX75,Crotona Park East,3705
+2029,20,2,Bronx,2000,2002000,E,BX09,Soundview-Castle Hill-Clason Point-Harding Park,3709
+2030,24,2,Bronx,2400,2002400,I,BX99,park-cemetery-etc-Bronx,3709
+2031,797.02,4,Queens,79702,4079702,E,QN22,Flushing,4103
+2032,837,4,Queens,83700,4083700,E,QN62,Queensboro Hill,4103
+2033,797.01,4,Queens,79701,4079701,I,QN22,Flushing,4103
+2034,845,4,Queens,84500,4084500,E,QN22,Flushing,4103
+2038,200,2,Bronx,20000,2020000,E,BX37,Van Nest-Morris Park-Westchester Square,3704
+2039,256,2,Bronx,25600,2025600,E,BX37,Van Nest-Morris Park-Westchester Square,3704
+2040,21,3,Brooklyn,2100,3002100,I,BK38,DUMBO-Vinegar Hill-Downtown Brooklyn-Boerum Hill,4004
+2041,191,3,Brooklyn,19100,3019100,E,BK69,Clinton Hill,4004
+2042,539,3,Brooklyn,53900,3053900,E,BK72,Williamsburg,4001
+2059,215.01,2,Bronx,21501,2021501,E,BX36,University Heights-Morris Heights,3707
+2060,215.02,2,Bronx,21502,2021502,E,BX36,University Heights-Morris Heights,3707
+2043,543,3,Brooklyn,54300,3054300,E,BK99,park-cemetery-etc-Brooklyn,4004
+2044,241,1,Manhattan,24100,1024100,E,MN36,Washington Heights South,3801
+2045,197,2,Bronx,19700,2019700,E,BX63,West Concourse,3708
+2046,219,2,Bronx,21900,2021900,E,BX26,Highbridge,3708
+2047,136,1,Manhattan,13600,1013600,I,MN32,Yorkville,3805
+2048,138,1,Manhattan,13800,1013800,I,MN32,Yorkville,3805
+2071,383.02,4,Queens,38302,4038302,I,QN99,park-cemetery-etc-Queens,4107
+2053,641.02,4,Queens,64102,4064102,E,QN99,park-cemetery-etc-Queens,4111
+2054,645,4,Queens,64500,4064500,I,QN17,Forest Hills,4108
+2055,306,4,Queens,30600,4030600,I,QN03,Springfield Gardens South-Brookville,4105
+2056,716,4,Queens,71600,4071600,I,QN98,Airport,4105
+2057,205.02,2,Bronx,20502,2020502,E,BX36,University Heights-Morris Heights,3707
+2058,247,2,Bronx,24700,2024700,E,BX36,University Heights-Morris Heights,3707
+2061,552,4,Queens,55200,4055200,I,QN34,Queens Village,4105
+2062,1301,4,Queens,130100,4130100,I,QN43,Bellerose,4105
+2063,179,4,Queens,17900,4017900,E,QN31,Hunters Point-Sunnyside-West Maspeth,4109
+2064,181.01,4,Queens,18101,4018101,E,QN31,Hunters Point-Sunnyside-West Maspeth,4109
+2065,181.02,4,Queens,18102,4018102,E,QN31,Hunters Point-Sunnyside-West Maspeth,4109
+2066,183,4,Queens,18300,4018300,I,QN31,Hunters Point-Sunnyside-West Maspeth,4109
+2067,340,3,Brooklyn,34000,3034000,E,BK21,Seagate-Coney Island,4018
+2072,757.01,4,Queens,75701,4075701,I,QN17,Forest Hills,4108
+2073,251,4,Queens,25100,4025100,E,QN63,Woodside,4109
+2068,352,3,Brooklyn,35200,3035200,E,BK21,Seagate-Coney Island,4018
+2069,638,4,Queens,63800,4063800,I,QN05,Rosedale,4105
+2070,646,4,Queens,64600,4064600,I,QN66,Laurelton,4105
+2075,235,4,Queens,23500,4023500,E,QN31,Hunters Point-Sunnyside-West Maspeth,4109
+2076,253.01,4,Queens,25301,4025301,I,QN31,Hunters Point-Sunnyside-West Maspeth,4109
+2077,216,4,Queens,21600,4021600,I,QN60,Kew Gardens,4111
+2078,773,4,Queens,77300,4077300,I,QN60,Kew Gardens,4111
+2079,790,4,Queens,79000,4079000,I,QN76,Baisley Park,4112
+2080,814,4,Queens,81400,4081400,I,QN55,South Ozone Park,4113
+2081,1,4,Queens,100,4000100,I,QN31,Hunters Point-Sunnyside-West Maspeth,4109
+2082,7,4,Queens,700,4000700,I,QN31,Hunters Point-Sunnyside-West Maspeth,4109
+2083,110,2,Bronx,11000,2011000,E,BX52,Schuylerville-Throgs Neck-Edgewater Park,3703
+2084,144,2,Bronx,14400,2014400,E,BX52,Schuylerville-Throgs Neck-Edgewater Park,3703
+2085,43,2,Bronx,4300,2004300,E,BX39,Mott Haven-Port Morris,3710
+2086,39,2,Bronx,3900,2003900,E,BX39,Mott Haven-Port Morris,3710
+2087,41,2,Bronx,4100,2004100,E,BX39,Mott Haven-Port Morris,3710
+2088,67,5,Staten Island,6700,5006700,I,SI35,New Brighton-Silver Lake,3903
+2089,75,5,Staten Island,7500,5007500,E,SI35,New Brighton-Silver Lake,3903
+2090,287,3,Brooklyn,28700,3028700,E,BK35,Stuyvesant Heights,4003
+2091,289,3,Brooklyn,28900,3028900,E,BK35,Stuyvesant Heights,4003
+2092,393,3,Brooklyn,39300,3039300,E,BK78,Bushwick South,4002
+2093,162,3,Brooklyn,16200,3016200,I,BK31,Bay Ridge,4013
+2114,245,4,Queens,24500,4024500,E,QN63,Woodside,4109
+2094,164,3,Brooklyn,16400,3016400,I,BK31,Bay Ridge,4013
+2095,21,1,Manhattan,2100,1002100,I,MN24,SoHo-TriBeCa-Civic Center-Little Italy,3810
+2096,654,4,Queens,65400,4065400,I,QN05,Rosedale,4105
+2097,680,4,Queens,68000,4068000,I,QN03,Springfield Gardens South-Brookville,4105
+2100,317.03,1,Manhattan,31703,1031703,I,MN25,Battery Park City-Lower Manhattan,3810
+2101,13,1,Manhattan,1300,1001300,I,MN25,Battery Park City-Lower Manhattan,3810
+2098,99,1,Manhattan,9900,1009900,I,MN13,Hudson Yards-Chelsea-Flatiron-Union Square,3807
+2099,117,1,Manhattan,11700,1011700,I,MN13,Hudson Yards-Chelsea-Flatiron-Union Square,3807
+2124,1237,3,Brooklyn,123700,3123700,E,BK75,Bedford,4003
+2102,317.04,1,Manhattan,31704,1031704,I,MN25,Battery Park City-Lower Manhattan,3810
+2103,6,1,Manhattan,600,1000600,E,MN28,Lower East Side,3809
+2104,8,1,Manhattan,800,1000800,E,MN27,Chinatown,3809
+2105,266.01,2,Bronx,26601,2026601,I,BX10,Pelham Bay-Country Club-City Island,3703
+2113,243,4,Queens,24300,4024300,E,QN50,Elmhurst-Maspeth,4109
+2106,284,2,Bronx,28400,2028400,E,BX37,Van Nest-Morris Park-Westchester Square,3704
+2107,264,2,Bronx,26400,2026400,I,BX52,Schuylerville-Throgs Neck-Edgewater Park,3703
+2108,266.02,2,Bronx,26602,2026602,E,BX10,Pelham Bay-Country Club-City Island,3703
+2109,189,2,Bronx,18900,2018900,E,BX26,Highbridge,3708
+2110,193,2,Bronx,19300,2019300,E,BX26,Highbridge,3708
+2111,2.01,1,Manhattan,201,1000201,E,MN28,Lower East Side,3809
+2112,2.02,1,Manhattan,202,1000202,E,MN28,Lower East Side,3809
+2115,997.05,4,Queens,99705,4099705,I,QN47,Ft. Totten-Bay Terrace-Clearview,4103
+2116,999,4,Queens,99900,4099900,I,QN47,Ft. Totten-Bay Terrace-Clearview,4103
+2117,34,4,Queens,3400,4003400,E,QN53,Woodhaven,4111
+2118,1186,3,Brooklyn,118600,3118600,E,BK83,Cypress Hills-City Line,4008
+2141,303,3,Brooklyn,30300,3030300,E,BK79,Ocean Hill,4007
+2119,277.02,5,Staten Island,27702,5027702,I,SI24,Todt Hill-Emerson Hill-Heartland Village-Lighthouse Hill,3902
+2120,279,5,Staten Island,27900,5027900,I,SI24,Todt Hill-Emerson Hill-Heartland Village-Lighthouse Hill,3902
+2121,656,4,Queens,65600,4065600,I,QN05,Rosedale,4105
+2122,664,4,Queens,66400,4066400,I,QN05,Rosedale,4105
+2123,241,3,Brooklyn,24100,3024100,E,BK75,Bedford,4003
+2125,293.02,2,Bronx,29302,2029302,I,BX29,Spuyten Duyvil-Kingsbridge,3701
+2126,100,4,Queens,10000,4010000,I,QN55,South Ozone Park,4113
+2127,864,4,Queens,86400,4086400,I,QN55,South Ozone Park,4113
+2128,69,2,Bronx,6900,2006900,E,BX34,Melrose South-Mott Haven North,3710
+2129,173,2,Bronx,17300,2017300,E,BX14,East Concourse-Concourse Village,3708
+2130,306,3,Brooklyn,30600,3030600,I,BK26,Gravesend,4018
+2142,365.01,3,Brooklyn,36501,3036501,E,BK79,Ocean Hill,4007
+2143,796.02,3,Brooklyn,79602,3079602,E,BK60,Prospect Lefferts Gardens-Wingate,4011
+2144,820,3,Brooklyn,82000,3082000,E,BK60,Prospect Lefferts Gardens-Wingate,4011
+2145,822,3,Brooklyn,82200,3082200,E,BK60,Prospect Lefferts Gardens-Wingate,4011
+2131,314,3,Brooklyn,31400,3031400,E,BK26,Gravesend,4018
+2132,535,3,Brooklyn,53500,3053500,E,BK72,Williamsburg,4001
+2133,547,3,Brooklyn,54700,3054700,E,BK73,North Side-South Side,4001
+2134,330,3,Brooklyn,33000,3033000,E,BK21,Seagate-Coney Island,4018
+2135,328,3,Brooklyn,32800,3032800,E,BK21,Seagate-Coney Island,4018
+2146,34,1,Manhattan,3400,1003400,I,MN22,East Village,3809
+2136,336,3,Brooklyn,33600,3033600,I,BK21,Seagate-Coney Island,4018
+2137,218,2,Bronx,21800,2021800,E,BX08,West Farms-Bronx River,3709
+2138,240,2,Bronx,24000,2024000,E,BX37,Van Nest-Morris Park-Westchester Square,3704
+2139,60,2,Bronx,6000,2006000,E,BX75,Crotona Park East,3705
+2140,62,2,Bronx,6200,2006200,E,BX08,West Farms-Bronx River,3709
+2147,900,3,Brooklyn,90000,3090000,E,BK81,Brownsville,4007
+2148,9,3,Brooklyn,900,3000900,I,BK09,Brooklyn Heights-Cobble Hill,4004
+2149,361,3,Brooklyn,36100,3036100,E,BK79,Ocean Hill,4007
+2150,782,3,Brooklyn,78200,3078200,E,BK91,East Flatbush-Farragut,4010
+2151,830,3,Brooklyn,83000,3083000,E,BK91,East Flatbush-Farragut,4010
+2152,60,1,Manhattan,6000,1006000,I,MN50,Stuyvesant Town-Cooper Village,3808
+2153,313,3,Brooklyn,31300,3031300,E,BK61,Crown Heights North,4006
+2154,315,3,Brooklyn,31500,3031500,E,BK61,Crown Heights North,4006
+2155,193,3,Brooklyn,19300,3019300,E,BK69,Clinton Hill,4004
+2156,233,3,Brooklyn,23300,3023300,E,BK75,Bedford,4003
+2157,28,1,Manhattan,2800,1002800,E,MN28,Lower East Side,3809
+2158,44,1,Manhattan,4400,1004400,I,MN50,Stuyvesant Town-Cooper Village,3808
+2159,1377,4,Queens,137700,4137700,I,QN42,Oakland Gardens,4104
+2160,1385.02,4,Queens,138502,4138502,I,QN99,park-cemetery-etc-Queens,4104
+2161,287,1,Manhattan,28700,1028700,E,MN35,Washington Heights North,3801
+2162,297,1,Manhattan,29700,1029700,I,MN99,park-cemetery-etc-Manhattan,3801
+2163,1,3,Brooklyn,100,3000100,I,BK09,Brooklyn Heights-Cobble Hill,4004
+2164,3.01,3,Brooklyn,301,3000301,I,BK09,Brooklyn Heights-Cobble Hill,4004
+2165,233,1,Manhattan,23300,1023300,E,MN04,Hamilton Heights,3802
+2166,237,1,Manhattan,23700,1023700,E,MN04,Hamilton Heights,3802
+2167,,,New Jersey,,,,NJ01,Newark Airport,

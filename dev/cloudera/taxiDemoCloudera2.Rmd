@@ -4,7 +4,11 @@ subtitle: "Analyzing a billion NYC taxi trips in Spark"
 output: html_notebook
 ---
 
-# Access your data
+<center><div style="width:450px">
+![R for Data Science http://r4ds.had.co.nz/](http://r4ds.had.co.nz/diagrams/data-science.png)
+</div></center>
+
+# Access
 
 ```{r connect, message=FALSE, warning=FALSE}
 # Load libraries
@@ -17,18 +21,28 @@ library(miniUI)
 library(DT)
 
 # Set environ vars
-Sys.setenv(JAVA_HOME="/usr/lib/jvm/java-7-oracle-cloudera/")
+Sys.setenv(JAVA_HOME = "/usr/lib/jvm/java-7-oracle-cloudera/")
 Sys.setenv(SPARK_HOME = '/opt/cloudera/parcels/CDH/lib/spark')
 
 # Configure cluster
 conf <- spark_config()
 conf$spark.executor.cores <- 16
-conf$spark.executor.memory <- "26G"
+conf$spark.executor.memory <- "24G"
 conf$spark.yarn.am.cores  <- 16
-conf$spark.yarn.am.memory <- "26G"
+conf$spark.yarn.am.memory <- "24G"
 
 # Connect to cluster
 sc <- spark_connect(master = "yarn-client", config = conf, version = '1.6.0')
+```
+
+```{r helpers}
+# Visualizations wrappers
+source("sqlvis_histogram.R")
+source("sqlvis_raster.R")
+
+# Cache
+trips_model_data_tbl <- tbl(sc, "trips_model_data")
+tbl_cache(sc, "trips_model_data")
 ```
 
 # Understand
@@ -40,10 +54,10 @@ sc <- spark_connect(master = "yarn-client", config = conf, version = '1.6.0')
 nyct2010_tbl <- spark_read_csv(sc, "nyct2010", "/user/nathan/nyct2010.csv")
 
 # Create table references
-trips_tbl <- tbl(sc, "trips_par")
+trips_par_tbl <- tbl(sc, "trips_par")
 
 # Join tables
-trips_joined_tbl <- trips_tbl %>%
+trips_joined_tbl <- trips_par_tbl %>%
   filter(!is.na(pickup_nyct2010_gid) & !is.na(dropoff_nyct2010_gid)) %>%
   filter(cab_type_id %in% c(1, 2)) %>%
   mutate(cab_type = ifelse(cab_type_id == 1, "yellow", "green")) %>%
@@ -67,13 +81,8 @@ trips_joined_tbl <- trips_tbl %>%
          pay_type, fare_amount, tip_amount, other_amount, total_amount) %>%
   sdf_register("trips_par_joined")
 
-# Cache table
-system.time(tbl_cache(sc, "trips_model_data")) # 4.2 vs 4.3 vs 4.8 min
-trips_model_data_tbl <- tbl(sc, "trips_model_data")
-
-# Visualizations wrappers
-source("sqlvis_histogram.R")
-source("sqlvis_raster.R")
+tbl_cache(sc, "trips_par_joined")
+trips_model_data_tbl <- tbl(sc, "trips_par_joined")
 ```
 
 ## Visualize
@@ -81,6 +90,17 @@ source("sqlvis_raster.R")
 ```{r counts}
 # Calculate total trips
 trips_model_data_tbl %>% count
+
+# Query tips by pay_type
+query1 <- trips_model_data_tbl %>%
+  filter(tip_amount > 0 & tip_amount < 25) %>%
+  group_by(pay_type) %>%
+  summarize(count = n(), tip_amount = mean(tip_amount), fare_amount = mean(fare_amount)) %>%
+  mutate(tip_percent = tip_amount / fare_amount)
+
+# Compute
+sql_render(query1)
+query1
 ```
 
 ```{r pickups}
@@ -287,4 +307,6 @@ m1 <- ml_linear_regression(trips_train_tbl, model_formula)
 summary(m1)
 ```
 
+# Communicate
 
+After controlling for fare amount, we found that trips paying with cash tip less on average than trips paying with credit. Additionally, trips with more passengers tend to tip less.

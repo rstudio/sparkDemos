@@ -1,0 +1,69 @@
+---
+title: "Connecting to Spark through Livy"
+output: html_notebook
+---
+
+With Livy you can anaylze data in your spark cluster via R on your desktop.
+
+## Livy
+
+Livy is a service that enables easy interaction with an Apache Spark cluster over a REST interface. It enables easy submission of Spark jobs or snippets of Spark code, synchronous or asynchronous result retrieval, as well as SparkContext management, all via a simple REST interface or a RPC client library. Livy also simplifies the interaction between Spark from application servers, thus enabling the use of Spark for interactive web/mobile applications.
+
+<center><div style="width:450px">
+![Image](http://livy.io/img/livy-architecture.png)
+</div></center>
+
+## Start Livy
+
+Set home environment variables and start a Livy server to handle local requests.
+
+```{bash}
+export JAVA_HOME=/usr/lib/jvm/java-7-oracle-cloudera
+export SPARK_HOME=/opt/cloudera/parcels/CDH/lib/spark
+/home/ubuntu/livy/livy-server-0.2.0/bin/livy-server
+```
+
+## Connect to Spark
+
+Use `method = "livy"` to connect to the cluster.
+
+```{r}
+library(sparklyr)
+library(dplyr)
+sc <- spark_connect(
+  master = "http://ec2-***.us-west-2.compute.amazonaws.com:8998", 
+  method = "livy")
+```
+
+## Analyze
+
+Use R code on your workstation as you normally would. Your R commands will be sent to the cluster via Livy for processing. Collect your results back to the desktop for further processing in R.
+
+```{r}
+library(ggplot2)
+trips_model_data_tbl <- tbl(sc, "trips_model_data")
+pickup_dropoff_tbl <- trips_model_data_tbl %>%
+  filter(pickup_nta == "Turtle Bay-East Midtown" & dropoff_nta == "Airport") %>%
+  mutate(pickup_hour = hour(pickup_datetime)) %>%
+  mutate(trip_time = unix_timestamp(dropoff_datetime) - unix_timestamp(pickup_datetime)) %>%
+  group_by(pickup_hour) %>% 
+  summarize(n = n(),
+            trip_time_mean = mean(trip_time),
+            trip_time_p10 = percentile(trip_time, 0.10),
+            trip_time_p25 = percentile(trip_time, 0.25),
+            trip_time_p50 = percentile(trip_time, 0.50),
+            trip_time_p75 = percentile(trip_time, 0.75),
+            trip_time_p90 = percentile(trip_time, 0.90))
+
+# Collect results
+pickup_dropoff <- collect(pickup_dropoff_tbl)
+
+# Plot
+ggplot(pickup_dropoff, aes(x = pickup_hour)) +
+          geom_line(aes(y = trip_time_p50, alpha = "Median")) +
+          geom_ribbon(aes(ymin = trip_time_p25, ymax = trip_time_p75, 
+                          alpha = "25–75th percentile")) +
+          geom_ribbon(aes(ymin = trip_time_p10, ymax = trip_time_p90, 
+                          alpha = "10–90th percentile")) +
+          scale_y_continuous("trip duration in minutes")
+```

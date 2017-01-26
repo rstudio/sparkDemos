@@ -1,0 +1,7 @@
+01-12 14:28:49.789 192.168.10.100:54323  17432  #e Thread WARN: Unblock allocations; cache below desired, but also OOM: GC CALLBACK, (K/V:39.3 MB + POJO:721.1 MB + FREE:150.1 MB == MEM_MAX:910.5 MB), desiredKV=113.8 MB OOM!
+01-12 14:29:32.387 192.168.10.100:54323  17432  #:54321-0 ERRR: IO error on TCP port 54324: java.lang.OutOfMemoryError: GC overhead limit exceeded
+01-12 14:29:32.387 192.168.10.100:54323  17432  #00:54321 WARN: Unblock allocations; cache below desired, but also OOM: OOM, (K/V:88.2 MB + POJO:724.1 MB + FREE:98.2 MB == MEM_MAX:910.5 MB), desiredKV=113.8 MB OOM!
+01-12 14:29:32.387 192.168.10.100:54323  17432  #00:54323 WARN: Unblock allocations; cache below desired, but also OOM: OOM, (K/V:88.2 MB + POJO:724.1 MB + FREE:98.2 MB == MEM_MAX:910.5 MB), desiredKV=113.8 MB OOM!
+01-12 14:30:31.970 192.168.10.100:54323  17432  Thread-87 WARN: Unblock allocations; cache below desired, but also OOM: OOM, (K/V:88.2 MB + POJO:724.1 MB + FREE:98.2 MB == MEM_MAX:910.5 MB), desiredKV=424.8 MB OOM!
+01-12 14:30:31.970 192.168.10.100:54323  17432  Thread-86 WARN: Unblock allocations; cache below desired, but also OOM: OOM, (K/V:88.2 MB + POJO:724.1 MB + FREE:98.2 MB == MEM_MAX:910.5 MB), desiredKV=424.8 MB OOM!
+01-12 14:30:31.970 192.168.10.100:54323  17432  Thread-84 WARN: Unblock allocations; cache below desired, but also OOM: OOM, (K/V:88.2 MB + POJO:724.1 MB + FREE:98.2 MB == MEM_MAX:910.5 MB), desiredKV=424.8 MB OOM!

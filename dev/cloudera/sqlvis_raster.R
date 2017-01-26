@@ -5,7 +5,7 @@
 # y_field <- "pickup_latitude"
 # resolution <- 50
 
-sqlvis_compute_tiles <- function(data, x_field, y_field, resolution = 500){
+sqlvis_compute_raster <- function(data, x_field, y_field, resolution = 300){
   
   data_prep <- data %>%
     select_(x = x_field, y = y_field) %>%
@@ -55,7 +55,7 @@ sqlvis_ggplot_raster <- function(data, ...) {
 
 ### Facets
 
-sqlvis_compute_tiles_g <- function(data, x_field, y_field, g_field, resolution = 500){
+sqlvis_compute_raster_g <- function(data, x_field, y_field, g_field, resolution = 300){
   
   data_prep <- data %>%
     mutate_(group = g_field) %>%

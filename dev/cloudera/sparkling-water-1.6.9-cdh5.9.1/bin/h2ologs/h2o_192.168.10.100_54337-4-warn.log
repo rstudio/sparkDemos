@@ -1,0 +1,8 @@
+01-12 17:35:43.912 192.168.10.100:54337  34641  FJ-1-7    WARN: Reached maximum number of iterations 1!
+01-12 17:37:56.108 192.168.10.100:54337  34641  #e Thread WARN: Unblock allocations; cache below desired, but also OOM: GC CALLBACK, (K/V:216.3 MB + POJO:2.47 GB + FREE:890.4 MB == MEM_MAX:3.56 GB), desiredKV=455.1 MB OOM!
+01-12 17:38:01.463 192.168.10.100:54337  34641  #e Thread WARN: Unblock allocations; cache below desired, but also OOM: GC CALLBACK, (K/V:216.3 MB + POJO:2.48 GB + FREE:884.9 MB == MEM_MAX:3.56 GB), desiredKV=455.1 MB OOM!
+01-12 17:38:04.097 192.168.10.100:54337  34641  #e Thread WARN: Unblock allocations; cache below desired, but also OOM: GC CALLBACK, (K/V:216.3 MB + POJO:2.47 GB + FREE:891.4 MB == MEM_MAX:3.56 GB), desiredKV=455.1 MB OOM!
+01-12 17:38:07.586 192.168.10.100:54337  34641  #e Thread WARN: Unblock allocations; cache below desired, but also OOM: GC CALLBACK, (K/V:216.3 MB + POJO:2.48 GB + FREE:886.6 MB == MEM_MAX:3.56 GB), desiredKV=455.1 MB OOM!
+01-12 17:38:11.648 192.168.10.100:54337  34641  #e Thread WARN: Unblock allocations; cache below desired, but also OOM: GC CALLBACK, (K/V:216.3 MB + POJO:2.48 GB + FREE:887.0 MB == MEM_MAX:3.56 GB), desiredKV=455.1 MB OOM!
+01-12 17:38:15.194 192.168.10.100:54337  34641  #e Thread WARN: Unblock allocations; cache below desired, but also OOM: GC CALLBACK, (K/V:216.3 MB + POJO:2.48 GB + FREE:887.3 MB == MEM_MAX:3.56 GB), desiredKV=455.1 MB OOM!
+01-12 17:38:16.747 192.168.10.100:54337  34641  #e Thread WARN: Unblock allocations; cache below desired, but also OOM: GC CALLBACK, (K/V:216.3 MB + POJO:2.48 GB + FREE:887.4 MB == MEM_MAX:3.56 GB), desiredKV=455.1 MB OOM!

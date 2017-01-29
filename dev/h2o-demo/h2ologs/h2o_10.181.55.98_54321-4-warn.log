@@ -1,0 +1,2 @@
+01-29 03:56:54.417 10.181.55.98:54321    7546   #e Thread WARN: Unblock allocations; cache below desired, but also OOM: GC CALLBACK, (K/V:Zero   + POJO:782.0 MB + FREE:207.9 MB == MEM_MAX:989.9 MB), desiredKV=123.7 MB OOM!
+01-29 04:00:28.378 10.181.55.98:54321    7546   #e Thread WARN: Unblock allocations; cache below desired, but also OOM: GC CALLBACK, (K/V:Zero   + POJO:826.0 MB + FREE:163.9 MB == MEM_MAX:989.9 MB), desiredKV=123.7 MB OOM!

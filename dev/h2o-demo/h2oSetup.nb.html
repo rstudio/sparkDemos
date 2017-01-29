@@ -176,13 +176,40 @@ $(document).ready(function () {
 <h2>Install</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3BhcmtfaW5zdGFsbCh2ZXJzaW9uID0gXCIxLjYuMlwiKSAjIGZvciBsb2NhbFxuXG5gYGAifQ== -->
-<pre class="r"><code>spark_install(version = &quot;1.6.2&quot;) # for local
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBSZW1vdmUgcHJldmlvdXMgdmVyc2lvbnMgb2YgaDJvIFIgcGFja2FnZVxuaWYgKFwicGFja2FnZTpoMm9cIiAlaW4lIHNlYXJjaCgpKSBkZXRhY2goXCJwYWNrYWdlOmgyb1wiLCB1bmxvYWQ9VFJVRSlcbmlmIChcImgyb1wiICVpbiUgcm93bmFtZXMoaW5zdGFsbGVkLnBhY2thZ2VzKCkpKSByZW1vdmUucGFja2FnZXMoXCJoMm9cIilcbmBgYCJ9 -->
+<pre class="r"><code># Remove previous versions of h2o R package
+if (&quot;package:h2o&quot; %in% search()) detach(&quot;package:h2o&quot;, unload=TRUE)
+if (&quot;h2o&quot; %in% rownames(installed.packages())) remove.packages(&quot;h2o&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiU3BhcmsgMS42LjIgZm9yIEhhZG9vcCAyLjYgb3IgbGF0ZXIgYWxyZWFkeSBpbnN0YWxsZWQuXG4ifQ== -->
-<pre><code>Spark 1.6.2 for Hadoop 2.6 or later already installed.</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiUmVtb3ZpbmcgcGFja2FnZSBmcm9tIOKAmC9ob21lL3JzdHVkaW8vUi94ODZfNjQtcmVkaGF0LWxpbnV4LWdudS1saWJyYXJ5LzMuMuKAmVxuKGFzIOKAmGxpYuKAmSBpcyB1bnNwZWNpZmllZClcbiJ9 -->
+<pre><code>Removing package from ‘/home/rstudio/R/x86_64-redhat-linux-gnu-library/3.2’
+(as ‘lib’ is unspecified)</code></pre>
 <!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBOZXh0LCB3ZSBkb3dubG9hZCBSIHBhY2thZ2UgZGVwZW5kZW5jaWVzXG5wa2dzIDwtIGMoXCJtZXRob2RzXCIsXCJzdGF0bW9kXCIsXCJzdGF0c1wiLFwiZ3JhcGhpY3NcIixcbiAgICAgICAgICBcIlJDdXJsXCIsXCJqc29ubGl0ZVwiLFwidG9vbHNcIixcInV0aWxzXCIpXG5mb3IgKHBrZyBpbiBwa2dzKSB7XG4gIGlmICghKHBrZyAlaW4lIHJvd25hbWVzKGluc3RhbGxlZC5wYWNrYWdlcygpKSkpIGluc3RhbGwucGFja2FnZXMocGtnKVxufVxuIyBEb3dubG9hZCBoMm8gcGFja2FnZSB2ZXJzaW9uIDMuMTAuMC42XG5pbnN0YWxsLnBhY2thZ2VzKFwiaDJvXCIsIHR5cGUgPSBcInNvdXJjZVwiLCBcbiAgICAgICAgICAgICAgICAgcmVwb3MgPSBcImh0dHA6Ly9oMm8tcmVsZWFzZS5zMy5hbWF6b25hd3MuY29tL2gyby9yZWwtdHVyaW5nLzYvUlwiKVxuYGBgIn0= -->
+<pre class="r"><code># Next, we download R package dependencies
+pkgs &lt;- c(&quot;methods&quot;,&quot;statmod&quot;,&quot;stats&quot;,&quot;graphics&quot;,
+          &quot;RCurl&quot;,&quot;jsonlite&quot;,&quot;tools&quot;,&quot;utils&quot;)
+for (pkg in pkgs) {
+  if (!(pkg %in% rownames(installed.packages()))) install.packages(pkg)
+}
+# Download h2o package version 3.10.0.6
+install.packages(&quot;h2o&quot;, type = &quot;source&quot;, 
+                 repos = &quot;http://h2o-release.s3.amazonaws.com/h2o/rel-turing/6/R&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gaW5zdGFsbC5wYWNrYWdlcyA6IFVwZGF0aW5nIGxvYWRlZCBwYWNrYWdlc1xuIn0= -->
+<pre><code>Error in install.packages : Updating loaded packages</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShkZXZ0b29scylcbmRldnRvb2xzOjppbnN0YWxsX2dpdGh1YihcImgyb2FpL3JzcGFya2xpbmdcIiwgcmVmID0gXCJzdGFibGVcIilcbmBgYCJ9 -->
+<pre class="r"><code>library(devtools)
+devtools::install_github(&quot;h2oai/rsparkling&quot;, ref = &quot;stable&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiU2tpcHBpbmcgaW5zdGFsbCBvZiAncnNwYXJrbGluZycgZnJvbSBhIGdpdGh1YiByZW1vdGUsIHRoZSBTSEExIChhMGNhODYwNCkgaGFzIG5vdCBjaGFuZ2VkIHNpbmNlIGxhc3QgaW5zdGFsbC5cbiAgVXNlIGBmb3JjZSA9IFRSVUVgIHRvIGZvcmNlIGluc3RhbGxhdGlvblxuIn0= -->
+<pre><code>Skipping install of 'rsparkling' from a github remote, the SHA1 (a0ca8604) has not changed since last install.
+  Use `force = TRUE` to force installation</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3NwYXJrX2luc3RhbGwodmVyc2lvbiA9IFwiMS42LjJcIikgIyBmb3IgbG9jYWxcbmBgYCJ9 -->
+<pre class="r"><code>#spark_install(version = &quot;1.6.2&quot;) # for local</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -190,45 +217,28 @@ $(document).ready(function () {
 <h2>Test 1</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShzcGFya2x5cilcbmBgYCJ9 -->
-<pre class="r"><code>library(sparklyr)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiTm90ZTogdGhlIHNwZWNpZmljYXRpb24gZm9yIFMzIGNsYXNzIOKAnEFzSXPigJ0gaW4gcGFja2FnZSDigJhqc29ubGl0ZeKAmSBzZWVtcyBlcXVpdmFsZW50IHRvIG9uZSBmcm9tIHBhY2thZ2Ug4oCYREJJ4oCZOiBub3QgdHVybmluZyBvbiBkdXBsaWNhdGUgY2xhc3MgZGVmaW5pdGlvbnMgZm9yIHRoaXMgY2xhc3MuXG4ifQ== -->
-<pre><code>Note: the specification for S3 class “AsIs” in package ‘jsonlite’ seems equivalent to one from package ‘DBI’: not turning on duplicate class definitions for this class.</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyc3BhcmtsaW5nKVxubGlicmFyeShkcGx5cilcbmBgYCJ9 -->
-<pre class="r"><code>library(rsparkling)
-library(dplyr)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYZHBseXLigJlcblxuVGhlIGZvbGxvd2luZyBvYmplY3RzIGFyZSBtYXNrZWQgZnJvbSDigJhwYWNrYWdlOnN0YXRz4oCZOlxuXG4gICAgZmlsdGVyLCBsYWdcblxuVGhlIGZvbGxvd2luZyBvYmplY3RzIGFyZSBtYXNrZWQgZnJvbSDigJhwYWNrYWdlOmJhc2XigJk6XG5cbiAgICBpbnRlcnNlY3QsIHNldGRpZmYsIHNldGVxdWFsLCB1bmlvblxuIn0= -->
-<pre><code>
-Attaching package: ‘dplyr’
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShzcGFya2x5cilcbmxpYnJhcnkocnNwYXJrbGluZylcbmxpYnJhcnkoZHBseXIpXG5cblN5cy5zZXRlbnYoU1BBUktfSE9NRT1cIi91c3IvbGliL3NwYXJrXCIpXG5TeXMuc2V0ZW52KEpBVkFfSE9NRT1cIi9ldGMvYWx0ZXJuYXRpdmVzL2pyZVwiKVxuXG5jb25mIDwtIHNwYXJrX2NvbmZpZygpXG5jb25mJHNwYXJrbHlyLnNoZWxsLmV4ZWN1dG9yLW1lbW9yeSA8LSBcIjIwZ1wiXG5jb25mJHNwYXJrbHlyLnNoZWxsLmRyaXZlci1tZW1vcnkgPC0gXCIyMGdcIlxuY29uZiRzcGFyay5leGVjdXRvci5jb3JlcyA8LSAxNlxuY29uZiRzcGFyay5leGVjdXRvci5tZW1vcnkgPC0gXCIyMEdcIlxuY29uZiRzcGFyay55YXJuLmFtLmNvcmVzICA8LSAxNlxuY29uZiRzcGFyay55YXJuLmFtLm1lbW9yeSA8LSBcIjIwR1wiXG5jb25mJHNwYXJrLmR5bmFtaWNBbGxvY2F0aW9uLmVuYWJsZWQgPC0gXCJmYWxzZVwiXG5cbm9wdGlvbnMocnNwYXJrbGluZy5zcGFya2xpbmd3YXRlci52ZXJzaW9uID0gJzEuNi43JylcbnNjIDwtIHNwYXJrX2Nvbm5lY3QobWFzdGVyID0gXCJ5YXJuLWNsaWVudFwiLCBjb25maWcgPSBjb25maWcsIHZlcnNpb24gPSAnMS42LjInKVxuYWlybGluZXNfdGJsIDwtIHRibChzYywgXCJhaXJsaW5lc1wiKVxuaDJvZnJhbWUgPC0gYXNfaDJvX2ZyYW1lKHNjLCBhaXJsaW5lc190YmwpXG5gYGAifQ== -->
+<pre class="r"><code>library(sparklyr)
+library(rsparkling)
+library(dplyr)
 
-The following objects are masked from ‘package:stats’:
-
-    filter, lag
-
-The following objects are masked from ‘package:base’:
-
-    intersect, setdiff, setequal, union</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuU3lzLnNldGVudihTUEFSS19IT01FPVwiL3Vzci9saWIvc3BhcmtcIilcblN5cy5zZXRlbnYoSkFWQV9IT01FPVwiL2V0Yy9hbHRlcm5hdGl2ZXMvanJlXCIpXG5jb25maWcgPC0gc3BhcmtfY29uZmlnKClcbmNvbmZpZyRzcGFyay5keW5hbWljQWxsb2NhdGlvbi5lbmFibGVkIDwtIFwiZmFsc2VcIlxub3B0aW9ucyhyc3BhcmtsaW5nLnNwYXJrbGluZ3dhdGVyLnZlcnNpb24gPSAnMS42LjcnKVxuc2MgPC0gc3BhcmtfY29ubmVjdChtYXN0ZXIgPSBcInlhcm4tY2xpZW50XCIsIGNvbmZpZyA9IGNvbmZpZywgdmVyc2lvbiA9ICcxLjYuMicpXG5haXJsaW5lc190YmwgPC0gdGJsKHNjLCBcImFpcmxpbmVzXCIpXG5oMm9mcmFtZSA8LSBhc19oMm9fZnJhbWUoc2MsIGFpcmxpbmVzX3RibClcbmBgYCJ9 -->
-<pre class="r"><code>Sys.setenv(SPARK_HOME=&quot;/usr/lib/spark&quot;)
+Sys.setenv(SPARK_HOME=&quot;/usr/lib/spark&quot;)
 Sys.setenv(JAVA_HOME=&quot;/etc/alternatives/jre&quot;)
-config &lt;- spark_config()
-config$spark.dynamicAllocation.enabled &lt;- &quot;false&quot;
+
+conf &lt;- spark_config()
+conf$sparklyr.shell.executor-memory &lt;- &quot;20g&quot;
+conf$sparklyr.shell.driver-memory &lt;- &quot;20g&quot;
+conf$spark.executor.cores &lt;- 16
+conf$spark.executor.memory &lt;- &quot;20G&quot;
+conf$spark.yarn.am.cores  &lt;- 16
+conf$spark.yarn.am.memory &lt;- &quot;20G&quot;
+conf$spark.dynamicAllocation.enabled &lt;- &quot;false&quot;
+
 options(rsparkling.sparklingwater.version = '1.6.7')
 sc &lt;- spark_connect(master = &quot;yarn-client&quot;, config = config, version = '1.6.2')
 airlines_tbl &lt;- tbl(sc, &quot;airlines&quot;)
 h2oframe &lt;- as_h2o_frame(sc, airlines_tbl)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5Zb3VyIEgyTyBjbHVzdGVyIHZlcnNpb24gaXMgdG9vIG9sZCAoNSBtb250aHMgYW5kIDIgZGF5cykhXG5QbGVhc2UgZG93bmxvYWQgYW5kIGluc3RhbGwgdGhlIGxhdGVzdCB2ZXJzaW9uIGZyb20gaHR0cDovL2gyby5haS9kb3dubG9hZC9FcnJvciBpbiBoMm8uaW5pdChpcCA9IGlwLCBwb3J0ID0gcG9ydCwgc3RyaWN0X3ZlcnNpb25fY2hlY2sgPSBzdHJpY3RfdmVyc2lvbl9jaGVjaykgOiBcbiAgVmVyc2lvbiBtaXNtYXRjaCEgSDJPIGlzIHJ1bm5pbmcgdmVyc2lvbiAzLjEwLjAuNiBidXQgaDJvLVIgcGFja2FnZSBpcyB2ZXJzaW9uIDMuMTAuMi4yLlxuICAgICAgICAgSW5zdGFsbCB0aGUgbWF0Y2hpbmcgaDJvLVIgdmVyc2lvbiBmcm9tIC0gaHR0cDovL2gyby1yZWxlYXNlLnMzLmFtYXpvbmF3cy5jb20vaDJvL3JlbC10dXJpbmcvNi9pbmRleC5odG1sXG4ifQ== -->
-<pre><code>
-Your H2O cluster version is too old (5 months and 2 days)!
-Please download and install the latest version from http://h2o.ai/download/Error in h2o.init(ip = ip, port = port, strict_version_check = strict_version_check) : 
-  Version mismatch! H2O is running version 3.10.0.6 but h2o-R package is version 3.10.2.2.
-         Install the matching h2o-R version from - http://h2o-release.s3.amazonaws.com/h2o/rel-turing/6/index.html</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -236,23 +246,65 @@ Please download and install the latest version from http://h2o.ai/download/Error
 <h2>Test 2</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShzcGFya2x5cilcbmxpYnJhcnkocnNwYXJrbGluZylcbmxpYnJhcnkoZHBseXIpXG5cbm10Y2Fyc190YmwgPC0gY29weV90byhzYywgbXRjYXJzLCBcIm10Y2Fyc1wiLCBvdmVyd3JpdGUgPSBUUlVFKVxucGFydGl0aW9ucyA8LSBtdGNhcnNfdGJsICU+JVxuICBmaWx0ZXIoaHAgPj0gMTAwKSAlPiVcbiAgbXV0YXRlKGN5bDggPSBjeWwgPT0gOCkgJT4lXG4gIHNkZl9wYXJ0aXRpb24odHJhaW5pbmcgPSAwLjUsIHRlc3QgPSAwLjUsIHNlZWQgPSAxMDk5KVxudHJhaW5pbmcgPC0gYXNfaDJvX2ZyYW1lKHNjLCBwYXJ0aXRpb25zJHRyYWluaW5nKVxudGVzdCA8LSBhc19oMm9fZnJhbWUoc2MsIHBhcnRpdGlvbnMkdGVzdClcbmBgYCJ9 -->
-<pre class="r"><code>library(sparklyr)
-library(rsparkling)
-library(dplyr)
-
-mtcars_tbl &lt;- copy_to(sc, mtcars, &quot;mtcars&quot;, overwrite = TRUE)
-partitions &lt;- mtcars_tbl %&gt;%
-  filter(hp &gt;= 100) %&gt;%
-  mutate(cyl8 = cyl == 8) %&gt;%
-  sdf_partition(training = 0.5, test = 0.5, seed = 1099)
-training &lt;- as_h2o_frame(sc, partitions$training)
-test &lt;- as_h2o_frame(sc, partitions$test)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJpbnQoZ2xtX21vZGVsKVxuXG5gYGAifQ== -->
+<pre class="r"><code>print(glm_model)
+</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTW9kZWwgRGV0YWlsczpcbj09PT09PT09PT09PT09XG5cbkgyT1JlZ3Jlc3Npb25Nb2RlbDogZ2xtXG5Nb2RlbCBJRDogIEdMTV9tb2RlbF9SXzE0ODU3MDEyNzQ5MDhfMSBcbkdMTSBNb2RlbDogc3VtbWFyeVxuICAgIGZhbWlseSAgICAgbGluayAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZWd1bGFyaXphdGlvblxuMSBnYXVzc2lhbiBpZGVudGl0eSBFbGFzdGljIE5ldCAoYWxwaGEgPSAwLjUsIGxhbWJkYSA9IDAuMDU0NjggKVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxhbWJkYV9zZWFyY2hcbjEgbmxhbWJkYSA9IDEwMCwgbGFtYmRhLm1heCA9IDUuNDY4MiwgbGFtYmRhLm1pbiA9IDAuMDU0NjgsIGxhbWJkYS4xc2UgPSAtMS4wXG4gIG51bWJlcl9vZl9wcmVkaWN0b3JzX3RvdGFsIG51bWJlcl9vZl9hY3RpdmVfcHJlZGljdG9ycyBudW1iZXJfb2ZfaXRlcmF0aW9ucyB0cmFpbmluZ19mcmFtZVxuMSAgICAgICAgICAgICAgICAgICAgICAgICAgMiAgICAgICAgICAgICAgICAgICAgICAgICAgIDIgICAgICAgICAgICAgICAgICAgIDAgICBmcmFtZV9yZGRfNDNcblxuQ29lZmZpY2llbnRzOiBnbG0gY29lZmZpY2llbnRzXG4gICAgICBuYW1lcyBjb2VmZmljaWVudHMgc3RhbmRhcmRpemVkX2NvZWZmaWNpZW50c1xuMSBJbnRlcmNlcHQgICAgMzIuOTk3MjgxICAgICAgICAgICAgICAgICAxNi42MjUwMDBcbjIgICAgICAgY3lsICAgIC0wLjkwNjY4OCAgICAgICAgICAgICAgICAgLTEuMzQ5MTk1XG4zICAgICAgICB3dCAgICAtMi43MTI1NjIgICAgICAgICAgICAgICAgIC0yLjI4MjY0OVxuXG5IMk9SZWdyZXNzaW9uTWV0cmljczogZ2xtXG4qKiBSZXBvcnRlZCBvbiB0cmFpbmluZyBkYXRhLiAqKlxuXG5NU0U6ICAyLjAzMjkzXG5STVNFOiAgMS40MjU4MDhcbk1BRTogIDEuMzA2MzE0XG5STVNMRTogIDAuMDgyMzgwMzJcbk1lYW4gUmVzaWR1YWwgRGV2aWFuY2UgOiAgMi4wMzI5M1xuUl4yIDogIDAuODI2NTY5NlxuTnVsbCBEZXZpYW5jZSA6OTMuNzc1XG5OdWxsIEQuby5GLiA6N1xuUmVzaWR1YWwgRGV2aWFuY2UgOjE2LjI2MzQ0XG5SZXNpZHVhbCBELm8uRi4gOjVcbkFJQyA6MzYuMzc4ODRcbiJ9 -->
+<pre><code>Model Details:
+==============
+
+H2ORegressionModel: glm
+Model ID:  GLM_model_R_1485701274908_1 
+GLM Model: summary
+    family     link                               regularization
+1 gaussian identity Elastic Net (alpha = 0.5, lambda = 0.05468 )
+                                                                lambda_search
+1 nlambda = 100, lambda.max = 5.4682, lambda.min = 0.05468, lambda.1se = -1.0
+  number_of_predictors_total number_of_active_predictors number_of_iterations training_frame
+1                          2                           2                    0   frame_rdd_43
+
+Coefficients: glm coefficients
+      names coefficients standardized_coefficients
+1 Intercept    32.997281                 16.625000
+2       cyl    -0.906688                 -1.349195
+3        wt    -2.712562                 -2.282649
+
+H2ORegressionMetrics: glm
+** Reported on training data. **
+
+MSE:  2.03293
+RMSE:  1.425808
+MAE:  1.306314
+RMSLE:  0.08238032
+Mean Residual Deviance :  2.03293
+R^2 :  0.8265696
+Null Deviance :93.775
+Null D.o.F. :7
+Residual Deviance :16.26344
+Residual D.o.F. :5
+AIC :36.37884</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<div id="test-3" class="section level3">
+<h3>Test 3</h3>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudHJpcHNfaDJvIDwtIGFzX2gyb19mcmFtZShzYywgdHJpcHNfbW9kZWxfZGF0YV90YmwpXG5cbmBgYCJ9 -->
+<pre class="r"><code>trips_h2o &lt;- as_h2o_frame(sc, trips_model_data_tbl)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5Zb3VyIEgyTyBjbHVzdGVyIHZlcnNpb24gaXMgdG9vIG9sZCAoNSBtb250aHMgYW5kIDMgZGF5cykhXG5QbGVhc2UgZG93bmxvYWQgYW5kIGluc3RhbGwgdGhlIGxhdGVzdCB2ZXJzaW9uIGZyb20gaHR0cDovL2gyby5haS9kb3dubG9hZC9cbiJ9 -->
+<pre><code>
+Your H2O cluster version is too old (5 months and 3 days)!
+Please download and install the latest version from http://h2o.ai/download/</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 </div>
+</div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiU2V0IFVwIEgyTyIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKIyMgSW5zdGFsbAoKYGBge3J9CiMgUmVtb3ZlIHByZXZpb3VzIHZlcnNpb25zIG9mIGgybyBSIHBhY2thZ2UKaWYgKCJwYWNrYWdlOmgybyIgJWluJSBzZWFyY2goKSkgZGV0YWNoKCJwYWNrYWdlOmgybyIsIHVubG9hZD1UUlVFKQppZiAoImgybyIgJWluJSByb3duYW1lcyhpbnN0YWxsZWQucGFja2FnZXMoKSkpIHJlbW92ZS5wYWNrYWdlcygiaDJvIikKCiMgTmV4dCwgd2UgZG93bmxvYWQgUiBwYWNrYWdlIGRlcGVuZGVuY2llcwpwa2dzIDwtIGMoIm1ldGhvZHMiLCJzdGF0bW9kIiwic3RhdHMiLCJncmFwaGljcyIsCiAgICAgICAgICAiUkN1cmwiLCJqc29ubGl0ZSIsInRvb2xzIiwidXRpbHMiKQpmb3IgKHBrZyBpbiBwa2dzKSB7CiAgaWYgKCEocGtnICVpbiUgcm93bmFtZXMoaW5zdGFsbGVkLnBhY2thZ2VzKCkpKSkgaW5zdGFsbC5wYWNrYWdlcyhwa2cpCn0KCiMgRG93bmxvYWQgaDJvIHBhY2thZ2UgdmVyc2lvbiAzLjEwLjAuNgppbnN0YWxsLnBhY2thZ2VzKCJoMm8iLCB0eXBlID0gInNvdXJjZSIsIAogICAgICAgICAgICAgICAgIHJlcG9zID0gImh0dHA6Ly9oMm8tcmVsZWFzZS5zMy5hbWF6b25hd3MuY29tL2gyby9yZWwtdHVyaW5nLzYvUiIpCgpsaWJyYXJ5KGRldnRvb2xzKQpkZXZ0b29sczo6aW5zdGFsbF9naXRodWIoImgyb2FpL3JzcGFya2xpbmciLCByZWYgPSAic3RhYmxlIikKCiNzcGFya19pbnN0YWxsKHZlcnNpb24gPSAiMS42LjIiKSAjIGZvciBsb2NhbApgYGAKCiMjIFRlc3QgMQoKYGBge3J9CmxpYnJhcnkoc3BhcmtseXIpCmxpYnJhcnkocnNwYXJrbGluZykKbGlicmFyeShkcGx5cikKClN5cy5zZXRlbnYoU1BBUktfSE9NRT0iL3Vzci9saWIvc3BhcmsiKQpTeXMuc2V0ZW52KEpBVkFfSE9NRT0iL2V0Yy9hbHRlcm5hdGl2ZXMvanJlIikKY29uZmlnIDwtIHNwYXJrX2NvbmZpZygpCmNvbmZpZyRzcGFyay5keW5hbWljQWxsb2NhdGlvbi5lbmFibGVkIDwtICJmYWxzZSIKb3B0aW9ucyhyc3BhcmtsaW5nLnNwYXJrbGluZ3dhdGVyLnZlcnNpb24gPSAnMS42LjcnKQpzYyA8LSBzcGFya19jb25uZWN0KG1hc3RlciA9ICJ5YXJuLWNsaWVudCIsIGNvbmZpZyA9IGNvbmZpZywgdmVyc2lvbiA9ICcxLjYuMicpCmFpcmxpbmVzX3RibCA8LSB0Ymwoc2MsICJhaXJsaW5lcyIpCmgyb2ZyYW1lIDwtIGFzX2gyb19mcmFtZShzYywgYWlybGluZXNfdGJsKQpgYGAKCiMjIFRlc3QgMgoKYGBge3J9CmxpYnJhcnkoc3BhcmtseXIpCmxpYnJhcnkocnNwYXJrbGluZykKbGlicmFyeShkcGx5cikKCm10Y2Fyc190YmwgPC0gY29weV90byhzYywgbXRjYXJzLCAibXRjYXJzIiwgb3ZlcndyaXRlID0gVFJVRSkKcGFydGl0aW9ucyA8LSBtdGNhcnNfdGJsICU+JQogIGZpbHRlcihocCA+PSAxMDApICU+JQogIG11dGF0ZShjeWw4ID0gY3lsID09IDgpICU+JQogIHNkZl9wYXJ0aXRpb24odHJhaW5pbmcgPSAwLjUsIHRlc3QgPSAwLjUsIHNlZWQgPSAxMDk5KQp0cmFpbmluZyA8LSBhc19oMm9fZnJhbWUoc2MsIHBhcnRpdGlvbnMkdHJhaW5pbmcpCnRlc3QgPC0gYXNfaDJvX2ZyYW1lKHNjLCBwYXJ0aXRpb25zJHRlc3QpCmBgYA==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiU2V0IFVwIEgyTyIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKIyMgSW5zdGFsbAoKYGBge3J9CiMgUmVtb3ZlIHByZXZpb3VzIHZlcnNpb25zIG9mIGgybyBSIHBhY2thZ2UKaWYgKCJwYWNrYWdlOmgybyIgJWluJSBzZWFyY2goKSkgZGV0YWNoKCJwYWNrYWdlOmgybyIsIHVubG9hZD1UUlVFKQppZiAoImgybyIgJWluJSByb3duYW1lcyhpbnN0YWxsZWQucGFja2FnZXMoKSkpIHJlbW92ZS5wYWNrYWdlcygiaDJvIikKCiMgTmV4dCwgd2UgZG93bmxvYWQgUiBwYWNrYWdlIGRlcGVuZGVuY2llcwpwa2dzIDwtIGMoIm1ldGhvZHMiLCJzdGF0bW9kIiwic3RhdHMiLCJncmFwaGljcyIsCiAgICAgICAgICAiUkN1cmwiLCJqc29ubGl0ZSIsInRvb2xzIiwidXRpbHMiKQpmb3IgKHBrZyBpbiBwa2dzKSB7CiAgaWYgKCEocGtnICVpbiUgcm93bmFtZXMoaW5zdGFsbGVkLnBhY2thZ2VzKCkpKSkgaW5zdGFsbC5wYWNrYWdlcyhwa2cpCn0KCiMgRG93bmxvYWQgaDJvIHBhY2thZ2UgdmVyc2lvbiAzLjEwLjAuNgppbnN0YWxsLnBhY2thZ2VzKCJoMm8iLCB0eXBlID0gInNvdXJjZSIsIAogICAgICAgICAgICAgICAgIHJlcG9zID0gImh0dHA6Ly9oMm8tcmVsZWFzZS5zMy5hbWF6b25hd3MuY29tL2gyby9yZWwtdHVyaW5nLzYvUiIpCgpsaWJyYXJ5KGRldnRvb2xzKQpkZXZ0b29sczo6aW5zdGFsbF9naXRodWIoImgyb2FpL3JzcGFya2xpbmciLCByZWYgPSAic3RhYmxlIikKCiNzcGFya19pbnN0YWxsKHZlcnNpb24gPSAiMS42LjIiKSAjIGZvciBsb2NhbApgYGAKCiMjIFRlc3QgMQoKYGBge3J9CmxpYnJhcnkoc3BhcmtseXIpCmxpYnJhcnkocnNwYXJrbGluZykKbGlicmFyeShkcGx5cikKClN5cy5zZXRlbnYoU1BBUktfSE9NRT0iL3Vzci9saWIvc3BhcmsiKQpTeXMuc2V0ZW52KEpBVkFfSE9NRT0iL2V0Yy9hbHRlcm5hdGl2ZXMvanJlIikKCmNvbmYgPC0gc3BhcmtfY29uZmlnKCkKY29uZiRzcGFya2x5ci5zaGVsbC5leGVjdXRvci1tZW1vcnkgPC0gIjIwZyIKY29uZiRzcGFya2x5ci5zaGVsbC5kcml2ZXItbWVtb3J5IDwtICIyMGciCmNvbmYkc3BhcmsuZXhlY3V0b3IuY29yZXMgPC0gMTYKY29uZiRzcGFyay5leGVjdXRvci5tZW1vcnkgPC0gIjIwRyIKY29uZiRzcGFyay55YXJuLmFtLmNvcmVzICA8LSAxNgpjb25mJHNwYXJrLnlhcm4uYW0ubWVtb3J5IDwtICIyMEciCmNvbmYkc3BhcmsuZHluYW1pY0FsbG9jYXRpb24uZW5hYmxlZCA8LSAiZmFsc2UiCgpvcHRpb25zKHJzcGFya2xpbmcuc3BhcmtsaW5nd2F0ZXIudmVyc2lvbiA9ICcxLjYuNycpCnNjIDwtIHNwYXJrX2Nvbm5lY3QobWFzdGVyID0gInlhcm4tY2xpZW50IiwgY29uZmlnID0gY29uZmlnLCB2ZXJzaW9uID0gJzEuNi4yJykKYWlybGluZXNfdGJsIDwtIHRibChzYywgImFpcmxpbmVzIikKaDJvZnJhbWUgPC0gYXNfaDJvX2ZyYW1lKHNjLCBhaXJsaW5lc190YmwpCmBgYAoKIyMgVGVzdCAyCgpgYGB7cn0KbGlicmFyeShzcGFya2x5cikKbGlicmFyeShyc3BhcmtsaW5nKQpsaWJyYXJ5KGRwbHlyKQpsaWJyYXJ5KGgybykKCm10Y2Fyc190YmwgPC0gY29weV90byhzYywgbXRjYXJzLCAibXRjYXJzIiwgb3ZlcndyaXRlID0gVFJVRSkKcGFydGl0aW9ucyA8LSBtdGNhcnNfdGJsICU+JQogIGZpbHRlcihocCA+PSAxMDApICU+JQogIG11dGF0ZShjeWw4ID0gY3lsID09IDgpICU+JQogIHNkZl9wYXJ0aXRpb24odHJhaW5pbmcgPSAwLjUsIHRlc3QgPSAwLjUsIHNlZWQgPSAxMDk5KQp0cmFpbmluZyA8LSBhc19oMm9fZnJhbWUoc2MsIHBhcnRpdGlvbnMkdHJhaW5pbmcpCnRlc3QgPC0gYXNfaDJvX2ZyYW1lKHNjLCBwYXJ0aXRpb25zJHRlc3QpCmdsbV9tb2RlbCA8LSBoMm8uZ2xtKHggPSBjKCJ3dCIsICJjeWwiKSwgCiAgICAgICAgICAgICAgICAgICAgIHkgPSAibXBnIiwgCiAgICAgICAgICAgICAgICAgICAgIHRyYWluaW5nX2ZyYW1lID0gdHJhaW5pbmcsCiAgICAgICAgICAgICAgICAgICAgIGxhbWJkYV9zZWFyY2ggPSBUUlVFKQpwcmludChnbG1fbW9kZWwpCmBgYAoKIyMjIFRlc3QgMwoKYGBge3J9CnRyaXBzX21vZGVsX2RhdGFfdGJsIDwtIHRibChzYywgInRyaXBzX21vZGVsX2RhdGEiKQp0cmlwc19tb2RlbF9kYXRhX3RibCAlPiUgY291bnQKdHJpcHNfaDJvIDwtIGFzX2gyb19mcmFtZShzYywgdHJpcHNfbW9kZWxfZGF0YV90YmwpCgoKbW9kZWxfZm9ybXVsYSA8LSBmb3JtdWxhKHRpcF9hbW91bnQgfiBmYXJlX2Ftb3VudCArIHBheV90eXBlICsgY2FiX3R5cGUgKyBwYXNzZW5nZXJfY291bnQpCm0xIDwtIG1sX2xpbmVhcl9yZWdyZXNzaW9uKHRyaXBzX3RyYWluX3RibCwgbW9kZWxfZm9ybXVsYSkKc3VtbWFyeShtMSkKCmBgYAo=</div>
 
 
 

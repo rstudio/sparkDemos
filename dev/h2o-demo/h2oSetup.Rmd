@@ -36,8 +36,16 @@ library(dplyr)
 
 Sys.setenv(SPARK_HOME="/usr/lib/spark")
 Sys.setenv(JAVA_HOME="/etc/alternatives/jre")
-config <- spark_config()
-config$spark.dynamicAllocation.enabled <- "false"
+
+conf <- spark_config()
+conf$sparklyr.shell.executor-memory <- "20g"
+conf$sparklyr.shell.driver-memory <- "20g"
+conf$spark.executor.cores <- 16
+conf$spark.executor.memory <- "20G"
+conf$spark.yarn.am.cores  <- 16
+conf$spark.yarn.am.memory <- "20G"
+conf$spark.dynamicAllocation.enabled <- "false"
+
 options(rsparkling.sparklingwater.version = '1.6.7')
 sc <- spark_connect(master = "yarn-client", config = config, version = '1.6.2')
 airlines_tbl <- tbl(sc, "airlines")
@@ -50,6 +58,7 @@ h2oframe <- as_h2o_frame(sc, airlines_tbl)
 library(sparklyr)
 library(rsparkling)
 library(dplyr)
+library(h2o)
 
 mtcars_tbl <- copy_to(sc, mtcars, "mtcars", overwrite = TRUE)
 partitions <- mtcars_tbl %>%
@@ -58,4 +67,23 @@ partitions <- mtcars_tbl %>%
   sdf_partition(training = 0.5, test = 0.5, seed = 1099)
 training <- as_h2o_frame(sc, partitions$training)
 test <- as_h2o_frame(sc, partitions$test)
+glm_model <- h2o.glm(x = c("wt", "cyl"), 
+                     y = "mpg", 
+                     training_frame = training,
+                     lambda_search = TRUE)
+print(glm_model)
+```
+
+### Test 3
+
+```{r}
+trips_model_data_tbl <- tbl(sc, "trips_model_data")
+trips_model_data_tbl %>% count
+trips_h2o <- as_h2o_frame(sc, trips_model_data_tbl)
+
+
+model_formula <- formula(tip_amount ~ fare_amount + pay_type + cab_type + passenger_count)
+m1 <- ml_linear_regression(trips_train_tbl, model_formula)
+summary(m1)
+
 ```

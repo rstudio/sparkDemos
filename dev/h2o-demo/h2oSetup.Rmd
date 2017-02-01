@@ -24,7 +24,7 @@ install.packages("h2o", type = "source",
 library(devtools)
 devtools::install_github("h2oai/rsparkling", ref = "stable")
 
-#spark_install(version = "1.6.2") # for local
+#spark_install(version = "1.6.0") # for local (documentation say v1.6.2)
 ```
 
 ## Test 1
@@ -35,19 +35,19 @@ library(rsparkling)
 library(dplyr)
 
 Sys.setenv(SPARK_HOME="/usr/lib/spark")
-Sys.setenv(JAVA_HOME="/etc/alternatives/jre")
+#Sys.setenv(JAVA_HOME="/etc/alternatives/jre")
 
 conf <- spark_config()
-conf$sparklyr.shell.executor-memory <- "20g"
-conf$sparklyr.shell.driver-memory <- "20g"
+conf$'sparklyr.shell.executor-memory' <- "20g"
+conf$'sparklyr.shell.driver-memory' <- "20g"
 conf$spark.executor.cores <- 16
 conf$spark.executor.memory <- "20G"
 conf$spark.yarn.am.cores  <- 16
 conf$spark.yarn.am.memory <- "20G"
 conf$spark.dynamicAllocation.enabled <- "false"
-
 options(rsparkling.sparklingwater.version = '1.6.7')
-sc <- spark_connect(master = "yarn-client", config = config, version = '1.6.2')
+
+sc <- spark_connect(master = "yarn-client", config = conf, version = '1.6.0')
 airlines_tbl <- tbl(sc, "airlines")
 h2oframe <- as_h2o_frame(sc, airlines_tbl)
 ```

@@ -22,7 +22,6 @@ library(h2o)
 
 # Set environ vars
 Sys.setenv(SPARK_HOME="/usr/lib/spark")
-#Sys.setenv(JAVA_HOME="/etc/alternatives/jre")
 
 # Configure cluster (c3.4xlarge 30G 16core 320disk)
 conf <- spark_config()
@@ -36,7 +35,7 @@ conf$spark.dynamicAllocation.enabled <- "false"
 options(rsparkling.sparklingwater.version = '1.6.7')
 
 # Connect to cluster
-sc <- spark_connect(master = "yarn-client", config = conf, version = '1.6.2')
+sc <- spark_connect(master = "yarn-client", config = conf, version = '1.6.0')
 ```
 
 # Understand
@@ -180,7 +179,7 @@ The goal of a model is to provide a simple low-dimensional summary of a dataset.
 
 ### Train
 
-```{r model}
+```{r model, warn=FALSE}
 # Select a model data set
 model_tbl <- trips_model_data_tbl %>%
   filter(fare_amount > 0 & fare_amount < 100) %>%
@@ -203,8 +202,8 @@ tbl_cache(sc, "trips_test")
 
 # Model data
 model_formula <- formula(tip_amount ~ fare_amount + pay_type + cab_type + passenger_count)
-m1 <- ml_linear_regression(trips_train_tbl, model_formula)
-summary(m1)
+#m1 <- ml_linear_regression(trips_train_tbl, model_formula)
+#summary(m1)
 
 # H2O Train
 trips_train_h2o_tbl <- as_h2o_frame(sc, trips_train_tbl)
@@ -216,11 +215,14 @@ summary(m2)
 pred <- h2o.predict(m2, newdata = trips_test_h2o_tbl)
 predicted <- as_spark_dataframe(sc, pred)
 
-m3 <- h2o.deeplearning(c("fare_amount", "pay_type", "cab_type", "passenger_count"), "tip_amount", 
+#m3 <- h2o.deeplearning(c("fare_amount", "pay_type", "cab_type", "passenger_count"), "tip_amount", 
 trips_train_h2o_tbl)
-summary(m3)
+#summary(m3)
 
-trips_train_tbl %>% group_by(pay_type, cab_type) %>% tally
+#trips_train_tbl %>% group_by(pay_type) %>% tally
+
+#m4 <- h2o.glm(c("pay_type"), "tip_amount", trips_train_h2o_tbl, alpha=0, lambda=0)
+
 ```
 
 ### Test

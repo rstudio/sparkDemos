@@ -1,26 +1,34 @@
 ### rsparkling hello world
 ### requires R packages: statmod, RCurl, and devtools
 
-### Install
+install.packages("h2o", type = "source", repos = "http://h2o-release.s3.amazonaws.com/h2o/rel-turnbull/2/R")
+install.packages("rsparkling")
 
-# install h2o version 3.10.0.6
-install.packages("h2o", type = "source", 
-                 repos = "http://h2o-release.s3.amazonaws.com/h2o/rel-turing/6/R")
-
-# install rspakrling version 1.6.7
-devtools::install_github("h2oai/rsparkling", ref = "stable")
-
-# install spark version 1.6.0
-spark_install(version = "1.6.0") # for local
-
-### Run
-
+library(rsparkling) 
 library(sparklyr)
-library(rsparkling)
 library(dplyr)
+library(h2o)
+
+options(rsparkling.sparklingwater.version = "2.0.3")
+
+conf <- spark_config()
+conf$'sparklyr.shell.executor-memory' <- "20g"
+conf$'sparklyr.shell.driver-memory' <- "20g"
+conf$spark.executor.cores <- 16
+conf$spark.executor.memory <- "20G"
+conf$spark.yarn.am.cores  <- 16
+conf$spark.yarn.am.memory <- "20G"
+conf$spark.dynamicAllocation.enabled <- "false"
 
 Sys.setenv(SPARK_HOME="/usr/lib/spark")
-options(rsparkling.sparklingwater.version = '1.6.7')
+sc <- spark_connect(master = "yarn-client", config = conf, version =  "2.0.0")
 
-sc <- spark_connect(master = "yarn-client", config = conf, version = '1.6.0')
+mtcars_tbl <- copy_to(sc, mtcars, overwrite = TRUE)
+mtcars_hf <- as_h2o_frame(sc, mtcars_tbl)
+
+glm_model <- h2o.glm(x = c("wt", "cyl"), 
+                     y = "mpg", 
+                     training_frame = mtcars_hf,
+                     lambda_search = TRUE)
+summary(glm_model)
 

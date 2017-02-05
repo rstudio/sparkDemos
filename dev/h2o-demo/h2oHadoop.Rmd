@@ -1,0 +1,25 @@
+---
+title: "Run H2O on Hadoop"
+output: html_notebook
+---
+
+```{bash}
+wget http://h2o-release.s3.amazonaws.com/h2o/rel-turnbull/2/h2o-3.10.1.2-hdp2.4.zip
+unzip h2o-3.10.1.2-hdp2.4.zip 
+cd h2o-3.10.1.2-hdp2.4
+hadoop jar h2odriver.jar -nodes 4 -mapperXmx 6g -output hdfsOutputDirName3
+```
+
+```{r}
+library(h2o)
+h2o.init("10.233.190.198")
+h2o.clusterStatus()
+```
+
+```{r}
+write.table(iris, "iris.csv", quote = F, col.names = T, row.names = F, sep = ",")
+data <- h2o.importFile("iris.csv")
+data <- h2o.importFile("https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data")
+data
+```
+

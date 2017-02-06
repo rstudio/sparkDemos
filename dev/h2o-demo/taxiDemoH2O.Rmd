@@ -1,7 +1,10 @@
 ---
 title: "Data Science Toolchain with Spark and R"
 subtitle: "Analyzing a billion NYC taxi trips in Spark"
-output: html_notebook
+output: 
+  html_notebook:
+    toc: true
+    toc_float: true
 ---
 
 <center><div style="width:450px">
@@ -43,8 +46,7 @@ conf$spark.default.parallelism <- 32
 sc <- spark_connect(master = "yarn-client", config = conf, version = '2.0.0')
 
 # Check H2O
-#h2o_context(sc)
-#h2o.clusterStatus()
+h2o_context(sc)
 ```
 
 # Understand
@@ -290,7 +292,7 @@ mse <- function(formula, data) {
 # Summary
 out <- data.frame(
   Train = c(
-    ML_glm = mse(~ tip_amount - prediction, pred_tbl),
+    ML_glm = mse(~ tip_amount - prediction, pred_ml_tbl),
     H2O_glm = mse(~ tip_amount - prediction_m2, pred_h2o_tbl),
     H2O_deeplearning = mse(~ tip_amount - prediction_m3, pred_h2o_tbl)
     ),
@@ -306,7 +308,7 @@ out
 
 # Communicate
 
-After controlling for fare amount, we found that trips paying with cash tip less on average than trips paying with credit. Additionally, trips with more passengers tend to tip less.
+After controlling for fare amount, we found that trips paying with cash tip less on average than trips paying with credit. Additionally, trips with more passengers tend to tip less. The linear model fit for H2O is equivalent to the model fit for ML. The deep learning model had the smallest mean square error for both the train and test data.
 
 ```{r}
 datatable(round(out,4))

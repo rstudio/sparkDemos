@@ -97,7 +97,7 @@ trips_joined_tbl <- trips_par_tbl %>%
 #spark_write_parquet(trips_joined_tbl, "hdfs:///user/rstudio/trips_model_data")
 ```
 
-```{r eval=FALSE}
+```{r count}
 # Calculate total trips
 trips_model_data_tbl <- tbl(sc, "trips_model_data")
 trips_model_data_tbl %>% count
@@ -190,11 +190,7 @@ The goal of a model is to provide a simple low-dimensional summary of a dataset.
 
 ## Model Data
 
-```{r counts, eval=FALSE}
-# Calculate total trips
-trips_model_data_tbl <- tbl(sc, "trips_model_data")
-trips_model_data_tbl %>% count
-
+```{r counts}
 # Select a model data set
 model_tbl <- trips_model_data_tbl %>%
   filter(fare_amount > 0 & fare_amount < 100) %>%
@@ -218,7 +214,7 @@ tbl_cache(sc, "trips_test")
 
 ## Train ML model
 
-```{r}
+```{r ml_fit}
 model_formula <- formula(tip_amount ~ fare_amount + pay_type + cab_type + passenger_count)
 m1 <- ml_linear_regression(trips_train_tbl, model_formula)
 summary(m1)
@@ -226,7 +222,7 @@ summary(m1)
 
 ### Test ML model
 
-```{r}
+```{r ml_pred}
 # Score the predictions
 pred_ml_tbl <- sdf_predict(m1, trips_test_tbl)
 
@@ -243,7 +239,7 @@ pred_ml_tbl %>%
 
 ## H2O Model
 
-```{r}
+```{r h2o_glm}
 # Convert to H2O Frames
 trips_train_h2o_tbl <- as_h2o_frame(sc, trips_train_tbl)
 trips_test_h2o_tbl <- as_h2o_frame(sc, trips_test_tbl)
@@ -261,7 +257,7 @@ summary(m2)
 
 ## H2O deep learning
 
-```{r}
+```{r h2o_dl}
 m3 <- h2o.deeplearning(
   x = c("fare_amount", "pay_type", "cab_type", "passenger_count"), 
   y = "tip_amount", 
@@ -274,7 +270,7 @@ summary(m3)
 
 ## Compare models
 
-```{r}
+```{r compare}
 # Score H2O test data
 trips_test_h2o_tbl$prediction_m2 <- h2o.predict(m2, newdata = trips_test_h2o_tbl)
 trips_test_h2o_tbl$prediction_m3 <- h2o.predict(m3, newdata = trips_test_h2o_tbl)
@@ -310,6 +306,6 @@ out
 
 After controlling for fare amount, we found that trips paying with cash tip less on average than trips paying with credit. Additionally, trips with more passengers tend to tip less. The linear model fit for H2O is equivalent to the model fit for ML. The deep learning model had the smallest mean square error for both the train and test data.
 
-```{r}
+```{r summary}
 datatable(round(out,4))
 ```

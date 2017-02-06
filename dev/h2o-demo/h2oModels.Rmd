@@ -3,12 +3,18 @@ title: "H2O Models"
 output: html_notebook
 ---
 
+```{r}
+#devtools::install_github("rstudio/sparklyr") # used for sample_n
+```
+
 ```{r connect, message=FALSE, warning=FALSE}
 # Load libraries
 library(sparklyr)
 library(tidyverse)
+library(leaflet)
 library(rsparkling)
 library(h2o)
+library(DT)
 
 # Set environ vars
 Sys.setenv(SPARK_HOME="/usr/lib/spark")
@@ -23,56 +29,43 @@ conf$spark.executor.cores <- 16
 conf$spark.executor.memory <- "20G"
 conf$spark.yarn.am.cores  <- 16
 conf$spark.yarn.am.memory <- "20G"
+conf$spark.executor.instances <- 4
 conf$spark.dynamicAllocation.enabled <- "false"
+conf$maximizeResourceAllocation <- "true"
+conf$spark.default.parallelism <- 32
 
 # Connect to cluster
 sc <- spark_connect(master = "yarn-client", config = conf, version = '2.0.0')
 
-# Table References
+# Check H2O
+h2o_context(sc)
+```
+
+```{r}
+# Table ref
 trips_model_data_tbl <- tbl(sc, "trips_model_data")
+model_tbl <- trips_model_data_tbl %>%
+  filter(fare_amount > 0 & fare_amount < 20) %>%
+  filter(tip_amount >= 0 & tip_amount < 5) %>%
+  filter(passenger_count > 0 & passenger_count < 2) %>%
+  select(tip_amount, fare_amount, pay_type, cab_type, passenger_count)
+trips_train_tbl <- sdf_register(model_tbl, "model_tbl")
+#tbl_cache(sc, "model_tbl")
+```
+
+```{r convert}
+model_h2o_tbl <- as_h2o_frame(sc, trips_train_tbl)
+m2 <- h2o.glm(c("fare_amount", "pay_type", "cab_type", "passenger_count"), "tip_amount", model_h2o_tbl, alpha=0, lambda=0)
+summary(m2)
+
+#m3 <- h2o.deeplearning(c("fare_amount", "pay_type", "cab_type", "passenger_count"), "tip_amount", training_frame = model_h2o_tbl)
+#summary(m3)
+
 ```
 
 ```{r model}
-# Select a model data set
-model_tbl <- trips_model_data_tbl %>%
-  filter(fare_amount > 0 & fare_amount < 100) %>%
-  filter(tip_amount >= 0 & tip_amount < 25) %>%
-  filter(passenger_count > 0 & passenger_count < 5) %>%
-  filter(pickup_nta == "Turtle Bay-East Midtown" & dropoff_nta == "Airport") %>%
-  select(tip_amount, fare_amount, pay_type, cab_type, passenger_count) 
-
-# Partitioin into train and validate
-model_partition_tbl <- model_tbl %>%
-  sdf_partition(train = 0.1, test = 0.1, seed = 4321)
-
-# Create table references
-trips_train_tbl <- sdf_register(model_partition_tbl$train, "trips_train")
-trips_test_tbl <- sdf_register(model_partition_tbl$test, "trips_test")
-
-# Cache
-tbl_cache(sc, "trips_train")
-tbl_cache(sc, "trips_test")
-
-# Model data
 model_formula <- formula(tip_amount ~ fare_amount + pay_type + cab_type + passenger_count)
 m1 <- ml_linear_regression(trips_train_tbl, model_formula)
 summary(m1)
-
-# H2O Train
-trips_train_h2o_tbl <- as_h2o_frame(sc, trips_train_tbl)
-trips_test_h2o_tbl <- as_h2o_frame(sc, trips_test_tbl)
-m2 <- h2o.glm(c("fare_amount", "pay_type", "cab_type", "passenger_count"), "tip_amount", trips_train_h2o_tbl, alpha=0, lambda=0)
-summary(m2)
-
-# H2O Score
-pred <- h2o.predict(m2, newdata = trips_test_h2o_tbl)
-predicted <- as_spark_dataframe(sc, pred)
-
-#m3 <- h2o.deeplearning(c("fare_amount", "pay_type", "cab_type", "passenger_count"), "tip_amount", trips_train_h2o_tbl)
-#summary(m3)
-
-#trips_train_tbl %>% group_by(pay_type) %>% tally
-
-#m4 <- h2o.glm(c("pay_type"), "tip_amount", trips_train_h2o_tbl, alpha=0, lambda=0)
-
 ```
+

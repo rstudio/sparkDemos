@@ -7,6 +7,12 @@ output:
     toc_float: true
 ---
 
+```{r setup, eval=FALSE, include=FALSE}
+install.packages("rsparkling")
+install.packages("h2o", type = "source",
+                 repos = "http://h2o-release.s3.amazonaws.com/h2o/rel-turnbull/2/R")
+```
+
 <center><div style="width:450px">
 ![R for Data Science http://r4ds.had.co.nz/](http://r4ds.had.co.nz/diagrams/data-science.png)
 </div></center>
@@ -37,7 +43,7 @@ conf$spark.executor.cores <- 16
 conf$spark.executor.memory <- "20G"
 conf$spark.yarn.am.cores  <- 16
 conf$spark.yarn.am.memory <- "20G"
-conf$spark.executor.instances <- 4
+conf$spark.executor.instances <- 8
 conf$spark.dynamicAllocation.enabled <- "false"
 conf$maximizeResourceAllocation <- "true"
 conf$spark.default.parallelism <- 32
@@ -197,7 +203,7 @@ model_tbl <- trips_model_data_tbl %>%
   filter(tip_amount >= 0 & tip_amount < 25) %>%
   filter(passenger_count > 0 & passenger_count < 5) %>%
   filter(pickup_nta == "Turtle Bay-East Midtown" & dropoff_nta == "Airport") %>%
-  select(tip_amount, fare_amount, pay_type, cab_type, passenger_count) 
+  select(tip_amount, fare_amount, pay_type, passenger_count) 
 
 # Partitioin into train and validate
 model_partition_tbl <- model_tbl %>%
@@ -215,7 +221,7 @@ tbl_cache(sc, "trips_test")
 ## Train ML model
 
 ```{r ml_fit}
-model_formula <- formula(tip_amount ~ fare_amount + pay_type + cab_type + passenger_count)
+model_formula <- formula(tip_amount ~ fare_amount + pay_type + passenger_count)
 m1 <- ml_linear_regression(trips_train_tbl, model_formula)
 summary(m1)
 ```
@@ -246,12 +252,16 @@ trips_test_h2o_tbl <- as_h2o_frame(sc, trips_test_tbl)
 
 # Format H2O Frames
 trips_train_h2o_tbl$pay_type <- as.factor(trips_train_h2o_tbl$pay_type)
-trips_train_h2o_tbl$cab_type <- as.factor(trips_train_h2o_tbl$cab_type)
 trips_test_h2o_tbl$pay_type <- as.factor(trips_test_h2o_tbl$pay_type)
-trips_test_h2o_tbl$cab_type <- as.factor(trips_test_h2o_tbl$cab_type)
 
 # Fit model on H2O train data
-m2 <- h2o.glm(c("fare_amount", "pay_type", "cab_type", "passenger_count"), "tip_amount", trips_train_h2o_tbl, alpha=0, lambda=0)
+m2 <- h2o.glm(
+  x = c("fare_amount", "pay_type", "passenger_count"), 
+  y = "tip_amount", 
+  trips_train_h2o_tbl, 
+  alpha = 0, 
+  lambda = 0
+  )
 summary(m2)
 ```
 
@@ -259,7 +269,7 @@ summary(m2)
 
 ```{r h2o_dl}
 m3 <- h2o.deeplearning(
-  x = c("fare_amount", "pay_type", "cab_type", "passenger_count"), 
+  x = c("fare_amount", "pay_type", "passenger_count"), 
   y = "tip_amount", 
   training_frame = trips_train_h2o_tbl, 
   epochs = 2, 
@@ -268,13 +278,45 @@ m3 <- h2o.deeplearning(
 summary(m3)
 ```
 
+## Collect into R
+
+```{r collect}
+# Check number of rows
+nrow(trips_train_tbl)
+
+# Collect
+trips_train <- collect(trips_train_tbl)
+trips_test <- collect(trips_test_tbl)
+
+# Format factors
+trips_train$pay_type <- as.factor(trips_train$pay_type)
+trips_test$pay_type <- as.factor(trips_test$pay_type)
+
+# Fit linear model
+m4 <- glm(model_formula, data = trips_train)
+summary(m4)
+
+# Regression tree
+library(rpart)
+m5 <- rpart(model_formula, trips_train)
+summary(m5)
+```
+
 ## Compare models
 
 ```{r compare}
 # Score H2O test data
-trips_test_h2o_tbl$prediction_m2 <- h2o.predict(m2, newdata = trips_test_h2o_tbl)
-trips_test_h2o_tbl$prediction_m3 <- h2o.predict(m3, newdata = trips_test_h2o_tbl)
-pred_h2o_tbl <- as_spark_dataframe(sc, trips_test_h2o_tbl)
+prediction_m2 <- h2o.predict(m2, newdata = trips_test_h2o_tbl)
+prediction_m3 <- h2o.predict(m3, newdata = trips_test_h2o_tbl)
+pred_h2o <- data.frame(
+  tip_amount = trips_test$tip_amount,
+  as_spark_dataframe(sc, prediction_m2),
+  as_spark_dataframe(sc, prediction_m3)
+)
+
+# Score other models
+trips_test$pred_lm <- predict(m4, trips_test)
+trips_test$pred_rpart <- predict(m5, trips_test)
 
 # Compute the mean squared error
 mse <- function(formula, data) {
@@ -288,14 +330,18 @@ mse <- function(formula, data) {
 # Summary
 out <- data.frame(
   Train = c(
-    ML_glm = mse(~ tip_amount - prediction, pred_ml_tbl),
-    H2O_glm = mse(~ tip_amount - prediction_m2, pred_h2o_tbl),
-    H2O_deeplearning = mse(~ tip_amount - prediction_m3, pred_h2o_tbl)
-    ),
-  Test = c(
     ML_glm = m1$mean.squared.error,
     H2O_glm = h2o.mse(m2),
-    H2O_deeplearning = m3.mse <- h2o.mse(m3)
+    H2O_deeplearning = h2o.mse(m3),
+    R_lm = mean(m4$residuals^2),
+    R_rpart = mean(resid(m5)^2)
+    ),
+  Test = c(
+    ML_glm = mse(~ tip_amount - prediction, pred_ml_tbl),
+    H2O_glm = mse(~ tip_amount - predict, pred_h2o),
+    H2O_deeplearning = mse(~ tip_amount - predict.1, pred_h2o),
+    R_lm = mse(~ tip_amount - pred_lm, trips_test),
+    R_rpart = mse(~ tip_amount - pred_rpart, trips_test)
     )
   )
 out
@@ -307,5 +353,13 @@ out
 After controlling for fare amount, we found that trips paying with cash tip less on average than trips paying with credit. Additionally, trips with more passengers tend to tip less. The linear model fit for H2O is equivalent to the model fit for ML. The deep learning model had the smallest mean square error for both the train and test data.
 
 ```{r summary}
-datatable(round(out,4))
+datatable(round(out[order(out$Test), ],4))
+out %>%
+  mutate(Model = rownames(out)) %>%
+  ggplot(aes(x = reorder(Model, Train), y = Train)) + 
+  geom_bar(stat = "Identity") + 
+  coord_flip() +
+  ggtitle("MSE by Model")
 ```
+
+

@@ -1,0 +1,5 @@
+library(sparklyr)
+Sys.setenv(SPARK_HOME="/usr/lib/spark")
+sc <- spark_connect(master = "yarn-client", version = '2.0.0')
+livy_service_start()
+livy_service_stop()

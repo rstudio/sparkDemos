@@ -21,7 +21,7 @@ install.packages("h2o", type = "source",
 
 It’s rare that a data analysis involves only a single table of data. Typically you have many tables of data, and you must combine them to answer the questions that you’re interested in.
 
-```{r connect, message=FALSE, warning=FALSE}
+```{r connect, message=FALSE, warning=FALSE, eval=FALSE}
 # Load libraries
 library(sparklyr)
 library(tidyverse)
@@ -62,16 +62,15 @@ h2o_context(sc)
 It is rare that you get the data in exactly the right form you need. Often you’ll need to create some new variables or summaries, or maybe you just want to rename the variables or reorder the observations in order to make the data a little easier to work with.
 
 ```{r data, eval = FALSE}
-# Load lookup table (via HDFS)
-#nyct2010_tbl <- spark_read_csv(sc, "nyct2010", "/user/rstudio/nyct2010.csv")
-
 # Load lookup table (via R)
-#nyct2010_tbl <- read_csv("nyct2010.csv") %>%
-#  sdf_copy_to(sc, ., "nyct2010", overwrite = TRUE)
-#spark_write_parquet(nyct2010_tbl, "hdfs:///user/rstudio/nyct2010.csv")
+nyct2010_tbl <- read_csv("~/sparkDemos/dev/h2o-demo/nyct2010.csv") %>%
+  sdf_copy_to(sc, ., "nyct2010", overwrite = TRUE)
+
+# Load lookup table (via HDFS)
+#nyct2010_tbl <- spark_read_csv(sc, "nyct2010", "hdfs:///user/rstudio/nyct2010/")
 
 # Load lookup table (via Hive)
-nyct2010_tbl <- tbl(sc, "nyct2010")
+#nyct2010_tbl <- tbl(sc, "nyct2010")
 
 # Join tables
 trips_par_tbl <- tbl(sc, "trips_par")
@@ -116,25 +115,28 @@ R has several systems for making graphs, but ggplot2 is one of the most elegant 
 ```{r pickups}
 source("sqlvis_raster.R")
 trips_model_data_tbl %>%
+  filter(fare_amount > 0 & fare_amount < 100) %>%
+  filter(tip_amount > 0 & tip_amount < 25) %>%
   sqlvis_compute_raster("pickup_longitude", "pickup_latitude") %>%
   sqlvis_ggplot_raster(title = "All Pickups")
 ```
 
 
-```{r tip_pay_type}
+```{r cutoff}
 source("sqlvis_histogram.R")
 
 trips_model_data_tbl %>%
+  filter(fare_amount > 0 & fare_amount < 100) %>%
   filter(tip_amount > 0 & tip_amount < 25) %>%
-  filter(pay_type == "cash") %>%
   sqlvis_compute_histogram("tip_amount") %>%
-  sqlvis_ggplot_histogram(title = "Cash tip amount")
+  sqlvis_ggplot_histogram(title = "Tip amount")
 
 trips_model_data_tbl %>%
+  filter(fare_amount > 0 & fare_amount < 100) %>%
   filter(tip_amount > 0 & tip_amount < 25) %>%
   filter(pay_type == "credit") %>%
-  sqlvis_compute_histogram("tip_amount") %>%
-  sqlvis_ggplot_histogram(title = "Credit tip amount")
+  sqlvis_compute_histogram("fare_amount") %>%
+  sqlvis_ggplot_histogram(title = "Fare amount")
 ```
 
 ```{r}
@@ -280,10 +282,12 @@ summary(m3)
 
 ## Collect into R
 
-```{r collect}
+```{r nrow}
 # Check number of rows
 nrow(trips_train_tbl)
+```
 
+```{r collect}
 # Collect
 trips_train <- collect(trips_train_tbl)
 trips_test <- collect(trips_test_tbl)
@@ -333,14 +337,14 @@ out <- data.frame(
     ML_glm = m1$mean.squared.error,
     H2O_glm = h2o.mse(m2),
     H2O_deeplearning = h2o.mse(m3),
-    R_lm = mean(m4$residuals^2),
+    R_glm = mean(m4$residuals^2),
     R_rpart = mean(resid(m5)^2)
     ),
   Test = c(
     ML_glm = mse(~ tip_amount - prediction, pred_ml_tbl),
     H2O_glm = mse(~ tip_amount - predict, pred_h2o),
     H2O_deeplearning = mse(~ tip_amount - predict.1, pred_h2o),
-    R_lm = mse(~ tip_amount - pred_lm, trips_test),
+    R_glm = mse(~ tip_amount - pred_lm, trips_test),
     R_rpart = mse(~ tip_amount - pred_rpart, trips_test)
     )
   )
@@ -356,10 +360,10 @@ After controlling for fare amount, we found that trips paying with cash tip less
 datatable(round(out[order(out$Test), ],4))
 out %>%
   mutate(Model = rownames(out)) %>%
-  ggplot(aes(x = reorder(Model, Train), y = Train)) + 
+  ggplot(aes(x = reorder(Model, Test), y = Test)) + 
   geom_bar(stat = "Identity") + 
   coord_flip() +
-  ggtitle("MSE by Model")
+  ggtitle("MSE for rest data by model")
 ```
 
 

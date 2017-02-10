@@ -357,7 +357,6 @@ out
 After controlling for fare amount, we found that trips paying with cash tip less on average than trips paying with credit. Additionally, trips with more passengers tend to tip less. The linear model fit for H2O is equivalent to the model fit for ML. The deep learning model had the smallest mean square error for both the train and test data.
 
 ```{r summary}
-datatable(round(out[order(out$Test), ],4))
 out %>%
   mutate(Model = rownames(out)) %>%
   ggplot(aes(x = reorder(Model, Test), y = Test)) + 

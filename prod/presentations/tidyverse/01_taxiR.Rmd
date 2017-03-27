@@ -1,0 +1,118 @@
+---
+title: "NYC Taxi - One month in R"
+output: html_notebook
+---
+
+<center><div style="width:450px">
+![R for Data Science http://r4ds.had.co.nz/](http://r4ds.had.co.nz/diagrams/data-science.png)
+</div></center>
+
+# Load tidyverse
+
+```{r tidyverse}
+library(tidyverse)
+library(lubridate)
+```
+
+# Download
+
+```{r download, eval=FALSE}
+download.file(
+  "https://s3.amazonaws.com/nyc-tlc/trip+data/yellow_tripdata_2015-12.csv",
+  "yellow_tripdata_2015-12.csv")
+```
+
+# Impord Dataset
+
+```{r import, message=FALSE, warning=FALSE}
+trips <- read_csv("~/sparkDemos/prod/presentations/tidyverse/yellow_tripdata_2015-12.csv")
+```
+
+# Tidy
+
+```{r tidy}
+# pickups
+select(trips, tpep_pickup_datetime, pickup_latitude, pickup_longitude)
+
+# dropoffs
+select(trips, tpep_dropoff_datetime, dropoff_latitude, dropoff_longitude)
+
+# trips
+trips
+```
+
+# Transform
+
+```{r transform}
+tripsHour <- trips %>%
+  filter(payment_type %in% c(1, 2)) %>%
+  mutate(pay_type = ifelse(payment_type == 1, "credit", "cash")) %>%
+  mutate(trip_time_sec = tpep_dropoff_datetime - tpep_pickup_datetime) %>%
+  mutate(trip_time_min = as.numeric(trip_time_sec / 60)) %>%
+  mutate(hour = round_date(tpep_pickup_datetime, "hour")) %>%
+  group_by(pay_type, hour) %>%
+  summarize(n = n(),
+            tip_amount = mean(tip_amount),
+            fare_amount = mean(fare_amount),
+            passenger_count = mean(passenger_count),
+            trip_time = mean(trip_time_min),
+            trip_distance = mean(trip_distance))
+tripsHour
+```
+
+# Visualize
+
+```{r visualize}
+ggplot(tripsHour, aes(trip_time, trip_distance, color = pay_type)) +
+  geom_point() + geom_smooth() + 
+  labs(title = "NYC Taxi by hour by day", x = "Minutes", y = "Miles", caption = '2015-12')
+
+ggplot(tripsHour, aes(trip_distance, fare_amount)) +
+  geom_point() + geom_smooth() + facet_grid(~pay_type) +
+  labs(title = "NYC Taxi by hour by day", x = "Distance", y = "Dollars", caption = '2015-12')
+```
+
+# Model
+
+```{r model}
+# Formula
+model_formula <- formula(tip_amount ~ fare_amount + pay_type + passenger_count)
+
+# Model data
+tripsModel <- tripsHour %>%
+  select(tip_amount, fare_amount, pay_type, passenger_count) %>%
+  na.omit
+
+# Linear Model
+m1 <- lm(model_formula, data = tripsHour)
+summary(m1)
+
+# Decision tree
+library(rpart)
+m2 <- rpart(model_formula, tripsHour)
+summary(m2)
+
+# Predict
+pred <- tripsHour %>%
+  ungroup %>%
+  mutate(lm_fit = predict(m1, tripsHour)) %>%
+  mutate(lm_res = tip_amount - lm_fit) %>%
+  mutate(rpart_fit = predict(m2, tripsHour)) %>%
+  mutate(rpart_res = tip_amount - rpart_fit)
+
+# MSE
+pred %>%
+  na.omit() %>%
+  summarize(lm_mse = mean(lm_res^2), rpart_mse = mean(rpart_res^2))
+
+# Plot
+ggplot(pred, aes(rpart_fit, lm_fit)) + geom_point() + geom_smooth(method="lm")
+```
+
+# Communicate
+
+This analysis of one month of NYC Taxi data shows that you can predict tip amount as a function of fare amount, pay type, and passenger account. For a detailed explanation of the code you can view this report in the following formats:
+
+* HTML
+* PDF
+* Word

@@ -1,0 +1,153 @@
+---
+title: "NYC Taxi Gadget"
+output: html_notebook
+---
+
+# Connect
+
+```{r connect, message=FALSE, warning=FALSE}
+# Load libraries
+library(sparklyr)
+library(tidyverse)
+library(leaflet)
+library(DT)
+library(shiny)
+library(miniUI)
+
+# Set environ vars
+Sys.setenv(SPARK_HOME="/usr/lib/spark")
+
+# Configure cluster
+conf <- spark_config()
+conf$'sparklyr.shell.executor-memory' <- "20g"
+conf$'sparklyr.shell.driver-memory' <- "20g"
+conf$spark.executor.cores <- 16
+conf$spark.executor.memory <- "20G"
+conf$spark.yarn.am.cores  <- 16
+conf$spark.yarn.am.memory <- "20G"
+conf$spark.executor.instances <- 8
+conf$spark.dynamicAllocation.enabled <- "false"
+conf$maximizeResourceAllocation <- "true"
+conf$spark.default.parallelism <- 32
+
+# Connect to cluster
+sc <- spark_connect(master = "yarn-client", config = conf, version = '2.0.0')
+
+# Trips
+trips_model_data_tbl <- tbl(sc, "trips_model_data")
+```
+
+# Top 15 pickups
+
+```{r}
+# Create list of geo groups to select from
+geo_group <- trips_model_data_tbl %>% 
+  group_by(pickup_nta) %>%
+  count() %>%
+  mutate(n_rank = min_rank(desc(n))) %>%
+  filter(n_rank <= 15) %>%
+  select(pickup_nta) %>%
+  collect
+```
+
+# Pickup and Dropoff Gadget
+
+```{r, message=FALSE, warning=FALSE}
+# Create the gadget user interface
+ui <- miniPage(
+  gadgetTitleBar("NYC Taxi Trips"),
+  miniTabstripPanel(
+    miniTabPanel("Inputs", icon = icon("sliders"),
+                 miniContentPanel(
+                   selectInput("pickup",  "Taxi Pickup", geo_group, "Lincoln Square"),
+                   selectInput("dropoff",  "Taxi Dropoff", geo_group, "Upper West Side")
+                   )
+                 ),
+    miniTabPanel("Plot", icon = icon("area-chart"),
+                 miniContentPanel(
+                   plotOutput("tripTimePlot")
+                   )
+    ),
+    miniTabPanel("Map", icon = icon("map-o"),
+                 miniContentPanel(
+                   leafletOutput("tripLeaflet")
+                 )
+    ),
+    miniTabPanel("Data", icon = icon("table"),
+                 miniContentPanel(
+                   dataTableOutput("table")
+                 )
+    )
+  )
+)
+
+# Create the shiny gadget functions
+server <- function(input, output) {
+
+  shiny_pickup_dropoff_hour <- reactive({
+    trips_model_data_tbl %>%
+    filter(pickup_nta == input$pickup & dropoff_nta == input$dropoff) %>%
+    mutate(pickup_hour = hour(pickup_datetime)) %>%
+    mutate(trip_time = unix_timestamp(dropoff_datetime) - unix_timestamp(pickup_datetime)) %>%
+    group_by(pickup_hour) %>% 
+    summarize(n = n(),
+              pickup_latitude = mean(pickup_latitude),
+              pickup_longitude = mean(pickup_longitude),
+              dropoff_latitude = mean(dropoff_latitude),
+              dropoff_longitude = mean(dropoff_longitude),
+              trip_time_mean = mean(trip_time),
+              trip_fare_amount = mean(fare_amount),
+              trip_time_p10 = percentile(trip_time, 0.10),
+              trip_time_p25 = percentile(trip_time, 0.25),
+              trip_time_p50 = percentile(trip_time, 0.50),
+              trip_time_p75 = percentile(trip_time, 0.75),
+              trip_time_p90 = percentile(trip_time, 0.90)) %>%
+    collect
+  })
+
+  shiny_pickup_dropoff <- reactive({
+    shiny_pickup_dropoff_hour() %>%
+      summarize(n = n(),
+                pickup_latitude = mean(pickup_latitude),
+                pickup_longitude = mean(pickup_longitude),
+                dropoff_latitude = mean(dropoff_latitude),
+                dropoff_longitude = mean(dropoff_longitude))
+  })
+  
+  output$tripTimePlot <- renderPlot({
+    ggplot(shiny_pickup_dropoff_hour(), aes(x = pickup_hour)) +
+    geom_line(aes(y = trip_time_p50 / 60, alpha = "Median")) +
+    geom_ribbon(aes(ymin = trip_time_p25 / 60, 
+                    ymax = trip_time_p75 / 60, 
+                    alpha = "25–75th percentile")) +
+    geom_ribbon(aes(ymin = trip_time_p10 / 60, 
+                    ymax = trip_time_p90 / 60, 
+                    alpha = "10–90th percentile")) +
+    scale_y_continuous("trip duration in minutes") + 
+    ggtitle("Trip time in minutes")
+   })
+
+  output$tripLeaflet <- renderLeaflet({  
+      leaflet(shiny_pickup_dropoff()) %>% 
+      addProviderTiles("CartoDB.Positron") %>%
+      addCircleMarkers(~pickup_longitude, ~pickup_latitude, fill = FALSE, color = "green") %>%
+      addCircleMarkers(~dropoff_longitude, ~dropoff_latitude, stroke = FALSE, color = "red")
+  })
+  
+  output$table <- renderDataTable({
+    shiny_pickup_dropoff_hour() %>%
+      mutate(trip_time_mean = round(trip_time_mean / 60)) %>%
+      mutate(trip_fare_amount = round(trip_fare_amount, 2)) %>%
+      select(pickup_hour, n, trip_time_mean, trip_fare_amount) %>%
+      arrange(pickup_hour)
+  })
+  
+  observeEvent(input$done, {
+    stopApp(TRUE)
+  })
+
+}
+
+# Run the gadget
+runGadget(ui, server)
+```

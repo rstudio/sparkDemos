@@ -6,6 +6,8 @@ Sparklyr is an R package that lets you analyze data in Spark while using familia
 
 ## Documents
 
+These documents are for understanding the toolchain and the tidyverse using the famous NYC taxi data.
+
 * [Data Science Toolchain with Spark and R](http://colorado.rstudio.com:3939/content/420/taxiDemo.nb.html)
 * [Tidyverse and R Notebooks with NYC Taxi Data](http://colorado.rstudio.com:3939/content/421/taxiR.nb.html)
 

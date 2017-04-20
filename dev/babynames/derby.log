@@ -1,11 +1,11 @@
 ----------------------------------------------------------------
-Tue Sep 20 02:37:41 UTC 2016:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546): instance a816c00e-0157-4574-be21-000014944ef0 
-on database directory memory:/home/nathan/spark/sparkDemos/dev/babynames/databaseName=metastore_db with class loader org.apache.spark.sql.hive.client.IsolatedClientLoader$$anon$1@191030a 
+Wed Feb 15 12:46:01 UTC 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546): instance a816c00e-015a-41ce-df39-000016b90d28 
+on database directory memory:/home/nathan/projects/spark/sparkDemos/dev/babynames/databaseName=metastore_db with class loader org.apache.spark.sql.hive.client.IsolatedClientLoader$$anon$1@53a3cfef 
 Loaded from file:/home/nathan/.cache/spark/spark-2.0.0-bin-hadoop2.7/jars/derby-10.11.1.1.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.7.0_85-b01
-user.dir=/home/nathan/spark/sparkDemos/dev/babynames
+user.dir=/home/nathan/projects/spark/sparkDemos/dev/babynames
 os.name=Linux
 os.arch=amd64
 os.version=3.13.0-48-generic

@@ -25,7 +25,7 @@ download.file(
 # Impord Dataset
 
 ```{r import, message=FALSE, warning=FALSE}
-trips <- read_csv("~/sparkDemos/prod/presentations/tidyverse/yellow_tripdata_2015-12.csv")
+trips <- read_csv("yellow_tripdata_2015-12.csv", n_max = 1000000)
 ```
 
 # Tidy
@@ -63,13 +63,11 @@ tripsHour
 # Visualize
 
 ```{r visualize}
-ggplot(tripsHour, aes(trip_time, trip_distance, color = pay_type)) +
-  geom_point() + geom_smooth() + 
-  labs(title = "NYC Taxi by hour by day", x = "Minutes", y = "Miles", caption = '2015-12')
+ggplot(tripsHour, aes(fare_amount, color = pay_type)) +
+  geom_density() + 
+  labs(title = "NYC taxi fare amount", x = "Fare Amount", y = "Miles", caption = '2015-12')
 
-ggplot(tripsHour, aes(trip_distance, fare_amount)) +
-  geom_point() + geom_smooth() + facet_grid(~pay_type) +
-  labs(title = "NYC Taxi by hour by day", x = "Distance", y = "Dollars", caption = '2015-12')
+qplot(trip_distance, data=tripsHour, geom="density", log="x", facets = ~pay_type)
 ```
 
 # Model

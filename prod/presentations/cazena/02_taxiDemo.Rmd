@@ -26,7 +26,7 @@ Create a spark context and load sparklyr extensions. Tune the cluster with confi
 
 ```{r kerberos, message=FALSE, warning=FALSE}
 # Kerberos
-system("echo '<Rstudio-password>' | kinit <Rstudio-username>")
+source("kerberos.R")
 ```
 
 ```{r connect, message=FALSE, warning=FALSE}
